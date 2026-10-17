@@ -37,6 +37,13 @@ graph. This is not a validated family split. See
 `reports/DFL_B1_FEASIBILITY_AUDIT_2026-10-18.md` for hashes, source tiers and
 the alternative annotated-data route. **B1 remains open.**
 
+That route now has a versioned local candidate artifact: 884 current UniProt
+full-protein sequences matched their explicit flexible/disordered-linker region
+peptides exactly, with all other residues masked unknown. Only 11 sequences
+avoid direct CAID3/DP94 screening, one from the PubMed-supported tier. These
+are not adjudicated DFL gold or negatives. The script, schema and hashes are
+in the B1 feasibility report; neither training nor a split was launched.
+
 ## Reproduce the implemented checks
 
 From the repository root, with `parasail` installed in the selected Python

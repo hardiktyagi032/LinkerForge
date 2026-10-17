@@ -57,7 +57,8 @@ def caid3_sequences(path: Path) -> list[tuple[str, str]]:
     return records
 
 
-def audit(root: Path, *, include_idpfunnet: bool = False) -> dict:
+def audit(root: Path, *, include_idpfunnet: bool = False,
+          weak_candidates: Path | None = None) -> dict:
     root = root.resolve()
     pool = root / "data/processed/linker_pred2_style_pool_v1"
     manifest_path = pool / "manifest.json"
@@ -227,6 +228,40 @@ def audit(root: Path, *, include_idpfunnet: bool = False) -> dict:
         "positive_sequences_outside_benchmark_components": len(eligible),
         "unprotected_positive_component_sizes": sorted(component_sizes.values(), reverse=True),
         "limitation": "Transitive local-alignment components are not validated biological/domain families."}
+    if weak_candidates is not None:
+        weak_candidates = weak_candidates.resolve()
+        weak_manifest_path = weak_candidates / "manifest.json"
+        weak_manifest = json.loads(weak_manifest_path.read_text(encoding="utf-8"))
+        if weak_manifest.get("status") != "explicit_flexible_linker_candidates_not_DFL_gold":
+            raise ValueError("Weak UniProt source status changed")
+        weak_path = weak_candidates / "candidates.jsonl"
+        if sha(weak_path) != weak_manifest["output_sha256"][weak_path.name]:
+            raise ValueError("Weak UniProt source hash changed")
+        weak_rows = [json.loads(line) for line in weak_path.read_text(encoding="utf-8").splitlines()]
+        if len(weak_rows) != weak_manifest["validated"]:
+            raise ValueError("Weak UniProt source count changed")
+        weak_counts = Counter()
+        unflagged = set()
+        for row in weak_rows:
+            key, sequence, labels = row["source_id"], row["sequence"], row["labels"]
+            if (row.get("record_type") != "uniprot_explicit_flexible_linker_candidate"
+                    or row.get("training_eligibility") != "candidate_not_DFL_gold_or_negative_adjudicated"
+                    or len(sequence) != len(labels) or set(labels) - set("1x") or "1" not in labels):
+                raise ValueError(f"Weak annotation mask/task invalid: {key}")
+            tier = row["annotation"]["evidence_tier"]
+            weak_counts[f"{tier}_total"] += 1
+            matched = [name for name, registry in references
+                       if any(key == ref_key or local_hit(sequence, ref_seq)
+                              for ref_key, ref_seq in registry)]
+            for name in matched:
+                weak_counts[f"{tier}_flagged_{name}"] += 1
+            if not matched:
+                weak_counts[f"{tier}_direct_unflagged"] += 1
+                unflagged.add(sequence)
+        output["weak_uniprot_candidates"] = {
+            "manifest_sha256": sha(weak_manifest_path), "records_sha256": sha(weak_path),
+            "counts": dict(weak_counts), "unique_direct_unflagged_sequences": len(unflagged),
+            "limitation": "Explicit flexible-linker notes are not certified DisProt DFL labels or adjudicated negatives."}
     return output
 
 
@@ -235,5 +270,8 @@ if __name__ == "__main__":
     parser.add_argument("--source-root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--include-idpfunnet", action="store_true",
                         help="Fetch only pinned author TR552 training file; never any test labels")
+    parser.add_argument("--weak-candidates", type=Path,
+                        help="Optional versioned full-protein UniProt flexible-linker candidate directory")
     args = parser.parse_args()
-    print(json.dumps(audit(args.source_root, include_idpfunnet=args.include_idpfunnet), indent=2, sort_keys=True))
+    print(json.dumps(audit(args.source_root, include_idpfunnet=args.include_idpfunnet,
+                           weak_candidates=args.weak_candidates), indent=2, sort_keys=True))

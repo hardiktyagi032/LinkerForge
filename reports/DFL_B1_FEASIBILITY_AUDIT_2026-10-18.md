@@ -6,12 +6,25 @@ The executable is `scripts/audit_dfl_b1_source_capacity.py`; synthetic tests
 are `tests/test_audit_dfl_b1_source_capacity.py`. Reproduce from a checkout
 with the locally pinned ignored source files:
 
-Executable SHA-256: `ff86cd63a140e240bb8e08f1c902739ba9445d135efa6ef6b38ce7c5f68eeb54`.
+Executable SHA-256: `55d59dc61fb08ccffa4e4edb733440ee2d252fe141cf35927810de4afdad044d`.
 
 ```powershell
 .venv-gpu\Scripts\python.exe scripts\audit_dfl_b1_source_capacity.py --source-root C:\Users\Perthro\Documents\ChatGPT\Folddiffusion --include-idpfunnet
 .venv-gpu\Scripts\python.exe -m unittest tests.test_audit_dfl_b1_source_capacity tests.test_preflight_dfl_family_training -q
 ```
+
+The optional weak-source reconstruction is reproducible from the pinned
+annotated-subsequence catalog (input data and generated full-protein records
+remain gitignored):
+
+```powershell
+.venv-gpu\Scripts\python.exe scripts\prepare_uniprot_explicit_flexible_candidates.py --source-root C:\Users\Perthro\Documents\ChatGPT\Folddiffusion --output C:\Users\Perthro\Documents\ChatGPT\Folddiffusion\data\processed\uniprot_explicit_flexible_linkers_v1
+.venv-gpu\Scripts\python.exe scripts\audit_dfl_b1_source_capacity.py --source-root C:\Users\Perthro\Documents\ChatGPT\Folddiffusion --weak-candidates C:\Users\Perthro\Documents\ChatGPT\Folddiffusion\data\processed\uniprot_explicit_flexible_linkers_v1
+```
+
+The preparer refuses to overwrite an existing output directory. Its source
+code SHA-256 is `da171da3c3717a1cff57ecb1bb073b0d4b7613a3d44f44ed040153332de8dff2`;
+schema SHA-256 is `3acaf7778c61e8e125d68f91037e832760b67fd42910aaf87d211476bde305e8`.
 
 The script verifies source SHA-256s and counts before analysis. CAID3's official
 source SHA-256 is `4c204ef49ffa12fe166883e6b2cff0012cabee21260b8f32f997081d0e2fa0f8`
@@ -21,7 +34,10 @@ DP94 sequence-only manifest SHA-256 is
 (98 sequences). No CAID3/DP94 labels, predictions, thresholds or scores were
 used. The screen is BLOSUM62 Smith–Waterman, gap 10/1, at least 50 aligned
 residues, 25% identity and 50% shorter-sequence coverage, plus exact ID,
-sequence and containment.
+sequence and containment. The official CAID3/DP94 benchmark annotation tracks
+were not opened. Candidate *source* annotations may refer to proteins later
+removed by the sequence firewall; they are not used for model selection or
+admitted to a training split.
 
 | DFL-labelled training candidate | Source SHA-256 | Observed-positive proteins | Positive proteins with no direct hit to either registry |
 | --- | --- | ---: | ---: |
@@ -50,11 +66,19 @@ qualified B1 split cannot simply be declared from either number.
    domain-gap candidates were promoted to ground truth.
 2. Within that catalog, 884 distinct UniProt accessions have a region note
    containing `Flexible linker` or `Disordered linker`; just 10 are marked
-   with a direct ECO:0000269/PubMed evidence tier. The other 874 are explicit
-   UniProt annotations but mostly computational/homology-derived. The catalog
-   has linker subsequences, not verified full-protein DFL masks. This is a
-   promising *separately tiered auxiliary* source, not an immediate gold
-   replacement or a no-linker negative set.
+   with a direct ECO:0000269/PubMed evidence tier. We implemented
+   `scripts/prepare_uniprot_explicit_flexible_candidates.py` with formal
+   `schemas/uniprot_explicit_flexible_linker_candidate.v1.schema.json`, fetched
+   current full sequences from UniProt in 23 hash-recorded batches, and
+   verified **all 884** annotated peptides at their exact 1-based coordinates
+   (zero missing/mismatched records). The local ignored candidate manifest is
+   SHA-256 `6b0c4f704ac9502d2bf94bf95ae0f64d67483d7d04e8421183414adbed6de614`;
+   output JSONL SHA-256 `83aaa2e25eabebd6dd5b29f132c307b44d10b06aad7721462ca36f7f8c7256a3`.
+   Every other residue remains `x` unknown. Direct CAID3/DP94 screening leaves
+   **11** unique full-protein sequences, only **1** from the PubMed tier.
+   These annotations are not independently DFL-adjudicated, and most are
+   computational/homology-derived. They cannot be silently merged into the
+   gold DFL train/development set; rights and family review remain open.
 3. DLD's thousands of structural IDL/DDL labels remain a separate task and
    were not converted to DFL positives or negatives. Published `0=non-DFL`
    tracks also lack evidence that every zero is an adjudicated negative; the

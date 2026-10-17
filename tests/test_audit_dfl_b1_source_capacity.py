@@ -71,6 +71,20 @@ class CapacityAuditTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Non-DFL source"):
             audit(self.root)
 
+    def test_weak_uniprot_candidate_is_reported_separately(self):
+        weak = self.root / "data/processed/weak"
+        row = {"source_id": "WEAK", "sequence": "G" * 80, "labels": "1" + "x" * 79,
+               "record_type": "uniprot_explicit_flexible_linker_candidate",
+               "training_eligibility": "candidate_not_DFL_gold_or_negative_adjudicated",
+               "annotation": {"evidence_tier": "explicit_region_weak"}}
+        path = weak / "candidates.jsonl"
+        source_hash = write(path, json.dumps(row) + "\n")
+        write(weak / "manifest.json", {"status": "explicit_flexible_linker_candidates_not_DFL_gold",
+                                       "validated": 1, "output_sha256": {"candidates.jsonl": source_hash}})
+        result = audit(self.root, weak_candidates=weak)
+        self.assertEqual(result["weak_uniprot_candidates"]["counts"]["explicit_region_weak_total"], 1)
+        self.assertEqual(result["combined_unique_surviving_sequences"], 3)
+
 
 if __name__ == "__main__":
     unittest.main()
