@@ -44,6 +44,15 @@ avoid direct CAID3/DP94 screening, one from the PubMed-supported tier. These
 are not adjudicated DFL gold or negatives. The script, schema and hashes are
 in the B1 feasibility report; neither training nor a split was launched.
 
+The paper survey and sequence-only sensitivity audit in
+`reports/DFL_B1_PAPER_SURVEY_AND_SPLIT_DESIGN_2026-10-18.md` diagnose the
+present local rule as a poor stand-alone family definition. A *proposed*,
+unvalidated reciprocal full-length screen flags 37/279 unique positive
+candidate sequences against CAID3/DP94, versus 243/279 under the binding local
+rule. The 206 changed decisions are not cleared for training: shared-domain
+homology, low-complexity effects and the benchmark contract require a separate
+family review. B1 and the current preflight remain unchanged and blocked.
+
 ## Reproduce the implemented checks
 
 From the repository root, with `parasail` installed in the selected Python
@@ -83,3 +92,11 @@ No classifier breakthrough or published-method superiority has been
 demonstrated. The one-time CAID3 retrospective is spent and must not be rerun
 or used for tuning. See `RESEARCH_HANDOFF.md` and
 `literature/DFL_UNTOUCHED_COMPARISON_CONTRACT_2026-10-17.md`.
+
+The 18 October paper survey and hash-checked full-length/domain-family
+sensitivity audits are in
+`reports/DFL_B1_PAPER_SURVEY_AND_SPLIT_DESIGN_2026-10-18.md`. They found 134
+exact-metadata DFL-positive candidate sequences in 112 components outside
+both sequence-only benchmark registries under the combined exploratory family
+graph. This is not yet a defensible train/development split or permission to
+replace the binding firewall; B1 remains open.
