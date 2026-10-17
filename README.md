@@ -1,5 +1,14 @@
 # LinkerForge
 
+> **Generator implementation update (18 October 2026):** the human requested
+> component 5 of [architecture PR #7](https://github.com/richennacht/LinkerForge/pull/7):
+> conditional fusion-linker sequence generation, ready for future reviewed data.
+> See [FUSION_GENERATOR.md](./FUSION_GENERATOR.md) for the implemented FIM model,
+> adapter interface, trainer, constraints, baselines and verification commands.
+> This checkout implements that authorized work; the detector history and
+> benchmark protections below remain preserved. No biological generator training
+> or fusion-performance result is claimed, and the architecture PR remains draft.
+
 > **Research-direction update (11 October 2026):** LinkerForge's active research
 > goal has changed from *designing a fusion linker* to *detecting linker spans
 > in an input protein sequence*. The [detector research charter](./literature/LINKER_DETECTION_FRONTIER_CHARTER_2026-10-11.md)
