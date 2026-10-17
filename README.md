@@ -1,5 +1,14 @@
 # LinkerForge
 
+> **Current programme (18 October 2026):** begin with a trustworthy sequence-based
+> disordered flexible linker (DFL) classifier; use only an independently
+> validated, high-precision caller to mine natural linkers. Downstream design
+> combines the deterministic geometry calculator, a cited linker-template
+> library, and a matched retrieval baseline before considering generation.
+> The existing classifier checkpoint can run provisional inference, but is not
+> certified for mining. See [the current direction](./CURRENT_DIRECTION_2026-10-18.md)
+> and [classifier inference contract](./CLASSIFIER_INFERENCE.md).
+
 > **Research-direction update (11 October 2026):** LinkerForge's active research
 > goal has changed from *designing a fusion linker* to *detecting linker spans
 > in an input protein sequence*. The [detector research charter](./literature/LINKER_DETECTION_FRONTIER_CHARTER_2026-10-11.md)

@@ -2,7 +2,7 @@
 
 Companion to `SPEC.md`. Read that first, especially section 5 (integrity constraints). Items are ordered. Do not start a blocked item until its dependencies are checked off.
 
-Pause rule: the project is paused. Do not run any item without Dorya's explicit go-ahead. Items marked PAPER I need no GPU, no laptop and no new data.
+Status update (18 October 2026): Dorya explicitly resumed work, beginning with the classifier and then geometry-plus-template design with a retrieval baseline. See `CURRENT_DIRECTION_2026-10-18.md`. The scientific dependencies and benchmark seals below remain in force.
 
 Subagent rule: at most two at a time, and Haiku only. Never Sonnet or Opus. Prefer doing the work inline.
 
