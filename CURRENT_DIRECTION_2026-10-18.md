@@ -44,3 +44,7 @@ The next blocker to resolve is a versioned DFL training/calibration source
 with 1/0/x semantics and a family-disjoint split that passes all nominated
 benchmark registries. The classifier and design workflows remain distinct
 scientific tasks; DLD structural linker labels are not substituted for DFL.
+
+The first-stage classifier handoff and its tracked, synthetic-tested data gate
+are in `CLASSIFIER_DATA_GATE.md`. This does not check off B1: the real split,
+source semantics and family evidence are still missing.

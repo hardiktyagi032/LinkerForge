@@ -69,6 +69,7 @@ Paper II is the certified high-precision caller plus mined set. Do not draft it 
   - Done when: `scripts/preflight_caid3_protected_training.py` and `scripts/check_detector_autoresearch.py` pass on the new split. The current split (`caid3_protected_dfl_v1`) is not used.
   - Blocker: the current split overlaps DP94. DP94 is a candidate, not an independently validated benchmark. Its label semantics are unverified.
   - Depends on: a chosen family clustering method. `MINING_RUN_SIZING.md` proposes MMseqs2 at 30% identity and 50% coverage for leakage control. That is a proposal, not a tested setting, and it is not yet decided whether it defines families.
+  - Implementation checkpoint (18 October): `scripts/preflight_dfl_family_training.py` and synthetic rejection tests are tracked; see `CLASSIFIER_DATA_GATE.md`. The actual versioned split, verified family map and launcher integration are still open. This is **not** B1 completion.
 
 - [ ] **B2. Conformal thresholds with abstention.**
   - What: implement conformal risk control (Learn then Test) for a precision target. Calibrate on a small clean protein-split calibration set drawn from B1's split. Report the abstention rate.
