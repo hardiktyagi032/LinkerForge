@@ -1,5 +1,13 @@
 # LinkerForge
 
+> **Code preparation update (18 October 2026):** the human requested the work
+> after component 1, without data generation or scientific training. Follow
+> [DESIGN_READINESS_CHECKLIST.md](./DESIGN_READINESS_CHECKLIST.md) and
+> [DESIGN_PIPELINE.md](./DESIGN_PIPELINE.md) for components 2–5 intake boundaries,
+> explicit multi-contact routes, joint geometry/sequence orchestration, per-seed
+> training preparation and matched development commands. Detector work is excluded.
+> Code readiness does not establish data, cloud, scientific-result or team-review gates.
+
 > **Attachment component update (18 October 2026):** the human also requested
 > component 4, identifying/ranking attachment points and connecting them to the
 > existing geometry calculator. [ATTACHMENT_SITE_MODEL.md](./ATTACHMENT_SITE_MODEL.md)
@@ -14,7 +22,7 @@
 > adapter interface, trainer, constraints, baselines and verification commands.
 > This checkout implements that authorized work; the detector history and
 > benchmark protections below remain preserved. No biological generator training
-> or fusion-performance result is claimed, and the architecture PR remains draft.
+> or fusion-performance result is claimed. Component implementation PRs await review.
 
 > **Research-direction update (11 October 2026):** LinkerForge's active research
 > goal has changed from *designing a fusion linker* to *detecting linker spans

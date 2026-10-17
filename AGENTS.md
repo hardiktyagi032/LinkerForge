@@ -2,6 +2,13 @@
 
 Read `README.md` completely before changing this repository. It is the canonical scientific and MVP specification.
 
+On `codex/design-pipeline-readiness`, the human's latest direct instruction
+authorizes architecture/training preparation for components 2–5, excluding the
+detector and actual data generation. Follow `DESIGN_READINESS_CHECKLIST.md` and
+`DESIGN_PIPELINE.md`. No automatic mining, scientific fitting, cloud execution or
+independent benchmark reveal. Explicit routes derive connection counts; source
+flanks do not become tolerance labels and fragment-context transfer stays opt-in.
+
 On `codex/attachment-site-scorer`, the human's next direct instruction authorizes
 component 4 implementation without data. Read `ATTACHMENT_SITE_MODEL.md`.
 Keep insertion and terminal-extension endpoints separate; unknown annotations

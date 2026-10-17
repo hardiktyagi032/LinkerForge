@@ -23,6 +23,27 @@ def strict_dataclass(cls, value):
     return cls(**value)
 
 
+def family_components(rows):
+    """Transitive multi-family groups for paired resampling, not clustering."""
+    groups = []
+    for row in rows:
+        group, families = [row], set(row.family_ids)
+        remaining = list(groups)
+        changed = True
+        while changed:
+            changed, rest = False, []
+            for existing, ids in remaining:
+                if families & ids:
+                    group += existing
+                    families |= ids
+                    changed = True
+                else:
+                    rest.append((existing, ids))
+            remaining = rest
+        groups = remaining + [(group, families)]
+    return [group for group, _ in groups]
+
+
 @dataclass(frozen=True)
 class DesignRequest:
     domain_a: str

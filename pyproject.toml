@@ -15,6 +15,7 @@ pretrained = ["transformers==5.20.1"]
 [project.scripts]
 linkerforge-generator = "linkerforge.generation.cli:main"
 linkerforge-attachment = "linkerforge.attachment.cli:main"
+linkerforge-design = "linkerforge.pipeline.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/linkerforge"]

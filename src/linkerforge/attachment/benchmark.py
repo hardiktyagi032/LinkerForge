@@ -3,6 +3,7 @@ import math
 import random
 
 from .model import TASKS, allowed_positions
+from linkerforge.generation.contracts import family_components
 
 
 def binary_metrics(labels, scores):
@@ -72,35 +73,6 @@ def summarize(rows, predictions, coverage_fraction):
             "known_subset_precision": tp/(tp+fp) if tp+fp else None,
             "recall_known_positive": tp/metrics["positive"] if metrics["positive"] and not failures else None,
             "annotation_scope": "Known labels only; unknown calls make exhaustive precision unidentifiable."}
-
-
-def family_components(rows):
-    # Connected components, not the first family ID: overlapping multi-family
-    # proteins must remain together in every resampling draw.
-    groups = []
-    for row in rows:
-        group, families = [row], set(row.family_ids)
-        retained = []
-        for existing, ids in groups:
-            if families & ids:
-                group += existing
-                families |= ids
-            else:
-                retained.append((existing, ids))
-        # New merges can connect a previously retained component transitively.
-        changed = True
-        while changed:
-            changed, rest = False, []
-            for existing, ids in retained:
-                if families & ids:
-                    group += existing
-                    families |= ids
-                    changed = True
-                else:
-                    rest.append((existing, ids))
-            retained = rest
-        groups = retained + [(group, families)]
-    return [group for group, _ in groups]
 
 
 def compare(rows, methods, coverage_fraction=.1, bootstrap_draws=200, seed=17):

@@ -100,7 +100,7 @@ def rank_plans(plans, domain_scores, geometry_reports):
                         "contacts_a_to_b": plan.contacts(), "geometry_verdict": verdict,
                         "status": "rejected_geometry" if rejected else ("unassessed_site_tasks" if missing else "sequence_rank_only"),
                         "mean_operation_logit": sum(assessed)/len(assessed) if assessed and not missing and not rejected else None,
-                        "unassessed_tasks": missing, "generator_topology_supported": plan.topology == "tandem",
+                        "unassessed_tasks": missing, "generator_topology_supported": plan.topology == "tandem" and all(plan.linker_lengths),
                         "synthetic_software_fixture": any(domain_scores.get(x, {}).get("synthetic_software_fixture", False) for x in (plan.domain_a_id, plan.domain_b_id)),
                         "fusion_function_validated": False})
     results.sort(key=lambda row: (row["status"] == "rejected_geometry", row["mean_operation_logit"] is None,

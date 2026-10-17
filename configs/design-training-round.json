@@ -1,0 +1,12 @@
+{
+  "format": "design-training-round.v0",
+  "round_id": "review-required-components-4-and-5-v0",
+  "review_reference": null,
+  "seeds": [7, 17, 31],
+  "max_total_wall_seconds": 21600,
+  "variants": [
+    {"name": "site-linear", "component": "attachment", "config": "attachment-site-linear.json", "manifest": null},
+    {"name": "site-mlp", "component": "attachment", "config": "attachment-site-mlp.json", "manifest": null},
+    {"name": "generator-native", "component": "generator", "config": "fusion-generator-native.json", "manifest": null}
+  ]
+}
