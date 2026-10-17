@@ -30,6 +30,13 @@ status check identifies a local-similarity collision between train protein
 *candidate*, not a certified DFL benchmark. Neither that candidate's labels
 nor the spent CAID3 labels/scores are available for model selection.
 
+The 18 October source-capacity audit found at most 40 unique positive
+sequences after direct screening of four candidate training sources, and 5
+outside benchmark-touching components under the conservative transitive local
+graph. This is not a validated family split. See
+`reports/DFL_B1_FEASIBILITY_AUDIT_2026-10-18.md` for hashes, source tiers and
+the alternative annotated-data route. **B1 remains open.**
+
 ## Reproduce the implemented checks
 
 From the repository root, with `parasail` installed in the selected Python
