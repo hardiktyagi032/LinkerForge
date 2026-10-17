@@ -1,0 +1,295 @@
+{
+  "record_type": "linker_property_library_report",
+  "schema_version": "1.0.0",
+  "generated_for_library": "linker_property_library.v1",
+  "curated_on": "2026-10-17",
+  "provenance": {
+    "library_sha256": "cdc6676459a0e4c683c42fbfed351b6d9cc8e1a8238b14b454e865b9a5f0ae09",
+    "schema_sha256": "db3a7793483ee6c8766facb6f024632b19e3211b577d9122120951006a7519d9",
+    "script_sha256": "4740417d8ff2da107ab5b818d2d647f02a0adead8d7ab6201135c1a0cc0ee385",
+    "pipeline_commit": "91374ed842815a20776ff06d22a6dad6e5a02ad3",
+    "python": "3.13.16"
+  },
+  "evidence_tier": "literature-reported engineered use. NOT function-tested: see reports/EXPERIMENTALLY_TESTED_LINKER_SOURCE_SEARCH_2026-10-12.md for the distinction. No count here may be presented as a count of experimentally function-tested linkers.",
+  "library_size": {
+    "entries_total": 30,
+    "entries_with_exact_sequence": 27,
+    "entries_usable_for_rigidity_model": 13
+  },
+  "coverage_matrix": {
+    "counts": {
+      "rigid": {
+        "cleavable": 0,
+        "non_cleavable": 6,
+        "unassigned": 0
+      },
+      "flexible": {
+        "cleavable": 0,
+        "non_cleavable": 8,
+        "unassigned": 0
+      },
+      "unassigned": {
+        "cleavable": 13,
+        "non_cleavable": 0,
+        "unassigned": 3
+      }
+    },
+    "entry_ids": {
+      "rigid": {
+        "cleavable": [],
+        "non_cleavable": [
+          "rigid-eaaak2",
+          "rigid-eaaak3",
+          "rigid-aeaaakeaaaka",
+          "rigid-papap",
+          "rigid-h4-2",
+          "rigid-ap-repeat-pattern"
+        ],
+        "unassigned": []
+      },
+      "flexible": {
+        "cleavable": [],
+        "non_cleavable": [
+          "flex-ggggs1",
+          "flex-ggggs2",
+          "flex-ggggs3",
+          "flex-gly8",
+          "flex-gly6",
+          "flex-gsagsaagsgef",
+          "flex-kesgsvsseqlaqfrsld",
+          "flex-egkssgsgsesks"
+        ],
+        "unassigned": []
+      },
+      "unassigned": {
+        "cleavable": [
+          "cleav-thrombin-disulfide-cyclo",
+          "cleav-kex2-furin-dithiocyclopeptide",
+          "cleav-rkrr",
+          "cleav-rr",
+          "cleav-fxia-fviia-fix-albumin",
+          "cleav-mmp-plglwa",
+          "cleav-hiv-pr",
+          "cleav-hcv-ns3",
+          "cleav-factor-xa",
+          "cleav-furin-ribotoxin",
+          "cleav-furin-scfv",
+          "cleav-polyarginine-furin",
+          "cleav-cathepsinb-gflg"
+        ],
+        "non_cleavable": [],
+        "unassigned": [
+          "rigid-cw-repeat-negative",
+          "uncat-le-dipeptide",
+          "natural-pyruvate-dehydrogenase"
+        ]
+      }
+    }
+  },
+  "label_basis_audit": {
+    "rigidity": {
+      "source_category": 14,
+      "not_stated": 16
+    },
+    "cleavability": {
+      "inferred_from_category_exclusion": 14,
+      "not_stated": 3,
+      "source_category": 13
+    }
+  },
+  "composite_templates": [
+    {
+      "template_id": "rigid-cleavable-composite",
+      "target_properties": {
+        "rigidity": "rigid",
+        "cleavability": "cleavable"
+      },
+      "construction": "Two parts, not one segment: a rigid spacer (helical EAAAK repeat or Pro-rich) carrying length and orientation, plus a short flexible protease cassette (the scissile motif padded with Gly/Ser) placed at one end rather than inside the rigid element.",
+      "parts": [
+        {
+          "role": "rigid_spacer",
+          "example_entry_id": "rigid-eaaak3",
+          "contributes": "length, orientation, domain separation"
+        },
+        {
+          "role": "flexible_cassette",
+          "example_entry_id": "cleav-mmp-plglwa",
+          "contributes": "the scissile site plus the local backbone freedom it needs"
+        }
+      ],
+      "rationale": "A scissile bond needs local backbone freedom to reach a protease active site. An alpha-helix is the opposite of that, so a protease site inside a helical spacer does not yield a cleavable rigid linker; it yields a rigid linker that is not cleaved until something unfolds it. The two properties must occupy different residues of the same construct.",
+      "evidence": [
+        "hubbard1994: limited-proteolysis sites require a local conformational change before cleavage.",
+        "thrombin_helix_unfolding: a scissile bond inside an alpha-helix is cleaved only after the helix unfolds.",
+        "chen2013, entry cleav-mmp-plglwa: the review's own MMP-cleavable construct places the PLGLWA motif BETWEEN two GGGGS sequences, so the composite pattern is already standard practice for the flexible case.",
+        "chen2013, absence: the review lists no construct combining an EAAAK-type helical spacer with a protease site, although it covers both at length."
+      ],
+      "worked_example_entry_id": null
+    }
+  ],
+  "acquisition_status": {
+    "linkerdb": "NOT ACQUIRED. LinkerDB is live at https://ibi.vu.nl/programs/linkerdbwww and offers bulk downloads, but this container's egress allowlist denies ibi.vu.nl and the page's download hrefs are not recoverable through the fetch tool available here. Nothing from LinkerDB is in this file. Its natural-linker helicity labels are the most promising route to a labelled set larger than this template library, so acquiring it is the top data task.",
+    "synlinker": "NOT ACQUIRED and likely defunct. The SynLinker home page (about 2,150 natural plus about 110 empirical/engineered linkers, searchable by protease sensitivity) states it changed URL in March 2016 without giving the new address. This matches literature/LINKER_MOTIF_DISCOVERY_SURVEY_2026-10-12.md. Do not manufacture records from its advertised counts."
+  },
+  "cleavability_axis": {
+    "method": "cited-motif substring lookup; not a learned model",
+    "motifs_in_table": 13,
+    "motifs_excluded_as_too_short": [
+      "RR"
+    ],
+    "false_positives_on_non_cleavable_entries": [],
+    "cleavable_entries_not_self_matched": [
+      "cleav-rr"
+    ],
+    "honest_note": "Recall against proteases outside the table is unmeasured and cannot be measured from this library. Treat the negative call as 'no known motif', never as 'not cleavable'."
+  },
+  "rigidity_axis": {
+    "method": "L2 logistic regression on six cited compositional features",
+    "features": [
+      "frac_G",
+      "frac_ST",
+      "frac_P",
+      "frac_A",
+      "frac_EK",
+      "length_scaled"
+    ],
+    "coefficients": {
+      "frac_G": -1.0507,
+      "frac_ST": -0.4786,
+      "frac_P": 0.2851,
+      "frac_A": 1.0425,
+      "frac_EK": 0.3988,
+      "length_scaled": 0.281
+    },
+    "bias": -0.5353,
+    "n": 13,
+    "n_rigid": 5,
+    "n_flexible": 8,
+    "leave_one_out_accuracy": 0.9231,
+    "majority_baseline": 0.6154,
+    "permutation_p": 0.004975124378109453,
+    "permutation_rounds": 200,
+    "linearly_separable_in_sample": true,
+    "out_of_fold_predictions": [
+      {
+        "index": 0,
+        "sequence": "GGGGS",
+        "true": "flexible",
+        "predicted": "flexible",
+        "p_rigid": 0.2164,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 1,
+        "sequence": "GGGGSGGGGS",
+        "true": "flexible",
+        "predicted": "flexible",
+        "p_rigid": 0.2237,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 2,
+        "sequence": "GGGGSGGGGSGGGGS",
+        "true": "flexible",
+        "predicted": "flexible",
+        "p_rigid": 0.233,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 3,
+        "sequence": "GGGGGGGG",
+        "true": "flexible",
+        "predicted": "flexible",
+        "p_rigid": 0.2056,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 4,
+        "sequence": "GGGGGG",
+        "true": "flexible",
+        "predicted": "flexible",
+        "p_rigid": 0.2027,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 5,
+        "sequence": "GSAGSAAGSGEF",
+        "true": "flexible",
+        "predicted": "flexible",
+        "p_rigid": 0.3911,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 6,
+        "sequence": "KESGSVSSEQLAQFRSLD",
+        "true": "flexible",
+        "predicted": "flexible",
+        "p_rigid": 0.4494,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 7,
+        "sequence": "EGKSSGSGSESKST",
+        "true": "flexible",
+        "predicted": "flexible",
+        "p_rigid": 0.3687,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 8,
+        "sequence": "EAAAKEAAAK",
+        "true": "rigid",
+        "predicted": "rigid",
+        "p_rigid": 0.5164,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 9,
+        "sequence": "EAAAKEAAAKEAAAK",
+        "true": "rigid",
+        "predicted": "rigid",
+        "p_rigid": 0.5339,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 10,
+        "sequence": "AEAAAKEAAAKA",
+        "true": "rigid",
+        "predicted": "rigid",
+        "p_rigid": 0.5346,
+        "correct": true,
+        "note": null
+      },
+      {
+        "index": 11,
+        "sequence": "PAPAP",
+        "true": "rigid",
+        "predicted": "flexible",
+        "p_rigid": 0.4019,
+        "correct": false,
+        "note": null
+      },
+      {
+        "index": 12,
+        "sequence": "AEAAAKEAAAKEAAAKEAAAKALEAEAAAKEAAAKEAAAKEAAAKA",
+        "true": "rigid",
+        "predicted": "rigid",
+        "p_rigid": 0.5107,
+        "correct": true,
+        "note": null
+      }
+    ],
+    "interpretation": "Leave-one-out beats the majority baseline and the permutation null, so composition carries real signal on this axis, but the labelled set is too small to estimate calibration.",
+    "calibration_note": "No calibration curve is reported. With this many labelled entries a reliability diagram would be noise. The out-of-fold probabilities are published instead so a reader can judge the spread directly."
+  }
+}
