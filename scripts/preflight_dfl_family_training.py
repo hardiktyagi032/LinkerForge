@@ -15,6 +15,10 @@ from pathlib import Path
 
 ROLES = ("train", "development", "auxiliary")
 REQUIRED_REGISTRIES = frozenset({"caid3", "dp94"})
+REGISTRY_STATES = {
+    "caid3": ("sequence_only_protected", "retrospective_spent_exclusion_only"),
+    "dp94": ("sequence_only_labels_sealed", "unopened"),
+}
 RULE = {"matrix": "BLOSUM62", "gap_open": 10, "gap_extend": 1,
         "minimum_identity": 0.25, "minimum_aligned_residues": 50,
         "minimum_shorter_sequence_coverage": 0.5}
@@ -100,11 +104,13 @@ def verify(manifest_path: Path) -> dict:
     registry_hashes = {}
     for entry in entries:
         path, registry = pinned_json(base, entry)
+        expected_status, expected_seal = REGISTRY_STATES.get(
+            entry["name"], ("sequence_only_labels_sealed", "unopened"))
         if (registry.get("schema_version") != "1.0.0"
-                or registry.get("status") != "sequence_only_labels_sealed"
-                or registry.get("label_seal_state") != "unopened"
+                or registry.get("status") != expected_status
+                or registry.get("label_seal_state") != expected_seal
                 or not registry.get("source_release")):
-            raise ValueError(f"Unsealed or incomplete benchmark registry: {path}")
+            raise ValueError(f"Registry seal/status mismatch or incomplete registry: {path}")
         records = fasta(anchored(path.parent, registry["fasta_path"]), registry["fasta_sha256_canonical_lf"])
         if [key for key, _ in records] != registry["ids"]:
             raise ValueError(f"Registry ID roster changed: {path}")
@@ -174,7 +180,9 @@ def verify(manifest_path: Path) -> dict:
     return {"status": "pass_declared_sequence_and_family_manifest_only",
             "split_manifest_sha256": digest(manifest_path.read_bytes()),
             "family_manifest_sha256": split["family_manifest"]["sha256"],
-            "registry_sha256": registry_hashes, "counts": counts, "mask_counts": mask_counts,
+            "registry_sha256": registry_hashes, "registry_states": {
+                name: REGISTRY_STATES.get(name, ("sequence_only_labels_sealed", "unopened"))[1]
+                for name in names}, "counts": counts, "mask_counts": mask_counts,
             "limitations": "Not a biological homology certificate, DFL benchmark approval, or training authorization by itself."}
 
 

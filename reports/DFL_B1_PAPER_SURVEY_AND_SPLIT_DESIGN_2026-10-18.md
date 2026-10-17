@@ -71,7 +71,17 @@ sequences** occur in benchmark-touching components and **242** do not. This
 agrees in count with the separate full-length parasail diagnostic. It is
 still not a domain-family certificate: at high reciprocal coverage, two
 multidomain proteins can share a genuine domain without clustering together.
-No old preflight was changed.
+The old protected-data preflight and its similarity threshold were not changed.
+
+The [DisoFLAG authors' dataset documentation](https://bliulab.net/DisoFLAG/download)
+explicitly defines line 9 as DFL 1/0 annotations for its DP93/DP94/CAID2
+files, and the [paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC10762911/)
+reports DP94 linker evaluation. Therefore the earlier shorthand “DP94 is
+not a DFL test” is incorrect. DP94 *is DFL-labelled*, but its per-residue
+negative/unknown semantics, suitability as a common-target comparison,
+published-model exposure and independence from our sources still need audit.
+Its labels remained unopened in this work, and it remains protected under the
+binding contract; we did not retire it to enlarge training capacity.
 
 ### Domain-family and transitive-component sensitivity
 
@@ -105,16 +115,84 @@ split. Label-mask and source-rights checks, a preregistered rule review,
 train/development component allocation, and both binding preflights remain
 before B1 can close. No training or benchmark scoring followed this audit.
 
+### Binding-rule ceiling and mask semantics
+
+After the transitive family screen, applying the *unchanged binding direct
+local-alignment exclusion* to **both** protected registries leaves just **24
+unique observed-positive sequences in 24 components**. The source
+appearances overlap: 19 catalog, 17 DisProt-positive-only, and 5 published
+DFL-train records. A hash-pinned, sequence-hash-only ignored capacity manifest
+has SHA-256
+`bca74cae3932d8b086d5d292d18adb41f0c9ce39e9744cc4b05d63fea9912368`.
+`scripts/audit_dfl_binding_survivor_masks.py` verifies its source IDs and
+sequences against all three pinned input files. Among the 24 are 1,106
+union-positive residues, **200 published zero residues whose negative meaning
+is not independently verified**, and no cross-source 1/0 conflict. All other
+DisProt residues remain `x`. This is a small positive/unknown pilot ceiling,
+not a credible precision-calibration set or an adjudicated no-linker set.
+
+For diagnosis *only*, protecting CAID3 alone would leave 108 mapped
+sequences under the same family-plus-binding screens; protecting DP94 alone
+would leave 34. Those counts show DP94 drives much of the current capacity
+loss. Because DP94 is documented as DFL-labelled and remains nominated, the
+108-sequence scenario is **not** a permissible replacement split. Removing a
+benchmark after seeing these counts would compromise the claimed comparison.
+
+There was also a registry-schema issue: the new split preflight previously
+required `unopened` for *every* registry even though CAID3 had already been
+viewed retrospectively. This audit repaired that metadata gate: CAID3 must
+be `retrospective_spent_exclusion_only`, while DP94 remains `unopened` in the
+local project. Both sequence firewalls remain mandatory. A false unopened
+CAID3 registry now fails the preflight test.
+
 To reproduce the family summary after exporting the inputs and running the
 MMseqs2 modules above (paths are relative to the audit worktree):
 
 ```powershell
 & 'C:\Users\Perthro\Documents\ChatGPT\Folddiffusion\.venv-gpu\Scripts\python.exe' scripts/audit_dfl_disprot_family_metadata.py --source-root 'C:\Users\Perthro\Documents\ChatGPT\Folddiffusion' --input-dir artifacts/b1-mmseqs-input-2026-10-18 --cluster-tsv artifacts/b1-mmseqs-modules-2026-10-18/clusters.tsv --cluster-tsv-sha256 374c3eb97059122a7de5ccd93b7aa56a65f5a13dad661bcea77682b63a1d11e6
+& 'C:\Users\Perthro\Documents\ChatGPT\Folddiffusion\.venv-gpu\Scripts\python.exe' scripts/audit_dfl_binding_survivor_masks.py --source-root 'C:\Users\Perthro\Documents\ChatGPT\Folddiffusion' --capacity-manifest artifacts/b1-mmseqs-input-2026-10-18/binding-family-survivors-v2.json --capacity-manifest-sha256 bca74cae3932d8b086d5d292d18adb41f0c9ce39e9744cc4b05d63fea9912368
 ```
 
 The generated inputs and Windows MMseqs executable live in ignored artifact
 directories, not the Git repository; the checked-in scripts and hashes specify
 how to rebuild and verify them on a machine with the pinned raw inputs.
+
+## B1 decision from current assets
+
+**No-go for a high-precision mining classifier on the current data.** The
+binding two-registry firewall plus exploratory family graph yields an upper
+bound of 24 positive proteins, 24 components, and zero independently
+adjudicated no-linker proteins. Even if a tiny train/development partition
+were mechanically possible, it would not estimate proteome-scale precision.
+This 24-count is for the three pinned DFL candidate sources in this audit,
+not a census of every future source. The separately audited IDPFunNet TR552
+file adds at most 17 direct-registry non-hits *before* family review, with
+redistribution rights and negative semantics still unverified; the 884
+explicit UniProt flexible-linker candidates add only 11 direct non-hits,
+mostly from weaker evidence tiers. See
+`reports/DFL_B1_FEASIBILITY_AUDIT_2026-10-18.md`. Neither alternative
+supplies an adjudicated no-linker panel.
+For intuition, with zero false positives on 299 independent negative units,
+the one-sided 95% binomial upper bound on false-positive probability is still
+`1 - 0.05^(1/299) = 0.00997` (roughly 1%); correlations or prevalence shift
+would worsen the interpretation. Our current audited set has **no such
+negative units**, so there is no empirical bound at all.
+
+The scientifically defensible way to make B1 actionable is to retain DP94's
+sequence protection, obtain a materially larger independently sourced DFL
+positive pool, and commission a separately adjudicated, family-disjoint
+no-linker panel with explicit unknown regions. Every new source must be
+screened against both protected registries and assigned by component before
+training. If the team instead wants to use DP94 proteins for development,
+that is a *new, less independent evaluation contract* and cannot be presented
+as a blind comparison. Likewise, the reciprocal full-length rule cannot
+replace the binding local rule merely because it retains more records.
+
+The B1 infrastructure repair is narrower: the new split preflight now
+requires CAID3 to be declared `retrospective_spent_exclusion_only` and DP94
+`unopened` in their respective sequence-only registries. This prevents a
+false claim that CAID3's labels were never viewed; it does not relax any
+sequence or family exclusion and does not make the 24-protein pool train-ready.
 
 Reproduction commands after running
 `scripts/prepare_dfl_mmseqs_audit_input.py` with the pinned ignored sources:

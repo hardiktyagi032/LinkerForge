@@ -11,7 +11,8 @@ work. `CURRENT_DIRECTION_2026-10-18.md` gives the complete order.
   a certified mining classifier.
 - `scripts/preflight_dfl_family_training.py` is a tracked CPU gate for a *new*
   family-disjoint split. It requires pinned sequence-only CAID3 and DP94
-  registries, unopened label seals, a versioned family manifest, hashed
+  registries, an honest `retrospective_spent_exclusion_only` CAID3 state and
+  unopened DP94 label seal, a versioned family manifest, hashed
   train/development/auxiliary files, source-specific `1/0/x` semantics,
   provenance, and exact/containment/local-similarity exclusions. It checks
   cross-role family and exact-sequence overlap and requires observed DFL
@@ -100,3 +101,11 @@ exact-metadata DFL-positive candidate sequences in 112 components outside
 both sequence-only benchmark registries under the combined exploratory family
 graph. This is not yet a defensible train/development split or permission to
 replace the binding firewall; B1 remains open.
+
+The binding-rule/domain-family intersection is narrower still: 24 positive
+sequences in 24 components pass both current screens. The hash-pinned capacity
+and source-mask audit is documented in the same report. This is too small for
+a credible high-precision mining claim, and no independently adjudicated
+no-linker negatives exist in that set. The preflight now distinguishes the
+historically viewed CAID3 exclusion registry from DP94's unopened local
+label seal; it does not remove either sequence firewall.

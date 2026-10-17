@@ -14,6 +14,11 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 
+if __package__:
+    from scripts.preflight_dfl_family_training import local_hit
+else:
+    from preflight_dfl_family_training import local_hit
+
 
 DISPROT_SHA256 = "1fdfce26a3ea9b626e63559f36abd86e023b50b612dc2c8756acbb08edead140"
 
@@ -44,7 +49,8 @@ def project_entry(entry: dict) -> dict:
             "sequence": sequence, "families": families}
 
 
-def audit(source_root: Path, input_dir: Path, cluster_tsv: Path, expected_cluster_hash: str) -> dict:
+def audit(source_root: Path, input_dir: Path, cluster_tsv: Path, expected_cluster_hash: str,
+          output_manifest: Path | None = None) -> dict:
     source_root, input_dir, cluster_tsv = source_root.resolve(), input_dir.resolve(), cluster_tsv.resolve()
     raw_path = source_root / "data/raw/disprot/disprot_2026_06_regions.json"
     if sha(raw_path) != DISPROT_SHA256:
@@ -156,13 +162,71 @@ def audit(source_root: Path, input_dir: Path, cluster_tsv: Path, expected_cluste
     counts["candidate_sequences_mapped_outside_transitive_benchmark_components"] = len(mapped_survivors)
     counts["candidate_only_mapped_components"] = len(survivor_components)
     counts["largest_candidate_only_component"] = max(survivor_components.values(), default=0)
-    return {"status": "metadata_family_sensitivity_not_B1",
+    protected_rows = [by_record[key] for key in sorted(protected)]
+    binding_survivors = set()
+    for key in sorted(mapped_survivors):
+        row = by_record[key]
+        source_ids = {source["protein_id"] for source in row["source_ids"]}
+        if any(ref["source_id"] in source_ids or local_hit(row["sequence"], ref["sequence"])
+               for ref in protected_rows):
+            continue
+        binding_survivors.add(key)
+    binding_components = Counter(find(key) for key in binding_survivors)
+    counts["candidate_sequences_outside_family_components_and_binding_direct_local"] = len(binding_survivors)
+    counts["candidate_components_after_both_binding_and_family_screens"] = len(binding_components)
+    counts["candidate_sequences_family_clear_but_binding_local_collision"] = len(mapped_survivors - binding_survivors)
+    by_source = defaultdict(set)
+    for key in binding_survivors:
+        for source in by_record[key]["source_ids"]:
+            by_source[source["source"]].add(key)
+    counts["candidate_sequences_after_both_screens_by_source"] = {
+        source: len(keys) for source, keys in sorted(by_source.items())
+    }
+    for registry in ("CAID3", "DP94"):
+        registry_keys = {key for key in protected if by_record[key]["registry"] == registry}
+        registry_components = {find(key) for key in registry_keys}
+        registry_rows = [by_record[key] for key in sorted(registry_keys)]
+        registry_survivors = set()
+        for key in sorted(mapped_candidate):
+            if find(key) in registry_components:
+                continue
+            row = by_record[key]
+            source_ids = {source["protein_id"] for source in row["source_ids"]}
+            if any(ref["source_id"] in source_ids or local_hit(row["sequence"], ref["sequence"])
+                   for ref in registry_rows):
+                continue
+            registry_survivors.add(key)
+        counts[f"scenario_{registry.lower()}_only_mapped_binding_and_family_survivors"] = len(registry_survivors)
+    result = {"status": "metadata_family_sensitivity_not_B1",
             "disprot_source_sha256": sha(raw_path), "input_manifest_sha256": sha(input_manifest_path),
             "cluster_tsv_sha256": sha(cluster_tsv), "counts": dict(counts),
             "limitations": ["Shared Pfam/Gene3D/UniRef50 IDs are a conservative family screen, not a complete remote-homology certificate.",
                             "Unresolved IDs or changed sequences are not eligible for automatic split assignment.",
                             "The source JSON contains annotations, but this script never accesses its region/consensus fields.",
                             "The binding local preflight remains unchanged; this is not training authorization."]}
+    if output_manifest is not None:
+        output_manifest = output_manifest.resolve()
+        if output_manifest.exists():
+            raise FileExistsError(f"Refusing to overwrite capacity manifest: {output_manifest}")
+        if not output_manifest.parent.is_dir():
+            raise ValueError("Capacity manifest parent directory does not exist")
+        component_members = defaultdict(list)
+        for key in binding_survivors:
+            component_members[find(key)].append(key)
+        candidates = []
+        for key in sorted(binding_survivors):
+            row = by_record[key]
+            members = sorted(component_members[find(key)])
+            component_id = hashlib.sha256("|".join(members).encode()).hexdigest()[:20]
+            candidates.append({"record_id": key, "component_id": component_id,
+                               "sequence_sha256": row["sequence_sha256"],
+                               "source_ids": row["source_ids"]})
+        artifact = {"schema_version": "1.0.0", "status": "screened_capacity_not_training_split",
+                    "screening": result, "candidates": candidates,
+                    "warning": "No label masks, training allocation or negative semantics are certified here."}
+        output_manifest.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        result["capacity_manifest_sha256"] = sha(output_manifest)
+    return result
 
 
 if __name__ == "__main__":
@@ -171,5 +235,8 @@ if __name__ == "__main__":
     parser.add_argument("--input-dir", type=Path, required=True)
     parser.add_argument("--cluster-tsv", type=Path, required=True)
     parser.add_argument("--cluster-tsv-sha256", required=True)
+    parser.add_argument("--output-manifest", type=Path,
+                        help="Write an immutable, sequence-hash-only capacity manifest; never a training split")
     args = parser.parse_args()
-    print(json.dumps(audit(args.source_root, args.input_dir, args.cluster_tsv, args.cluster_tsv_sha256), indent=2, sort_keys=True))
+    print(json.dumps(audit(args.source_root, args.input_dir, args.cluster_tsv,
+                           args.cluster_tsv_sha256, args.output_manifest), indent=2, sort_keys=True))

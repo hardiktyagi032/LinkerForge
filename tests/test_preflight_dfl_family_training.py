@@ -21,8 +21,10 @@ def fixture(base):
     for name, key, sequence in (("caid3", "B1", "M" * 80), ("dp94", "B2", "W" * 80)):
         fasta = f">{key}\n{sequence}\n"
         fasta_hash = write(base / f"{name}.fasta", fasta)
-        registry = {"schema_version": "1.0.0", "status": "sequence_only_labels_sealed",
-                    "label_seal_state": "unopened", "source_release": "synthetic-v1",
+        registry = {"schema_version": "1.0.0",
+                    "status": "sequence_only_protected" if name == "caid3" else "sequence_only_labels_sealed",
+                    "label_seal_state": "retrospective_spent_exclusion_only" if name == "caid3" else "unopened",
+                    "source_release": "synthetic-v1",
                     "fasta_path": f"{name}.fasta", "fasta_sha256_canonical_lf": fasta_hash,
                     "ids": [key]}
         registries.append({"name": name, "path": f"{name}.json",
@@ -80,7 +82,7 @@ class DflFamilyPreflightTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.path = fixture(Path(self.temp.name))
 
-    def test_sealed_synthetic_fixture_passes_declared_checks_only(self):
+    def test_honest_registry_states_pass_declared_checks_only(self):
         result = verify(self.path)
         self.assertEqual(result["status"], "pass_declared_sequence_and_family_manifest_only")
         self.assertEqual(result["counts"], dict.fromkeys(("train", "development", "auxiliary"), 1))
@@ -108,7 +110,19 @@ class DflFamilyPreflightTests(unittest.TestCase):
             registry["label_seal_state"] = "opened"
             entry["sha256"] = write(source, registry)
         edit_split(self.path, change)
-        with self.assertRaisesRegex(ValueError, "Unsealed"):
+        with self.assertRaisesRegex(ValueError, "Registry seal/status mismatch"):
+            verify(self.path)
+
+    def test_caid3_cannot_be_falsely_marked_unopened(self):
+        def change(split):
+            entry = split["benchmark_registries"][0]
+            source = self.path.parent / entry["path"]
+            registry = json.loads(source.read_text())
+            registry["status"] = "sequence_only_labels_sealed"
+            registry["label_seal_state"] = "unopened"
+            entry["sha256"] = write(source, registry)
+        edit_split(self.path, change)
+        with self.assertRaisesRegex(ValueError, "Registry seal/status mismatch"):
             verify(self.path)
 
     def test_sequence_collision_rejected_even_with_refreshed_hash(self):

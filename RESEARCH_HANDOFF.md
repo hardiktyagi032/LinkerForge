@@ -14,6 +14,14 @@ training firewall and spent-CAID3 rule below are unchanged.
 - There are local detector trainers, preprocessing scripts, experiment configs, tests, and retrospective reports under `scripts/`, `src/`, `configs/`, `tests/`, and `reports/`. The React frontend remains a labelled demonstration, not a deployed detector.
 - The protected SAM-like baseline, variants and three-seed repeats were evaluated on filtered development. See `reports/DFL_SAM_REPEAT_AND_LOCKED_CAID3_2026-10-17.md`. Neither the variants nor the baseline demonstrated published-method superiority. The one-time CAID3 common-27 comparison is **spent and retrospective**; never tune or select against it again.
 - Current `data/processed/caid3_protected_dfl_v1` is **not eligible for new training**: a prospective sequence-only DP94 screen found overlap with the proposed holdout. `scripts/preflight_caid3_protected_training.py` and `scripts/check_detector_autoresearch.py` fail closed. DP94 is only a candidate, not an independently validated DFL benchmark; verify its label semantics and published-method exposure before considering it.
+- The DisoFLAG authors document a DFL annotation track for DP94 (line 9 of
+  their released records), so it is inaccurate to call DP94 an IDR-only file.
+  Its public availability, negative/unknown semantics, source overlap, and
+  competitor-training lineage still prevent a fresh blind-test claim. The
+  18 October B1 audit leaves only 24 positive sequences outside both the
+  unchanged direct local firewall and the exploratory transitive
+  Pfam/Gene3D/UniRef50 graph; see
+  `reports/DFL_B1_PAPER_SURVEY_AND_SPLIT_DESIGN_2026-10-18.md`.
 - No untouched, homology/domain-family-certified common-target benchmark has yet established a breakthrough. Do not call a development score, public CAID3 comparison, or local-alignment-only exclusion a new blind test.
 
 ## Binding scientific rules
