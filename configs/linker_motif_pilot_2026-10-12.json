@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1.0",
+  "purpose": "exploratory_sequence_pattern_discovery_not_function_assignment_or_detector_training",
+  "input_path": "data/processed/dfl_positive_candidates_2026_10_12.jsonl",
+  "component_audit_path": "reports/dfl_candidate_component_audit_2026-10-12.json",
+  "exclude_transitively_protected": true,
+  "min_span_length": 5,
+  "max_span_length": 100,
+  "k_values": [3, 4, 5],
+  "minimum_distinct_proteins": 3,
+  "permutations": 2000,
+  "seed": 20261012,
+  "max_reported_patterns": 100
+}

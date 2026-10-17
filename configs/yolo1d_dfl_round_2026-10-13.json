@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.1.0",
+  "task": "published_masked_disordered_flexible_linker_segmentation",
+  "model": "yolo1d_linker_segmenter",
+  "source_architecture": "YOLOv5-seg inspired dense proposals and prototype masks; no YOLO weights",
+  "trained_classes": ["disordered_flexible_linker"],
+  "frozen_encoder": "facebook/esm2_t12_35M_UR50D",
+  "train_split": "TR166",
+  "development_split": "TE82",
+  "protected_diagnostics": ["TE64", "CAID3"],
+  "window_residues": 510,
+  "batch_size": 4,
+  "epochs": 6,
+  "max_hours_per_trial": 2,
+  "seeds": [7, 17, 31],
+  "optimizer": {"name": "AdamW", "learning_rate": 0.0003},
+  "primary_development_metric": "masked_residue_average_precision",
+  "secondary_metrics": ["masked_residue_auroc", "recall_at_empirical_precision_0.90_min50tp", "no_positive_protein_proxy_specificity"],
+  "unknown_label_policy": "x_masked_never_negative",
+  "claim_status": "development_only_not_independent"
+}

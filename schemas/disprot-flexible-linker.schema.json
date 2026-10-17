@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/disprot-flexible-linker.schema.json",
+  "title": "Curated DisProt flexible-linker annotation, pending domain-pair/overlap audit",
+  "type": "object",
+  "required": ["schema_version", "record_type", "disprot_id", "uniprot_accession", "region_id", "sequence", "linker", "evidence", "domain_pair_status", "dld_overlap_status", "training_eligibility", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "record_type": {"const": "disprot_curated_flexible_linker_annotation"},
+    "disprot_id": {"type": "string", "pattern": "^DP[0-9]+$"},
+    "uniprot_accession": {"type": "string", "minLength": 1},
+    "region_id": {"type": "string", "minLength": 1},
+    "sequence": {"type": "string", "minLength": 1},
+    "linker": {"type": "object", "required": ["start", "end", "sequence", "length", "term_id"], "properties": {
+      "start": {"type": "integer", "minimum": 1},
+      "end": {"type": "integer", "minimum": 1},
+      "sequence": {"type": "string", "minLength": 1},
+      "length": {"type": "integer", "minimum": 1},
+      "term_id": {"const": "IDPO:0000033"}
+    }},
+    "evidence": {"type": "object"},
+    "domain_pair_status": {"const": "not_adjudicated"},
+    "dld_overlap_status": {"const": "not_audited"},
+    "training_eligibility": {"const": "holdout_pending_overlap_audit"},
+    "provenance": {"type": "object", "required": ["source_url", "source_sha256", "config_sha256", "pipeline_commit", "software", "evidence_quality"]}
+  }
+}

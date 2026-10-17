@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Exploratory DLD-checkpoint transfer to CAID3 flexible-linker reference",
+  "type": "object",
+  "required": ["schema_version", "status", "target", "reference_sha256", "checkpoint_sha256", "overlap_audit_sha256", "pipeline_commit", "script_sha256", "software", "metrics", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "exploratory_cross_ontology_contaminated_public_benchmark"},
+    "target": {"const": "CAID3_DisProt_disordered_flexible_linker"},
+    "reference_sha256": {"type": "string"},
+    "checkpoint_sha256": {"type": "string"},
+    "overlap_audit_sha256": {"type": "string"},
+    "pipeline_commit": {"type": "string"},
+    "script_sha256": {"type": "string"},
+    "software": {"type": "object"},
+    "metrics": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

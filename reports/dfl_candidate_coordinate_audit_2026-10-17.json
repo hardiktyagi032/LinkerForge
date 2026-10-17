@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0.0",
+  "created_utc": "2026-10-16T22:53:34.648245+00:00",
+  "status": "requires_review",
+  "source_sha256": "2bc6726545f47256bcec70376bd51d689db0b5c80a64f45a221b9d88bb0c4c8d",
+  "script_sha256": "61259a738c54be67c0398a60911588598d05d7623b08d4856e9fea2b8189906c",
+  "proteins": 205,
+  "positive_regions": 256,
+  "positive_residues": 9730,
+  "unknown_residues": 149488,
+  "evidence_code_region_counts": {
+    "ECO:0000302": 2,
+    "ECO:0001183": 2,
+    "ECO:0001238": 3,
+    "ECO:0005642": 1,
+    "ECO:0005670": 41,
+    "ECO:0006003": 3,
+    "ECO:0006165": 46,
+    "ECO:0006204": 2,
+    "ECO:0006208": 9,
+    "ECO:0006210": 3,
+    "ECO:0006216": 1,
+    "ECO:0006218": 1,
+    "ECO:0006220": 110,
+    "ECO:0006222": 1,
+    "ECO:0006224": 16,
+    "ECO:0006236": 3,
+    "ECO:0006287": 1,
+    "ECO:0007014": 1,
+    "ECO:0007089": 1,
+    "ECO:0007680": 1,
+    "ECO:0007691": 7,
+    "ECO:0008035": 1
+  },
+  "quality_label_region_counts": {
+    "curated_disprot_flexible_linker_region_not_independent_domain_pair_adjudication": 256
+  },
+  "problems": [
+    {
+      "protein_id": "DP00352",
+      "region_id": "DP00352r005",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP00410",
+      "region_id": "DP00410r012",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP00428",
+      "region_id": "DP00428r010",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP01342",
+      "region_id": "DP01342r004",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP02756",
+      "region_id": "DP02756r004",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP02765",
+      "region_id": "DP02765r005",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP02798",
+      "region_id": "DP02798r004",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP02834",
+      "region_id": "DP02834r004",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03004",
+      "region_id": "DP03004r018",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03004",
+      "region_id": "DP03004r003",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03065",
+      "region_id": "DP03065r004",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03212",
+      "region_id": "DP03212r008",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03212",
+      "region_id": "DP03212r047",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03299",
+      "region_id": "DP03299r006",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03337",
+      "region_id": "DP03337r004",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03379",
+      "region_id": "DP03379r005",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03410",
+      "region_id": "DP03410r004",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03593",
+      "region_id": "DP03593r007",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP03786",
+      "region_id": "DP03786r003",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP04070",
+      "region_id": "DP04070r013",
+      "issue": "overlapping_positive_regions"
+    },
+    {
+      "protein_id": "DP04129",
+      "region_id": "DP04129r027",
+      "issue": "overlapping_positive_regions"
+    }
+  ],
+  "limitations": [
+    "This checks internal coordinates, not source-to-current-release sequence mapping.",
+    "Evidence codes are counted, not independently adjudicated.",
+    "Unknown positions remain masked; no negative examples are created.",
+    "Homology/family independence is a separate gate."
+  ]
+}

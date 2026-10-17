@@ -1,0 +1,67 @@
+{
+  "cross_dataset_exact_id_overlaps": {
+    "TE64_TE82": [],
+    "TE64_TR166": [],
+    "TE82_TR166": []
+  },
+  "dataset_semantics": "original published 0/1/x labels; released source confirms x is excluded by the residue mask, while 0 and 1 are scored; x must not be converted to a negative",
+  "datasets": {
+    "TE64": {
+      "caid3_exact_id_overlap": [],
+      "caid3_shared_uniref50": [],
+      "caid3_shared_uniref90": [],
+      "current_disprot_exact_sequence": 62,
+      "current_disprot_id_mapped": 63,
+      "label_counts": {
+        "0": 9307,
+        "1": 949,
+        "x": 30065
+      },
+      "proteins": 64,
+      "residues": 40321,
+      "sha256": "acb786a32e76492fca59b43c683d4de8ca0cd96d3624fb652508c34f612ef84e",
+      "source_url": "http://bliulab.net/TransDFL/static/dataset/TE64.txt"
+    },
+    "TE82": {
+      "caid3_exact_id_overlap": [],
+      "caid3_shared_uniref50": [],
+      "caid3_shared_uniref90": [],
+      "current_disprot_exact_sequence": 74,
+      "current_disprot_id_mapped": 77,
+      "label_counts": {
+        "0": 11471,
+        "1": 2223,
+        "x": 23244
+      },
+      "proteins": 82,
+      "residues": 36938,
+      "sha256": "54407527c1fed5329318e0ce753309839e6b72e6ebd34d9e83df018b9a3009fb",
+      "source_url": "http://bliulab.net/TransDFL/static/dataset/TE82.txt"
+    },
+    "TR166": {
+      "caid3_exact_id_overlap": [],
+      "caid3_shared_uniref50": [],
+      "caid3_shared_uniref90": [],
+      "current_disprot_exact_sequence": 153,
+      "current_disprot_id_mapped": 155,
+      "label_counts": {
+        "0": 17552,
+        "1": 3670,
+        "x": 38337
+      },
+      "proteins": 166,
+      "residues": 59559,
+      "sha256": "a4e47abea6cd5a38fe1c5086955ae017f1abe0c1cfb09b1413fad070ec9dff1d",
+      "source_url": "http://bliulab.net/TransDFL/static/dataset/TR166.txt"
+    }
+  },
+  "provenance": {
+    "caid3_sha256": "4c204ef49ffa12fe166883e6b2cff0012cabee21260b8f32f997081d0e2fa0f8",
+    "disprot_sha256": "1fdfce26a3ea9b626e63559f36abd86e023b50b612dc2c8756acbb08edead140",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "script_sha256": "1e9175c86109be8ddbb16e937b105f60e282666a6a0f4679066d6217ac1a1c23"
+  },
+  "record_type": "transdfl_benchmark_audit",
+  "schema_version": "0.1.0",
+  "status": "label_mask_confirmed_homology_audit_pending"
+}

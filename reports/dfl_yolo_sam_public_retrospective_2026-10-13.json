@@ -1,0 +1,282 @@
+{
+  "benchmarks": {
+    "caid3_common_27": {
+      "local_frozen_checkpoints": {
+        "LinkerForge_CNN_seed7": {
+          "aps": 0.08936902973082618,
+          "auroc": 0.5418370324756727,
+          "fmax": 0.16467630421118792,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "LinkerForge_precision_seed7": {
+          "aps": 0.08725371662896,
+          "auroc": 0.5203050415350217,
+          "fmax": 0.15860146947048392,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "LinkerForge_span_seed7": {
+          "aps": 0.08484080312395603,
+          "auroc": 0.50659776141909,
+          "fmax": 0.15375062096373573,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "SAMlike_seed17": {
+          "aps": 0.07420738622625164,
+          "auroc": 0.496898013011568,
+          "fmax": 0.15552232428968168,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "SAMlike_seed31": {
+          "aps": 0.08113268978652169,
+          "auroc": 0.5351266947835759,
+          "fmax": 0.16158015890695773,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "SAMlike_seed7": {
+          "aps": 0.07336197230295186,
+          "auroc": 0.4950829644672102,
+          "fmax": 0.15654099107898678,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "YOLO1D_w128_seed17": {
+          "aps": 0.15512351400605823,
+          "auroc": 0.590284679115162,
+          "fmax": 0.20944809662131172,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "YOLO1D_w128_seed31": {
+          "aps": 0.11410686430478627,
+          "auroc": 0.6107545972661294,
+          "fmax": 0.2170324139319509,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "YOLO1D_w128_seed7": {
+          "aps": 0.16556888471755965,
+          "auroc": 0.6577003088789974,
+          "fmax": 0.2582628747117602,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "YOLO1D_w256_seed17": {
+          "aps": 0.12188288233731076,
+          "auroc": 0.6732330803943772,
+          "fmax": 0.21437543614794138,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "YOLO1D_w256_seed31": {
+          "aps": 0.12077725473933663,
+          "auroc": 0.531275088672463,
+          "fmax": 0.2089675030851501,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "YOLO1D_w256_seed7": {
+          "aps": 0.1245508022213892,
+          "auroc": 0.6189923746501644,
+          "fmax": 0.19153897401732178,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        }
+      },
+      "reference_proteins": 27,
+      "released_submissions": {
+        "APOD": {
+          "aps": 0.3685446805310782,
+          "auroc": 0.8517830658661855,
+          "fmax": 0.4372024899304284,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "DFLpred": {
+          "aps": 0.09682673341085135,
+          "auroc": 0.49127579786855585,
+          "fmax": 0.14727815063385533,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "DisoFLAG-DFL": {
+          "aps": 0.4094047020048327,
+          "auroc": 0.8461749084127181,
+          "fmax": 0.4642014162077105,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "IPA-AF2-Linker": {
+          "aps": 0.4821214662961236,
+          "auroc": 0.8984967108449166,
+          "fmax": 0.49057971014492757,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "LINKER-Pred": {
+          "aps": 0.3981412573867159,
+          "auroc": 0.8841113336880078,
+          "fmax": 0.4676320272572402,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "LINKER-Pred-Lite": {
+          "aps": 0.4290992453346312,
+          "auroc": 0.8717173860454996,
+          "fmax": 0.4732061762034514,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        },
+        "LINKER-Pred2": {
+          "aps": 0.3856210427483444,
+          "auroc": 0.8888548571669888,
+          "fmax": 0.463905325443787,
+          "positive_residues": 1214,
+          "scored_residues": 15570
+        }
+      }
+    },
+    "transdfl_te64": {
+      "local_frozen_checkpoints": {
+        "LinkerForge_CNN_seed7": {
+          "aps": 0.2140225197153363,
+          "auroc": 0.663386714034996,
+          "fmax": 0.30390143737166325,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "LinkerForge_precision_seed7": {
+          "aps": 0.22256254077189264,
+          "auroc": 0.6681497763390756,
+          "fmax": 0.29568106312292364,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "LinkerForge_span_seed7": {
+          "aps": 0.21366551599352912,
+          "auroc": 0.6685429902348674,
+          "fmax": 0.29425837320574166,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "SAMlike_seed17": {
+          "aps": 0.29582099912173093,
+          "auroc": 0.743218192499997,
+          "fmax": 0.3694458312531203,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "SAMlike_seed31": {
+          "aps": 0.27880068957901943,
+          "auroc": 0.7424437660539226,
+          "fmax": 0.35796236805874254,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "SAMlike_seed7": {
+          "aps": 0.2928100339727509,
+          "auroc": 0.7544750017067952,
+          "fmax": 0.35457594633445133,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "YOLO1D_w128_seed17": {
+          "aps": 0.17622104582602466,
+          "auroc": 0.715045147137062,
+          "fmax": 0.31347517730496455,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "YOLO1D_w128_seed31": {
+          "aps": 0.2558630778969387,
+          "auroc": 0.7372247658407289,
+          "fmax": 0.32592592592592595,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "YOLO1D_w128_seed7": {
+          "aps": 0.26838524795821667,
+          "auroc": 0.7169397180340482,
+          "fmax": 0.3148558758314856,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "YOLO1D_w256_seed17": {
+          "aps": 0.2245288495141114,
+          "auroc": 0.6779303068279844,
+          "fmax": 0.2832405689548546,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "YOLO1D_w256_seed31": {
+          "aps": 0.307450945881921,
+          "auroc": 0.73221431731082,
+          "fmax": 0.3432228039557882,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        },
+        "YOLO1D_w256_seed7": {
+          "aps": 0.24117988374341828,
+          "auroc": 0.7048326814300576,
+          "fmax": 0.35915492957746475,
+          "positive_residues": 949,
+          "scored_residues": 10256
+        }
+      },
+      "reference_proteins": 64,
+      "released_baseline_inference": "not_reproduced"
+    }
+  },
+  "created_utc": "2026-10-13T02:35:16.382575+00:00",
+  "limitations": [
+    "CAID3 and TE64 are public, previously viewed retrospective diagnostics, not fresh blind tests.",
+    "All local checkpoints were selected on TE82 before this comparison; never reselect on CAID3 or TE64.",
+    "TR166 versus CAID3/TE64 remote homology and source overlap are not certified absent.",
+    "CAID3 common 27 includes only linker-positive proteins, so no-linker specificity cannot be measured.",
+    "Released CAID3 scores represent historical models with different training data and some different input modalities; this is a same-target deployed-score comparison, not equal-training-data efficiency.",
+    "Original TransDFL inference was not reproduced on TE64; only local models are compared there.",
+    "Per-residue metrics do not validate predicted span boundaries or biological function."
+  ],
+  "provenance": {
+    "checkpoint_sha256": {
+      "LinkerForge_CNN_seed7": "3e41d94048b60581ed7321f723d5c3c77e48a68465ef031172d93b196a2c05d1",
+      "LinkerForge_precision_seed7": "b9002d55670e5e6a95788d03190bbe5c5ae86a5bd2de1f2611022a9352a66b3a",
+      "LinkerForge_span_seed7": "40c148b7eef61e820c203345f2cc5ffb03521f1fb4fb2efa512881e6c816d1d9",
+      "SAMlike_seed17": "494de35cef65f726081e6cca105305546ada5c3d4a354e67c59df444242cf55b",
+      "SAMlike_seed31": "e382f44a274e3454a62ef864419b620fc8936a130574c9d988ae8abb1f5a907a",
+      "SAMlike_seed7": "457d0db4e3a37986de554be94d1bc8523963089b861a5e881e29e4841732ac4e",
+      "YOLO1D_w128_seed17": "3ebf4aef58062e5107a6b351edef195ed87afa064548ff5d8c52e5b37196de40",
+      "YOLO1D_w128_seed31": "78e92656e7f5cde6dcffd32fe67a52290d9749d5e2ec6480b462dd016c0e88ec",
+      "YOLO1D_w128_seed7": "6f7f37bbabb5b32c1eb64d29d99fbaebb64f8c6931f18d915150b2da1525e0f9",
+      "YOLO1D_w256_seed17": "e0591d2286371d52364f2e6b2822bd20c742bc93400e51beae4c41e3da30d7f0",
+      "YOLO1D_w256_seed31": "3379778fb783ed61852e2bd3645682930856e0a39d4be666dbfd712b15669628",
+      "YOLO1D_w256_seed7": "a9fed2ec8fd429a6c16949cbd40a48134903e9109ce15ce1c410bbbc8b46ced4"
+    },
+    "input_sha256": {
+      "caid3_common_fasta": "8d3931f2778f72e640e841ef05751b78cea951ebd726766a3863de21198fb53e",
+      "te64_jsonl": "4d6321a0483182139149b1d535ad2b8c1a34688082eb80e91662f8c9972d43eb"
+    },
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "released_score_sha256": {
+      "APOD.caid": "182b2ba253496c6cb91efe1bc9817c7181bd6d7a061293674c2b23ccdc82c06d",
+      "DFLpred.caid": "c12efe88776f436c788ecdf7b58b4a00371bfaa11b74001dcf4db2bb9fcedaa0",
+      "DisoFLAG-DFL.caid": "42c37fcc65463830a404c76d424059527f7cf52cc0246008cfce2d929fff8cb3",
+      "IPA-AF2-Linker.caid": "e286d39115f2832a195c6e4804e3382fc0e1bfdf6288890a131dc8a156d7bf4f",
+      "LINKER-Pred-Lite.caid": "0cf9b9b232f48ebbdc8ad2de852817bea47a59fb108ab1b4a5942acd366d68cd",
+      "LINKER-Pred.caid": "90d3cfd587d89f8f3b36763cfa361175dfe951303f3c6d3795eee96270a12b7a",
+      "LINKER-Pred2.caid": "d8c2ead75258c05f4a38678c7efff3aaee95fd24ec4e40aadca831351025a97b"
+    },
+    "script_sha256": "c818da951d883d61ec6c0656faf2da0cb21e19b23c6c87d38f4f44c88b4df591",
+    "versions": {
+      "python": "3.12.14",
+      "torch": "2.14.1+cu130",
+      "transformers": "5.19.0"
+    }
+  },
+  "schema_version": "0.1.0",
+  "status": "public_retrospective_not_independent_or_model_selection"
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/dfl-training-exclusion-audit.schema.json",
+  "title": "DFL training exclusion audit",
+  "type": "object",
+  "required": ["schema_version", "record_type", "provenance", "semantics", "counts", "limitations", "entries"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "record_type": {"const": "dfl_training_exclusion_audit"},
+    "provenance": {
+      "type": "object",
+      "required": ["disprot_sha256", "caid3_reference_sha256", "pipeline_commit", "script_sha256"],
+      "properties": {
+        "disprot_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "caid3_reference_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "script_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "pipeline_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+      }
+    },
+    "semantics": {
+      "type": "object",
+      "required": ["positive", "negative", "unannotated"],
+      "properties": {
+        "positive": {"type": "string"},
+        "negative": {"const": "none_verified_by_this_audit"},
+        "unannotated": {"const": "unknown_not_negative"}
+      }
+    },
+    "counts": {
+      "type": "object",
+      "required": ["disprot_entries", "caid3_reference_entries", "explicit_dfl_entries", "exact_caid3_overlap_entries", "exact_caid3_overlap_regions", "remaining_entries", "remaining_regions", "remaining_shared_uniref_entries"],
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["disprot_id", "explicit_dfl_region_ids", "caid3_exact_id", "shared_caid3_uniref_cluster_fields", "training_status"],
+        "properties": {
+          "disprot_id": {"type": "string"},
+          "uniprot_accession": {"type": ["string", "null"]},
+          "explicit_dfl_region_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "caid3_exact_id": {"type": "boolean"},
+          "shared_caid3_uniref_cluster_fields": {"type": "array", "items": {"enum": ["uniref50", "uniref90"]}},
+          "training_status": {"enum": ["exclude_public_benchmark", "pending_homology_and_label_audit"]}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.org/schemas/0.1.0/natural-example.schema.json",
+  "title": "LinkerForge natural interdomain observation",
+  "type": "object",
+  "required": ["schema_version", "example_id", "source_record_type", "source", "domain_a", "linker", "domain_b", "connection_features", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "example_id": {"type": "string", "minLength": 1},
+    "source_record_type": {"const": "natural_observation"},
+    "source": {
+      "type": "object",
+      "required": ["pdb_id", "chain_id", "retrieved_at", "structure_tier"],
+      "properties": {
+        "pdb_id": {"type": "string", "pattern": "^[A-Za-z0-9]{4}$"},
+        "chain_id": {"type": "string", "minLength": 1},
+        "uniprot_id": {"type": ["string", "null"]},
+        "retrieved_at": {"type": "string", "format": "date"},
+        "structure_tier": {"const": "experimental"}
+      }
+    },
+    "domain_a": {"$ref": "#/$defs/domain"},
+    "linker": {
+      "type": "object",
+      "required": ["start", "end", "sequence", "length", "class", "evidence_quality"],
+      "properties": {
+        "start": {"type": "integer", "minimum": 1},
+        "end": {"type": "integer", "minimum": 1},
+        "sequence": {"type": "string", "pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$"},
+        "length": {"type": "integer", "minimum": 5, "maximum": 30},
+        "class": {"type": "string", "enum": ["flexible", "structured", "mixed", "unknown"]},
+        "evidence_quality": {"type": "string", "enum": ["high", "medium", "uncertain"]}
+      }
+    },
+    "domain_b": {"$ref": "#/$defs/domain"},
+    "connection_features": {"type": "object"},
+    "provenance": {"$ref": "#/$defs/provenance"}
+  },
+  "$defs": {
+    "domain": {
+      "type": "object",
+      "required": ["start", "end", "sequence", "family_ids"],
+      "properties": {
+        "start": {"type": "integer", "minimum": 1},
+        "end": {"type": "integer", "minimum": 1},
+        "sequence": {"type": "string", "pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$"},
+        "family_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["pipeline_commit", "config_hash", "software"],
+      "properties": {
+        "pipeline_commit": {"type": "string", "minLength": 1},
+        "config_hash": {"type": "string", "minLength": 1},
+        "software": {"type": "object"}
+      }
+    }
+  }
+}

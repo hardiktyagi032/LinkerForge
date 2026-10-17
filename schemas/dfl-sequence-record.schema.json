@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/dfl-sequence-record.schema.json",
+  "type": "object",
+  "required": ["schema_version", "record_type", "protein_id", "sequence", "labels", "split", "source", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "record_type": {"const": "published_dfl_sequence_labels"},
+    "protein_id": {"type": "string", "minLength": 1},
+    "sequence": {"type": "string", "minLength": 1},
+    "labels": {"type": "string", "pattern": "^[01x]+$"},
+    "split": {"enum": ["train_original", "development_original", "retrospective_test_original"]},
+    "source": {"enum": ["TransDFL_TR166", "TransDFL_TE82", "TransDFL_TE64"]},
+    "provenance": {
+      "type": "object",
+      "required": ["source_url", "source_sha256", "converter_sha256", "pipeline_commit", "label_semantics"],
+      "properties": {
+        "source_url": {"type": "string"},
+        "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "converter_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "pipeline_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "label_semantics": {"const": "1=DFL_positive;0=published_negative;x=masked_unscored"}
+      }
+    }
+  }
+}

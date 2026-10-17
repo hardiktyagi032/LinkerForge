@@ -1,0 +1,54 @@
+{
+  "schema_version": "0.1.0",
+  "round_id": "dld-context-head-2026-10-11b",
+  "status": "preflight",
+  "track": "natural_protein_linker_identifier_not_fusion_ranker",
+  "per_round_budget": {
+    "maximum_architecture_trials": 3,
+    "maximum_gpu_hours": 6,
+    "single_job_maximum_hours": 2
+  },
+  "data": {
+    "training": "data/processed/dld_reference/dld_train.jsonl.gz",
+    "training_sha256": "c43952c4f943f458ba61905c34a59e04fadca5607b95d6afc9bd9d1475252c41",
+    "validation": "data/processed/dld_reference/dld_validation.jsonl.gz",
+    "validation_sha256": "290992af4a93c14ba007197c282367734af8ec878783d5e668ee4960128a3461",
+    "fold_5": "previously_viewed_not_for_model_selection"
+  },
+  "primary_decision": "maximum residue recall at empirical precision >=0.90 with >=50 TP and exact score ties",
+  "guardrail": "no-linker-protein specificity loss <=0.02 absolute versus weighted-BCE 0.971631",
+  "first_trial": {
+    "id": "frozen-esm2-35m-bilstm-seed7-001",
+    "hypothesis": "Bidirectional sequence context in a dedicated linker head improves high-precision DLD linker recall over the frozen ESM-2 35M residue CNN",
+    "expected_failure": "DLD training labels may not contain sufficient signal; the BiLSTM may overfit or underperform at high precision",
+    "literature_basis": "https://doi.org/10.1093/bib/bbag126",
+    "adaptation": "Use the same frozen ESM-2 35M embeddings, DLD folds, and binary labels as our CNN reference. This tests the sequence-context head, not the paper's ProtT5 backbone or multi-task task formulation.",
+    "seed": 7,
+    "epochs": 10,
+    "output_dir": "artifacts/frozen-esm2-35m-bilstm-seed7-001",
+    "state": "not_launched_requires_code_and_preflight"
+  },
+  "second_trial": {
+    "id": "frozen-esm2-35m-dilated-head-seed7-001",
+    "hypothesis": "A wider bidirectional receptive field from dilated residual convolutions improves high-precision DLD linker recall over the shallow residue CNN without recurrent overfitting",
+    "expected_failure": "Wider context may suppress confident short linkers or increase high-scoring loop false positives, yielding no >=0.90 precision operating point",
+    "literature_basis": "https://arxiv.org/abs/1803.01271",
+    "adaptation": "Noncausal symmetric protein-residue context rather than the paper's causal temporal sequence model; frozen ESM-2 35M embeddings and unchanged DLD binary labels",
+    "architecture": {
+      "projection_width": 128,
+      "kernel_size": 5,
+      "dilations": [1, 2, 4, 8, 16],
+      "residual_blocks": 5,
+      "receptive_field_residues": 125
+    },
+    "loss": "weighted BCE, positive weight 6, no boundary or minimum-span decoder",
+    "seed": 7,
+    "epochs": 10,
+    "batch_size": 4,
+    "maximum_hours": 2,
+    "output_dir": "artifacts/frozen-esm2-35m-dilated-head-seed7-001",
+    "state": "not_launched_requires_code_and_preflight"
+  },
+  "selection": "No minimum-span decoder for the architecture-only comparison; combine only after an independently useful head result. Do not retune length 4 on fold 4.",
+  "next_evidence": "Build a homology-audited, separately adjudicated test source before any generalization claim. DisProt may overlap DLD and is not automatically independent."
+}

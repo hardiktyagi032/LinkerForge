@@ -1,0 +1,19 @@
+# Five SAM-like DFL trials — preregistration
+
+Status: queued for sequential protected-data training; no result or novelty claim. This batch tests three independently motivated modifications and two combinations. It does **not** import image-model weights or claim to reproduce the cited papers.
+
+The frozen comparator is the screened SAM-like disorder-transfer seed-7 run (development APS .801196) in `artifacts/dfl-caid3-protected-baselines-2026-10-16/`. The new runs use the same frozen ESM-2 35M encoder, screened train/development/auxiliary data, batch size 2, AdamW 0.0003, three auxiliary disorder epochs, twelve DFL epochs, and masked-residue APS checkpoint selection. Runtime and VRAM may differ and must be reported. Unknown (`x`) residues remain masked; no gold prompts are supplied at inference.
+
+## Mechanisms and five configurations
+
+1. `boundary_refine`: [PointRend](https://openaccess.thecvf.com/content_CVPR_2020/html/Kirillov_PointRend_Image_Segmentation_As_Rendering_CVPR_2020_paper.html)-inspired uncertainty-gated local correction of residue logits. Hypothesis: boundary-sensitive updates improve spans without degrading APS. Failure mode: over-correction and poor calibration. This is a 1D adaptation, not PointRend reproduction.
+2. `query_local_attention`: [Mask2Former](https://openaccess.thecvf.com/content/CVPR2022/papers/Cheng_Masked-Attention_Mask_Transformer_for_Universal_Image_Segmentation_CVPR_2022_paper.pdf)-inspired query-localized cross-attention, using each learned query's top-64 predicted residue affinities. Hypothesis: suppressing irrelevant sequence regions improves query masks and boundaries. Failure mode: early random support drops the correct region. It uses a similarity proxy, not the exact Mask2Former decoder.
+3. `multiscale_features`: [HQ-SAM](https://arxiv.org/abs/2306.01567)-inspired fusion of local and wider sequence features before the existing SAM-like encoder. Here depthwise 3- and 15-residue convolutions supply scale variation; it does **not** use multiple ESM layers as HQ-SAM uses visual encoder depths. Failure mode: smoothing short linker boundaries or overfitting.
+4. `boundary_plus_query`: mechanisms 1 + 2, tested as an interaction control.
+5. `boundary_plus_multiscale`: mechanisms 1 + 3, tested as an interaction control.
+
+Existing SAM-like training already uses [DETR](https://arxiv.org/abs/2005.12872)-style matching of learned queries to labelled spans; a second nominal "DETR" run would duplicate a present mechanism. [Segmental Recurrent Neural Networks](https://arxiv.org/abs/1511.06018) motivated the prior bounded-span round, which was negative; the current batch does not relabel that prior experiment as a new one.
+
+The five runs are divided into two reproducible rounds of 3 and 2 architecture variants, each capped at six GPU-hours; each trial is capped at 1,800 seconds. The batch launcher runs one local GPU process at a time and stops on integrity, runtime, or training failure. Outputs are isolated in `artifacts/dfl-sam-ideas-batch-2026-10-17/`; the config and script hashes are recorded in per-round ledgers. A failed or negative run remains in the record. Combinations are interaction tests requested by the user, not automatic promotion of weak single components.
+
+Record filtered-development APS, AUROC, Fmax, high-precision recall, interval/boundary metrics, raw counts, hashes, runtime, and VRAM. Because the frozen trainer writes APS/AUROC but not Fmax or complete boundary metrics, those are pending a matched checkpoint-rescoring pass and must not be inferred from APS. Repeat promising configurations across seeds 17 and 31 in a separate bounded round before any generalization claim. CAID3 common-27 remains a one-time retrospective evaluation **only after** checkpoint selection is frozen; it must not choose among these five. An untouched homology-audited test is still needed for a publishable superiority claim.

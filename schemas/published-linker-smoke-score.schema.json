@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/published-linker-smoke-score.schema.json",
+  "title": "Bundled published-predictor labelled smoke score",
+  "type": "object",
+  "required": ["schema_version", "status", "evaluation_scope", "sequence_id", "positive_residues", "residues", "predictors", "limitations", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "single_bundled_example_scored"},
+    "evaluation_scope": {"const": "not_independent_benchmark"},
+    "sequence_id": {"type": "string"},
+    "positive_residues": {"type": "integer", "minimum": 0},
+    "residues": {"type": "integer", "minimum": 1},
+    "predictors": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "provenance": {"type": "object"}
+  }
+}

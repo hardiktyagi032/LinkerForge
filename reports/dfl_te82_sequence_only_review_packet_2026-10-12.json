@@ -1,0 +1,514 @@
+{
+  "instructions": "Assess whether the marked sequence appears consistent with a disordered flexible linker using only the sequence context. Choose linker, not_linker, or uncertain; supply evidence and confidence. Do not search these sequences or accessions against the published source until all first-stage decisions are frozen. Sequence alone may be insufficient: use uncertain when appropriate.",
+  "limitations": [
+    "No domain annotation or structure is shown; this is a preliminary sequence-only review, not definitive biological adjudication.",
+    "Sequences themselves remain potentially searchable; this packet is pseudonymous, not perfectly blind."
+  ],
+  "provenance": {
+    "source_packet_sha256": "06b005124f9fd1b49bfbc837fc4962ed644fdb172702d5ca0b52a775bf1496c4"
+  },
+  "records": [
+    {
+      "candidate_end_in_context_1based": 43,
+      "candidate_sequence": "RHEEQQRELEEEE",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R001",
+      "context_sequence": "QLLQHPFIKNAKPVSILRDLITEAMEIKAKRHEEQQRELEEEEENSDEDELDSHTMVKTSVESVGTMRATSTM",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "VDKEHDSAEGSHTSGQSNGR",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R002",
+      "context_sequence": "HTYVRCTRSVSIPAPAYYAHLVAFRARYHLVDKEHDSAEGSHTSGQSNGRDHQALAKAVQVHQDTLRTMYFA",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "PGEPSGLETLKDTPPPRLIK",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R003",
+      "context_sequence": "ILDMIYQGGDLEKCNRAPIYVRVPFLEVNDPGEPSGLETLKDTPPPRLIKSHLPLALLPQTLLDQKVKVVYVARNPKDVA",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "NQARAQAALQAVNSVQSGNL",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R004",
+      "context_sequence": "YYTSVTPVLRGQPIYIQFSNHKELKTDSSPNQARAQAALQAVNSVQSGNLALAASAAAVDAGMAMAGQSPVLRIIVENLF",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 20,
+      "candidate_sequence": "MSFLSRQQPPPPRRAGAACT",
+      "candidate_start_in_context_1based": 1,
+      "case_id": "TE82-R005",
+      "context_sequence": "MSFLSRQQPPPPRRAGAACTLRQKLIFSPCSDCEEEEEEEEEEGSGHSTG",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "EPKTDQDEEHCRKVNEYLNN",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R006",
+      "context_sequence": "EFKRVPQCPSGRVYVLKFKAGSKRLFFWMQEPKTDQDEEHCRKVNEYLNNPPMPGALGASGSSGHELSALGGEGGLQSLL",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "INQGEDSVPAKKFKAAPAEI",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R007",
+      "context_sequence": "VCSAVLISESQKLAHYQSRKHANKVRRYMAINQGEDSVPAKKFKAAPAEISDGEDRSKCCPVCNMTFSSPVVAESHYIGK",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 48,
+      "candidate_sequence": "LEGFSDPTGQYPRRLGND",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R008",
+      "context_sequence": "RVYGHFLDKWKTNGIVLGTYGGIVREKPNRLEGFSDPTGQYPRRLGNDTNVLNQGGEVGYDSSSNVIQDSNLDTAINP",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "ALDGVSISDLKSGGVGGSNT",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R009",
+      "context_sequence": "LSVLSSSTIIANPDIPEAYKLRGWFDAEGQALDGVSISDLKSGGVGGSNTNWKTLYEVKSENLGQGDKPDYFSSVATVVY",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "PEGIIPTLFGPEREKTQAID",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R010",
+      "context_sequence": "QYVFSGDPLRNDEDHAHWTEAKMLLDNIYTPEGIIPTLFGPEREKTQAIDGEFRLRGEQRKTFVELMRRGDLPVWLSYKV",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "GSDEWPQRCRGLYVFQGDSS",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R011",
+      "context_sequence": "LTCGPASFQCNSSTCIPQLWACDNDPDCEDGSDEWPQRCRGLYVFQGDSSPCSAFEFHCLSGECIHSSWRCDGGPDCKDK",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "LICTTTVPWNTSWSNKSLNE",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R012",
+      "context_sequence": "GIKQLQARVLAVERYLRDQQLLGIWGCSGKLICTTTVPWNTSWSNKSLNEIWDNMTWMKWEREIDNYTHIIYSLIEQSQN",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "VKSAGEVGVKIGNPVPYNEG",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R013",
+      "context_sequence": "ASNCVCQVHRFIVNTLKDGRRVVILMDLEVVKSAGEVGVKIGNPVPYNEGHAQQQAVSAPASAATPPASKPQPQNGSLGV",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 20,
+      "candidate_sequence": "MASTDYSTYSQAAAQQGYSA",
+      "candidate_start_in_context_1based": 1,
+      "case_id": "TE82-R014",
+      "context_sequence": "MASTDYSTYSQAAAQQGYSAYTAQPTQGYAQTTQAYGQQSYGTYGQPTDV",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "RAHALKTKEKLAQTATASSA",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R015",
+      "context_sequence": "RDGKDQGVNVREKAKQLVALLRDEDRLREERAHALKTKEKLAQTATASSAAVGSGPPPEAEQAWPQSSGEEELQLQLALA",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 16,
+      "candidate_sequence": "MLLILLSVALLALSSA",
+      "candidate_start_in_context_1based": 1,
+      "case_id": "TE82-R016",
+      "context_sequence": "MLLILLSVALLALSSAESSSEDVSQEESLFLISGKPEGRRPQGGNQ",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "LKLGDSLKRAVPADWPNNEI",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R017",
+      "context_sequence": "VDARGVIRTMLYYPMELGRLVDEILRIVKALKLGDSLKRAVPADWPNNEIIGEGLIVPPPTTEDQARARMESGQYRCLDW",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 20,
+      "candidate_sequence": "AAQKRPSQRSKYLASASTMD",
+      "candidate_start_in_context_1based": 1,
+      "case_id": "TE82-R018",
+      "context_sequence": "AAQKRPSQRSKYLASASTMDHARHGFLPRHRDTGILDSLGRFFGSDRGAP",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "MKYKPDLIREDEFRDEIRNP",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R019",
+      "context_sequence": "LTRSPSVFAKSKENKTKATRFDPSMETLEDMKYKPDLIREDEFRDEIRNPVYQERDTEPRASNASRLLPSKEKPTMHSLR",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 21,
+      "candidate_sequence": "PLHVSLANGNRDLDYDSVQP",
+      "candidate_start_in_context_1based": 2,
+      "case_id": "TE82-R020",
+      "context_sequence": "MPLHVSLANGNRDLDYDSVQPYFMCDDEEEDVHHQQPPQPPAPSEDIWKKF",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "KAKEEAAKFTKEDLEKNFKT",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R021",
+      "context_sequence": "TITKIYNTYTLFSTKLTQMYSTRLDNFAKAKAKEEAAKFTKEDLEKNFKTLLNYIQVSVKTAANFVYINDTHAKRKLENI",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "PVPREVLGSATRDQDQLQAW",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R022",
+      "context_sequence": "NFEELNFFFQKAIEGFNQSSHQKNVDARMEPVPREVLGSATRDQDQLQAWESEGLFQISQNKVAVLLLAGGQGTRLGVAY",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "GTSMASIGSDMGASRVGGAR",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R023",
+      "context_sequence": "LSTVGRSTIVVNPDLPEAEQLRAWYDSEGKGTSMASIGSDMGASRVGGARSMYSDRVFLSHITSDPNLGQDKPVFFSLNA",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "MEPVPREVLGSATRDQDQLQ",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R024",
+      "context_sequence": "AMNFEELNFFFQKAIEGFNQSSHQKNVDARMEPVPREVLGSATRDQDQLQAWESEGLFQISQNKVAVLLLAGGQGTRLGV",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 40,
+      "candidate_sequence": "STAAGQERREKLTEETDDLL",
+      "candidate_start_in_context_1based": 21,
+      "case_id": "TE82-R025",
+      "context_sequence": "MAQEQTKRGGGGGDDDDIAGSTAAGQERREKLTEETDDLLDEIDDVLEENAEDFVRAYVQKGGQ",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 20,
+      "candidate_sequence": "MEKFAPEFHGEDANNRATKF",
+      "candidate_start_in_context_1based": 1,
+      "case_id": "TE82-R026",
+      "context_sequence": "MEKFAPEFHGEDANNRATKFLESIKGKFTSPKDPKKKDSIISVNSTDIEV",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "SNESTSIRVAVEKVDQLINL",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R027",
+      "context_sequence": "VSPKISTPPVLKLAAEQAPTGRVEREKTTRSNESTSIRVAVEKVDQLINLVGELVITQSMLAQRSSELDPVNHGDLITSM",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "TASFSISRDTMPGGVSRNEI",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R028",
+      "context_sequence": "GTISSTQLFINPDFPEAHKLRTWFDYGGKDTASFSISRDTMPGGVSRNEIRKNVSQIKEEGLGRSDKPDWITVKATISFI",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "SPSYVAVTPFSLRGDNDGGG",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R029",
+      "context_sequence": "QPPAPSEDIWKKFELLPTPPLSPSRRSGLCSPSYVAVTPFSLRGDNDGGGGSFSTADQLEMVTELLGGDMVNQSFICDPD",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 20,
+      "candidate_sequence": "MLKLNAVDTAPLVSSDTLAP",
+      "candidate_start_in_context_1based": 1,
+      "case_id": "TE82-R030",
+      "context_sequence": "MLKLNAVDTAPLVSSDTLAPLPPLRAQQIAFEQALPAHRPPAPRPPFDKG",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "CAAAASNGEWAIANNGANNY",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R031",
+      "context_sequence": "TLSEIRAANQAGANPPYAAQIVVYDLPDRDCAAAASNGEWAIANNGANNYKGYINRIREILISFSDVRTILVIEPDSLAN",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 49,
+      "candidate_sequence": "PKKPPAKDPLADLNIKDFL",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R032",
+      "context_sequence": "FAQPMMRPPFGAAAVPGTQLSPSPTPATQSPKKPPAKDPLADLNIKDFL",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "NSSLTSAYRLAPKPLFAPSS",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R033",
+      "context_sequence": "EQLFSKISIPNSITNPVKATTSKVNADMKRNSSLTSAYRLAPKPLFAPSSNGDAKFQKWGKTLERSDRGSSTSNSITDPE",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "DRHGDGDEYNENIDEEEDFT",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R034",
+      "context_sequence": "MGDNCLSEDQLAAFTKGVSANLTDTYERMQDRHGDGDEYNENIDEEEDFTDEDLLDEINKSIAAVLKTTNGHYLKNLENI",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "SSNNHNSPSGNGNPANGSNI",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R035",
+      "context_sequence": "SSSDDKWQFENENFIRGREDLLEKIIRQKGSSNNHNSPSGNGNPANGSNIPLDNAAGSNNSNNNISSSNSFFNNGHLLQG",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "SLTLEAMLRFGDLPPAEPME",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R036",
+      "context_sequence": "PKAGNTWVRCMLAAYITGKAPQVWNDIDAESLTLEAMLRFGDLPPAEPMEPVLVKTHLKADVPVLGLYGEATAKVLYLVR",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 49,
+      "candidate_sequence": "KKARDACIIEKGEEHCGHLI",
+      "candidate_start_in_context_1based": 30,
+      "case_id": "TE82-R037",
+      "context_sequence": "MPGLVDSNPAPPESQEKKPLKPCCACPETKKARDACIIEKGEEHCGHLIEAHKECMRALGFKI",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "IQESFVPNSERSGTPTLKKN",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R038",
+      "context_sequence": "RADINSNRLSNPQKNLLLKGPASTVAKTAPIQESFVPNSERSGTPTLKKNIEPKKDKESIVLPTVGFDFIKDNETPSKKT",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "TVKKIFVGGIKEDTEEHHLR",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R039",
+      "context_sequence": "NARPHKVDGRVVEPKRAVSREDSQRPGAHLTVKKIFVGGIKEDTEEHHLRDYFEQYGKIEVIEIMTDRGSGKKRGFAFVT",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 20,
+      "candidate_sequence": "MASREEEQRETTPERGRGAA",
+      "candidate_start_in_context_1based": 1,
+      "case_id": "TE82-R040",
+      "context_sequence": "MASREEEQRETTPERGRGAARRPPTMEDVSSPSPSPPPPRAPPKKRMRRR",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 45,
+      "candidate_sequence": "RGEKKNSSSGISGSQ",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R041",
+      "context_sequence": "DGEVIGVNTMKVTAGISFAIPSDRLREFLHRGEKKNSSSGISGSQRRYIGVMMLTLSPSILAELQLREPSFPDVQ",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "TFATHNNMQTLGGATGRKDD",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R042",
+      "context_sequence": "LLSSGTMAIDPDIPEAHHLKGWYDSSGRNNTFATHNNMQTLGGATGRKDDAKTISQVKEENLGTNEAPDYFALKATVVFI",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "HEELTRDLEKHCRDMEEASQ",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R043",
+      "context_sequence": "NGSPSLERMDARQAEHPKPSACRNLFGPVDHEELTRDLEKHCRDMEEASQRKWNFDFQNHKPLEGKYEWQEVEKGSLPEF",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "IIHNIARHLAQIGDEMDHNI",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R044",
+      "context_sequence": "LEDELQTDGSQASRSFNQGRIEPDSESQEEIIHNIARHLAQIGDEMDHNIQPTLVRQLAAQFMNGSLSEEDKRNCLAKAL",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 20,
+      "candidate_sequence": "MDVFMKGLSKAKEGVVAAAE",
+      "candidate_start_in_context_1based": 1,
+      "case_id": "TE82-R045",
+      "context_sequence": "MDVFMKGLSKAKEGVVAAAEKTKQGVAEAAGKTKEGVLYVGSKTKEGVVH",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 20,
+      "candidate_sequence": "MGAQFSKTAAKGEATAERPG",
+      "candidate_start_in_context_1based": 1,
+      "case_id": "TE82-R046",
+      "context_sequence": "MGAQFSKTAAKGEATAERPGEAAVASSPSKANGQENGHVKVNGDASPAAA",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "KAVESEAEGNEELIFSLNIL",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R047",
+      "context_sequence": "DSIAAQVLYRLALLAGRQAGQLFSLDAAKKKAVESEAEGNEELIFSLNILVLGKAGVGKSATINSILGNQIASIDAFGLS",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 20,
+      "candidate_sequence": "MAKSKEDITYATSQARLSED",
+      "candidate_start_in_context_1based": 1,
+      "case_id": "TE82-R048",
+      "context_sequence": "MAKSKEDITYATSQARLSEDEAVRVAYEHGSPLEGGKIADSQPVDLFSSA",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "DWLGTNGLRRRGRQTYTRYQ",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R049",
+      "context_sequence": "KIRSDLTQYGGISTDMGKRYSESLAGSLLPDWLGTNGLRRRGRQTYTRYQTLELEKEFHTNHYLTRRRRIEMAHALCLTE",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    },
+    {
+      "candidate_end_in_context_1based": 50,
+      "candidate_sequence": "VHIFLAGDSSGGNIAHNVAL",
+      "candidate_start_in_context_1based": 31,
+      "case_id": "TE82-R050",
+      "context_sequence": "NPYPCAYDDGWIALNWVNSRSWLKSKKDSKVHIFLAGDSSGGNIAHNVALRAGESGIDVLGNILLNPMFGGNERTESEKS",
+      "reviewer_confidence": null,
+      "reviewer_evidence": null,
+      "reviewer_label": null
+    }
+  ],
+  "schema_version": "0.1.0",
+  "status": "stage_one_sequence_only_unadjudicated"
+}

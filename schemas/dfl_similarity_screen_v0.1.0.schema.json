@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/dfl_similarity_screen_v0.1.0.schema.json",
+  "type": "object",
+  "required": ["schema_version", "status", "method", "candidates", "protected_counts", "pairs_compared", "elapsed_seconds", "hit_counts", "strong_flagged_candidates", "all_flagged_candidates", "hits", "provenance", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"enum": ["partial_time_limit", "complete_local_similarity_candidate_screen"]},
+    "method": {"type": "object"},
+    "candidates": {"type": "integer", "minimum": 0},
+    "protected_counts": {"type": "object"},
+    "pairs_compared": {"type": "integer", "minimum": 0},
+    "elapsed_seconds": {"type": "number", "minimum": 0},
+    "hit_counts": {"type": "object"},
+    "strong_flagged_candidates": {"type": "array", "items": {"type": "string"}},
+    "all_flagged_candidates": {"type": "array", "items": {"type": "string"}},
+    "hits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["candidate_id", "other_id", "other_source", "identity", "aligned_length", "shorter_coverage_proxy", "score", "strong_review_flag"],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "other_id": {"type": "string"},
+          "other_source": {"enum": ["tr166", "te82", "te64", "caid3", "within_candidates"]},
+          "identity": {"type": "number", "minimum": 0, "maximum": 1},
+          "aligned_length": {"type": "integer", "minimum": 0},
+          "shorter_coverage_proxy": {"type": "number", "minimum": 0, "maximum": 1},
+          "score": {"type": ["integer", "null"]},
+          "strong_review_flag": {"type": "boolean"}
+        }
+      }
+    },
+    "provenance": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

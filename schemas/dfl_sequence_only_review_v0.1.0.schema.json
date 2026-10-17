@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/dfl_sequence_only_review_v0.1.0.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "instructions", "records", "provenance", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "stage_one_sequence_only_unadjudicated"},
+    "instructions": {"type": "string"},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_packet_sha256"],
+      "properties": {"source_packet_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+    },
+    "records": {
+      "type": "array", "minItems": 50, "maxItems": 50,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["case_id", "candidate_sequence", "context_sequence", "candidate_start_in_context_1based", "candidate_end_in_context_1based", "reviewer_label", "reviewer_confidence", "reviewer_evidence"],
+        "properties": {
+          "case_id": {"type": "string", "pattern": "^TE82-R[0-9]{3}$"},
+          "candidate_sequence": {"type": "string", "pattern": "^[A-Z]+$"},
+          "context_sequence": {"type": "string", "pattern": "^[A-Z]+$"},
+          "candidate_start_in_context_1based": {"type": "integer", "minimum": 1},
+          "candidate_end_in_context_1based": {"type": "integer", "minimum": 1},
+          "reviewer_label": {"type": ["string", "null"], "enum": ["linker", "not_linker", "uncertain", null]},
+          "reviewer_confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "reviewer_evidence": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}

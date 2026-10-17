@@ -1,0 +1,94 @@
+{
+  "schema_version": "0.1.0",
+  "status": "common_target_subset_not_independent_test",
+  "created_utc": "2026-10-11T17:54:11.775510+00:00",
+  "reference_sha256": "4c204ef49ffa12fe166883e6b2cff0012cabee21260b8f32f997081d0e2fa0f8",
+  "prediction_sha256": {
+    "APOD.caid": "c2c4f41099b25cca38c4e8a3a19fa0bacb9831b7f6ca65e5607fc029372c6a82",
+    "DFLpred.caid": "d25219740ee105a87b7de0ae4a22aa62abe115ad862b83d53a38314bd5dc7139",
+    "DisoFLAG-DFL.caid": "016883ac75f31b0e6de0d51d659b63301a8cc0696c9901b25a4a50afa411976f",
+    "IPA-AF2-Linker.caid": "5331f50bbc85b364095c05b89833813eb1b2a22d8fbfef634fce78933b01c0b7",
+    "LINKER-Pred-Lite.caid": "2d695f19e801b7965af42f15961bd3bbdb32a402059caf92f187958949fbe8b3",
+    "LINKER-Pred.caid": "7a52b712407d9805f560877c3045423c5076d14d1318698fc980578db3b4f83c",
+    "LINKER-Pred2.caid": "2f5f2f6a51f2888880ff4a5864d01815daa9ae86424cf16810743f63653e6a9b"
+  },
+  "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+  "script_sha256": "46e86c5f98d375b7133c46fa6c544a8bf3e59b25e9548b7ff8b1654d49ca88e5",
+  "config_sha256": "947d11e993cffacd20ba391275552e6ef072c709e3291a94290e493924f89c15",
+  "software": {
+    "python": "3.12.14"
+  },
+  "common_proteins": [
+    "DP03804",
+    "DP03824",
+    "DP03913",
+    "DP03995",
+    "DP04051",
+    "DP04072",
+    "DP04087",
+    "DP04096",
+    "DP04127",
+    "DP04131",
+    "DP04144",
+    "DP04145",
+    "DP04158",
+    "DP04174",
+    "DP04219",
+    "DP04242",
+    "DP04255",
+    "DP04256",
+    "DP04257",
+    "DP04268",
+    "DP04284",
+    "DP04373",
+    "DP04378",
+    "DP04379",
+    "DP04381",
+    "DP04384",
+    "DP04392"
+  ],
+  "common_reference_sha256": "8d3931f2778f72e640e841ef05751b78cea951ebd726766a3863de21198fb53e",
+  "methods": {
+    "APOD": {
+      "full_residue_covered_proteins": 31,
+      "missing_or_partial_ids": []
+    },
+    "DFLpred": {
+      "full_residue_covered_proteins": 31,
+      "missing_or_partial_ids": []
+    },
+    "DisoFLAG-DFL": {
+      "full_residue_covered_proteins": 30,
+      "missing_or_partial_ids": [
+        "DP04198"
+      ]
+    },
+    "IPA-AF2-Linker": {
+      "full_residue_covered_proteins": 27,
+      "missing_or_partial_ids": [
+        "DP04066",
+        "DP04156",
+        "DP04166",
+        "DP04198"
+      ]
+    },
+    "LINKER-Pred-Lite": {
+      "full_residue_covered_proteins": 31,
+      "missing_or_partial_ids": []
+    },
+    "LINKER-Pred": {
+      "full_residue_covered_proteins": 31,
+      "missing_or_partial_ids": []
+    },
+    "LINKER-Pred2": {
+      "full_residue_covered_proteins": 31,
+      "missing_or_partial_ids": []
+    }
+  },
+  "output_dir": "artifacts\\caid3-common-coverage-001",
+  "limitations": [
+    "This is a retrospective public-CAID3 reanalysis, not independent model selection.",
+    "Common coverage is computed for these seven archived submissions only; later methods are absent.",
+    "CAID3 contains only linker-positive proteins; no-linker specificity is unavailable."
+  ]
+}

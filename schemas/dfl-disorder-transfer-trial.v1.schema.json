@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/dfl-disorder-transfer-trial.v1.schema.json",
+  "type": "object",
+  "required": ["schema_version", "status", "arch", "condition", "seed", "config_sha256", "train_sha256", "dev_sha256", "aux_sha256", "pipeline_commit", "gpu", "claim_status"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "status": {"enum": ["initializing", "running", "completed", "time_limit", "failed"]},
+    "arch": {"enum": ["samlike", "yolo1d"]},
+    "condition": {"enum": ["direct", "disorder_transfer"]},
+    "seed": {"type": "integer"},
+    "config_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "train_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "dev_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "aux_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pipeline_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "gpu": {"type": "string"},
+    "claim_status": {"const": "development_pilot_not_independent"}
+  }
+}

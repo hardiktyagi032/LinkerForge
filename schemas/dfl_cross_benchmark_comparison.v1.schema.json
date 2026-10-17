@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/dfl_cross_benchmark_comparison.v1.schema.json",
+  "title": "Retrospective DFL common-target comparison",
+  "type": "object",
+  "required": ["schema_version", "status", "benchmarks", "provenance", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "public_retrospective_not_independent_or_model_selection"},
+    "benchmarks": {"type": "object", "required": ["caid3_common_27", "transdfl_te64"]},
+    "provenance": {"type": "object", "required": ["input_sha256", "checkpoint_sha256", "script_sha256", "pipeline_commit", "versions"]},
+    "limitations": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  }
+}

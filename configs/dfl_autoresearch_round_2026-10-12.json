@@ -1,0 +1,32 @@
+{
+  "schema_version": "0.1.0",
+  "round_id": "dfl-masked-span-2026-10-12",
+  "status": "implementation_preflight",
+  "track": "sequence_only_disordered_flexible_linker_detection",
+  "budget": {"maximum_architecture_trials": 3, "maximum_gpu_hours": 6, "single_job_maximum_hours": 2},
+  "data": {
+    "train": "data/processed/published_dfl_splits/tr166.jsonl",
+    "train_sha256": "8fbfa1a503857131b8e485f511f5c84d9fbea24b9d5bbac2aa003508cb4f716c",
+    "development": "data/processed/published_dfl_splits/te82.jsonl",
+    "development_sha256": "f15ac3eef1edc45b95bc600d661dab348a0cb0bee11e47febeac356ef93db916",
+    "retrospective_test": "data/processed/published_dfl_splits/te64.jsonl",
+    "retrospective_test_sha256": "4d6321a0483182139149b1d535ad2b8c1a34688082eb80e91662f8c9972d43eb",
+    "mask_semantics": "1=DFL_positive;0=published_negative;x=masked_unscored",
+    "caid3": "public_reference_no_training_or_model_selection"
+  },
+  "model_contract": {
+    "input": "amino_acid_sequence_only",
+    "encoder": "frozen_esm2_35m",
+    "baseline": "two_layer_residue_CNN_with_masked_BCE",
+    "first_hypothesis": "bounded_span_scoring_improves_interval recovery beyond the matched residue CNN",
+    "first_hypothesis_basis": "https://arxiv.org/abs/1511.06018",
+    "ablations": ["matched_residue_CNN", "span_aware_head", "same_CNN_with_fixed_minimum_span_decoder"],
+    "seeds": [7, 17, 37]
+  },
+  "metrics": {
+    "primary": "masked_residue_average_precision_on_TE82",
+    "secondary": ["masked_residue_AUROC", "residue_recall_at_empirical_precision_ge_0.90_with_50_TP_and_exact_ties", "region_precision_recall_IoU_ge_0.5", "start_end_boundary_error", "no_positive_protein_specificity", "runtime", "peak_VRAM"],
+    "selection_rule": "development_APS_with_no_positive_specificity_loss_le_0.02_vs_matched_CNN"
+  },
+  "limits": "No CAID3 independence, SOTA, or breakthrough claim from this retrospective round. Do not evaluate TE64 until model selection is frozen."
+}

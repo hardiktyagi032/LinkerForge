@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "qualifying_source_keys": [
+    "existing_catalog",
+    "nrps_intermodular",
+    "uniprot_explicit_linker_region"
+  ],
+  "source_rule": "A qualifying source must explicitly label the extracted sequence as a linker; inferred domain-gap sources alone never qualify.",
+  "protected_usage_prefix": "protected_",
+  "quarantined_usage_status": "quarantine_pending_overlap_audit",
+  "training_default": "not_training_ready_pending_boundary_and_homology_audit"
+}

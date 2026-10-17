@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/transdfl-caid3-similarity-screen.schema.json",
+  "type": "object",
+  "required": ["schema_version", "record_type", "dataset", "status", "provenance", "method", "queries", "references", "pairs_scored", "elapsed_seconds", "flagged_pairs"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "record_type": {"const": "transdfl_caid3_local_similarity_screen"},
+    "dataset": {"enum": ["TR166", "TE82", "TE64"]},
+    "status": {"enum": ["partial_time_limit", "complete_candidate_screen"]},
+    "provenance": {"type": "object", "required": ["source_sha256", "caid3_sha256", "script_sha256", "pipeline_commit", "parasail_version"]},
+    "method": {"type": "object", "required": ["aligner", "matrix", "gap_open", "gap_extend", "review_threshold"]},
+    "queries": {"type": "integer", "minimum": 0},
+    "references": {"type": "integer", "minimum": 0},
+    "pairs_scored": {"type": "integer", "minimum": 0},
+    "elapsed_seconds": {"type": "number", "minimum": 0},
+    "flagged_pairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["query_id", "caid3_id", "identity", "aligned_length", "shorter_sequence_coverage_proxy", "matches", "score"],
+        "properties": {
+          "query_id": {"type": "string"},
+          "caid3_id": {"type": "string"},
+          "identity": {"type": "number", "minimum": 0, "maximum": 1},
+          "aligned_length": {"type": "integer", "minimum": 0},
+          "shorter_sequence_coverage_proxy": {"type": "number", "minimum": 0, "maximum": 1},
+          "matches": {"type": "integer", "minimum": 0},
+          "score": {"type": "integer"}
+        }
+      }
+    }
+  }
+}

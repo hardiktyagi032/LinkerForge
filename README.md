@@ -1,10 +1,23 @@
 # LinkerForge
 
+> **Research-direction update (11 October 2026):** LinkerForge's active research
+> goal has changed from *designing a fusion linker* to *detecting linker spans
+> in an input protein sequence*. The [detector research charter](./literature/LINKER_DETECTION_FRONTIER_CHARTER_2026-10-11.md)
+> defines the new task, benchmark, evidence gates, and experiment program.
+> The fusion-design specification below is retained as historical context,
+> not the current project objective. Existing detector development scores are
+> not evidence of state-of-the-art performance.
+
+> **For collaborators and coding agents:** start with [RESEARCH_HANDOFF.md](./RESEARCH_HANDOFF.md)
+> for the current detector status, benchmark firewall, reproducible entry points,
+> and next work. The [untouched-comparison contract](./literature/DFL_UNTOUCHED_COMPARISON_CONTRACT_2026-10-17.md)
+> currently blocks new training on the old protected split.
+
 LinkerForge is a **computational research prototype** for recommending a peptide linker between two independently folding soluble protein domains. It learns compatibility patterns from naturally occurring multidomain proteins, ranks constrained linker candidates, and evaluates complete fusion-protein predictions through a reproducible structural-validation pipeline.
 
 This README is the canonical, self-contained project specification. A new team member, coding agent, cloud notebook, or clean laptop should be able to recover the project scope and continue without the original planning conversation.
 
-> **Current state:** the React demonstration interface, CI/CD, and an embedded Mol* reference-structure viewer are implemented. The viewer displays experimental PDB entries and is not a prediction service. The scientific Python pipeline, dataset, trained model, and cloud jobs below are the MVP specification and must not be represented as already implemented.
+> **Current state:** the React demonstration interface, CI/CD, and an embedded Mol* reference-structure viewer are implemented. The viewer displays experimental PDB entries and is not a prediction service. Some Python extraction, baseline, streaming, and C-alpha structural-diagnostic code exists, but the validated dataset, trained models, full structural funnel, and cloud jobs below remain MVP specifications and must not be represented as completed results.
 
 ## One-minute description
 
@@ -16,14 +29,16 @@ The output is a **highest-ranked computational candidate**, not proof that a pro
 
 ## 1. Frozen scientific scope
 
-### Initial target
+### Final demonstration example
 
 ```text
 sfGFP — designed peptide linker — mCherry
 ```
 
-- The two protein domains remain fixed; LinkerForge designs only the linker.
-- Initial orientation: C-terminus of sfGFP to N-terminus of mCherry.
+- This pair is an example used only for the final end-to-end demonstration; it is not the core project, the training target, or the limit of the method.
+- The core project is the general workflow that learns from many natural same-chain two-domain proteins and ranks linkers for a user-specified pair of compatible protein domains.
+- Within this demonstration, the two protein domains remain fixed and LinkerForge designs only the linker.
+- Demonstration orientation: C-terminus of sfGFP to N-terminus of mCherry.
 - Linker class: flexible, non-cleavable, primarily glycine/serine-rich.
 - Length: 5–30 amino acids.
 - Initially permitted auxiliary residues: `A`, `T`, `N`, `Q`, `E`, and `K`.
@@ -273,6 +288,13 @@ Choose thresholds on development/validation data, store them in configuration, a
 
 AlphaFold/ColabFold is a structure predictor and visualisation input, not experimental validation. Low linker pLDDT may reflect flexibility. Evaluate domain confidence, interdomain PAE, clashes, preservation, and geometry separately. If a blind reference predates or may appear in a predictor's training corpus, do not call that predictor an independent blind validator.
 
+For a three-predictor structural sensitivity analysis, use the same complete
+fusion sequence, candidate set, and scoring rules across AlphaFold2/ColabFold,
+ESMFold, and OpenFold. See [the structure-ensemble evaluation contract](./STRUCTURE_ENSEMBLE_EVALUATION_SPEC.md). Average comparable measurements, not
+atomic coordinates; distinguish correlated AlphaFold-family predictions from
+independent architectures. PyMOL visualises structures and trajectories;
+explicit-water simulation, when warranted, belongs in OpenMM.
+
 ---
 
 ## 7. Data contracts
@@ -444,6 +466,10 @@ cd LinkerForge
 ```
 
 The repository name and project branding are both `LinkerForge`.
+
+For the implemented pilot-baseline launcher, reference-data preflight, and
+CUDA-detector job template, see [TRAINING.md](./TRAINING.md). Planned ESM/GNN
+architectures remain explicitly unimplemented there.
 
 ### Run the implemented frontend
 

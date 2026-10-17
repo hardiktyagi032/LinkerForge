@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/port-graph-example.schema.json",
+  "title": "LinkerForge local-port graph training example",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "example_id", "source_record_type", "evidence_quality", "domain_a", "domain_b", "observed_linker", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "example_id": {"type": "string", "minLength": 1},
+    "source_record_type": {"const": "natural_observation"},
+    "evidence_quality": {"enum": ["reviewed_high", "reviewed_medium", "uncertain"]},
+    "domain_a": {"$ref": "#/$defs/domain"},
+    "domain_b": {"$ref": "#/$defs/domain"},
+    "observed_linker": {"type": "string", "pattern": "^[ACDEFGHIKLMNPQRSTVWY]{5,30}$"},
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_ids", "pipeline_commit", "config_hash", "software_versions", "coordinate_sha256", "annotation_sha256"],
+      "properties": {
+        "source_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "pipeline_commit": {"type": "string", "minLength": 7},
+        "config_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "software_versions": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string"}},
+        "coordinate_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "annotation_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  },
+  "$defs": {
+    "domain": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sequence", "coordinates_angstrom", "port_index", "family_ids", "homology_cluster_id"],
+      "properties": {
+        "sequence": {"type": "string", "pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$"},
+        "coordinates_angstrom": {"type": "array", "minItems": 1, "items": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}}},
+        "port_index": {"type": "integer", "minimum": 0},
+        "family_ids": {"type": "array", "items": {"type": "string"}},
+        "homology_cluster_id": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

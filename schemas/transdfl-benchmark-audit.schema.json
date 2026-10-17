@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/transdfl-benchmark-audit.schema.json",
+  "type": "object",
+  "required": ["schema_version", "record_type", "provenance", "dataset_semantics", "datasets", "cross_dataset_exact_id_overlaps", "status"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "record_type": {"const": "transdfl_benchmark_audit"},
+    "provenance": {
+      "type": "object",
+      "required": ["caid3_sha256", "disprot_sha256", "script_sha256", "pipeline_commit"],
+      "properties": {
+        "caid3_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "disprot_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "script_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "pipeline_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+      }
+    },
+    "dataset_semantics": {"type": "string"},
+    "datasets": {
+      "type": "object",
+      "required": ["TR166", "TE82", "TE64"],
+      "additionalProperties": {"$ref": "#/$defs/dataset"}
+    },
+    "cross_dataset_exact_id_overlaps": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+    "status": {"const": "label_mask_confirmed_homology_audit_pending"}
+  },
+  "$defs": {
+    "dataset": {
+      "type": "object",
+      "required": ["source_url", "sha256", "proteins", "residues", "label_counts", "caid3_exact_id_overlap", "current_disprot_id_mapped", "current_disprot_exact_sequence", "caid3_shared_uniref50", "caid3_shared_uniref90"],
+      "properties": {
+        "source_url": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "proteins": {"type": "integer", "minimum": 0},
+        "residues": {"type": "integer", "minimum": 0},
+        "label_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "caid3_exact_id_overlap": {"type": "array", "items": {"type": "string"}}
+        ,"current_disprot_id_mapped": {"type": "integer", "minimum": 0}
+        ,"current_disprot_exact_sequence": {"type": "integer", "minimum": 0}
+        ,"caid3_shared_uniref50": {"type": "array", "items": {"type": "string"}}
+        ,"caid3_shared_uniref90": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

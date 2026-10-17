@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/dfl-baseline-region-audit.schema.json",
+  "type": "object",
+  "required": ["schema_version", "record_type", "split", "threshold_selection", "provenance", "scored_residues", "positive_residues", "selected_operating_point", "intervals", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "record_type": {"const": "dfl_baseline_region_audit"},
+    "split": {"const": "TE82_development_only"},
+    "threshold_selection": {"type": "string"},
+    "provenance": {"type": "object", "required": ["checkpoint_sha256", "dev_sha256", "script_sha256", "pipeline_commit"]},
+    "scored_residues": {"type": "integer", "minimum": 0},
+    "positive_residues": {"type": "integer", "minimum": 0},
+    "selected_operating_point": {"type": "object", "required": ["threshold", "f1", "precision", "recall", "true_positives", "false_positives"]},
+    "intervals": {"type": "object", "required": ["true_regions", "predicted_regions", "matched_regions_iou_0_5", "region_precision_iou_0_5", "region_recall_iou_0_5", "no_positive_proteins", "no_positive_scored_residue_specificity"]},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1.0",
+  "status": "candidate_screen_not_homology_certification",
+  "train_proteins": 166,
+  "dev_proteins": 82,
+  "exact_sequence_overlaps": [],
+  "candidate_hits": [],
+  "dev_proteins_with_hits": 0,
+  "configuration": {
+    "top_candidates_per_dev": 20,
+    "kmer_size": 5,
+    "local_alignment": "match=1 mismatch=-1 gap_open=-3 gap_extend=-0.5",
+    "flag": "(dev_coverage>=0.7 or train_coverage>=0.7) and aligned_identity>=0.5"
+  },
+  "limitations": [
+    "Top-20 shared-kmer candidates can miss remote homologs.",
+    "Low-complexity sequence can create spurious local matches.",
+    "A negative screen does not establish family independence."
+  ],
+  "provenance": {
+    "train_sha256": "8fbfa1a503857131b8e485f511f5c84d9fbea24b9d5bbac2aa003508cb4f716c",
+    "dev_sha256": "f15ac3eef1edc45b95bc600d661dab348a0cb0bee11e47febeac356ef93db916",
+    "script_sha256": "5c78a8fe3982a7059c121c9e11d34873bff0fd109b251a9b75d99e35080fe8ac",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "biopython": "1.88"
+  }
+}

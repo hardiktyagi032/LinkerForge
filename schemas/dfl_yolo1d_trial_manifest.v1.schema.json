@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/dfl_yolo1d_trial_manifest.v1.schema.json",
+  "title": "DFL YOLO-style exploratory trial manifest v1",
+  "type": "object",
+  "required": ["schema_version", "status", "experiment", "claim_status", "seed", "model_id", "train_sha256", "dev_sha256", "config_sha256", "data_manifest_sha256", "source_sha256", "head_source_sha256", "pipeline_commit", "created_utc", "max_hours", "batch_size", "gpu", "versions"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"enum": ["initializing", "running", "completed", "time_limit", "failed"]},
+    "experiment": {"const": "yolo1d_dfl_original_split_exploratory"},
+    "claim_status": {"const": "development_only_not_independent"},
+    "seed": {"type": "integer"},
+    "model_id": {"type": "string"},
+    "train_sha256": {"$ref": "#/$defs/sha256"},
+    "dev_sha256": {"$ref": "#/$defs/sha256"},
+    "config_sha256": {"$ref": "#/$defs/sha256"},
+    "data_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "source_sha256": {"$ref": "#/$defs/sha256"},
+    "head_source_sha256": {"$ref": "#/$defs/sha256"},
+    "pipeline_commit": {"type": "string"},
+    "created_utc": {"type": "string", "format": "date-time"},
+    "max_hours": {"type": "number", "exclusiveMinimum": 0},
+    "batch_size": {"type": "integer", "minimum": 1},
+    "gpu": {"type": "string"},
+    "versions": {"type": "object", "required": ["python", "torch", "transformers"]},
+    "completed_epochs": {"type": "integer", "minimum": 0},
+    "best_development_aps": {"type": "number", "minimum": 0, "maximum": 1},
+    "elapsed_seconds": {"type": "number", "minimum": 0},
+    "peak_pytorch_vram_bytes": {"type": "integer", "minimum": 0},
+    "error": {"type": "string"}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

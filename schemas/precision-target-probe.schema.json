@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/precision-target-probe.schema.json",
+  "title": "Validation-only precision target probe",
+  "type": "object",
+  "required": ["schema_version", "status", "target_precision", "minimum_true_positives", "candidate", "checkpoint_sha256", "validation_sha256", "limitations", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "validation_only_exploratory"},
+    "target_precision": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+    "minimum_true_positives": {"type": "integer", "minimum": 1},
+    "candidate": {"type": ["object", "null"]},
+    "checkpoint_sha256": {"type": "string"},
+    "validation_sha256": {"type": "string"},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "provenance": {"type": "object"}
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1.0",
+  "status": "diagnostic_only_no_model_selection",
+  "scored_residues": 13694,
+  "batched_aps": 0.4501386874954209,
+  "single_protein_aps": 0.44950772070437106,
+  "max_absolute_score_difference": 0.2972145304083824,
+  "mean_absolute_score_difference": 0.0005520309429710039,
+  "residues_difference_gt_0_01": 89,
+  "provenance": {
+    "dev_sha256": "f15ac3eef1edc45b95bc600d661dab348a0cb0bee11e47febeac356ef93db916",
+    "checkpoint_sha256": "3e41d94048b60581ed7321f723d5c3c77e48a68465ef031172d93b196a2c05d1",
+    "script_sha256": "fcfcbfe701561c0a8d7f50cd0da342fc4f6fef314d093e169c8eeec2a6148c08",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3"
+  },
+  "limitations": [
+    "TE82 development diagnostic only; no thresholds or weights changed."
+  ]
+}

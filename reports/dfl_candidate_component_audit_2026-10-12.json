@@ -1,0 +1,1361 @@
+{
+  "additional_transitive_candidate_ids": [
+    "DP00428",
+    "DP02609",
+    "DP02728",
+    "DP02792",
+    "DP03178",
+    "DP03660",
+    "DP04447"
+  ],
+  "components": [
+    {
+      "candidate_ids": [
+        "DP00023"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP00226"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP00352"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP00377"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP00410"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP00428",
+        "DP03125",
+        "DP03300"
+      ],
+      "protected_nodes": [
+        "protected:te64:DP02635"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP00887"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00885"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP00973"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00748",
+        "protected:tr166:DP00868"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP01024"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00028"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP01193"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00039",
+        "protected:tr166:DP00195"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP01248"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01305"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01326"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01329"
+      ],
+      "protected_nodes": [
+        "protected:te82:DP01173"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP01339"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01342",
+        "DP02822",
+        "DP03433",
+        "DP04510"
+      ],
+      "protected_nodes": [
+        "protected:caid3:DP04284",
+        "protected:te82:DP01461"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP01429",
+        "DP02881"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01450"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01467"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00359"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP01475"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP01650"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP01611"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01663"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00187",
+        "protected:tr166:DP00466"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP01736"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01817"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01849"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01857"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01877"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP01947"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02004"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02013"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02170"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02254"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02272"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02345",
+        "DP04447",
+        "DP04455",
+        "DP04605"
+      ],
+      "protected_nodes": [
+        "protected:te82:DP00112",
+        "protected:te82:DP00324",
+        "protected:te82:DP00632",
+        "protected:te82:DP00689",
+        "protected:te82:DP01109"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02398",
+        "DP03499"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02410"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02418"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02448"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02464"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02476",
+        "DP02509"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP01092"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02477"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02481"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02567"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02583"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02585"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02587"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02600"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02601",
+        "DP02790",
+        "DP02792"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP01001"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02606"
+      ],
+      "protected_nodes": [
+        "protected:te64:DP02605"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02609",
+        "DP02638"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00219"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02612"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02617",
+        "DP02976"
+      ],
+      "protected_nodes": [
+        "protected:te82:DP00024"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02623"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP01206"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02632"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP02333"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02633"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00718"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02634"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02637"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02681"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02691"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02718"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02723"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02727",
+        "DP03648"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02728",
+        "DP02874",
+        "DP03178",
+        "DP03650",
+        "DP03660",
+        "DP03805"
+      ],
+      "protected_nodes": [
+        "protected:te82:DP01074",
+        "protected:tr166:DP00040"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02729"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02742"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02756",
+        "DP03069"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02757"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02759"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02765"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02767"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02785"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02791"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02797"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02798"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP01069"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02805"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02806"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02809"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02818"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02828"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02830"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02833",
+        "DP02896"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02834"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02835"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02836"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02856",
+        "DP02864"
+      ],
+      "protected_nodes": [
+        "protected:caid3:DP04242"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP02878"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02892"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02921"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02931"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02945"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02959"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02966"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP02999"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03004"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03057"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03061"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03065",
+        "DP03221"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03100"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03101"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03131"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03162",
+        "DP03164"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03212"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00948"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP03217"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03222"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03230",
+        "DP04411"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03232"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03236"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03241"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03256"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00571"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP03283"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00387"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP03285"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03293"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03299"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03308"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03318"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03320"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03337"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03359"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03379"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03389"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03400"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03410"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03444"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03485"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03529"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03536"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03541",
+        "DP03542"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03547",
+        "DP04643"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03555",
+        "DP04129"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP01055"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP03575"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03577"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP01054"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP03579"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03586"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03589"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03593"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03606"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03622"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03633",
+        "DP04086"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03716"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00958"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP03717"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03718"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03747"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03782"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03786"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03792"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03794"
+      ],
+      "protected_nodes": [
+        "protected:te82:DP01931"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP03835"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03866"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03870"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03944"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP03956"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP00919"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP03966"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04050"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04054"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04070"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04088"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04104"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04272"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04305"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04310"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04319"
+      ],
+      "protected_nodes": [
+        "protected:te64:DP02716"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP04408"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04419"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04437"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04438"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04446"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04459"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04461"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04466"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04470"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04472"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04491"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    },
+    {
+      "candidate_ids": [
+        "DP04604"
+      ],
+      "protected_nodes": [
+        "protected:tr166:DP01157"
+      ],
+      "requires_protected_split_review": true
+    },
+    {
+      "candidate_ids": [
+        "DP04607"
+      ],
+      "protected_nodes": [],
+      "requires_protected_split_review": false
+    }
+  ],
+  "counts": {
+    "additional_transitive_candidates": 7,
+    "candidate_components": 174,
+    "candidate_ids_seen_in_hits": 205,
+    "direct_protected_flagged_candidates": 45,
+    "strong_hits": 78,
+    "transitively_protected_flagged_candidates": 52
+  },
+  "limitations": [
+    "Candidate IDs and label intervals are checked against the full source records.",
+    "Strong local similarity is a review flag, not a domain-family assignment.",
+    "Unflagged candidates are not certified independent or trainable."
+  ],
+  "method": "union-find over strong_review_flag hits only; candidate/protected nodes source-prefixed",
+  "provenance": {
+    "candidate_manifest_sha256": "f4fad95c86f969b4659345b7c0d38afc0dbe66d5f8ba9d3a3bcdcc07f6b04ea0",
+    "candidate_records_sha256": "2bc6726545f47256bcec70376bd51d689db0b5c80a64f45a221b9d88bb0c4c8d",
+    "config_sha256": "5862a59b0c9297893e7c7dcab1f6106b4cae0da4d58e120416d380816169c74b",
+    "evidence_quality": "provisional_local_sequence_similarity_review",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "script_version": "0.2.0"
+  },
+  "schema_version": "0.1.0",
+  "source_path": "reports/dfl_positive_candidate_similarity_screen_2026-10-12.json",
+  "source_sha256": "c3a610f51aa4aeecf51272e8c85361e54dbd1c6be5ea2fa679c7c15be2079f9c",
+  "status": "provisional_strong_hit_component_review_not_homology_certification"
+}

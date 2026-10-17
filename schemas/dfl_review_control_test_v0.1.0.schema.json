@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/dfl_review_control_test_v0.1.0.schema.json",
+  "type": "object",
+  "required": ["schema_version", "status", "control_result", "case_scores", "provenance", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "retrospective_development_control_test_not_independent"},
+    "control_result": {
+      "type": "object",
+      "required": ["cases", "published_positive_controls", "published_negative_controls", "average_precision", "auroc", "positive_mean_score", "negative_mean_score"],
+      "properties": {
+        "cases": {"const": 20},
+        "published_positive_controls": {"const": 10},
+        "published_negative_controls": {"const": 10},
+        "average_precision": {"type": "number", "minimum": 0, "maximum": 1},
+        "auroc": {"type": "number", "minimum": 0, "maximum": 1},
+        "positive_mean_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "negative_mean_score": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "case_scores": {
+      "type": "array", "minItems": 50, "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": ["case_id", "selection_category", "mean_score", "max_score", "curated_overlap", "source_label"],
+        "properties": {
+          "case_id": {"type": "string"},
+          "selection_category": {"type": "string"},
+          "mean_score": {"type": "number", "minimum": 0, "maximum": 1},
+          "max_score": {"type": "number", "minimum": 0, "maximum": 1},
+          "curated_overlap": {"type": "boolean"},
+          "source_label": {"type": "string", "pattern": "^[01x]+$"}
+        }
+      }
+    },
+    "provenance": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

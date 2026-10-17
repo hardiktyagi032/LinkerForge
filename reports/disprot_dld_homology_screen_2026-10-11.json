@@ -1,0 +1,1674 @@
+{
+  "schema_version": "0.1.0",
+  "created_utc": "2026-10-11T13:17:48.585973+00:00",
+  "status": "candidate_homology_screen_not_independence_certification",
+  "source_sha256": {
+    "data\\processed\\disprot_2026_06_flexible_linkers.jsonl": "2ee3c2737d07c69d53e25ad43f83714b42a28d19ef1f3ccddd96408495547006",
+    "data\\processed\\dld_reference\\dld_train.jsonl.gz": "c43952c4f943f458ba61905c34a59e04fadca5607b95d6afc9bd9d1475252c41",
+    "data\\processed\\dld_reference\\dld_validation.jsonl.gz": "290992af4a93c14ba007197c282367734af8ec878783d5e668ee4960128a3461",
+    "data\\processed\\dld_reference\\dld_blind.jsonl.gz": "a2f34eb8485d3c358b2617e2c28c4934e71d615a6bfe059534b921fa24d4bff4"
+  },
+  "script_sha256": "25702a6446636e4e4cf6f8b26691850be1b18841a4bd73fce6d2d43f6f450e35",
+  "config_sha256": "db70fcf5a017e621d397d11f6b1d5e05ce437979c0ea887e7c64dc48d64c5643",
+  "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+  "software": {
+    "python": "3.12.14",
+    "biopython": "1.88"
+  },
+  "config": {
+    "kmer_size": 5,
+    "top_candidates": 20,
+    "alignment": "local match=1 mismatch=-1 open=-3 extend=-0.5",
+    "hit_min_shorter_coverage": 0.3,
+    "hit_min_identity": 0.3,
+    "hit_min_aligned_residues": 40,
+    "limit_query": 0
+  },
+  "disprot_regions": 460,
+  "unique_disprot_proteins": 360,
+  "screened_proteins": 360,
+  "dld_records": 2620,
+  "hits": [
+    {
+      "disprot_id": "DP00009",
+      "disprot_region_ids": [
+        "DP00009r002"
+      ],
+      "disprot_uniprot_accession": "P32774",
+      "dld_source_id": "1nh2_d_P32774",
+      "dld_split": "train",
+      "dld_cluster_id": "1nh2_d_P32774",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 121
+    },
+    {
+      "disprot_id": "DP00098",
+      "disprot_region_ids": [
+        "DP00098r004"
+      ],
+      "disprot_uniprot_accession": "Q53654",
+      "dld_source_id": "1d2o_a_Q53654",
+      "dld_split": "validation",
+      "dld_cluster_id": "1d2o_a_Q53654",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 187
+    },
+    {
+      "disprot_id": "DP00156",
+      "disprot_region_ids": [
+        "DP00156r002",
+        "DP00156r004",
+        "DP00156r006"
+      ],
+      "disprot_uniprot_accession": "P54725",
+      "dld_source_id": "1oqy_a_P54725",
+      "dld_split": "validation",
+      "dld_cluster_id": "1oqy_a_P54725",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 362
+    },
+    {
+      "disprot_id": "DP00231",
+      "disprot_region_ids": [
+        "DP00231r008"
+      ],
+      "disprot_uniprot_accession": "P14859",
+      "dld_source_id": "1e3o_c_P14859",
+      "dld_split": "validation",
+      "dld_cluster_id": "1e3o_c_P14859",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 158
+    },
+    {
+      "disprot_id": "DP00231",
+      "disprot_region_ids": [
+        "DP00231r008"
+      ],
+      "disprot_uniprot_accession": "P14859",
+      "dld_source_id": "1au7_a_P10037",
+      "dld_split": "validation",
+      "dld_cluster_id": "1e3o_c_P14859",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.4384,
+      "aligned_identity": 0.6719,
+      "aligned_residues": 64
+    },
+    {
+      "disprot_id": "DP00243",
+      "disprot_region_ids": [
+        "DP00243r002"
+      ],
+      "disprot_uniprot_accession": "P23025",
+      "dld_source_id": "1xpa_a_P23025",
+      "dld_split": "train",
+      "dld_cluster_id": "1xpa_a_P23025",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 122
+    },
+    {
+      "disprot_id": "DP00284",
+      "disprot_region_ids": [
+        "DP00284r010"
+      ],
+      "disprot_uniprot_accession": "P16009",
+      "dld_source_id": "1k28_a_P16009",
+      "dld_split": "train",
+      "dld_cluster_id": "1k28_a_P16009",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 575
+    },
+    {
+      "disprot_id": "DP00315",
+      "disprot_region_ids": [
+        "DP00315r005",
+        "DP00315r007",
+        "DP00315r009"
+      ],
+      "disprot_uniprot_accession": "O43464",
+      "dld_source_id": "1lcy_a_O43464",
+      "dld_split": "train",
+      "dld_cluster_id": "1lcy_a_O43464",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 325
+    },
+    {
+      "disprot_id": "DP00410",
+      "disprot_region_ids": [
+        "DP00410r011",
+        "DP00410r012"
+      ],
+      "disprot_uniprot_accession": "P12497",
+      "dld_source_id": "2rki_a_P04585",
+      "dld_split": "blind",
+      "dld_cluster_id": "2rki_a_P04585",
+      "same_accession": false,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 0.9714,
+      "aligned_residues": 560
+    },
+    {
+      "disprot_id": "DP00410",
+      "disprot_region_ids": [
+        "DP00410r011",
+        "DP00410r012"
+      ],
+      "disprot_uniprot_accession": "P12497",
+      "dld_source_id": "1mu2_a_P04584",
+      "dld_split": "blind",
+      "dld_cluster_id": "2rki_a_P04585",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9802,
+      "aligned_identity": 0.6232,
+      "aligned_residues": 544
+    },
+    {
+      "disprot_id": "DP00428",
+      "disprot_region_ids": [
+        "DP00428r011",
+        "DP00428r010"
+      ],
+      "disprot_uniprot_accession": "P53350",
+      "dld_source_id": "1umw_a_P53350",
+      "dld_split": "train",
+      "dld_cluster_id": "1umw_a_P53350",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 237
+    },
+    {
+      "disprot_id": "DP00435",
+      "disprot_region_ids": [
+        "DP00435r018",
+        "DP00435r014"
+      ],
+      "disprot_uniprot_accession": "Q01853",
+      "dld_source_id": "1e32_a_Q01853",
+      "dld_split": "train",
+      "dld_cluster_id": "1e32_a_Q01853",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 458
+    },
+    {
+      "disprot_id": "DP00438",
+      "disprot_region_ids": [
+        "DP00438r002",
+        "DP00438r004",
+        "DP00438r006"
+      ],
+      "disprot_uniprot_accession": "Q05158",
+      "dld_source_id": "1b8t_a_P67966",
+      "dld_split": "train",
+      "dld_cluster_id": "1b8t_a_P67966",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9792,
+      "aligned_identity": 0.7872,
+      "aligned_residues": 188
+    },
+    {
+      "disprot_id": "DP00455",
+      "disprot_region_ids": [
+        "DP00455r006"
+      ],
+      "disprot_uniprot_accession": "P84092",
+      "dld_source_id": "2vgl_m_P84092",
+      "dld_split": "validation",
+      "dld_cluster_id": "2vgl_m_P84092",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 435
+    },
+    {
+      "disprot_id": "DP00653",
+      "disprot_region_ids": [
+        "DP00653r004"
+      ],
+      "disprot_uniprot_accession": "P26039",
+      "dld_source_id": "2kma_a_P26039",
+      "dld_split": "train",
+      "dld_cluster_id": "2kma_a_P26039",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 172
+    },
+    {
+      "disprot_id": "DP00922",
+      "disprot_region_ids": [
+        "DP00922r002"
+      ],
+      "disprot_uniprot_accession": "P67966",
+      "dld_source_id": "1b8t_a_P67966",
+      "dld_split": "train",
+      "dld_cluster_id": "1b8t_a_P67966",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 192
+    },
+    {
+      "disprot_id": "DP01024",
+      "disprot_region_ids": [
+        "DP01024r010"
+      ],
+      "disprot_uniprot_accession": "P27708",
+      "dld_source_id": "1ml4_a_P77918",
+      "dld_split": "train",
+      "dld_cluster_id": "1ekx_a_P0A786",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.3864,
+      "aligned_identity": 0.6134,
+      "aligned_residues": 119
+    },
+    {
+      "disprot_id": "DP01045",
+      "disprot_region_ids": [
+        "DP01045r002"
+      ],
+      "disprot_uniprot_accession": "Q7DB66",
+      "dld_source_id": "1yj7_a_Q8VQD3",
+      "dld_split": "blind",
+      "dld_cluster_id": "1yj7_a_Q8VQD3",
+      "same_accession": false,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 170
+    },
+    {
+      "disprot_id": "DP01396",
+      "disprot_region_ids": [
+        "DP01396r002"
+      ],
+      "disprot_uniprot_accession": "P01130",
+      "dld_source_id": "1ijq_a_P01130",
+      "dld_split": "train",
+      "dld_cluster_id": "1ijq_a_P01130",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 316
+    },
+    {
+      "disprot_id": "DP01396",
+      "disprot_region_ids": [
+        "DP01396r002"
+      ],
+      "disprot_uniprot_accession": "P01130",
+      "dld_source_id": "1xfe_a_P01130",
+      "dld_split": "validation",
+      "dld_cluster_id": "1xfe_a_P01130",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 82
+    },
+    {
+      "disprot_id": "DP01426",
+      "disprot_region_ids": [
+        "DP01426r006",
+        "DP01426r008",
+        "DP01426r015",
+        "DP01426r003"
+      ],
+      "disprot_uniprot_accession": "P06400",
+      "dld_source_id": "1n4m_a_P06400",
+      "dld_split": "blind",
+      "dld_cluster_id": "1n4m_a_P06400",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 345
+    },
+    {
+      "disprot_id": "DP01601",
+      "disprot_region_ids": [
+        "DP01601r008",
+        "DP01601r004"
+      ],
+      "disprot_uniprot_accession": "P26599",
+      "dld_source_id": "2adc_a_P26599",
+      "dld_split": "validation",
+      "dld_cluster_id": "2adc_a_P26599",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 208
+    },
+    {
+      "disprot_id": "DP01605",
+      "disprot_region_ids": [
+        "DP01605r006",
+        "DP01605r003",
+        "DP01605r007"
+      ],
+      "disprot_uniprot_accession": "P19339",
+      "dld_source_id": "1b7f_a_P19339",
+      "dld_split": "train",
+      "dld_cluster_id": "1cvj_a_P11940",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 168
+    },
+    {
+      "disprot_id": "DP01620",
+      "disprot_region_ids": [
+        "DP01620r002"
+      ],
+      "disprot_uniprot_accession": "P20823",
+      "dld_source_id": "1ic8_a_P20823",
+      "dld_split": "train",
+      "dld_cluster_id": "1ic8_a_P20823",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 194
+    },
+    {
+      "disprot_id": "DP01733",
+      "disprot_region_ids": [
+        "DP01733r003"
+      ],
+      "disprot_uniprot_accession": "Q8AVN9",
+      "dld_source_id": "1zu1_a_Q8AVN9",
+      "dld_split": "train",
+      "dld_cluster_id": "1zu1_a_Q8AVN9",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 127
+    },
+    {
+      "disprot_id": "DP01931",
+      "disprot_region_ids": [
+        "DP01931r003"
+      ],
+      "disprot_uniprot_accession": "Q2YHF0",
+      "dld_source_id": "2bmf_a_Q91H74",
+      "dld_split": "train",
+      "dld_cluster_id": "2bmf_a_Q91H74",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9777,
+      "aligned_identity": 0.8196,
+      "aligned_residues": 438
+    },
+    {
+      "disprot_id": "DP01931",
+      "disprot_region_ids": [
+        "DP01931r003"
+      ],
+      "disprot_uniprot_accession": "Q2YHF0",
+      "dld_source_id": "4o6b_a_P29990",
+      "dld_split": "train",
+      "dld_cluster_id": "4o6c_d_Q9Q6P4",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9773,
+      "aligned_identity": 0.7246,
+      "aligned_residues": 345
+    },
+    {
+      "disprot_id": "DP01931",
+      "disprot_region_ids": [
+        "DP01931r003"
+      ],
+      "disprot_uniprot_accession": "Q2YHF0",
+      "dld_source_id": "1oke_a_P12823",
+      "dld_split": "blind",
+      "dld_cluster_id": "1urz_a_Q80E47",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9695,
+      "aligned_identity": 0.6492,
+      "aligned_residues": 382
+    },
+    {
+      "disprot_id": "DP01931",
+      "disprot_region_ids": [
+        "DP01931r003"
+      ],
+      "disprot_uniprot_accession": "Q2YHF0",
+      "dld_source_id": "1tg8_a_P27914",
+      "dld_split": "blind",
+      "dld_cluster_id": "1urz_a_Q80E47",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9671,
+      "aligned_identity": 0.6518,
+      "aligned_residues": 382
+    },
+    {
+      "disprot_id": "DP01931",
+      "disprot_region_ids": [
+        "DP01931r003"
+      ],
+      "disprot_uniprot_accession": "Q2YHF0",
+      "dld_source_id": "1yks_a_P03314",
+      "dld_split": "train",
+      "dld_cluster_id": "2bmf_a_Q91H74",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.5091,
+      "aligned_identity": 0.565,
+      "aligned_residues": 223
+    },
+    {
+      "disprot_id": "DP01931",
+      "disprot_region_ids": [
+        "DP01931r003"
+      ],
+      "disprot_uniprot_accession": "Q2YHF0",
+      "dld_source_id": "5gs6_a_A0A109PRQ3",
+      "dld_split": "train",
+      "dld_cluster_id": "4o6c_d_Q9Q6P4",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.4131,
+      "aligned_identity": 0.6483,
+      "aligned_residues": 145
+    },
+    {
+      "disprot_id": "DP01931",
+      "disprot_region_ids": [
+        "DP01931r003"
+      ],
+      "disprot_uniprot_accession": "Q2YHF0",
+      "dld_source_id": "5k6k_b_Q32ZE1",
+      "dld_split": "train",
+      "dld_cluster_id": "4o6c_d_Q9Q6P4",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.3938,
+      "aligned_identity": 0.6547,
+      "aligned_residues": 139
+    },
+    {
+      "disprot_id": "DP01931",
+      "disprot_region_ids": [
+        "DP01931r003"
+      ],
+      "disprot_uniprot_accession": "Q2YHF0",
+      "dld_source_id": "4o6c_d_Q9Q6P4",
+      "dld_split": "train",
+      "dld_cluster_id": "4o6c_d_Q9Q6P4",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.3898,
+      "aligned_identity": 0.6522,
+      "aligned_residues": 138
+    },
+    {
+      "disprot_id": "DP01931",
+      "disprot_region_ids": [
+        "DP01931r003"
+      ],
+      "disprot_uniprot_accession": "Q2YHF0",
+      "dld_source_id": "4tpl_a_Q5SBG8",
+      "dld_split": "train",
+      "dld_cluster_id": "4o6c_d_Q9Q6P4",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.3909,
+      "aligned_identity": 0.6522,
+      "aligned_residues": 138
+    },
+    {
+      "disprot_id": "DP01933",
+      "disprot_region_ids": [
+        "DP01933r002"
+      ],
+      "disprot_uniprot_accession": "P07986",
+      "dld_source_id": "1v6w_a_Q7SI98",
+      "dld_split": "train",
+      "dld_cluster_id": "1v6w_a_Q7SI98",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.4587,
+      "aligned_identity": 0.59,
+      "aligned_residues": 200
+    },
+    {
+      "disprot_id": "DP01996",
+      "disprot_region_ids": [
+        "DP01996r005"
+      ],
+      "disprot_uniprot_accession": "Q07009",
+      "dld_source_id": "1df0_a_Q07009",
+      "dld_split": "validation",
+      "dld_cluster_id": "1df0_a_Q07009",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 700
+    },
+    {
+      "disprot_id": "DP01996",
+      "disprot_region_ids": [
+        "DP01996r005"
+      ],
+      "disprot_uniprot_accession": "Q07009",
+      "dld_source_id": "1kfu_l_P17655",
+      "dld_split": "validation",
+      "dld_cluster_id": "1df0_a_Q07009",
+      "same_accession": false,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 0.9371,
+      "aligned_residues": 699
+    },
+    {
+      "disprot_id": "DP01996",
+      "disprot_region_ids": [
+        "DP01996r005"
+      ],
+      "disprot_uniprot_accession": "Q07009",
+      "dld_source_id": "1qxp_a_P97571",
+      "dld_split": "validation",
+      "dld_cluster_id": "1df0_a_Q07009",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9831,
+      "aligned_identity": 0.6489,
+      "aligned_residues": 581
+    },
+    {
+      "disprot_id": "DP02193",
+      "disprot_region_ids": [
+        "DP02193r002"
+      ],
+      "disprot_uniprot_accession": "P21734",
+      "dld_source_id": "3e46_a_P61086",
+      "dld_split": "train",
+      "dld_cluster_id": "3e46_a_P61086",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.435,
+      "aligned_identity": 0.6437,
+      "aligned_residues": 87
+    },
+    {
+      "disprot_id": "DP02254",
+      "disprot_region_ids": [
+        "DP02254r012"
+      ],
+      "disprot_uniprot_accession": "P14598",
+      "dld_source_id": "1ng2_a_P14598",
+      "dld_split": "validation",
+      "dld_cluster_id": "1ng2_a_P14598",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 185
+    },
+    {
+      "disprot_id": "DP02292",
+      "disprot_region_ids": [
+        "DP02292r002"
+      ],
+      "disprot_uniprot_accession": "Q96PU5",
+      "dld_source_id": "5xmc_a_Q8C863",
+      "dld_split": "blind",
+      "dld_cluster_id": "5xmc_a_Q8C863",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.4211,
+      "aligned_identity": 0.5724,
+      "aligned_residues": 304
+    },
+    {
+      "disprot_id": "DP02333",
+      "disprot_region_ids": [
+        "DP02333r002"
+      ],
+      "disprot_uniprot_accession": "P13861",
+      "dld_source_id": "1cx4_a_P12369",
+      "dld_split": "train",
+      "dld_cluster_id": "1cx4_a_P12369",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9541,
+      "aligned_identity": 0.7835,
+      "aligned_residues": 291
+    },
+    {
+      "disprot_id": "DP02398",
+      "disprot_region_ids": [
+        "DP02398r013"
+      ],
+      "disprot_uniprot_accession": "Q04637",
+      "dld_source_id": "1ug3_a_Q04637",
+      "dld_split": "train",
+      "dld_cluster_id": "1ug3_a_Q04637",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 339
+    },
+    {
+      "disprot_id": "DP02410",
+      "disprot_region_ids": [
+        "DP02410r001"
+      ],
+      "disprot_uniprot_accession": "P21952",
+      "dld_source_id": "1e3o_c_P14859",
+      "dld_split": "validation",
+      "dld_cluster_id": "1e3o_c_P14859",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.8987,
+      "aligned_identity": 0.7113,
+      "aligned_residues": 142
+    },
+    {
+      "disprot_id": "DP02410",
+      "disprot_region_ids": [
+        "DP02410r001"
+      ],
+      "disprot_uniprot_accession": "P21952",
+      "dld_source_id": "1au7_a_P10037",
+      "dld_split": "validation",
+      "dld_cluster_id": "1e3o_c_P14859",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9589,
+      "aligned_identity": 0.6357,
+      "aligned_residues": 140
+    },
+    {
+      "disprot_id": "DP02418",
+      "disprot_region_ids": [
+        "DP02418r002"
+      ],
+      "disprot_uniprot_accession": "P35568",
+      "dld_source_id": "1qqg_a_P35568",
+      "dld_split": "train",
+      "dld_cluster_id": "1qqg_a_P35568",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 264
+    },
+    {
+      "disprot_id": "DP02477",
+      "disprot_region_ids": [
+        "DP02477r002",
+        "DP02477r003"
+      ],
+      "disprot_uniprot_accession": "Q01970",
+      "dld_source_id": "2zkm_x_Q00722",
+      "dld_split": "validation",
+      "dld_cluster_id": "2zkm_x_Q00722",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.6909,
+      "aligned_identity": 0.6431,
+      "aligned_residues": 552
+    },
+    {
+      "disprot_id": "DP02521",
+      "disprot_region_ids": [
+        "DP02521r010"
+      ],
+      "disprot_uniprot_accession": "A5HC98",
+      "dld_source_id": "5amr_a_A5HC98",
+      "dld_split": "train",
+      "dld_cluster_id": "5amr_a_A5HC98",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 2263
+    },
+    {
+      "disprot_id": "DP02587",
+      "disprot_region_ids": [
+        "DP02587r002"
+      ],
+      "disprot_uniprot_accession": "Q96PM5",
+      "dld_source_id": "2dkt_a_Q9CR50",
+      "dld_split": "train",
+      "dld_cluster_id": "2dkt_a_Q9CR50",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9308,
+      "aligned_identity": 0.9091,
+      "aligned_residues": 121
+    },
+    {
+      "disprot_id": "DP02617",
+      "disprot_region_ids": [
+        "DP02617r002",
+        "DP02617r004"
+      ],
+      "disprot_uniprot_accession": "P21575",
+      "dld_source_id": "4bej_d_O00429",
+      "dld_split": "train",
+      "dld_cluster_id": "4bej_d_O00429",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.3475,
+      "aligned_identity": 0.6698,
+      "aligned_residues": 212
+    },
+    {
+      "disprot_id": "DP02632",
+      "disprot_region_ids": [
+        "DP02632r002"
+      ],
+      "disprot_uniprot_accession": "P31321",
+      "dld_source_id": "1ne6_a_P00514",
+      "dld_split": "train",
+      "dld_cluster_id": "1cx4_a_P12369",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9929,
+      "aligned_identity": 0.8932,
+      "aligned_residues": 281
+    },
+    {
+      "disprot_id": "DP02637",
+      "disprot_region_ids": [
+        "DP02637r003"
+      ],
+      "disprot_uniprot_accession": "P07237",
+      "dld_source_id": "2k18_a_P07237",
+      "dld_split": "validation",
+      "dld_cluster_id": "2k18_a_P07237",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 223
+    },
+    {
+      "disprot_id": "DP02691",
+      "disprot_region_ids": [
+        "DP02691r002"
+      ],
+      "disprot_uniprot_accession": "Q92608",
+      "dld_source_id": "3a98_a_Q92608",
+      "dld_split": "validation",
+      "dld_cluster_id": "3a98_a_Q92608",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 177
+    },
+    {
+      "disprot_id": "DP02723",
+      "disprot_region_ids": [
+        "DP02723r002"
+      ],
+      "disprot_uniprot_accession": "Q8VDP3",
+      "dld_source_id": "2co8_a_Q8TDZ2",
+      "dld_split": "train",
+      "dld_cluster_id": "1b8t_a_P67966",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9565,
+      "aligned_identity": 0.8636,
+      "aligned_residues": 66
+    },
+    {
+      "disprot_id": "DP02727",
+      "disprot_region_ids": [
+        "DP02727r002"
+      ],
+      "disprot_uniprot_accession": "Q13526",
+      "dld_source_id": "1nmv_a_Q13526",
+      "dld_split": "blind",
+      "dld_cluster_id": "1nmv_a_Q13526",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 163
+    },
+    {
+      "disprot_id": "DP02728",
+      "disprot_region_ids": [
+        "DP02728r002"
+      ],
+      "disprot_uniprot_accession": "P42166",
+      "dld_source_id": "1gjj_a_P42166",
+      "dld_split": "train",
+      "dld_cluster_id": "1gjj_a_P42166",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 168
+    },
+    {
+      "disprot_id": "DP02742",
+      "disprot_region_ids": [
+        "DP02742r002"
+      ],
+      "disprot_uniprot_accession": "P06756",
+      "dld_source_id": "1m1x_a_P06756",
+      "dld_split": "blind",
+      "dld_cluster_id": "1m1x_a_P06756",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 957
+    },
+    {
+      "disprot_id": "DP02756",
+      "disprot_region_ids": [
+        "DP02756r002",
+        "DP02756r004"
+      ],
+      "disprot_uniprot_accession": "P21447",
+      "dld_source_id": "3g5u_a_P21447",
+      "dld_split": "validation",
+      "dld_cluster_id": "3g5u_a_P21447",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 1276
+    },
+    {
+      "disprot_id": "DP02759",
+      "disprot_region_ids": [
+        "DP02759r002"
+      ],
+      "disprot_uniprot_accession": "Q14181",
+      "dld_source_id": "4y97_a_Q14181",
+      "dld_split": "train",
+      "dld_cluster_id": "4y97_a_Q14181",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 598
+    },
+    {
+      "disprot_id": "DP02765",
+      "disprot_region_ids": [
+        "DP02765r002",
+        "DP02765r005"
+      ],
+      "disprot_uniprot_accession": "Q14118",
+      "dld_source_id": "1u2c_a_Q62165",
+      "dld_split": "blind",
+      "dld_cluster_id": "1u2c_a_Q62165",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9959,
+      "aligned_identity": 0.9347,
+      "aligned_residues": 245
+    },
+    {
+      "disprot_id": "DP02791",
+      "disprot_region_ids": [
+        "DP02791r003",
+        "DP02791r004"
+      ],
+      "disprot_uniprot_accession": "O08908",
+      "dld_source_id": "2y3a_b_O08908",
+      "dld_split": "train",
+      "dld_cluster_id": "2y3a_b_O08908",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 300
+    },
+    {
+      "disprot_id": "DP02797",
+      "disprot_region_ids": [
+        "DP02797r002"
+      ],
+      "disprot_uniprot_accession": "P20061",
+      "dld_source_id": "4kki_a_P20061",
+      "dld_split": "train",
+      "dld_cluster_id": "4kki_a_P20061",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 433
+    },
+    {
+      "disprot_id": "DP02818",
+      "disprot_region_ids": [
+        "DP02818r002"
+      ],
+      "disprot_uniprot_accession": "Q07157",
+      "dld_source_id": "3shw_a_Q07157",
+      "dld_split": "train",
+      "dld_cluster_id": "3shw_a_Q07157",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 468
+    },
+    {
+      "disprot_id": "DP02818",
+      "disprot_region_ids": [
+        "DP02818r002"
+      ],
+      "disprot_uniprot_accession": "Q07157",
+      "dld_source_id": "3kfv_a_O95049",
+      "dld_split": "train",
+      "dld_cluster_id": "3shw_a_Q07157",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.3543,
+      "aligned_identity": 0.6168,
+      "aligned_residues": 107
+    },
+    {
+      "disprot_id": "DP02828",
+      "disprot_region_ids": [
+        "DP02828r002"
+      ],
+      "disprot_uniprot_accession": "Q9W058",
+      "dld_source_id": "2nrc_b_Q29551",
+      "dld_split": "blind",
+      "dld_cluster_id": "2nrc_b_Q29551",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9293,
+      "aligned_identity": 0.651,
+      "aligned_residues": 447
+    },
+    {
+      "disprot_id": "DP02874",
+      "disprot_region_ids": [
+        "DP02874r004"
+      ],
+      "disprot_uniprot_accession": "Q61033",
+      "dld_source_id": "1gjj_a_P42166",
+      "dld_split": "train",
+      "dld_cluster_id": "1gjj_a_P42166",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.994,
+      "aligned_identity": 0.9341,
+      "aligned_residues": 167
+    },
+    {
+      "disprot_id": "DP02925",
+      "disprot_region_ids": [
+        "DP02925r013"
+      ],
+      "disprot_uniprot_accession": "P0DTD1",
+      "dld_source_id": "6jyt_a_P0C6X7",
+      "dld_split": "train",
+      "dld_cluster_id": "6jyt_a_P0C6X7",
+      "same_accession": false,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 0.9983,
+      "aligned_residues": 601
+    },
+    {
+      "disprot_id": "DP02925",
+      "disprot_region_ids": [
+        "DP02925r013"
+      ],
+      "disprot_uniprot_accession": "P0DTD1",
+      "dld_source_id": "6vww_a_P0DTD1",
+      "dld_split": "blind",
+      "dld_cluster_id": "2gti_a_Q9J3E8",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 346
+    },
+    {
+      "disprot_id": "DP02925",
+      "disprot_region_ids": [
+        "DP02925r013"
+      ],
+      "disprot_uniprot_accession": "P0DTD1",
+      "dld_source_id": "2h85_a_P0C6X7",
+      "dld_split": "blind",
+      "dld_cluster_id": "2gti_a_Q9J3E8",
+      "same_accession": false,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 0.8873,
+      "aligned_residues": 346
+    },
+    {
+      "disprot_id": "DP02925",
+      "disprot_region_ids": [
+        "DP02925r013"
+      ],
+      "disprot_uniprot_accession": "P0DTD1",
+      "dld_source_id": "2gti_a_Q9J3E8",
+      "dld_split": "blind",
+      "dld_cluster_id": "2gti_a_Q9J3E8",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.3388,
+      "aligned_identity": 0.592,
+      "aligned_residues": 125
+    },
+    {
+      "disprot_id": "DP02976",
+      "disprot_region_ids": [
+        "DP02976r002",
+        "DP02976r003"
+      ],
+      "disprot_uniprot_accession": "Q05193",
+      "dld_source_id": "4bej_d_O00429",
+      "dld_split": "train",
+      "dld_cluster_id": "4bej_d_O00429",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.3475,
+      "aligned_identity": 0.6651,
+      "aligned_residues": 212
+    },
+    {
+      "disprot_id": "DP03061",
+      "disprot_region_ids": [
+        "DP03061r008"
+      ],
+      "disprot_uniprot_accession": "P54132",
+      "dld_source_id": "4o3m_a_P54132",
+      "dld_split": "blind",
+      "dld_cluster_id": "4o3m_a_P54132",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 659
+    },
+    {
+      "disprot_id": "DP03131",
+      "disprot_region_ids": [
+        "DP03131r002"
+      ],
+      "disprot_uniprot_accession": "Q96AE4",
+      "dld_source_id": "1j4w_a_Q96AE4",
+      "dld_split": "blind",
+      "dld_cluster_id": "1j4w_a_Q96AE4",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 170
+    },
+    {
+      "disprot_id": "DP03162",
+      "disprot_region_ids": [
+        "DP03162r002"
+      ],
+      "disprot_uniprot_accession": "O00299",
+      "dld_source_id": "1k0m_a_O00299",
+      "dld_split": "validation",
+      "dld_cluster_id": "1k0m_a_O00299",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 241
+    },
+    {
+      "disprot_id": "DP03164",
+      "disprot_region_ids": [
+        "DP03164r001"
+      ],
+      "disprot_uniprot_accession": "Q9Y696",
+      "dld_source_id": "1k0m_a_O00299",
+      "dld_split": "validation",
+      "dld_cluster_id": "1k0m_a_O00299",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9544,
+      "aligned_identity": 0.687,
+      "aligned_residues": 230
+    },
+    {
+      "disprot_id": "DP03226",
+      "disprot_region_ids": [
+        "DP03226r002"
+      ],
+      "disprot_uniprot_accession": "P30771",
+      "dld_source_id": "2xzl_a_P30771",
+      "dld_split": "train",
+      "dld_cluster_id": "2xzl_a_P30771",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 797
+    },
+    {
+      "disprot_id": "DP03226",
+      "disprot_region_ids": [
+        "DP03226r002"
+      ],
+      "disprot_uniprot_accession": "P30771",
+      "dld_source_id": "2xzo_a_Q92900",
+      "dld_split": "train",
+      "dld_cluster_id": "2xzl_a_P30771",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.7629,
+      "aligned_identity": 0.6406,
+      "aligned_residues": 473
+    },
+    {
+      "disprot_id": "DP03230",
+      "disprot_region_ids": [
+        "DP03230r003"
+      ],
+      "disprot_uniprot_accession": "P11940",
+      "dld_source_id": "1cvj_a_P11940",
+      "dld_split": "train",
+      "dld_cluster_id": "1cvj_a_P11940",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 190
+    },
+    {
+      "disprot_id": "DP03241",
+      "disprot_region_ids": [
+        "DP03241r004"
+      ],
+      "disprot_uniprot_accession": "P0ABH9",
+      "dld_source_id": "1r6b_x_P0ABH9",
+      "dld_split": "blind",
+      "dld_cluster_id": "1r6b_x_P0ABH9",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 758
+    },
+    {
+      "disprot_id": "DP03299",
+      "disprot_region_ids": [
+        "DP03299r004",
+        "DP03299r006",
+        "DP03299r003"
+      ],
+      "disprot_uniprot_accession": "P00734",
+      "dld_source_id": "1nl1_a_P00735",
+      "dld_split": "train",
+      "dld_cluster_id": "1nl1_a_P00735",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9728,
+      "aligned_identity": 0.8392,
+      "aligned_residues": 143
+    },
+    {
+      "disprot_id": "DP03320",
+      "disprot_region_ids": [
+        "DP03320r006"
+      ],
+      "disprot_uniprot_accession": "P46580",
+      "dld_source_id": "3ua3_b_P46580",
+      "dld_split": "train",
+      "dld_cluster_id": "3ua3_b_P46580",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 734
+    },
+    {
+      "disprot_id": "DP03499",
+      "disprot_region_ids": [
+        "DP03499r002"
+      ],
+      "disprot_uniprot_accession": "Q04637-8",
+      "dld_source_id": "1ug3_a_Q04637",
+      "dld_split": "train",
+      "dld_cluster_id": "1ug3_a_Q04637",
+      "same_accession": false,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 339
+    },
+    {
+      "disprot_id": "DP03541",
+      "disprot_region_ids": [
+        "DP03541r003"
+      ],
+      "disprot_uniprot_accession": "Q9DQX7",
+      "dld_source_id": "3r3l_a_Q9DQX7",
+      "dld_split": "train",
+      "dld_cluster_id": "3mwp_a_P13699",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 569
+    },
+    {
+      "disprot_id": "DP03541",
+      "disprot_region_ids": [
+        "DP03541r003"
+      ],
+      "disprot_uniprot_accession": "Q9DQX7",
+      "dld_source_id": "3mwp_a_P13699",
+      "dld_split": "train",
+      "dld_cluster_id": "3mwp_a_P13699",
+      "same_accession": false,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 0.9367,
+      "aligned_residues": 569
+    },
+    {
+      "disprot_id": "DP03542",
+      "disprot_region_ids": [
+        "DP03542r003"
+      ],
+      "disprot_uniprot_accession": "P13699",
+      "dld_source_id": "3mwp_a_P13699",
+      "dld_split": "train",
+      "dld_cluster_id": "3mwp_a_P13699",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 569
+    },
+    {
+      "disprot_id": "DP03542",
+      "disprot_region_ids": [
+        "DP03542r003"
+      ],
+      "disprot_uniprot_accession": "P13699",
+      "dld_source_id": "3r3l_a_Q9DQX7",
+      "dld_split": "train",
+      "dld_cluster_id": "3mwp_a_P13699",
+      "same_accession": false,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 0.9367,
+      "aligned_residues": 569
+    },
+    {
+      "disprot_id": "DP03589",
+      "disprot_region_ids": [
+        "DP03589r002"
+      ],
+      "disprot_uniprot_accession": "P47897",
+      "dld_source_id": "4ye6_a_P47897",
+      "dld_split": "train",
+      "dld_cluster_id": "4h3s_a_P13188",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 775
+    },
+    {
+      "disprot_id": "DP03589",
+      "disprot_region_ids": [
+        "DP03589r002"
+      ],
+      "disprot_uniprot_accession": "P47897",
+      "dld_source_id": "4h3s_a_P13188",
+      "dld_split": "train",
+      "dld_cluster_id": "4h3s_a_P13188",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.3574,
+      "aligned_identity": 0.6209,
+      "aligned_residues": 277
+    },
+    {
+      "disprot_id": "DP03589",
+      "disprot_region_ids": [
+        "DP03589r002"
+      ],
+      "disprot_uniprot_accession": "P47897",
+      "dld_source_id": "2rd2_a_P00962",
+      "dld_split": "train",
+      "dld_cluster_id": "4h3s_a_P13188",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.3577,
+      "aligned_identity": 0.5969,
+      "aligned_residues": 196
+    },
+    {
+      "disprot_id": "DP03648",
+      "disprot_region_ids": [
+        "DP03648r003"
+      ],
+      "disprot_uniprot_accession": "Q9SL42",
+      "dld_source_id": "1nmv_a_Q13526",
+      "dld_split": "blind",
+      "dld_cluster_id": "1nmv_a_Q13526",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.437,
+      "aligned_identity": 0.6923,
+      "aligned_residues": 52
+    },
+    {
+      "disprot_id": "DP03650",
+      "disprot_region_ids": [
+        "DP03650r002",
+        "DP03650r003"
+      ],
+      "disprot_uniprot_accession": "Q01484",
+      "dld_source_id": "6m3q_e_Q01484",
+      "dld_split": "blind",
+      "dld_cluster_id": "6m3p_c_O70511",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 475
+    },
+    {
+      "disprot_id": "DP03650",
+      "disprot_region_ids": [
+        "DP03650r002",
+        "DP03650r003"
+      ],
+      "disprot_uniprot_accession": "Q01484",
+      "dld_source_id": "6m3p_c_O70511",
+      "dld_split": "blind",
+      "dld_cluster_id": "6m3p_c_O70511",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9511,
+      "aligned_identity": 0.7901,
+      "aligned_residues": 467
+    },
+    {
+      "disprot_id": "DP03650",
+      "disprot_region_ids": [
+        "DP03650r002",
+        "DP03650r003"
+      ],
+      "disprot_uniprot_accession": "Q01484",
+      "dld_source_id": "3ud1_a_P16157",
+      "dld_split": "blind",
+      "dld_cluster_id": "6m3p_c_O70511",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9443,
+      "aligned_identity": 0.6721,
+      "aligned_residues": 305
+    },
+    {
+      "disprot_id": "DP03660",
+      "disprot_region_ids": [
+        "DP03660r003",
+        "DP03660r002"
+      ],
+      "disprot_uniprot_accession": "A0A5F9ZHA1",
+      "dld_source_id": "6m3q_e_Q01484",
+      "dld_split": "blind",
+      "dld_cluster_id": "6m3p_c_O70511",
+      "same_accession": false,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 475
+    },
+    {
+      "disprot_id": "DP03660",
+      "disprot_region_ids": [
+        "DP03660r003",
+        "DP03660r002"
+      ],
+      "disprot_uniprot_accession": "A0A5F9ZHA1",
+      "dld_source_id": "6m3p_c_O70511",
+      "dld_split": "blind",
+      "dld_cluster_id": "6m3p_c_O70511",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9511,
+      "aligned_identity": 0.7901,
+      "aligned_residues": 467
+    },
+    {
+      "disprot_id": "DP03660",
+      "disprot_region_ids": [
+        "DP03660r003",
+        "DP03660r002"
+      ],
+      "disprot_uniprot_accession": "A0A5F9ZHA1",
+      "dld_source_id": "3ud1_a_P16157",
+      "dld_split": "blind",
+      "dld_cluster_id": "6m3p_c_O70511",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9443,
+      "aligned_identity": 0.6721,
+      "aligned_residues": 305
+    },
+    {
+      "disprot_id": "DP03794",
+      "disprot_region_ids": [
+        "DP03794r002"
+      ],
+      "disprot_uniprot_accession": "Q5SBG8",
+      "dld_source_id": "4o6c_d_Q9Q6P4",
+      "dld_split": "train",
+      "dld_cluster_id": "4o6c_d_Q9Q6P4",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9972,
+      "aligned_identity": 1.0,
+      "aligned_residues": 353
+    },
+    {
+      "disprot_id": "DP03794",
+      "disprot_region_ids": [
+        "DP03794r002"
+      ],
+      "disprot_uniprot_accession": "Q5SBG8",
+      "dld_source_id": "4tpl_a_Q5SBG8",
+      "dld_split": "train",
+      "dld_cluster_id": "4o6c_d_Q9Q6P4",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 353
+    },
+    {
+      "disprot_id": "DP03794",
+      "disprot_region_ids": [
+        "DP03794r002"
+      ],
+      "disprot_uniprot_accession": "Q5SBG8",
+      "dld_source_id": "2bmf_a_Q91H74",
+      "dld_split": "train",
+      "dld_cluster_id": "2bmf_a_Q91H74",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9442,
+      "aligned_identity": 0.6832,
+      "aligned_residues": 423
+    },
+    {
+      "disprot_id": "DP03794",
+      "disprot_region_ids": [
+        "DP03794r002"
+      ],
+      "disprot_uniprot_accession": "Q5SBG8",
+      "dld_source_id": "1yks_a_P03314",
+      "dld_split": "train",
+      "dld_cluster_id": "2bmf_a_Q91H74",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.347,
+      "aligned_identity": 0.6053,
+      "aligned_residues": 152
+    },
+    {
+      "disprot_id": "DP03794",
+      "disprot_region_ids": [
+        "DP03794r002"
+      ],
+      "disprot_uniprot_accession": "Q5SBG8",
+      "dld_source_id": "4o6b_a_P29990",
+      "dld_split": "train",
+      "dld_cluster_id": "4o6c_d_Q9Q6P4",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.5722,
+      "aligned_identity": 0.6485,
+      "aligned_residues": 202
+    },
+    {
+      "disprot_id": "DP03794",
+      "disprot_region_ids": [
+        "DP03794r002"
+      ],
+      "disprot_uniprot_accession": "Q5SBG8",
+      "dld_source_id": "5gs6_a_A0A109PRQ3",
+      "dld_split": "train",
+      "dld_cluster_id": "4o6c_d_Q9Q6P4",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.5926,
+      "aligned_identity": 0.6154,
+      "aligned_residues": 208
+    },
+    {
+      "disprot_id": "DP03794",
+      "disprot_region_ids": [
+        "DP03794r002"
+      ],
+      "disprot_uniprot_accession": "Q5SBG8",
+      "dld_source_id": "5k6k_b_Q32ZE1",
+      "dld_split": "train",
+      "dld_cluster_id": "4o6c_d_Q9Q6P4",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9178,
+      "aligned_identity": 0.5741,
+      "aligned_residues": 324
+    },
+    {
+      "disprot_id": "DP03835",
+      "disprot_region_ids": [
+        "DP03835r005"
+      ],
+      "disprot_uniprot_accession": "P14868",
+      "dld_source_id": "1eov_a_P04802",
+      "dld_split": "train",
+      "dld_cluster_id": "1eov_a_P04802",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.6694,
+      "aligned_identity": 0.6503,
+      "aligned_residues": 326
+    },
+    {
+      "disprot_id": "DP03944",
+      "disprot_region_ids": [
+        "DP03944r008",
+        "DP03944r006"
+      ],
+      "disprot_uniprot_accession": "P19525",
+      "dld_source_id": "1qu6_a_P19525",
+      "dld_split": "train",
+      "dld_cluster_id": "1qu6_a_P19525",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 170
+    },
+    {
+      "disprot_id": "DP04066",
+      "disprot_region_ids": [
+        "DP04066r002"
+      ],
+      "disprot_uniprot_accession": "P0A8P8",
+      "dld_source_id": "1a0p_a_P0A8P8",
+      "dld_split": "train",
+      "dld_cluster_id": "1a0p_a_P0A8P8",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 290
+    },
+    {
+      "disprot_id": "DP04198",
+      "disprot_region_ids": [
+        "DP04198r002",
+        "DP04198r005"
+      ],
+      "disprot_uniprot_accession": "P26663",
+      "dld_source_id": "1hei_a_P27958",
+      "dld_split": "blind",
+      "dld_cluster_id": "1hei_a_P27958",
+      "same_accession": false,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 0.9313,
+      "aligned_residues": 451
+    },
+    {
+      "disprot_id": "DP04255",
+      "disprot_region_ids": [
+        "DP04255r002"
+      ],
+      "disprot_uniprot_accession": "O60016",
+      "dld_source_id": "1mvh_a_O60016",
+      "dld_split": "train",
+      "dld_cluster_id": "1ml9_a_Q8X225",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 299
+    },
+    {
+      "disprot_id": "DP04392",
+      "disprot_region_ids": [
+        "DP04392r004"
+      ],
+      "disprot_uniprot_accession": "Q83RJ4",
+      "dld_source_id": "3cvr_a_Q83RJ4",
+      "dld_split": "validation",
+      "dld_cluster_id": "4puf_a_D0ZRB2",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 571
+    },
+    {
+      "disprot_id": "DP04446",
+      "disprot_region_ids": [
+        "DP04446r002"
+      ],
+      "disprot_uniprot_accession": "P19120",
+      "dld_source_id": "1yuw_a_P19120",
+      "dld_split": "validation",
+      "dld_cluster_id": "1yuw_a_P19120",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 554
+    },
+    {
+      "disprot_id": "DP04446",
+      "disprot_region_ids": [
+        "DP04446r002"
+      ],
+      "disprot_uniprot_accession": "P19120",
+      "dld_source_id": "1dkz_a_P0A6Y8",
+      "dld_split": "train",
+      "dld_cluster_id": "1u00_a_P0A6Z1",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.5114,
+      "aligned_identity": 0.7054,
+      "aligned_residues": 112
+    },
+    {
+      "disprot_id": "DP04455",
+      "disprot_region_ids": [
+        "DP04455r002"
+      ],
+      "disprot_uniprot_accession": "P25294",
+      "dld_source_id": "1c3g_a_P25294",
+      "dld_split": "train",
+      "dld_cluster_id": "1c3g_a_P25294",
+      "same_accession": true,
+      "shorter_sequence_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "aligned_residues": 170
+    },
+    {
+      "disprot_id": "DP04459",
+      "disprot_region_ids": [
+        "DP04459r002"
+      ],
+      "disprot_uniprot_accession": "Q49AH0",
+      "dld_source_id": "2rqy_a_Q9CXI5",
+      "dld_split": "train",
+      "dld_cluster_id": "2rqy_a_Q9CXI5",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9114,
+      "aligned_identity": 0.6458,
+      "aligned_residues": 144
+    },
+    {
+      "disprot_id": "DP04459",
+      "disprot_region_ids": [
+        "DP04459r002"
+      ],
+      "disprot_uniprot_accession": "Q49AH0",
+      "dld_source_id": "2w51_a_P55145",
+      "dld_split": "train",
+      "dld_cluster_id": "2rqy_a_Q9CXI5",
+      "same_accession": false,
+      "shorter_sequence_coverage": 0.9114,
+      "aligned_identity": 0.6528,
+      "aligned_residues": 144
+    }
+  ],
+  "hit_proteins": 79,
+  "hit_regions": 106,
+  "hit_proteins_by_split": {
+    "train": 49,
+    "validation": 17,
+    "blind": 17
+  },
+  "limitations": [
+    "Top-20 5-mer prescreen can miss remote homologs or low-complexity alignments.",
+    "Local 30% identity/coverage is a candidate flag, not a verified family assignment.",
+    "Full-length, isoform, domain-pair, and residue-coordinate mapping remain unadjudicated.",
+    "No unflagged record is certified independent or eligible for blind evaluation."
+  ]
+}

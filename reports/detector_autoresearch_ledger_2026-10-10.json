@@ -1,0 +1,104 @@
+{
+  "schema_version": "0.1.0",
+  "round_id": "dld-identifier-2026-10-10",
+  "config": "configs/detector_autoresearch_round_2026-10-10.json",
+  "status": "complete_no_promoted_model",
+  "maximum_new_architecture_trials": 3,
+  "maximum_gpu_hours": 6,
+  "new_architecture_trials_completed": 3,
+  "gpu_hours_used_for_new_trials": 0.6949913888888881,
+  "preexisting_reference_runs_counted_in_budget": false,
+  "trials": [
+    {
+      "trial_id": "span-boundary-35m-seed7-001",
+      "mechanism": "auxiliary start/end boundary supervision on frozen ESM-2 35M residue CNN",
+      "status": "negative_guardrail",
+      "launcher_pid": 13724,
+      "stdout_log": "artifacts/span-boundary-35m-seed7-001.stdout.log",
+      "stderr_log": "artifacts/span-boundary-35m-seed7-001.stderr.log",
+      "latest_verified_epoch": 10,
+      "inference_smoke": "artifacts/span-boundary-35m-seed7-001/inference-smoke.json",
+      "output_dir": "artifacts/span-boundary-35m-seed7-001",
+      "seed": 7,
+      "maximum_hours": 5.75,
+      "source": "scripts/train_span_linker_detector.py",
+      "result": {
+        "selected_epoch": 6,
+        "checkpoint_sha256": "35a6dff364b7c34d52aed92202abe896b2ebbd62cc3d9c96d7f627b7c1df19f8",
+        "precision": 0.9032258064516129,
+        "recall": 0.08573730862207897,
+        "true_positives": 532,
+        "false_positives": 57,
+        "no_linker_protein_specificity": 0.9361702127659575,
+        "auprc": 0.3969241272432051,
+        "region_matches_iou_0_5": 60,
+        "comparison": "Recall slightly exceeded the weighted-BCE reference (0.076551) and prior asymmetric head (0.084609), but no-linker specificity fell >0.02 absolute from either reference; do not promote."
+      }
+    },
+    {
+      "trial_id": "span-boundary-lowweight-35m-seed7-002",
+      "mechanism": "same auxiliary start/end head with boundary loss weight 0.05 instead of 0.25 to reduce interference with residue specificity",
+      "hypothesis": "A smaller boundary contribution retains span learning while recovering no-linker-protein specificity",
+      "expected_failure": "Boundary effect may vanish or high-precision recall may regress to baseline",
+      "status": "negative_primary_metric",
+      "launcher_pid": 26024,
+      "stdout_log": "artifacts/span-boundary-lowweight-35m-seed7-002.stdout.log",
+      "stderr_log": "artifacts/span-boundary-lowweight-35m-seed7-002.stderr.log",
+      "output_dir": "artifacts/span-boundary-lowweight-35m-seed7-002",
+      "seed": 7,
+      "maximum_hours": 5.5,
+      "source": "scripts/train_span_linker_detector.py",
+      "result": {
+        "selected_epoch": 6,
+        "checkpoint_sha256": "18da3bc0cfbbfc929904bf75165d9a41163da4d15c52112a8db991099fcab1dd",
+        "precision": 0.9042145593869731,
+        "recall": 0.07606768734891217,
+        "true_positives": 472,
+        "false_positives": 50,
+        "no_linker_protein_specificity": 0.9645390070921985,
+        "auprc": 0.404627792125548,
+        "region_matches_iou_0_5": 57,
+        "comparison": "Guardrail passes against weighted-BCE but recall is below weighted-BCE 0.076551 and asymmetric 0.084609; do not promote."
+      }
+    },
+    {
+      "trial_id": "span-boundary-midweight-35m-seed7-003",
+      "mechanism": "auxiliary start/end supervision with intermediate boundary loss weight 0.10",
+      "hypothesis": "Intermediate span supervision improves high-precision recall over the reference without the no-linker specificity loss seen at weight 0.25",
+      "expected_failure": "May interpolate to no material improvement; no independent generalization claim from fold 4",
+      "status": "inconclusive_no_material_gain",
+      "launcher_pid": 40900,
+      "stdout_log": "artifacts/span-boundary-midweight-35m-seed7-003.stdout.log",
+      "stderr_log": "artifacts/span-boundary-midweight-35m-seed7-003.stderr.log",
+      "output_dir": "artifacts/span-boundary-midweight-35m-seed7-003",
+      "seed": 7,
+      "maximum_hours": 5.5,
+      "source": "scripts/train_span_linker_detector.py",
+      "result": {
+        "selected_epoch": 6,
+        "checkpoint_sha256": "82391a50fea7131563d4c9b03c2d62bd781d8b08509db65a51c7e1505c8347d2",
+        "precision": 0.900375939849624,
+        "recall": 0.07719580983078163,
+        "true_positives": 479,
+        "false_positives": 53,
+        "no_linker_protein_specificity": 0.9716312056737588,
+        "auprc": 0.40096982553105015,
+        "region_matches_iou_0_5": 56,
+        "comparison": "Specificity matches weighted-BCE and recall gains four true-positive residues (479 versus 475 of 6205), but prior asymmetric model recovers 525. Single-seed fold-4 result is not a material improvement; do not promote."
+      }
+    }
+  ],
+  "gate": {
+    "train_validation_hashes_declared": true,
+    "region_metric_implemented": true,
+    "baseline_region_metric_measured": true,
+    "source_code_zero_semantics_verified": false,
+    "disprot_independence_verified": false,
+    "no_competing_gpu_training_job": "check_before_each_trial"
+  },
+  "notes": [
+    "The source-code auxiliary-head trial is blocked until code 0 semantics are verified.",
+    "A span-aware binary-label trial may proceed after a matched baseline/implementation check.",
+    "Fold 5 is not a fresh blind set."
+  ]
+}

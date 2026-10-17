@@ -1,0 +1,46 @@
+{
+  "schema_version": "0.1.0",
+  "status": "configured_not_trained",
+  "seed": 7,
+  "reference_policy": {
+    "allowed_training_label_tiers": ["experimental_gold", "curated_reference"],
+    "require_true_homology_cluster": true,
+    "validation_split": "validation",
+    "blind_split": "blind"
+  },
+  "detector_experiments": [
+    {
+      "id": "residue_cnn_gpu",
+      "implementation": "scripts/train_linker_detector_gpu.py",
+      "status": "implemented_untrained",
+      "requires": ["mapped_reference_labels", "negative_examples", "cuda_pytorch", "cloud_data_urls"]
+    },
+    {
+      "id": "frozen_esm2_residue_head",
+      "implementation": "scripts/train_esm2_linker_detector.py",
+      "status": "implemented_evaluation_pending",
+      "requires": ["pinned_esm2_weights", "cuda_pytorch", "matched_reference_split"]
+    },
+    {
+      "id": "lora_esm2_residue_head",
+      "status": "planned_not_implemented",
+      "requires": ["pinned_esm2_weights", "peft", "cuda_pytorch", "matched_reference_split"]
+    }
+  ],
+  "ranker_experiments": [
+    {"id": "fixed_gs", "status": "implemented_scoring_only"},
+    {"id": "length_heuristic", "status": "implemented_scoring_only"},
+    {"id": "nearest_training", "status": "implemented_scoring_only"},
+    {"id": "hand_features_rule", "status": "implemented_scoring_only"},
+    {"id": "hand_feature_pairwise", "status": "implemented_provisional_pilot"},
+    {"id": "xgboost_context", "status": "planned_not_implemented"},
+    {"id": "esm2_geometry_gnn_linker", "status": "planned_not_implemented"}
+  ],
+  "common_evaluation": {
+    "split_unit": "sequence_homology_cluster",
+    "same_candidate_pool": true,
+    "same_hard_rejection_rules": true,
+    "threshold_selection": "validation_only",
+    "blind_use": "one_final_frozen_evaluation"
+  }
+}

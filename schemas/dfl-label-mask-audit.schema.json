@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/dfl-label-mask-audit.schema.json",
+  "type": "object",
+  "required": ["schema_version", "record_type", "provenance", "status", "counts", "proteins"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "record_type": {"const": "dfl_label_mask_audit"},
+    "provenance": {
+      "type": "object",
+      "required": ["source_sha256", "caid3_sha256", "script_sha256", "pipeline_commit"],
+      "properties": {
+        "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "caid3_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "script_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "pipeline_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+      }
+    },
+    "status": {"const": "candidates_only_not_trainable_homology_and_ontology_review_pending"},
+    "counts": {"$ref": "#/$defs/counts"},
+    "proteins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["disprot_id", "residues", "positive", "negative_candidate", "unknown"],
+        "properties": {
+          "disprot_id": {"type": "string"},
+          "uniprot_accession": {"type": ["string", "null"]},
+          "residues": {"type": "integer", "minimum": 0},
+          "positive": {"type": "integer", "minimum": 0},
+          "negative_candidate": {"type": "integer", "minimum": 0},
+          "unknown": {"type": "integer", "minimum": 0}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+  }
+}

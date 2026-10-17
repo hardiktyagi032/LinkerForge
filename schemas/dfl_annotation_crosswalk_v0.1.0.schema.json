@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/dfl_annotation_crosswalk_v0.1.0.schema.json",
+  "type": "object",
+  "required": ["schema_version", "status", "categories", "unknown_enrichment_exploratory", "records", "provenance", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "retrospective_curated_annotation_crosswalk_not_independent_test"},
+    "categories": {"type": "object"},
+    "unknown_enrichment_exploratory": {"type": "object"},
+    "records": {
+      "type": "array", "minItems": 50, "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": ["case_id", "protein_id", "start_1based", "end_1based", "selection_category", "published_label", "same_sequence_curated_overlap", "same_id_sequence_mismatch", "curated_hits", "interpretation"],
+        "properties": {
+          "case_id": {"type": "string"},
+          "protein_id": {"type": "string"},
+          "start_1based": {"type": "integer", "minimum": 1},
+          "end_1based": {"type": "integer", "minimum": 1},
+          "selection_category": {"type": "string"},
+          "published_label": {"type": "string", "pattern": "^[01x]+$"},
+          "same_sequence_curated_overlap": {"type": "boolean"},
+          "same_id_sequence_mismatch": {"type": "boolean"},
+          "curated_hits": {"type": "array", "items": {"type": "object"}},
+          "interpretation": {"enum": ["curated_flexible_linker_support", "no_curated_overlap_unknown_not_negative"]}
+        }
+      }
+    },
+    "provenance": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

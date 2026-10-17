@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "purpose": "First global-context plus 192-residue bounded-span DFL trial",
+  "data_manifest": "data/processed/caid3_protected_dfl_v1/manifest.json",
+  "architecture": ["bounded_span"],
+  "conditions": ["direct"],
+  "seeds": [7],
+  "frozen_encoder": "facebook/esm2_t12_35M_UR50D",
+  "batch_size": {"bounded_span": 2},
+  "max_residues_per_window": 510,
+  "auxiliary_semantic_epochs": 3,
+  "dfl_finetune_epochs": 12,
+  "optimizer": "AdamW",
+  "learning_rate": 0.0003,
+  "max_gpu_hours_total": 6,
+  "max_seconds_per_trial": 1800,
+  "development_selection": "masked residue APS on filtered development set",
+  "claim_status": "development_only_not_independent"
+}
