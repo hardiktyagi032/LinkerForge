@@ -18,9 +18,12 @@ publication checklist in `CHECKLIST.md` remains intact.
 | [x] 9 | Execution, resource and failure controls | `pipeline/training.py`; aggregate reservation, one host/account lock across rounds, exact execution receipt, child PID/logs, hard timeout, checksum-verified completion, no overwrite/automatic retry. Remote jobs remain unverified. |
 | [x] 10 | Matched development benchmark paths | Site MLP/linear/uniform/proximity and reviewed external-score interface; generator frequency/training-only context retrieval/optional exposure-reviewed source library; full/common counts and paired family uncertainty. `benchmark-commands` retains every requested seed. |
 | [x] 11 | Scoped verification and packaging entry point | `scripts/verify_design_architecture.py`; `linkerforge-design` entry point; dated evidence under `reports/pipeline-readiness-2026-10-18.*`. Existing model regressions use invented fixtures only. |
-| [ ] 12 | Hosted CI result and independent team review | Submit CI separately as requested by legacy H1. Local verification does not establish hosted runner/cloud installation or reviewer approval. |
+| [x] 12 | Scoped CPU CI configuration, separate review increment | `design-python.yml`: standard-library geometry on Python 3.11, model wiring on Python 3.14 CPU, exact action revisions, timeouts/offline weights/report artifacts; active PR branches enabled. Hosted outcome is recorded separately and is not college-cloud or reviewer approval. |
 
 Still required before scientific execution:
+
+- [ ] Independent team review of these draft code changes, shared-contract
+  decisions, and the observed hosted CI outcome.
 
 - [ ] Traceable, reviewed generator data and donor-aggregated site supervision,
   including genuine negative controls; mined flanks do not supply tolerance labels.

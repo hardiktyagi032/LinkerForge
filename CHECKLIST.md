@@ -143,5 +143,9 @@ These can run on existing mined or natural linker data. Each is publishable eith
 ## Housekeeping (before any PR is merged)
 
 - [ ] **H1. CI for the active branch.** Add `codex/dfl-research-handoff` to the `pull_request` branches in `.github/workflows/ci.yml`, and add a Python job running `python3 -m unittest discover -s tests` on Python 3.11. Do this in its own PR. Note: `tests/` is not a package, so discovery needs a path or an `__init__.py` fix (not investigated).
+  - 18 October scoped implementation: a separate CI increment enables the active
+    PR bases and standard-library geometry on Python 3.11; model wiring uses the
+    package's supported Python 3.14 CPU runtime. H1 stays open for its historical
+    full-detector-suite requirement, which is outside the current human request.
 - [ ] **H2. Repo consistency.** Known issues a reviewer will find: `configs/detector_autoresearch_active.json` reports zero completed trials, which contradicts the 16 and 17 October rounds; a local Windows path appears in `reports/DFL_ANNOTATION_AND_CONTROL_TEST_2026-10-12.md`; LINKER-Pred checkpoints have no license at the pinned commits; both `.tex` drafts describe the design project while the evidence is for the detection project.
 - [ ] **H3. Commit the frozen-score manifest.** Hashes and paths of frozen score files, so a clean clone can tell what is missing (ties to P0).
