@@ -1,5 +1,93 @@
 # Model research log
 
+## 18 October 2026 — attachment sites, topology and benchmark implementation (Asia/Calcutta)
+
+**Instruction and source state.** The human requested publishing the generator,
+then implementing component 4 without data. Generator commit
+`7a4ccc2cf87a3cba6fb54ba5539a08ddb48511ce` is on GitHub in draft PR #9.
+The local Git credential's push was denied for another account; the connected
+repository owner's GitHub API published the identical verified Git tree.
+No credentials were changed. PRs #2–#7 are now merged on the active architecture
+branch. Created isolated `codex/attachment-site-scorer` from the generator commit.
+The direct instruction authorizes code/testing, not scientific fitting or release.
+
+**Hypothesis and design.** Frozen ESM residue embeddings and a small domain-wise
+MLP may support attachment tolerance beyond linear/position controls on new
+families. The implementation separates internal insertion from N/C extension;
+natural linkers are not automatically tolerance labels. Unknown positions are
+masked, not negatives. Label endpoints require a reviewed donor-aggregation
+policy, since a single-domain model cannot represent arbitrary donor interactions.
+Connection count is explicit topology (one tandem connection or two insertion
+connections), tested by the existing geometry engine rather than a fabricated
+count predictor. Comparators, seeds 7/17/31, null data/coverage/approvals, limits
+and a falsification rule are in `configs/attachment-benchmark-plan.json`.
+
+**Primary evidence.** ProDomino code at
+`e0762470a27a5804a5c96c44d6e923bc21ee13f6`
+([MLP](https://github.com/Niopek-Lab/ProDomino/blob/e0762470a27a5804a5c96c44d6e923bc21ee13f6/src/ProDomino/models/base.py),
+[inference](https://github.com/Niopek-Lab/ProDomino/blob/e0762470a27a5804a5c96c44d6e923bc21ee13f6/src/ProDomino/inference/inference.py))
+verifies ESM-2 3B/layer-36 and the two-layer head. Its weights/code were not
+executed/copied; licence is CC BY-NC 4.0. The Nature Methods page could not be
+retrieved, so no unverified handoff accuracy figures were adopted.
+[Kir2.1 original research](https://www.nature.com/articles/s41467-021-27342-0)
+supports the donor/endpoint distinction. [Official ESM model configuration](https://huggingface.co/facebook/esm2_t36_3B_UR50D/blob/main/config.json)
+and [API docs](https://huggingface.co/docs/transformers/en/model_doc/esm) support
+the extraction interface/dimensions. These motivate design, not biological efficacy.
+
+**Files.** Added `src/linkerforge/attachment/` (head, frozen cache/data preflight,
+ESM extraction adapter, trainer/resume, benchmark, topology/geometry plans, CLI),
+entry script, MLP/linear configs, frozen-pilot draft, 28 software tests, runbook
+and readiness evidence. Updated README/AGENTS and packaging entry point. No shared
+schema, detector/source labels, scientific threshold or existing geometry constant
+was changed. Generator source remains unchanged.
+
+**Exact verification commands.** In `LinkerForge-attachment`, use
+`$attachmentPython = 'C:/Users/saubh/Documents/ChatGPT/Research/LinkerForge-models/.venv/Scripts/python.exe'`
+and set `PYTHONPATH` to this checkout's `src` for unittest. `$attachmentUv` is
+`C:/Users/saubh/Documents/ChatGPT/Research/LinkerForge/.venv/Scripts/uv.exe`.
+TMP/TEMP and UV_CACHE_DIR were inside this checkout's ignored `tmp` directory.
+
+```powershell
+& $attachmentPython -m unittest discover -s tests -p test_attachment_sites.py -v
+& $attachmentPython -m unittest discover -s tests -p test_fusion_generator.py -v
+& $attachmentPython -m unittest discover -s tests -p 'test_linker_geometry_*.py' -v
+& $attachmentPython scripts/attachment_site_model.py smoke --output tmp/attachment-verification/smoke-complete
+& $attachmentPython scripts/attachment_site_model.py benchmark-development --manifest tmp/attachment-verification/smoke-complete/fixtures/manifest.json --checkpoint mlp=tmp/attachment-verification/smoke-complete/training/step-000003 --coverage-fraction 0.5 --bootstrap-draws 20 --seed 17 --synthetic-smoke --output tmp/attachment-verification/cli-benchmark.json
+& $attachmentPython scripts/attachment_site_model.py score --checkpoint tmp/attachment-verification/smoke-complete/training/step-000003 --sequence-json tmp/attachment-verification/sequence.json --embedding $scoreInput.path --embedding-sha256 $scoreInput.sha256 --output tmp/attachment-verification/cli-domain-scores.json
+& $attachmentUv build --wheel --python $attachmentPython --out-dir tmp/attachment-verification/dist
+& $attachmentPython tmp/attachment-verification/verify_artifacts.py
+# With PYTHONPATH set to tmp/attachment-verification/wheel-extracted:
+& $attachmentPython -m linkerforge.attachment --help
+git diff --check
+```
+
+`$scoreInput` is recorded in `tmp/attachment-verification/score-input.json`;
+the sequence is an invented development string. This is CLI wiring only.
+
+**Outcomes and raw counts.** 28 attachment tests passed in 10.772 seconds;
+31 generator regressions in 8.964 seconds; 80 existing geometry regressions in
+1.846 seconds. Four-step versus two-plus-two resumed optimization with dropout
+matched weights/history exactly. Tiny random local ESM validated frozen
+extraction and asset hashes without a network model download. Synthetic smoke:
+6 train/6 development task records over four invented strings, each split with
+4 positive/4 negative/16 unknown label positions; seed 17; 3 updates; 195 head
+parameters; one CPU thread, 120-second ceiling, measured trainer time 1.535
+seconds. All three operation outputs and task-stratified benchmark/CLI paths
+executed with synthetic flags. No metric is reported as biological performance.
+Pinned CPU runtime and input/source/artifact hashes are recorded in the readiness
+JSON. Tests were rerun after cache/endpoint/metadata integrity additions; no
+unchanged biological experiment was repeated.
+
+**Decision and next work.** Publish the isolated component for review. The working
+model/trainer and development benchmarks await data; no biological training,
+blind reveal, cloud job, paid compute or weight promotion occurred. Next: review
+endpoint/negative evidence/donor aggregation; provide audited family-split
+tolerance examples and full exclusion registries; verify approved encoder/cloud
+assets and official comparator exposure/position conventions; freeze a controlled
+three-seed development pilot. A separately reviewed benchmark freeze must precede
+any independent label reveal. Do not reuse detector errors or unvalidated linker
+flanks, and do not call a geometric witness proof of fusion function.
+
 ## 18 October 2026 — fusion generator implementation (Asia/Calcutta)
 
 **Authority and scope.** The human changed direction and requested architecture
