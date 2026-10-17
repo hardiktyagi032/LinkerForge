@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/linker_property_library.v1.schema.json",
+  "title": "LinkerForge curated linker property library (engineered fusion-protein linker templates)",
+  "description": "A hand-curated template library of peptide linkers used in engineered fusion proteins, labelled on two property axes with a per-entry citation. Evidence tier is 'literature-reported engineered use', which is strictly weaker than 'experimentally function-tested' as defined in reports/EXPERIMENTALLY_TESTED_LINKER_SOURCE_SEARCH_2026-10-12.md. No count from a document validated by this schema may be presented as a count of function-tested linkers.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "library_id", "curated_on", "scope", "label_semantics", "sources", "attribution_note", "entries"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "library_id": {"type": "string", "minLength": 1},
+    "curated_on": {"type": "string", "format": "date"},
+    "scope": {"type": "string", "minLength": 1},
+    "label_semantics": {"type": "object", "minProperties": 1},
+    "acquisition_status": {
+      "type": "object",
+      "description": "Named external sources that were investigated but whose row-level records are NOT in this file. Present so a reader cannot mistake a cited database for an incorporated one.",
+      "additionalProperties": {"type": "string"}
+    },
+    "attribution_note": {"type": "string", "minLength": 1},
+    "sources": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["citation", "role"],
+        "properties": {
+          "citation": {"type": "string", "minLength": 1},
+          "doi": {"type": ["string", "null"]},
+          "open_access_copy": {"type": ["string", "null"]},
+          "text_used": {"type": ["string", "null"]},
+          "url": {"type": ["string", "null"]},
+          "role": {"type": "string", "minLength": 1},
+          "label_axis_provided": {"type": ["string", "null"]},
+          "internal_inconsistencies_noted": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "composite_templates": {
+      "type": "array",
+      "description": "Property combinations that CANNOT be realised as one homogeneous segment and must be assembled from parts. Present so a downstream conditional generator is never asked to emit a single sequence for a physically awkward combination.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["template_id", "target_properties", "construction", "rationale", "evidence"],
+        "properties": {
+          "template_id": {"type": "string", "minLength": 1},
+          "target_properties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["rigidity", "cleavability"],
+            "properties": {
+              "rigidity": {"enum": ["rigid", "flexible"]},
+              "cleavability": {"enum": ["cleavable", "non_cleavable"]}
+            }
+          },
+          "construction": {"type": "string", "minLength": 1},
+          "parts": {"type": "array", "items": {"type": "object"}},
+          "rationale": {"type": "string", "minLength": 1},
+          "evidence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "worked_example_entry_id": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["entry_id", "sequence", "sequence_as_printed", "notation", "rigidity", "cleavability", "source_key", "source_locator", "attributed_origin", "attributed_doi", "fusion_context", "notes"],
+        "properties": {
+          "entry_id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+          "sequence": {
+            "type": ["string", "null"],
+            "pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$",
+            "description": "Null when the source gives only a pattern, a length range, or a compressed notation. Null entries MUST set excluded_from_model true. A sequence is never invented to fill this field."
+          },
+          "sequence_as_printed": {"type": "string", "minLength": 1},
+          "notation": {
+            "enum": [
+              "verbatim",
+              "verbatim_reflowed",
+              "expanded_from_repeat",
+              "cleavage_marker_removed",
+              "pattern_not_expanded",
+              "compressed_not_expanded"
+            ]
+          },
+          "cleavage_after_index": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "1-based residue index after which the source marks scission."
+          },
+          "rigidity": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "basis"],
+            "properties": {
+              "label": {"enum": ["rigid", "flexible", "unassigned"]},
+              "basis": {"enum": ["source_category", "source_stated", "inferred_from_category_exclusion", "not_stated"]},
+              "mechanism": {"type": ["string", "null"]}
+            }
+          },
+          "cleavability": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "basis", "protease"],
+            "properties": {
+              "label": {"enum": ["cleavable", "non_cleavable", "unassigned"]},
+              "basis": {"enum": ["source_category", "source_stated", "inferred_from_category_exclusion", "not_stated"]},
+              "protease": {"type": ["string", "null"]}
+            }
+          },
+          "source_key": {"type": "string", "minLength": 1},
+          "source_locator": {"type": "string", "minLength": 1},
+          "attributed_origin": {"type": "string", "minLength": 1},
+          "attributed_doi": {"type": ["string", "null"]},
+          "fusion_context": {"type": ["string", "null"]},
+          "notes": {"type": ["string", "null"]},
+          "transcription_confidence": {"enum": ["ambiguous_in_source", "minor_ambiguity_in_source"]},
+          "excluded_from_model": {"type": "boolean"},
+          "exclusion_reason": {"type": "string", "minLength": 1}
+        },
+        "allOf": [
+          {
+            "description": "A null sequence must be excluded from modelling.",
+            "if": {"properties": {"sequence": {"type": "null"}}, "required": ["sequence"]},
+            "then": {"required": ["excluded_from_model", "exclusion_reason"], "properties": {"excluded_from_model": {"const": true}}}
+          },
+          {
+            "description": "An excluded entry must say why.",
+            "if": {"properties": {"excluded_from_model": {"const": true}}, "required": ["excluded_from_model"]},
+            "then": {"required": ["exclusion_reason"]}
+          },
+          {
+            "description": "A cleavable entry must name the protease or say it is unspecified.",
+            "if": {
+              "properties": {"cleavability": {"properties": {"label": {"const": "cleavable"}}, "required": ["label"]}},
+              "required": ["cleavability"]
+            },
+            "then": {"properties": {"cleavability": {"properties": {"protease": {"type": "string", "minLength": 1}}}}}
+          }
+        ]
+      }
+    }
+  }
+}
