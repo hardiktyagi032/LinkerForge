@@ -109,3 +109,11 @@ a credible high-precision mining claim, and no independently adjudicated
 no-linker negatives exist in that set. The preflight now distinguishes the
 historically viewed CAID3 exclusion registry from DP94's unopened local
 label seal; it does not remove either sequence firewall.
+
+An additional provenance-first DisProt 2026_06 assembly is documented in
+`reports/DFL_CURATED_TRAINING_SOURCE_ASSEMBLY_2026-10-18.md`. Its strict
+validated/cited/released, nonflagged tier yields only **two** screened
+proteins with 36 observed positive residues and **zero** explicit ordered
+residues. A separate 15-protein flagged tier is quarantined for evidence
+review, not admitted to training. The tracked builder and JSON Schema make
+the candidate artifact reproducible; they do not close B1.
