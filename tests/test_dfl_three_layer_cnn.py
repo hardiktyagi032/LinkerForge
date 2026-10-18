@@ -5,6 +5,7 @@ import unittest
 import torch
 
 from src.linkerforge.detector.cnn import ThreeLayerDFLCNN, labels_to_tensor, masked_bce_with_logits
+from src.linkerforge.detector.sequence_cnn import sequence_logits
 
 
 class ThreeLayerCNNTests(unittest.TestCase):
@@ -51,6 +52,23 @@ class ThreeLayerCNNTests(unittest.TestCase):
             optimizer.step()
         last = float(masked_bce_with_logits(model(embeddings), labels).detach())
         self.assertLess(last, first)
+
+    def test_sequence_adapter_preserves_residue_alignment(self):
+        class Tokenizer:
+            def __call__(self, sequences, **kwargs):
+                length = max(map(len, sequences)) + 2
+                return {"input_ids": torch.zeros(len(sequences), length, dtype=torch.long)}
+
+        class Encoder(torch.nn.Module):
+            def forward(self, input_ids):
+                return type("Output", (), {"last_hidden_state":
+                            torch.ones(*input_ids.shape, 8)})()
+
+        head = ThreeLayerDFLCNN(8)
+        scores = sequence_logits(Encoder(), Tokenizer(), head, ["ACDEF", "MGS"])
+        self.assertEqual([len(row) for row in scores], [5, 3])
+        with self.assertRaises(ValueError):
+            sequence_logits(Encoder(), Tokenizer(), head, ["ACD?F"])
 
 
 if __name__ == "__main__":
