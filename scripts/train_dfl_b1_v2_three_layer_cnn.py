@@ -33,8 +33,11 @@ def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def preflight() -> tuple[dict, dict, list[dict], list[dict]]:
-    config = json.loads(CONFIG.read_text(encoding="utf-8"))
+def preflight(config_path: Path = CONFIG) -> tuple[dict, dict, list[dict], list[dict]]:
+    config_path = config_path.resolve()
+    if not config_path.is_relative_to(ROOT / "configs"):
+        raise ValueError("Trial config must be in the repository configs directory")
+    config = json.loads(config_path.read_text(encoding="utf-8"))
     split_path = (ROOT / config["split_manifest"]).resolve()
     if not split_path.is_relative_to(ROOT) or sha(split_path) != config["split_manifest_sha256"]:
         raise ValueError("Pinned B1 V2 split manifest missing or changed")
@@ -60,8 +63,8 @@ def windows(rows: list[dict], width: int) -> list[tuple[str, str, str]]:
             if any(code in "01" for code in row["labels"][start:start + width])]
 
 
-def run(output_dir: Path) -> None:
-    config, verified, train, dev = preflight()  # Must finish before GPU allocation.
+def run(output_dir: Path, config_path: Path = CONFIG) -> None:
+    config, verified, train, dev = preflight(config_path)  # Must finish before GPU allocation.
     output_dir = output_dir.resolve()
     if output_dir.exists():
         raise FileExistsError(f"Refusing to overwrite trial output: {output_dir}")
@@ -94,7 +97,8 @@ def run(output_dir: Path) -> None:
         manifest = {
             "schema_version": "1.0.0", "status": "initializing", "pid": os.getpid(),
             "started_utc": datetime.now(timezone.utc).isoformat(),
-            "config_sha256": sha(CONFIG), "split_manifest_sha256": verified["split_manifest_sha256"],
+            "config_path": str(config_path.resolve().relative_to(ROOT)),
+            "config_sha256": sha(config_path), "split_manifest_sha256": verified["split_manifest_sha256"],
             "train_sha256": config["train_sha256"], "development_sha256": config["development_sha256"],
             "auxiliary_sha256": config["auxiliary_sha256"], "source_sha256": sha(Path(__file__)),
             "pipeline_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
@@ -222,12 +226,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--preflight-only", action="store_true")
+    parser.add_argument("--config", type=Path, default=CONFIG)
     args = parser.parse_args()
     if args.preflight_only:
-        config, verified, train, dev = preflight()
-        print(json.dumps({"status": "preflight_passed", "config_sha256": sha(CONFIG),
+        config, verified, train, dev = preflight(args.config)
+        print(json.dumps({"status": "preflight_passed", "config_sha256": sha(args.config),
                           "split_manifest_sha256": verified["split_manifest_sha256"],
                           "train_proteins": len(train), "development_proteins": len(dev),
                           "max_seconds": config["max_seconds"]}, indent=2, sort_keys=True))
     else:
-        run(args.output_dir)
+        run(args.output_dir, args.config)
