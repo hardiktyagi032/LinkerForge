@@ -1,5 +1,7 @@
 # Part 4 Completion Report: Pairwise Compatibility Ranker, Hard Structural Rejection Scorecard, 6-Baseline Benchmark, and `sfGFP (2B3P) — linker — mCherry (2H5Q)` Fusion Demonstration
 
+> **Correction, 19 October 2026:** The ranking results below compare against generated synthetic corruptions and internal heuristics, not published predictors or experimentally measured fusion outcomes. Exported PDBs are geometric illustrations, not validated complete-fusion structures. See [the claims audit](./PAPER_CLAIMS_AUDIT_2026-10-19.md).
+
 **Date:** 2026-10-19  
 **Dataset Authority:** `mined_and_natural_linkers_v1` (`27,766` total linker records; `6,727` verified natural + literature + high-confidence proteome-mined authorities indexed; `manifest.json` SHA-256 `b1b8c5b34eb9a98eb627005a810f367e4364be9a75447af9740b3bff6d3e3232`)  
 **Module:** `src/linkerforge/pipeline/ranker.py`  

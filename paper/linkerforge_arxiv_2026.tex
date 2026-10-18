@@ -1,366 +1,53 @@
-\documentclass[11pt]{article}
+\documentclass{article}
 \usepackage{arxiv}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{hyperref}
-\usepackage{url}
 \usepackage{booktabs}
-\usepackage{amsfonts}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{nicefrac}
-\usepackage{microtype}
-\usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{array}
-\usepackage{multirow}
-
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue!70!black,
-  citecolor=blue!70!black,
-  urlcolor=blue!70!black,
-  pdftitle={LinkerForge: Domain-Gated Conformal Proteome Mining and Geometry-Guided Compatibility Ranking for Fusion Protein Linker Design},
-  pdfsubject={q-bio.BM, cs.LG}
-}
-
-\title{LinkerForge: Domain-Gated Conformal Proteome Mining and Geometry-Guided Compatibility Ranking for Fusion Protein Linker Design}
-
-\author{
-  \textbf{LinkerForge Research Team} \\
-  Computational Structural Biology \& Machine Learning \\
-  Open-Source Repository: \texttt{\href{https://github.com/richennacht/LinkerForge}{https://github.com/richennacht/LinkerForge}} \\
-  Branch: \texttt{codex/classifier-foundation} (Commit \texttt{0f3859a})
-}
-
-\date{October 19, 2026 \\ \vspace{0.4em} \textbf{Primary Category:} \texttt{q-bio.BM} (Biomolecules) $\cdot$ \textbf{Secondary Category:} \texttt{cs.LG} (Machine Learning)}
-
+\usepackage{hyperref}
+\title{LinkerForge: An Auditable Prototype for Linker-Candidate Mining and Geometry-Guided Fusion Design}
+\author{LinkerForge Research Team}
+\date{19 October 2026}
 \begin{document}
 \maketitle
-
 \begin{abstract}
-Engineering functional multidomain fusion proteins requires simultaneously choosing (i) solvent-accessible domain attachment ports that do not disrupt flanking secondary structure, (ii) a polypeptide topology capable of physically closing the 3D inter-port trajectory around steric obstacles, and (iii) a linker sequence whose conformational stiffness, electrostatics, hydropathy, and protease cleavability match the target biological intent. Although sequence-based disordered flexible linker (DFL) predictors (\emph{e.g.}, DFLpred, APOD, TransDFL) and classical linker databases (\emph{e.g.}, LinkerDB, SynLinker) exist, five fundamental gaps prevent end-to-end, reproducible fusion design: \textbf{(1) The Proteome-Mining Precision Bottleneck:} unconstrained residue-level DFL classifiers suffer $>44\%$ false discovery rates (FDR) on full proteomes due to intrinsically disordered terminal tails and homologous tandem repeats; \textbf{(2) Evidence-Tier Conflation \& Composite Incompatibility:} existing corpora conflate natural inter-domain linkers with engineered functional templates and fail to enforce the structural requirement of local backbone unfolding at protease cleavage sites within rigid spacers; \textbf{(3) Steric \& Multi-Tether Geometric Blindness:} straight-line $C_\alpha$ distance formulas ignore domain body occlusion and two-tether topological closure for internal insertions; \textbf{(4) Encoder Intent Leakage:} site-permissibility models entangle intrinsic domain attachment tolerance with downstream linker preferences; and \textbf{(5) Uncalibrated Probability Claims:} existing workflows output uncalibrated ``fusion success probabilities'' despite recent evidence that single-pose folding models cannot resolve flexible-linker pose distributions.
-
-We present \textbf{LinkerForge}, a five-component, provenance-audited framework that resolves these gaps. First, a two-stage \emph{Heterodomain-Boundary Gated Conformal Miner} combines a masked 3-layer residual 1D CNN (\texttt{seed31}) with split-conformal Clopper--Pearson upper-confidence-bound (UCB) calibration, reducing proteome-mining empirical FDR from $44.74\%$ to $1.06\%$ ($95\%$ UCB $4.95\% \le 5\%$ at $\tau_{\text{high}}=0.92285$) with $97.50\%$ protein specificity on a no-linker control panel. Scanning $161{,}317$ full-length proteins and auditing $184{,}554$ reference proteome domain-gap observations yields \texttt{mined\_and\_natural\_linkers\_v1}, an open, benchmark-firewalled corpus of \textbf{$27{,}766$ linker records} ($6{,}556$ high-confidence mined, $21{,}039$ provisional mined, and $171$ curated natural/literature authorities). Second, a deterministic 3D geometry and template engine enforces $3.8\text{ \AA/res}$ physical closure, Shrake--Rupley solvent accessibility, multi-tether SE(3) satisfiability, and a two-part rigid-spacer + flexible-cassette proteolysis rule, nearly doubling held-out flanking-context retrieval accuracy ($24.2\% \to 47.3\%$ within $\pm 2\text{ aa}$; $100.0\%$ rigidity concordance). Third, an intent-free \emph{Two-Tower Attachment-Site Scorer} achieves $1.0000$ AUROC and $100.0\%$ Top-1 port recovery across $1{,}478$ held-out domains. Fourth, a \emph{Pairwise Compatibility Ranker} paired with a 6-rule deterministic \emph{Hard Structural Rejection Scorecard} achieves $99.32\%$ Top-1 natural rank accuracy ($0.9966$ MRR) against six physical negative corruptions and outperforms five baseline methods on cluster-disjoint cross-validation, demonstrated end-to-end on \texttt{sfGFP (PDB 2B3P) --- linker --- mCherry (PDB 2H5Q)} with interactive Mol* and PyMOL 3D visualization.
+We describe a computational prototype combining a sequence-based disordered flexible linker (DFL) classifier, a domain-gap candidate filter, provenance-stratified retrieval, geometric feasibility heuristics, attachment-site scoring, and pairwise ranking. A three-layer convolutional detector achieved reported mean residue average precision $0.7611\pm0.0110$ across three seeds on a family-disjoint development split, but this is not a proteome-mining precision estimate. A strict, exact-sequence-matched InterPro/Pfam audit found only one eligible gap in 28 development proteins, covering 38 of 547 known positive residues and no known negative residues. A separate builder reported 93 true-positive and one false-positive known residues under a different domain-annotation path. These evaluations cannot establish prospective span-level precision. The builder reports 27,595 model-scored gaps, which are candidates rather than verified DFLs. Retrieval and ranking results remain small retrospective or synthetic-corruption diagnostics. No independent no-linker specificity, published-method superiority, or experimental fusion performance has been demonstrated.
 \end{abstract}
 
-\textbf{Keywords:} Fusion Protein Design $\cdot$ Disordered Flexible Linkers (DFL) $\cdot$ Conformal Risk Control $\cdot$ Proteome Mining $\cdot$ 3D Steric Geometry $\cdot$ Two-Tower Attachment Scoring $\cdot$ Pairwise Ranking
+\section{Scope and evidence boundary}
+Domain gaps, curated DFL annotations, structural domain boundaries, engineered linker templates, and model predictions are separate evidence types. A gap between domains is not necessarily disordered or flexible. Unannotated residues are unknown, not negative. CAID3 has already been used in a retrospective comparison and cannot be reused as a new blind test. The earlier version of this manuscript overstated calibration, dataset validation, and downstream performance; this version supersedes it. The detailed corrections are recorded in \texttt{reports/PAPER\_CLAIMS\_AUDIT\_2026-10-19.md}.
 
----
+\section{Prototype methods}
+The detector is a three-layer 1D CNN trained with a mask over observed positive and negative residues. A deterministic gate proposes 5--60-residue intervals between adjacent, non-overlapping, distinct domain annotations. Its code does not prove that the domains are folded or the interval is a DFL. The builder scores these intervals using a frozen CNN. A threshold routine selects among residue-score cutoffs on development data and computes one-sided Clopper--Pearson upper bounds at each cutoff. This is a descriptive calculation, not a valid split-conformal or learn-then-test guarantee: the same labels select the cutoff, there is no multiplicity correction, residues within proteins are correlated, and production span calls use a different mean/maximum-score rule. The nominal bound must not be extrapolated to new proteins or to entire mined spans.
 
-\section{Introduction}
-\label{sec:intro}
+The design module implements necessary length and geometry checks, retrieval from source-stratified records, an attachment-site heuristic, and a pairwise ranker. A geometric pass is not proof of a realizable structure. The attachment-site diagnostic compares termini with interior positions while including terminal location among features. The ranker is evaluated mainly against algorithmically generated corruptions, not experimentally failed linkers.
 
-Synthetic biology, bispecific antibody engineering, fluorescent biosensor development, and targeted enzyme tethering routinely require joining two or more independently folded protein domains into a single polypeptide chain \cite{chen2013fusion,vanrosmalen2017gs,pedelacq2006sfgfp}. Far from acting as inert covalent threads, inter-domain peptide linkers govern inter-domain distance distributions, rotational orientation, steric clash avoidance, proteolytic stability, and allosteric coupling \cite{george2002analysis,arai2001helical,mcbride2026pose}. A poorly chosen linker---or a poorly chosen attachment residue on either flanking domain---frequently results in inclusion-body aggregation, premature host proteolysis, loss of catalytic or fluorescence activity, or failure of the polypeptide chain to physically span the 3D junction \cite{chen2013fusion,hubbard1994proteolysis}.
-
-Over the past quarter-century, two largely separate research traditions have addressed parts of this problem. The \emph{sequence bioinformatics tradition} treats inter-domain linker identification as a 1D sequence segmentation task inside natural multidomain proteins, progressing from propensity indices and hidden Markov models \cite{george2002analysis,bae2005hmm} to shallow neural networks \cite{miyazaki2006neural}, support vector machines and random forests (\emph{e.g.}, DROP \cite{ebina2011drop}, Shatnawi et al.\ \cite{shatnawi2014rf}), specialized disordered flexible linker (DFL) predictors (\emph{e.g.}, DFLpred \cite{meng2016dflpred}, APOD \cite{peng2020apod}, TransDFL \cite{wu2023transdfl}), and recent protein language model (pLM) / convolutional architectures (\emph{e.g.}, IDP-ELM \cite{idp_elm2024}, LINKER-Pred \cite{linkerpred2025}, and the DLD framework \cite{dld2026jmb}). In parallel, the \emph{rational protein engineering tradition} has cataloged empirical linker templates (\emph{e.g.}, flexible $(\text{GGGGS})_n$ repeats \cite{vanrosmalen2017gs}, rigid $\alpha$-helical $\text{A(EAAAK)}_n\text{A}$ rods \cite{arai2001helical}, proline-rich $(\text{PAPAP})_n$ spacers \cite{chen2013fusion}) and built early retrieval or loop-remodeling tools such as LINKER \cite{crasto2000linker}, SynLinker \cite{liu2015synlinker}, LooDo \cite{berrondo2018loodo}, CirPred \cite{chen2021cirpred}, ProDomino \cite{wolf2025prodomino}, SplitSeek-Pro \cite{wang2026splitseek}, and multimodal fixed-pair customization models \cite{li2026multimodal}.
-
-Despite these advances, bridging 1D natural linker detection and 3D structural fusion design remains hindered by severe methodological and data-hygiene gaps. In this work, we first conduct a systematic prior-art audit ($2{,}437$ OpenAlex metadata records screened; $50$ core methods and benchmark papers triaged in \texttt{literature/REVIEW\_STATUS.md} and \texttt{literature/FIFTY\_PAPER\_METHODS\_SHORTLIST.md}) to establish precisely what has and has not been solved. Rather than claiming that linker identification or linker generation is new as a problem statement, we identify and resolve \textbf{five specific, falsifiable scientific gaps} that previously prevented scalable proteome mining and physically rigorous fusion design.
-
-\section{The Five Research Gaps and Problem Formulation}
-\label{sec:gaps}
-
-Table~\ref{tab:gap_matrix} contrasts prior literature against the five concrete failure modes solved by LinkerForge.
-
-\begin{table*}[t]
-\centering
-\caption{\textbf{Systematic Comparison of Prior Art vs.\ the Five Research Gaps Solved by LinkerForge.} Every comparator and DOI is audited in \texttt{literature/REVIEW\_STATUS.md} and \texttt{literature/LINKER\_DETECTOR\_REVIEW.md}.}
-\label{tab:gap_matrix}
-\footnotesize
-\setlength{\tabcolsep}{4.5pt}
-\begin{tabular}{p{2.3cm} p{3.4cm} p{4.6cm} p{5.1cm}}
-\toprule
-\textbf{Gap Axis} & \textbf{Representative Prior Work} & \textbf{Specific Failure Mode / Gap} & \textbf{What LinkerForge Solves} \\
-\midrule
-\textbf{G1. Proteome-Scale DFL Mining Precision} &
-DFLpred \cite{meng2016dflpred}, APOD \cite{peng2020apod}, TransDFL \cite{wu2023transdfl}, IDP-ELM \cite{idp_elm2024}, DLD \cite{dld2026jmb}, CAID2/3 \cite{caid2_linker2024,caid3_2025} &
-Residue-level classifiers fire heavily on N/C-terminal disordered tails, intradomain loops, and homologous tandem repeats ($D_A = D_B$). Unconstrained conformal mining yields $\ge 44.74\%$ empirical FDR on full proteomes. &
-\textbf{Two-Stage Heterodomain-Gated Conformal Miner:} Enforces $D_A \neq D_B$ Pfam/InterPro/CATH/PDB gap gating plus Clopper--Pearson 95\% UCB risk control \cite{bates2021rcps}, cutting empirical FDR from $44.74\% \to \mathbf{1.06\%}$ and mining \textbf{$27{,}595$ linkers} across $345{,}871$ protein/gap records. \\
-\addlinespace[4pt]
-\textbf{G2. Evidence Hygiene \& Composite Physics} &
-SynLinker \cite{liu2015synlinker} (defunct since 2016), LinkerDB \cite{george2002analysis}, Chen et al.\ \cite{chen2013fusion} &
-Conflates evolutionary domain linkers with engineered templates; treats unannotated residues as true negatives; provides no rule for combining rigid $\alpha$-helical spacing with protease cleavability \cite{hubbard1994proteolysis}. &
-\textbf{$1/0/\text{x}$ Semantics \& Two-Part Composite Rule:} Separates 5 explicit provenance tiers, enforces a SIMD Needleman--Wunsch benchmark firewall ($<30\%$ global, $<50\%$ local 25-aa identity), and constructs rigid+cleavable linkers as a rigid spacer + GS-flanked protease cassette. \\
-\addlinespace[4pt]
-\textbf{G3. 3D Steric Detour \& Multi-Tether Topology} &
-LINKER \cite{crasto2000linker}, CirPred \cite{chen2021cirpred}, LooDo \cite{berrondo2018loodo} &
-Straight-line Euclidean $C_\alpha$ distance ignores steric occlusion by flanking domains; single-tether formulas fail on internal domain insertions requiring two simultaneous polypeptide tethers. &
-\textbf{Closed-Form 3D Steric \& Multi-Tether Engine:} Computes heavy-atom detour path length $d_{\text{path}}$, Shrake--Rupley SASA \cite{shrake1973sasa,tien2013maxasa}, WLC/Gaussian strain \cite{kratky1949wlc,vanrosmalen2017gs}, and multi-tether SE(3) placement feasibility, coupled to $X2$ flanking-context retrieval over $27{,}766$ records. \\
-\addlinespace[4pt]
-\textbf{G4. Attachment-Site Encoder Leakage} &
-ProDomino \cite{wolf2025prodomino}, SplitSeek-Pro \cite{wang2026splitseek} &
-Single-domain insertion predictors either ignore 3D partner-domain orientation or entangle user linker preferences with intrinsic domain site tolerance; single-scale flexibility propensities achieve only $\sim 0.50$ AUROC. &
-\textbf{Intent-Free Two-Tower Attachment Scorer + 3D Pair Re-Ranker:} Strictly excludes user tick boxes from the 12-feature domain encoder ($\mathbf{1.0000}$ AUROC, $\mathbf{100\%}$ Top-1 port recovery across $1{,}478$ held-out domains) before closed-form 3D site-pair re-ranking. \\
-\addlinespace[4pt]
-\textbf{G5. Uncalibrated Success Probabilities} &
-Single-pose AlphaFold/ESMFold ranking \cite{mcbride2026pose}, Li et al.\ \cite{li2026multimodal} &
-Single predicted poses do not capture flexible linker ensembles \cite{mcbride2026pose}; zero-shot pLDDT correlates weakly ($\text{AUC} \approx 0.73$) with wet-lab expression, making ``fusion success probabilities'' scientifically invalid. &
-\textbf{6-Rule Hard Rejection Scorecard + Pairwise Compatibility Ranker:} Replaces fake probabilities with deterministic physical pass/fail gates and a margin-trained ranker achieving $\mathbf{99.32\%}$ Top-1 natural rank accuracy vs.\ 6 physical negative corruptions. \\
-\bottomrule
-\end{tabular}
-\end{table*}
-
-\subsection{Problem 1: Why Standard Residue-Level DFL Classifiers Fail at Proteome Scale}
-Let a protein sequence of length $N$ be $S = (s_1, \dots, s_N) \in \mathcal{A}^N$, and let $f_\theta(S)_i \in [0, 1]$ denote the per-residue probability assigned by a sequence-based DFL detector at residue $i$. In benchmark datasets such as DisProt \cite{caid2_linker2024,caid3_2025} or DLD \cite{dld2026jmb}, evaluation is typically restricted to proteins already known to contain inter-domain linkers, and partially annotated residues are often silently coerced into negative labels ($y_i = 0$). However, when $f_\theta$ is applied to an entire proteome (\emph{e.g.}, $135{,}407$ reviewed Swiss-Prot multidomain proteins), three non-linker phenomena share identical local amino-acid composition (high $\text{G/S/P/E/K}$ disorder propensity, low hydropathy) with true DFLs:
-\begin{enumerate}
-  \item \textbf{Unstructured N- and C-terminal tails} preceding the first folded domain or following the final folded domain;
-  \item \textbf{Intradomain flexible loops} embedded within a single folded catalytic or structural domain;
-  \item \textbf{Homologous tandem repeat arrays} ($D_A = D_B$, such as $\text{C2H2}$ zinc-finger arrays, $\text{WD40}$ blades, ankyrin repeats, or immunoglobulin repeats), where short inter-repeat hinges are evolutionarily specialized for homo-oligomeric packing rather than heterodomain fusion.
-\end{enumerate}
-As we prove empirically in Section~\ref{sec:part1}, applying unconstrained split-conformal calibration \cite{bates2021rcps} to our frozen 3-layer 1D CNN (\texttt{seed31}, which achieves $0.619$ validation APS and $0.822$ AUROC at the residue level) yields a minimum achievable empirical false discovery rate of $44.74\%$ ($95\%$ Clopper--Pearson UCB $82.72\%$) across all thresholds $\tau \in [0.50, 0.99]$. Thus, \emph{high residue-level AUROC/APS is necessary but fundamentally insufficient to mine proteomes for natural linkers}.
-
-\subsection{Problem 2: The Disconnect Between 1D Linker Databases and 3D Fusion Constraints}
-Even when a large corpus of natural and engineered linkers is assembled, selecting a linker for two user-supplied 3D domains $A$ and $B$ requires satisfying coupled geometric and biochemical constraints:
-\begin{itemize}
-  \item \textbf{Physical Span Closure vs.\ Steric Occlusion:} A linker of $L$ residues forms $L+1$ virtual $C_\alpha\text{--}C_\alpha$ bonds with a trans-peptide physical ceiling of $b_0 = 3.8\text{ \AA}$ per bond \cite{vanrosmalen2017gs,pauling1951sheet}. If the straight line between attachment ports $p_A \in A$ and $p_B \in B$ passes through heavy atoms of either domain, the minimum collision-free surface detour path $d_{\text{path}}(p_A, p_B)$ exceeds the Euclidean distance $d_{CA}(p_A, p_B)$, invalidating naive Euclidean length rules.
-  \item \textbf{Topological Multiplicity:} An end-to-end tandem fusion ($A\text{---linker---}B$) requires $k=1$ polypeptide tether, whereas inserting domain $B$ into an internal surface loop of host domain $A$ \cite{berrondo2018loodo,wolf2025prodomino} topologically requires $k=2$ simultaneous polypeptide tethers ($A_{\text{N}}\text{---}L_1\text{---}B\text{---}L_2\text{---}A_{\text{C}}$) that must admit a single clash-free rigid-body transformation $(R, \mathbf{t}) \in \text{SE}(3)$.
-  \item \textbf{Rigid + Cleavable Incompatibility:} Limited proteolysis requires local backbone unfolding so the scissile peptide bond can adopt the extended $\beta$-conformation required by a protease active site \cite{hubbard1994proteolysis}. Embedding a protease recognition motif (\emph{e.g.}, TEV \texttt{ENLYFQS}) directly inside an unbroken $\alpha$-helical rod (\texttt{EAAAKEAAAKENLYFQSEAAAKEAAAK}) buries the scissile bond in an intramolecularly hydrogen-bonded helix, preventing cleavage until global unfolding occurs.
-\end{itemize}
-
----
-
-\section{Methodology: The Five-Component LinkerForge Architecture}
-\label{sec:methods}
-
-LinkerForge is organized into five modular, provenance-tracked components corresponding to Parts 1--4 of our engineering stack (\texttt{src/linkerforge/}).
-
-\subsection{Component 1 (Part 1): Masked 1D CNN Detector, Benchmark Firewall, and Two-Stage Domain-Gated Conformal Mining}
-\label{sec:method_part1}
-
-\paragraph{Strict $1/0/\text{x}$ Label Semantics and Masked Focal-BCE Training.}
-To prevent Positive-Unlabeled (PU) contamination \cite{bekker2020pu}, every residue $i$ in our training and calibration corpora carries a ternary label $y_i \in \{1, 0, \text{x}\}$: $y_i = 1$ for verified inter-domain linker residues, $y_i = 0$ for verified non-linker folded domain residues, and $y_i = \text{x}$ (\emph{unknown/unobserved}) for unannotated regions in partially curated entries. Our detector (\texttt{train\_dfl\_b1\_v2\_three\_layer\_cnn.py}, frozen checkpoint \texttt{seed31}, SHA-256 \texttt{e31f108c...}) is a 3-layer residual 1D convolutional network ($45{,}441$ parameters; hidden width $64$, kernel size $7$, dilations $(1, 2, 4)$) operating over $256$-residue windows with a $22$-dimensional input encoding ($20$ standard amino acids, unknown/mask token, and relative sequence coordinate). Given binary mask $m_i = \mathbb{I}(y_i \in \{0, 1\})$, the loss is computed strictly over observed positions:
-\begin{equation}
-  \mathcal{L}_{\text{masked}}(\theta) = \frac{\sum_{i=1}^N m_i \, \ell_{\text{focal}}(f_\theta(S)_i, y_i)}{\max\!\left(1, \sum_{i=1}^N m_i\right)},
-\end{equation}
-guaranteeing that unknown residues ($y_i = \text{x}$) never contribute false negative gradients.
-
-\paragraph{Benchmark Sequence Firewall (\texttt{BenchmarkFirewallV2}).}
-Before any proteome mining or downstream ranker training, all candidate proteins are screened against held-out benchmark registries (\texttt{CAID3\_Linkers} \cite{caid3_2025}, \texttt{DisProt\_2026\_06} held-out splits, and internal test clusters). Using SIMD-vectorized Needleman--Wunsch global alignment (\texttt{parasail.nw\_stats\_striped\_16}) alongside an exact $5$-mer Jaccard pre-filter, any protein with global sequence identity $\ge 0.30$ or local $25$-residue window identity $\ge 0.50$ to a protected benchmark sequence is quarantined (`literature/DFL_FIREWALL_V2_PREREGISTRATION_2026-10-18.md`).
-
-\paragraph{Two-Stage Heterodomain-Boundary Gated Conformal Calibration.}
-Given an unlabelled protein $S$ with ordered domain annotations $\mathcal{D} = \{(D_1, a_1, b_1), \dots, (D_m, a_m, b_m)\}$ ($a_k < b_k < a_{k+1}$):
-\begin{enumerate}
-  \item \textbf{Stage 1 (Deterministic Heterodomain Gate, \texttt{domain\_gate.py}):} Only inter-domain intervals $g_k = [b_k + 1, a_{k+1} - 1]$ satisfying (i) length $L_k = a_{k+1} - b_k - 1 \in [5, 80]\text{ aa}$, (ii) flanked on both sides by verified folded domains, and (iii) \emph{heterologous domain identity} ($D_k \neq D_{k+1}$) are admitted as candidate windows $\mathcal{W}(S)$. Single-domain proteins ($m \le 1$), N-/C-terminal tails ($[1, a_1-1]$ and $[b_m+1, N]$), and homologous tandem repeats ($D_k = D_{k+1}$) are deterministically rejected.
-  \item \textbf{Stage 2 (Split-Conformal Clopper--Pearson UCB Thresholding, \texttt{conformal\_mining.py}):} For each admitted inter-domain window $w \in \mathcal{W}(S)$, we compute the window score $s(w) = \max_{i \in w} \bar{f}_\theta(S)_i$ (using a 5-residue local moving average $\bar{f}_\theta$ to suppress single-residue spikes) with half-maximum span decoding. On the family-disjoint \texttt{development} calibration split, for any candidate threshold $\tau$, let $N_{\text{call}}(\tau)$ be the number of called spans and $F(\tau)$ the number of false calls. We compute the exact one-sided $1-\delta$ ($\delta = 0.05$) Clopper--Pearson upper confidence bound on the false discovery rate \cite{bates2021rcps,geifman2017selective}:
-  \begin{equation}
-    \text{FDR}_{\text{UCB}}(\tau; \delta) = \text{Beta}^{-1}\!\left(1 - \delta;\; F(\tau) + 1,\; N_{\text{call}}(\tau) - F(\tau)\right),
-  \end{equation}
-  and select the lowest threshold $\tau_{\text{high}}$ satisfying $\text{FDR}_{\text{UCB}}(\tau_{\text{high}}; 0.05) \le \alpha_{\text{target}} = 0.05$. Spans with $s(w) \ge \tau_{\text{high}} = 0.92285$ are stratified as \texttt{mined\_high\_confidence\_dfl\_call}, while domain-gated spans with $\tau_{\text{prov}} = 0.30 \le s(w) < \tau_{\text{high}}$ are retained separately as \texttt{mined\_provisional\_dfl\_candidate}.
-\end{enumerate}
-
-\subsection{Component 2 & Component 3 (Part 2): 3D Steric/Multi-Tether Geometry, Cited Property Callers, and Flanking-Context Retrieval}
-\label{sec:method_part2}
-
-\paragraph{Exact 3D Span, SASA, and Multi-Tether Feasibility (\texttt{src/linkerforge/geometry/}).}
-Given 3D coordinates for Domain A and Domain B, \texttt{evaluate\_junction} computes:
-\begin{itemize}
-  \item \textbf{Collision-Free Surface Detour Path ($d_{\text{path}}$):} Using heavy-atom van der Waals radii \cite{bondi1964vdw} plus a chain clearance margin, \texttt{required\_path\_length} tests whether the straight segment $\overline{p_A p_B}$ intersects any non-anchor domain atom; if occluded, it solves for the shortest collision-free piece-wise polygonal detour $d_{\text{path}} \ge d_{CA}$.
-  \item \textbf{Physical Lower Bound vs.\ Unstrained Polymer Reach:} A linker of $L$ residues spans $L+1$ virtual $C_\alpha\text{--}C_\alpha$ bonds. The hard physical lower bound is:
-  \begin{equation}
-    L_{\min}^{\text{phys}}(d_{\text{path}}) = \max\!\left(0,\; \left\lceil \frac{d_{\text{path}}}{b_0} \right\rceil - 1\right), \quad b_0 = 3.8\text{ \AA} \;\text{\cite{vanrosmalen2017gs}},
-  \end{equation}
-  while the unstrained Gaussian-chain root-mean-square reach uses measured glycine--serine characteristic ratios $C_\infty \in [1.9, 3.4]$ and Worm-Like Chain persistence lengths $l_p \in [3.7, 6.2]\text{ \AA}$ \cite{kratky1949wlc,vanrosmalen2017gs}:
-  \begin{equation}
-    \langle R_e^2(L) \rangle_{\text{Gaussian}}^{1/2} = b_0 \sqrt{C_\infty L}, \qquad
-    \langle R_e^2(L) \rangle_{\text{WLC}}^{1/2} = \sqrt{2 l_p L b_0 \left(1 - \frac{l_p}{L b_0}\left(1 - e^{-L b_0 / l_p}\right)\right)}.
-  \end{equation}
-  For $\alpha$-helical rods (\emph{e.g.}, $\text{A(EAAAK)}_n\text{A}$ \cite{arai2001helical}), the axial translation is $h_0 = 1.5\text{ \AA/res}$ \cite{pauling1951helix} with a $\pm 2 b_0$ terminal junction tolerance, yielding both a minimum and a maximum feasible residue count.
-  \item \textbf{Solvent Accessibility \& Exit Orientation:} Anchor exposure is quantified via numerical $960$-point Shrake--Rupley solvent-accessible surface area (\texttt{sasa.py}, $1.4\text{ \AA}$ water probe \cite{shrake1973sasa,lee1971sasa}) normalized by theoretical MaxASA \cite{tien2013maxasa,rost1994rsa}. For internal domain insertions requiring $k=2$ simultaneous tethers, \texttt{evaluate\_tether\_set} solves over $\text{SE}(3)$ placements of Domain B to verify simultaneous span closure and heavy-atom clash avoidance.
-\end{itemize}
-
-\paragraph{Two-Part Composite Rule for Rigid + Cleavable Linkers (\texttt{src/linkerforge/design/engine.py}).}
-When a user requests both \texttt{rigidity="rigid"} and \texttt{cleavability="cleavable"}, LinkerForge refuses single-segment helical protease embedding and instead synthesizes a two-part composite construct (\texttt{rigid-cleavable-composite}): a rigid spacer $S_{\text{rigid}} \in \{(\text{EAAAK})_n, (\text{PAPAP})_n\}$ providing domain separation, concatenated with a flexible $\text{GS}$-flanked protease cassette $S_{\text{cassette}} = \text{GSAGSA}\cdot M_{\text{protease}} \cdot\text{GSAGSA}$ providing local backbone unfolding \cite{hubbard1994proteolysis,chen2013fusion}.
-
-\subsection{Component 4 (Part 3): Intent-Free Two-Tower Domain Attachment-Site Scorer and 3D Site-Pair Re-Ranker}
-\label{sec:method_part3}
-
-To prevent user linker-style preferences from corrupting intrinsic domain structural tolerance, \texttt{TwoTowerAttachmentScorer} (\texttt{src/linkerforge/attachment/scorer.py}) maps each residue $i \in \{1, \dots, N\}$ of Domain A and Domain B to a 12-dimensional local biophysical and structural feature vector $\mathbf{x}_i \in \mathbb{R}^{12}$ (windowed Kyte--Doolittle hydropathy, Chou--Fasman and Linding coil propensities, Vihinen flexibility, solvent exposure proxy, secondary-structure core disruption penalty, charge density, Shrake--Rupley relative SASA, local $C_\alpha$ bend angle, and terminal/surface-loop priors) \emph{without any user tick-box inputs}:
-\begin{equation}
-  p_{\text{port}}(i \mid \text{Domain}) = \sigma\!\left(\mathbf{w}_{\text{tower}}^\top \mathbf{x}_i + b_{\text{tower}}\right).
-\end{equation}
-Given the top-$K$ candidate ports on Domain A and Domain B, \texttt{rank\_attachment\_site\_pairs} evaluates the exact 3D junction geometry $(p_A, p_B)$ and combines the two-tower tolerance score with a closed-form geometric compatibility score:
-\begin{equation}
-  S_{\text{pair}}(p_A, p_B) = 0.55 \cdot \frac{p_{\text{port}}(p_A) + p_{\text{port}}(p_B)}{2} + 0.45 \cdot G_{3\text{D}}(p_A, p_B),
-\end{equation}
-where $G_{3\text{D}}(p_A, p_B)$ rewards zero steric detour ($d_{\text{path}}/d_{CA} \to 1$), outward partner-facing exit vectors, and bridgeable span windows.
-
-\subsection{Component 5 (Part 4): Deterministic Hard Structural Rejection Scorecard and Pairwise Compatibility Ranker}
-\label{sec:method_part4}
-
-\paragraph{Why LinkerForge Never Outputs a ``Fusion Success Probability''.}
-Following McBride \& Tlusty \cite{mcbride2026pose} and our specification contract (\texttt{SPEC.md} \S5.8), single-pose structure prediction cannot predict conformational pose ensembles of flexible linkers or wet-lab expression yield. LinkerForge therefore separates evaluation into (i) a deterministic 6-rule \textbf{Hard Structural Rejection Scorecard} (\texttt{evaluate\_hard\_rejection\_scorecard}) and (ii) a relative \textbf{Pairwise Compatibility Score} trained against six physically grounded negative corruptions:
-\begin{enumerate}
-  \item \texttt{physical\_span\_closure\_pass}: $3.8 L \ge \max(d_{\text{path}}, \min(2.1 L_{\text{target}}, d_{\text{path}}))$ and $L \ge \lfloor 0.60 L_{\text{target}} \rfloor$;
-  \item \texttt{domain\_clash\_clearance\_pass}: detour ratio $d_{\text{path}}/d_{CA} \le 2.2$, $L > 0$ when $d_{\text{path}} > 3.8\text{ \AA}$, and $L \le \max(2.2 L_{\text{target}}, L_{\text{target}}+18)$;
-  \item \texttt{anchor\_accessibility\_pass}: $\text{rSASA}(p_A) \ge 0.15$ and $\text{rSASA}(p_B) \ge 0.15$;
-  \item \texttt{hydrophobic\_stretch\_pass}: hydrophobic fraction ($\{\text{F, I, L, V, W, M}\}$) $< 0.50$ and maximum contiguous hydrophobic run $< 5$ residues;
-  \item \texttt{prohibited\_cleavage\_pass}: no unintended protease motifs when \texttt{cleavable=False}; requested motif present when \texttt{cleavable=True};
-  \item \texttt{composite\_rigid\_cleavable\_pass}: protease motif never flanked on both sides by unbroken $\text{EAAAK}$ $\alpha$-helical repeats \cite{hubbard1994proteolysis}.
-\end{enumerate}
-
-\paragraph{Pairwise Margin-Logistic Ranking Loss Against Six Synthetic Negative Corruptions.}
-For each positive natural or high-confidence proteome-mined linker $S^+$ with flanking context $(F_L, F_R)$ and target geometry $(L_{\text{target}}, d_{\text{path}})$, \texttt{generate\_synthetic\_negatives} constructs six explicit corruptions $\mathcal{N}(S^+)$: (1) \texttt{too\_short\_by\_50pct}, (2) \texttt{too\_long\_by\_200pct}, (3) \texttt{rigid\_helical\_where\_flexible\_needed}, (4) \texttt{all\_hydrophobic\_core}, (5) \texttt{charge\_clash\_with\_junction\_anchors}, and (6) \texttt{protease\_site\_buried\_in\_rigid\_helix}. Extracting the 12-dimensional compatibility feature vector $\boldsymbol{\phi}(S) \in \mathbb{R}^{12}$ (\texttt{extract\_pairwise\_compatibility\_features}), we fit $\mathbf{w}_{\text{rank}} \in \mathbb{R}^{12}$ by minimizing the $L_2$-regularized pairwise logistic ranking loss over cluster-disjoint training folds:
-\begin{equation}
-  \mathcal{L}_{\text{rank}}(\mathbf{w}_{\text{rank}}) = \frac{1}{|\mathcal{P}|} \sum_{(S^+, S^-) \in \mathcal{P}} \log\!\left(1 + \exp\!\left(-\mathbf{w}_{\text{rank}}^\top \big(\boldsymbol{\phi}(S^+) - \boldsymbol{\phi}(S^-)\big)\right)\right) + \frac{\lambda}{2}\|\mathbf{w}_{\text{rank}}\|_2^2.
-\end{equation}
-
----
-
-\section{Empirical Results}
-\label{sec:results}
-
-\subsection{Part 1 Results: Solving the Proteome-Mining Precision Bottleneck (\texttt{27,766} Linker Dataset)}
-\label{sec:part1}
-
-Table~\ref{tab:part1_calibration} demonstrates why unconstrained residue-level DFL classifiers fail when deployed on multidomain proteomes and how our Two-Stage Heterodomain-Boundary Gated Conformal Miner resolves the precision bottleneck. On the family-disjoint \texttt{development} split ($50$ proteins, $36{,}230$ residues), unconstrained conformal thresholding over all residue spans yields $76$ called spans at $\tau = 0.90$, of which $34$ are false positives in terminal tails or intradomain loops ($\text{FDR}_{\text{emp}} = 44.74\%$, $95\%$ UCB $= 54.89\%$). Even at $\tau = 0.99$, unconstrained empirical FDR remains $50.00\%$ ($95\%$ UCB $= 82.72\%$). Applying Stage 1 heterodomain boundary gating ($D_A \neq D_B$, $5 \le L \le 80\text{ aa}$) eliminates terminal-tail, intradomain, and homo-repeat false positives, reducing empirical FDR at $\tau_{\text{high}} = 0.92285$ to $\mathbf{1.06\%}$ ($93$ true positives, $1$ false positive; $95\%$ Clopper--Pearson UCB $= \mathbf{4.95\%} \le 5.0\%$). On the independent $B3$ no-linker specificity panel ($40$ single-domain and homo-repeat negative control proteins), the two-stage caller achieves $\mathbf{97.50\%}$ protein-level specificity ($39/40$ zero-call proteins; $2.50\%$ false-positive rate).
-
+\section{Recorded diagnostics}
 \begin{table}[h]
 \centering
-\caption{\textbf{Part 1 Calibration Comparison on the Family-Disjoint \texttt{development} Split and $B3$ Specificity Panel} (\texttt{reports/mined\_and\_natural\_linkers\_v1\_summary\_2026-10-19.json}).}
-\label{tab:part1_calibration}
 \small
-\begin{tabular}{l c c c c c}
+\begin{tabular}{p{0.39\linewidth}p{0.50\linewidth}}
 \toprule
-\textbf{Calibration Regime} & \textbf{Threshold $\tau$} & \textbf{Called Spans} & \textbf{Empirical FDR} & \textbf{95\% Clopper--Pearson UCB FDR} & \textbf{$\le 5\%$ UCB Gate} \\
+Diagnostic & Result and supported interpretation \\
 \midrule
-Unconstrained CNN (\texttt{seed31}) & $0.90000$ & $76$ & $44.74\%$ ($34/76$) & $54.89\%$ & \textcolor{red!75!black}{\textbf{FAIL (Abstains)}} \\
-Unconstrained CNN (\texttt{seed31}) & $0.99000$ & $8$  & $50.00\%$ ($4/8$)   & $82.72\%$ & \textcolor{red!75!black}{\textbf{FAIL (Abstains)}} \\
-\midrule
-\textbf{Two-Stage Heterodomain Gate + Conformal} & $\mathbf{0.92285}$ & $\mathbf{94}$ & $\mathbf{1.06\%}$ ($1/94$) & $\mathbf{4.95\%}$ & \textcolor{green!50!black}{\textbf{PASS ($\le 5\%$)}} \\
+CNN development discrimination & Three-seed residue APS $0.7611\pm0.0110$ and AUROC $0.8583\pm0.0080$ on known labels; not mining precision. \\
+Builder's gated development cutoff & 93 TP, 1 FP at residue cutoff $0.639120$ on known residues; descriptive, adaptively selected, and not a span-level guarantee. \\
+Independent InterPro/Pfam audit & One eligible gap in 28 proteins; 38 known positive, zero known negative and three unknown residues in that gap. Precision cannot be estimated. \\
+Control panel & 39/40 proteins without a high-tier call; the single/homo-domain subset fails the gate by construction and the panel lacks independent no-linker adjudication. \\
+Reported inventory & 6,556 high-tier and 21,039 provisional model-scored gaps, plus 91 CATH-derived, 57 DisProt-curated and 23 template records. Model scores are not biological ground truth. \\
+Retrieval and ranking & 43/91 CATH queries within $\pm2$ length residues in one hybrid arm; 147/148 natural records outrank six synthetic corruptions. Neither measures engineered-fusion success. \\
 \bottomrule
 \end{tabular}
+\caption{Numbers transcribed from tracked reports; interpretation is limited to their actual evaluation tasks.}
 \end{table}
 
-Using dynamic \texttt{fp16} GPU batching ($\sim 156$ windows/sec on CUDA) and SIMD Needleman--Wunsch firewalling, we scanned $161{,}317$ full-length proteins across four public proteome streams and audited $184{,}554$ unreviewed reference proteome domain-gap observations ($345{,}871$ total protein/gap records processed), producing \texttt{mined\_and\_natural\_linkers\_v1} (\textbf{$27{,}766$ total linker records}, Table~\ref{tab:dataset_v1}).
+The builder targeted a nominal residue-level FDR of 0.10, not 0.05. Its selected $0.639120$ cutoff is different from the production span rule, which combines a high-residue cutoff of $0.735198$ with a provisional mean cutoff of 0.50. The former draft's $0.92285$ threshold, 44.74\%-to-1.06\% proteome-wide FDR reduction, and 95\% precision guarantee are not supported by the tracked builder and summary.
 
-\begin{table}[h]
-\centering
-\caption{\textbf{Composition of the \texttt{mined\_and\_natural\_linkers\_v1} Dataset ($27{,}766$ Records across $345{,}871$ Scanned Protein/Gap Records; Manifest SHA-256 \texttt{b1b8c5b3...}).}}
-\label{tab:dataset_v1}
-\small
-\begin{tabular}{l l r r}
-\toprule
-\textbf{Evidence Tier} & \textbf{Primary Source Streams} & \textbf{Record Count} & \textbf{Share (\%)} \\
-\midrule
-\texttt{mined\_high\_confidence\_dfl\_call} ($\tau \ge 0.92285$) & Swiss-Prot ($4{,}638$), UniProt Explicit ($1{,}708$), DLD ($122$), DisProt ($88$) & $6{,}556$ & $23.61\%$ \\
-\texttt{mined\_provisional\_dfl\_candidate} ($0.30 \le \tau < 0.92285$) & Swiss-Prot ($13{,}213$), UniProt Explicit ($6{,}336$), DLD ($1{,}240$), DisProt ($250$) & $21{,}039$ & $75.77\%$ \\
-\texttt{natural\_cath\_pdb\_verified} & CATH S40 / PDB Crystal Structures (3D verified) & $91$ & $0.33\%$ \\
-\texttt{natural\_disprot\_curated\_dfl} & DisProt \texttt{IDPO:00502} Curated Flexible Linkers & $57$ & $0.21\%$ \\
-\texttt{literature\_engineered\_template} & Curated Literature Templates (Chen et al.\ 2013 \cite{chen2013fusion}) & $23$ & $0.08\%$ \\
-\midrule
-\textbf{Total Linker Records} & \textbf{All 5 Provenance-Stratified Tiers} & $\mathbf{27{,}766}$ & $\mathbf{100.00\%}$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+The 184,554 unreviewed reference-proteome domain-gap observations are a separate stage-one audit, not 184,554 additional CNN-scored proteins. The underlying large dataset and frozen model weights are not tracked in this Git branch, so their reported hashes and counts cannot be reproduced from a clean clone without retrieving the licensed source inputs and local artifacts. Existing fusion PDB exports are geometric illustrations, not experimentally resolved, Rosetta-validated, AlphaFold-validated, or molecular-dynamics-validated structures.
 
-\subsection{Part 2 Results: Impact of Scaling the Mined Corpus ($509 \to 27{,}766$) on $X2$ Retrieval}
-\label{sec:part2}
+\section{Requirements before a performance claim}
+The domain-annotation pipelines must be reconciled, and the exact production caller evaluated at span level on a sealed, family-disjoint set containing independently adjudicated eligible positives and no-linker negatives. Calibration must use an appropriate cluster-aware, prespecified procedure and account for threshold selection. Source data, weights, versions and hashes need reproducible release where licensing permits. Published predictors must be compared on identical targets, input modalities where possible, and residue coverage. No result is guaranteed in advance.
 
-A central scientific question (\texttt{CURRENT\_DIRECTION\_2026-10-18.md} Step 4) is whether expanding the natural/mined corpus via our classifier improves downstream linker retrieval on held-out domain families using flanking context alone. Table~\ref{tab:part2_scaling} compares our $X2$ retrieval benchmark on the held-out CATH S40 natural linker split ($91$ crystal-verified linkers across $89$ superfamilies) before and after scaling \texttt{mined\_and\_natural\_linkers\_v1} from $509$ records to $27{,}766$ records. Scaling the proteome-mined authority index nearly doubles the rate at which flanking-context retrieval recovers the true natural linker length within $\pm 2\text{ aa}$ ($24.18\% \to \mathbf{47.25\%}$), reduces mean absolute length error from $5.40\text{ aa} \to \mathbf{3.58\text{ aa}}$, raises rigidity-axis concordance from $60.44\% \to \mathbf{100.00\%}$, and increases Needleman--Wunsch sequence identity by $+51.6\%$ ($0.1032 \to \mathbf{0.1565}$).
-
-\begin{table}[h]
-\centering
-\caption{\textbf{Effect of Proteome-Mining Scale ($509$ vs.\ $27{,}766$ Records) on Held-Out Superfamily-Disjoint $X2$ Linker Retrieval} ($91$ CATH S40 PDB Verified Queries, $5$-Fold Cross-Validation; \texttt{reports/x2\_retrieval\_and\_part2\_design\_2026-10-19.json}).}
-\label{tab:part2_scaling}
-\small
-\begin{tabular}{l c c c c c}
-\toprule
-\textbf{Retrieval / Baseline Arm} & \textbf{Length Error (MAE $\downarrow$)} & \textbf{Length $\le 2\text{ aa}$ ($\uparrow$)} & \textbf{3D Bridgeable ($\uparrow$)} & \textbf{Rigidity Match ($\uparrow$)} & \textbf{NW Identity ($\uparrow$)} \\
-\midrule
-\texttt{x2\_flanking\_context\_retrieval} ($509$ corpus) & $5.40\text{ aa}$ & $24.18\%$ & $100.00\%$ & $60.44\%$ & $0.1032$ \\
-\textbf{\texttt{x2\_flanking\_context\_retrieval} ($27{,}766$ corpus)} & $\mathbf{3.58\text{ aa}}$ & $\mathbf{47.25\%}$ & $\mathbf{100.00\%}$ & $\mathbf{100.00\%}$ & $\mathbf{0.1565}$ \\
-\texttt{geometry\_matched\_literature\_template} & $2.58\text{ aa}$ & $62.64\%$ & $100.00\%$ & $100.00\%$ & $0.1011$ \\
-\texttt{fixed\_ggggs3\_control} ($15\text{ aa}$) & $5.92\text{ aa}$ & $15.38\%$ & $87.91\%$ & $100.00\%$ & $0.0680$ \\
-\texttt{random\_training\_draw\_control} & $9.03\text{ aa}$ & $17.58\%$ & $64.84\%$ & $76.92\%$ & $0.0970$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Part 3 Results: Two-Tower Attachment-Site Scorer and 3D Site-Pair Re-Ranking}
-\label{sec:part3}
-
-Table~\ref{tab:part3_results} reports 5-fold cluster-disjoint (\texttt{homology\_cluster\_id}) cross-validation of \texttt{TwoTowerAttachmentScorer} across $289$ domains from the $148$ verified natural authorities ($7{,}442$ candidate residue sites) and $1{,}189$ domains from $600$ high-confidence proteome-mined linkers ($31{,}248$ candidate residue sites). Whereas a single-scale flexibility propensity baseline (analogous to uncalibrated loop propensity) achieves only $0.5196$ AUROC ($26.64\%$ Top-1 port recovery) on natural domains and $0.4784$ AUROC ($21.61\%$ Top-1 recovery) on proteome-mined domains, the 12-feature Two-Tower Attachment Scorer achieves $\mathbf{1.0000}$ AUROC and $\mathbf{100.00\%}$ Top-1 port recovery on both cohorts, while an ablation removing the terminal coordinate prior (\texttt{biophysical\_loop\_flexibility\_no\_terminal\_prior}) still achieves $0.9993$ AUROC ($99.49\%$ APS) on natural domains and $0.9982$ AUROC ($98.73\%$ APS) on proteome-mined domains.
-
-\begin{table}[h]
-\centering
-\caption{\textbf{Part 3 Held-Out Domain-Family Cross-Validation of the Intent-Free Two-Tower Attachment-Site Scorer} (\texttt{reports/part3\_attachment\_scorer\_2026-10-19.json}).}
-\label{tab:part3_results}
-\small
-\begin{tabular}{l l c c c c}
-\toprule
-\textbf{Cohort} & \textbf{Scoring Arm} & \textbf{AUROC} & \textbf{APS} & \textbf{P@10\% Cov.} & \textbf{Top-1 Recovery} \\
-\midrule
-\multirow{4}{*}{\shortstack[l]{Natural Authorities\\($148$ linkers, $289$ domains,\\$7{,}442$ residue sites)}}
-  & \textbf{\texttt{two\_tower\_structure\_plus\_sequence}} & $\mathbf{1.0000}$ & $\mathbf{1.0000}$ & $\mathbf{1.0000}$ & $\mathbf{100.00\%}$ ($289/289$) \\
-  & \texttt{biophysical\_loop\_no\_terminal\_prior} & $0.9993$ & $0.9949$ & $0.9946$ & $100.00\%$ ($289/289$) \\
-  & \texttt{prodomino\_flexibility\_propensity\_baseline} & $0.5196$ & $0.1210$ & $0.0995$ & $26.64\%$ ($77/289$) \\
-  & \texttt{random\_control} & $0.5076$ & $0.1200$ & $0.1344$ & $13.49\%$ ($39/289$) \\
-\midrule
-\multirow{4}{*}{\shortstack[l]{Proteome-Mined High-Conf\\($600$ linkers, $1{,}189$ domains,\\$31{,}248$ residue sites)}}
-  & \textbf{\texttt{two\_tower\_structure\_plus\_sequence}} & $\mathbf{1.0000}$ & $\mathbf{1.0000}$ & $\mathbf{1.0000}$ & $\mathbf{100.00\%}$ ($1189/1189$) \\
-  & \texttt{biophysical\_loop\_no\_terminal\_prior} & $0.9982$ & $0.9873$ & $0.9878$ & $99.50\%$ ($1183/1189$) \\
-  & \texttt{prodomino\_flexibility\_propensity\_baseline} & $0.4784$ & $0.1040$ & $0.0723$ & $21.61\%$ ($257/1189$) \\
-  & \texttt{random\_control} & $0.5090$ & $0.1166$ & $0.1210$ & $12.45\%$ ($148/1189$) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Part 4 Results: Pairwise Compatibility Ranker, Six Baselines, and \texttt{sfGFP---mCherry} 3D Fusion}
-\label{sec:part4}
-
-Table~\ref{tab:part4_baselines} summarizes the 5-fold cluster-disjoint evaluation of \texttt{PairwiseCompatibilityRanker} across all six required baseline methods and all six synthetic negative corruptions (\texttt{reports/part4\_end\_to\_end\_ranker\_and\_sfgfp\_mcherry\_2026-10-19.json}):
-\begin{itemize}
-  \item \textbf{Discrimination Against Synthetic Corruptions:} On the $148$ verified natural authorities, LinkerForge ranks the uncorrupted natural linker Top-1 ahead of all six synthetic negative corruptions in $\mathbf{99.32\%}$ of held-out test cases ($\text{MRR} = \mathbf{0.9966}$), achieving $100.00\%$ pairwise win rate against \texttt{too\_short\_by\_50pct}, \texttt{too\_long\_by\_200pct}, \texttt{all\_hydrophobic\_core}, \texttt{charge\_clash\_with\_junction\_anchors}, and \texttt{protease\_site\_buried\_in\_rigid\_helix}, and $99.32\%$ against \texttt{rigid\_helical\_where\_flexible\_needed}. On the $600$ high-confidence proteome-mined linkers, Top-1 natural rank accuracy is $\mathbf{98.67\%}$ ($\text{MRR} = \mathbf{0.9931}$).
-  \item \textbf{Superiority Over All Five Baseline Comparators:} Across both cohorts, \texttt{linkerforge\_ranker} achieves a $\mathbf{100.00\%}$ deterministic Hard-Rejection Pass Rate, $\mathbf{100.00\%}$ pairwise win rate against synthetic corruptions, and the highest Mean Compatibility Score ($\mathbf{10.4340}$ on natural authorities; $\mathbf{10.2848}$ on proteome-mined authorities), outperforming \texttt{direct\_0aa\_fusion} ($0.00\%$ HardPass, score $-2.1164$), \texttt{fixed\_ggggs3} ($85.14\%$ HardPass on natural, $46.00\%$ HardPass on mined), \texttt{geometry\_only} ($9.3986$, which ignores rigidity and sequence complexity), \texttt{nearest\_neighbour\_retrieval} ($9.7191$), and \texttt{random\_length\_matched\_gs} ($10.1562$, which lacks sequence complexity and flanking diversity).
-\end{itemize}
-
-\begin{table*}[t]
-\centering
-\caption{\textbf{Part 4 Held-Out 5-Fold Cluster-Disjoint Comparison of All Six Required Baselines} across $148$ Verified Natural Authorities and $600$ High-Confidence Proteome-Mined Linkers (\texttt{reports/part4\_end\_to\_end\_ranker\_and\_sfgfp\_mcherry\_2026-10-19.json}).}
-\label{tab:part4_baselines}
-\small
-\begin{tabular}{l l c c c c c}
-\toprule
-\textbf{Benchmark Cohort} & \textbf{Baseline / Method} & \textbf{HardPass Rate} & \textbf{Mean Score ($\uparrow$)} & \textbf{Length $\le 2\text{ aa}$} & \textbf{Rigidity Align.} & \textbf{Win vs.\ 6 Negs} \\
-\midrule
-\multirow{6}{*}{\shortstack[l]{Natural Authorities\\($148$ linkers,\\Top-1 vs.\ Negs $= \mathbf{99.32\%}$,\\$\text{MRR} = \mathbf{0.9966}$)}}
-  & \textbf{\texttt{linkerforge\_ranker} (Full Pipeline)} & $\mathbf{100.00\%}$ & $\mathbf{10.4340}$ & $\mathbf{99.32\%}$ & $\mathbf{0.9803}$ & $\mathbf{100.00\%}$ \\
-  & \texttt{random\_length\_matched\_gs} & $100.00\%$ & $10.1562$ & $100.00\%$ & $0.9865$ & $99.77\%$ \\
-  & \texttt{nearest\_neighbour\_retrieval} ($X2$, $6{,}727$ pool) & $100.00\%$ & $9.7191$ & $95.95\%$ & $0.8185$ & $99.66\%$ \\
-  & \texttt{geometry\_only} & $100.00\%$ & $9.3986$ & $100.00\%$ & $0.5092$ & $100.00\%$ \\
-  & \texttt{fixed\_ggggs3} ($15\text{ aa}$) & $85.14\%$ & $8.8044$ & $17.57\%$ & $0.9865$ & $94.03\%$ \\
-  & \texttt{direct\_0aa\_fusion} ($0\text{ aa}$) & $0.00\%$ & $-2.1164$ & $0.00\%$ & $0.0000$ & $0.00\%$ \\
-\midrule
-\multirow{6}{*}{\shortstack[l]{Proteome-Mined High-Conf\\($600$ linkers,\\Top-1 vs.\ Negs $= \mathbf{98.67\%}$,\\$\text{MRR} = \mathbf{0.9931}$)}}
-  & \textbf{\texttt{linkerforge\_ranker} (Full Pipeline)} & $\mathbf{100.00\%}$ & $\mathbf{10.2848}$ & $\mathbf{100.00\%}$ & $\mathbf{0.9966}$ & $\mathbf{100.00\%}$ \\
-  & \texttt{random\_length\_matched\_gs} & $100.00\%$ & $10.2215$ & $100.00\%$ & $0.9850$ & $99.81\%$ \\
-  & \texttt{nearest\_neighbour\_retrieval} ($X2$, $6{,}727$ pool) & $100.00\%$ & $9.6496$ & $98.00\%$ & $0.8027$ & $99.75\%$ \\
-  & \texttt{geometry\_only} & $100.00\%$ & $9.3471$ & $100.00\%$ & $0.5299$ & $100.00\%$ \\
-  & \texttt{fixed\_ggggs3} ($15\text{ aa}$) & $46.00\%$ & $6.7658$ & $10.83\%$ & $0.9850$ & $79.08\%$ \\
-  & \texttt{direct\_0aa\_fusion} ($0\text{ aa}$) & $0.00\%$ & $-2.1647$ & $0.00\%$ & $0.0000$ & $0.00\%$ \\
-\bottomrule
-\end{tabular}
-\end{table*}
-
-\paragraph{End-to-End Case Study: \texttt{sfGFP (PDB 2B3P) --- linker --- mCherry (PDB 2H5Q)}.}
-Applied to the canonical fluorescent tandem fusion pair $\text{sfGFP}$ (\texttt{PDB 2B3P}, $238\text{ aa}$ $\beta$-barrel \cite{pedelacq2006sfgfp}) and $\text{mCherry}$ (\texttt{PDB 2H5Q}, $236\text{ aa}$ $\beta$-barrel \cite{shu2006mcherry}), Part 3 selects the solvent-exposed C-terminal port $\text{Lys238}$ (\texttt{...HGMDELYK}, $\text{rSASA} = 0.62$) on $\text{sfGFP}$ and the N-terminal port $\text{Met1}$ (\texttt{MVSKGEED...}, $\text{rSASA} = 0.58$) on $\text{mCherry}$ ($d_{CA} = 24.8\text{ \AA}$, collision-free surface detour path $d_{\text{path}} = 28.4\text{ \AA}$, detour ratio $1.145$). In \texttt{flexible} ($15\text{ aa}$) mode, LinkerForge selects \texttt{GGGGSGGGGSGGGGS} (Rank \#1, score $10.3379$), followed by the proteome-mined Swiss-Prot authority \texttt{ARGGQYSNQGVVAST} (\texttt{mined\_swissprot\_gap:Q9XTD6:272-286}, score $10.1476$) and the Waldo GFP-compatible template \texttt{GSAGSAAGSGEFGSA} (score $10.1155$), while deterministically rejecting \texttt{direct\_0aa\_fusion} and the invalid synthetic corruptions. In \texttt{rigid} ($18\text{ aa}$) mode, LinkerForge selects the $\alpha$-helical rod \texttt{AEAAAKEAAAKEAAAKA} (score $10.4812$), and in \texttt{TEV-cleavable} ($19\text{ aa}$) mode, it selects the $\text{GS}$-flanked cassette \texttt{GSAGSAENLYFQSGSAGSA} (score $10.5240$) while rejecting \texttt{EAAAKEAAAKENLYFQSEAAAKEAAAK} due to rule 6 (\texttt{protease\_site\_buried\_inside\_rigid\_alpha\_helix\_without\_gs\_spacers}). Complete $1{,}956$-atom 3D \texttt{.pdb} coordinate files and ready-to-run \texttt{.pml} PyMOL scripts are exported and rendered interactively in the LinkerForge Web Studio (\texttt{frontend/src/App.tsx}) alongside embedded RCSB Mol* views.
-
----
-
-\section{Limitations, Scientific Scope, and Reproducibility}
-\label{sec:limitations}
-
-In accordance with our project specification (\texttt{SPEC.md} \S5.8, \texttt{ARCHITECTURE\_HANDOFF.md} \S8, and \texttt{literature/REVIEW\_STATUS.md}):
-\begin{enumerate}
-  \item \textbf{No Claim of Wet-Lab Functional Guarantee:} Geometric bridgeability ($3.8\text{ \AA/res}$ ceiling), attachment-port accessibility ($\text{rSASA} \ge 0.15$), and high pairwise compatibility scores are \emph{necessary physical conditions}, not sufficient guarantees that a fusion construct will express solubly, fold without kinetic traps, or retain wild-type enzymatic/FRET activity in vivo.
-  \item \textbf{Pose Distribution Uncertainty:} As shown by McBride \& Tlusty \cite{mcbride2026pose}, flexible linkers sample broad conformational ensembles rather than a single static 3D pose; the 3D spline trajectories exported in \texttt{reports/structures/*.pdb} represent collision-free geometric realizations for visual inspection in Mol* and PyMOL, not Boltzmann-weighted molecular dynamics ensembles.
-  \item \textbf{Provenance Transparency of Mined Linkers:} The $6{,}556$ \texttt{mined\_high\_confidence\_dfl\_call} and $21{,}039$ \texttt{mined\_provisional\_dfl\_candidate} records in \texttt{mined\_and\_natural\_linkers\_v1} are model-called inter-domain predictions bounded by $\text{FDR}_{\text{UCB}} \le 5\%$ on \texttt{development}, and always carry explicit provenance tags distinguishing them from crystal-verified CATH/PDB ($91$) and DisProt ($57$) authorities.
-\end{enumerate}
-
-\paragraph{Data and Code Availability.}
-All source code, frozen model weights (\texttt{seed31}), SHA-256 checksummed manifests, evaluation scripts, 3D PDB/PyMOL structures, and the React/TypeScript web application are publicly available at \href{https://github.com/richennacht/LinkerForge}{\texttt{https://github.com/richennacht/LinkerForge}} (branch \texttt{codex/classifier-foundation}, commit \texttt{0f3859a}).
-
-\bibliographystyle{unsrt}
-\bibliography{references}
+\section{Conclusion}
+LinkerForge is an integrated computational prototype for generating and ranking linker candidates. Current evidence supports implementation and exploratory diagnostic claims, not certified high-precision proteome mining, general attachment-site accuracy, functional fusion design, or superiority over published methods.
 
 \end{document}
