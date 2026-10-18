@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "round_id": "dfl-b1-v2-three-layer-cnn-2026-10-18",
+  "config": "configs/dfl_b1_v2_three_layer_cnn_2026-10-18.json",
+  "split_manifest": "data/processed/dfl_b1_v2_family_split/manifest.json",
+  "split_manifest_sha256": "d62136ce699294a0c07f0fa01a5350d3571643796cedadaf37d8399824893452",
+  "family_manifest_sha256": "db484272985535f08cf182166503973e77753abd00c7a4df1a197cc9db971dd2",
+  "status": "ready_for_one_bounded_development_trial",
+  "maximum_architecture_trials": 3,
+  "maximum_gpu_hours": 6,
+  "completed_trials": 0,
+  "gpu_hours_used": 0,
+  "trials": [],
+  "next_action": "Run one bounded three-layer CNN seed-7 development trial after hash-pinned full CAID3/DP94 V2 preflight; do not score protected benchmarks or mine proteins."
+}
