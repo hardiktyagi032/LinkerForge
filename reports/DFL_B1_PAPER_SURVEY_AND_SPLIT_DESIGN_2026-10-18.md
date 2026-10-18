@@ -206,7 +206,7 @@ mmseqs createtsv input input cluster clusters.tsv
 ```
 
 Pinned source SHA-256s: published DFL train
-`a1a5f3b3d30548ad65f6f378535c7c732272b8c9b60048b38f6500fca9bb1aed`,
+`a1a5f3b3b30548ad65f6f378535c7c732272b8c9b60048b38f6500fca9bb1aed`,
 DisProt positive-only
 `0265b062ca9ff88cde2576789b613860355f33842fa9714788ba1105a19df42a`,
 and DisProt candidate catalog

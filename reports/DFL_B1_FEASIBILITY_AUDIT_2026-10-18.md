@@ -41,7 +41,7 @@ admitted to a training split.
 
 | DFL-labelled training candidate | Source SHA-256 | Observed-positive proteins | Positive proteins with no direct hit to either registry |
 | --- | --- | ---: | ---: |
-| Published DFL train | `a1a5f3b3d30548ad65f6f378535c7c732272b8c9b60048b38f6500fca9bb1aed` | 74 of 158 | 9 |
+| Published DFL train | `a1a5f3b3b30548ad65f6f378535c7c732272b8c9b60048b38f6500fca9bb1aed` | 74 of 158 | 9 |
 | DisProt positive-only pool | `0265b062ca9ff88cde2576789b613860355f33842fa9714788ba1105a19df42a` | 159 of 159 | 23 |
 | DisProt positive-candidate catalog | `2bc6726545f47256bcec70376bd51d689db0b5c80a64f45a221b9d88bb0c4c8d` | 205 of 205 | 27 |
 | IDPFunNet author TR552 training file (pinned revision) | `89e374e30924a277fb4bdcf1b7a82776017e4ab70397757b185fa9d0b16954b2` | 124 of 552 | 17 |

@@ -117,3 +117,11 @@ proteins with 36 observed positive residues and **zero** explicit ordered
 residues. A separate 15-protein flagged tier is quarantined for evidence
 review, not admitted to training. The tracked builder and JSON Schema make
 the candidate artifact reproducible; they do not close B1.
+
+A [100-paper title/abstract source screen](reports/DFL_100_PAPER_SOURCE_MERGE_2026-10-18.md)
+has since produced a reproducible priority list, not 100 usable DFL datasets.
+Four pinned row-level evidence streams were exact-sequence deduplicated under
+the unchanged two-registry firewall into 24 positive/unknown candidates with
+1,123 observed positive residues. All 200 unverified source-zero observations
+remain outside the merged labels. This still lacks an adjudicated no-linker
+panel and a certified family-disjoint train/development split; **B1 is open**.
