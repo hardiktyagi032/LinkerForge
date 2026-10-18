@@ -147,7 +147,11 @@ class TestConformalMining(unittest.TestCase):
             DEFAULT_DATASET_DIR,
             tiers=["mined_high_confidence_dfl_call"],
         )
-        self.assertEqual(len(mined_hi), 88)
+        self.assertEqual(len(mined_hi), 6556)
+        disprot_hi = [
+            r for r in mined_hi if r.get("mining_source_corpus") == "DisProt_2026_06_Pfam_Gaps"
+        ]
+        self.assertEqual(len(disprot_hi), 88)
 
 
 if __name__ == "__main__":

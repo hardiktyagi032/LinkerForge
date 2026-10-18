@@ -48,3 +48,9 @@ scientific tasks; DLD structural linker labels are not substituted for DFL.
 The first-stage classifier handoff and its tracked, synthetic-tested data gate
 are in `CLASSIFIER_DATA_GATE.md`. This does not check off B1: the real split,
 source semantics and family evidence are still missing.
+
+## Completion status (19 October 2026)
+
+1. **Step 1 & Step 2 (Part 1 — Classifier Validation `B1`–`B3` & Large-Scale Multi-Proteome Mining):** Completed via `literature/DFL_FIREWALL_V2_PREREGISTRATION_2026-10-18.md`, `src/linkerforge/detector/domain_gate.py`, `src/linkerforge/detector/conformal_mining.py`, and `scripts/build_mined_and_natural_linker_dataset.py`. Produces `data/processed/mined_and_natural_linkers_v1/` (`b1b8c5b3...`, `27,766` linker records across 4 authority families: `6,556` `mined_high_confidence_dfl_call`, `21,039` `mined_provisional_dfl_candidate`, `91` `natural_cath_pdb_verified`, `57` `natural_disprot_curated_dfl`, and `23` `literature_engineered_template` + `40` `B3` specificity panel controls, mined across `161,317` full-length proteins + `184,554` unreviewed reference proteome domain-gap observations audited; `1.06%` empirical FDR / `4.95%` 95%-UCB FDR under two-stage domain-gated calibration on `development`, and `97.50%` protein specificity on `B3`). See `reports/PART1_COMPLETION_AND_NATURAL_MINED_LINKER_DATASET_2026-10-19.md`.
+2. **Step 3 & Step 4 (Part 2 — Geometry-Plus-Template Design Engine & `X2` Retrieval Baseline):** Completed via `src/linkerforge/design/engine.py`, `scripts/design_linker.py`, `src/linkerforge/retrieval/baseline.py`, and `scripts/evaluate_x2_template_and_authority_retrieval.py`. See `reports/PART2_GEOMETRY_TEMPLATE_DESIGN_AND_X2_RETRIEVAL_2026-10-19.md` and `reports/x2_retrieval_and_part2_design_2026-10-19.json`.
+
