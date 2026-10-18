@@ -5,11 +5,37 @@
   "split_manifest": "data/processed/dfl_b1_v2_family_split/manifest.json",
   "split_manifest_sha256": "d62136ce699294a0c07f0fa01a5350d3571643796cedadaf37d8399824893452",
   "family_manifest_sha256": "db484272985535f08cf182166503973e77753abd00c7a4df1a197cc9db971dd2",
-  "status": "ready_for_one_bounded_development_trial",
+  "status": "one_bounded_development_trial_completed",
   "maximum_architecture_trials": 3,
   "maximum_gpu_hours": 6,
-  "completed_trials": 0,
-  "gpu_hours_used": 0,
-  "trials": [],
-  "next_action": "Run one bounded three-layer CNN seed-7 development trial after hash-pinned full CAID3/DP94 V2 preflight; do not score protected benchmarks or mine proteins."
+  "completed_trials": 1,
+  "gpu_hours_used": 0.007309,
+  "trials": [
+    {
+      "trial_id": "dfl-b1-v2-three-layer-cnn-seed7",
+      "status": "completed",
+      "launcher_pid": 36348,
+      "script": "train_dfl_b1_v2_three_layer_cnn.py",
+      "output_dir": "artifacts/dfl-b1-v2-cnn-seed7-2026-10-18",
+      "stdout_log": "artifacts/dfl-b1-v2-cnn-seed7-2026-10-18.stdout.log",
+      "stderr_log": "artifacts/dfl-b1-v2-cnn-seed7-2026-10-18.stderr.log",
+      "max_seconds": 1800,
+      "split_manifest_sha256": "d62136ce699294a0c07f0fa01a5350d3571643796cedadaf37d8399824893452",
+      "config_sha256": "72ce5acb15a7012caf1361010bf9518ef3bda89b93ac698c71909b2625581af5",
+      "worker_pid": 13568,
+      "elapsed_seconds": 26.312,
+      "peak_pytorch_vram_bytes": 186616832,
+      "completed_epochs": 12,
+      "best_epoch": 2,
+      "best_development": {
+        "masked_residue_aps": 0.7703042358254754,
+        "masked_residue_auroc": 0.7066131161195146,
+        "fmax_grid_101": 0.6880204996796925,
+        "positive_residues": 547,
+        "negative_residues": 518
+      },
+      "checkpoint_sha256": "a72e2f00f0a0becf5460a24366c668bf877d916fff25f29f33bd500c1f2359a5"
+    }
+  ],
+  "next_action": "Assess seed stability with the same frozen split and architecture; this single development score is not a mining or benchmark claim."
 }

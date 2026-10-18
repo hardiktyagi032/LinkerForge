@@ -47,3 +47,17 @@ This is one baseline development trial, not a published-method comparison.
 The auxiliary order panel is not a full-proteome no-linker calibration set;
 conformal abstention and an independently adjudicated no-linker specificity
 panel remain required before a precision or mining claim.
+
+## Seed-7 completion
+
+The hidden independent GPU process completed all 12 epochs in 26.312 seconds
+(peak PyTorch allocation 186,616,832 bytes) and exited. Its best checkpoint
+was selected at epoch 2 by masked development APS. On the 547 annotated
+positive and 518 annotated-order negative development residues, the best
+checkpoint recorded APS **0.770304**, AUROC **0.706613**, and 101-threshold-grid
+Fmax **0.688020**. The isolated checkpoint SHA-256 is
+`a72e2f00f0a0becf5460a24366c668bf877d916fff25f29f33bd500c1f2359a5`.
+The checkpoint and raw epoch log remain ignored local artifacts; the tracked
+round ledger records their identity. This is one-seed development evidence,
+not a protected-benchmark score, calibrated 90%-precision result, or
+permission to run proteome-scale mining.
