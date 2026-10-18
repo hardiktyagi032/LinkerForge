@@ -64,7 +64,7 @@ These items need no GPU, no laptop and no new data. They use committed reports a
 
 Paper II is the certified high-precision caller plus mined set. Do not draft it until B1 passes.
 
-- [ ] **B1. Family-disjoint train, development and auxiliary split with a passing preflight.**
+- [x] **B1. Family-disjoint train, development and auxiliary split with a passing preflight.**
   - What: build a new versioned split that is disjoint by family cluster (not by protein ID). Make its launcher pass a hash-checked preflight against all nominated benchmark sequence registries, including `data/processed/prospective_dfl_holdout_dp94_v1/`.
   - Done when: `scripts/preflight_caid3_protected_training.py` and `scripts/check_detector_autoresearch.py` pass on the new split. The current split (`caid3_protected_dfl_v1`) is not used.
   - Blocker: the current split overlaps DP94. DP94 is a candidate, not an independently validated benchmark. Its label semantics are unverified.
@@ -72,6 +72,7 @@ Paper II is the certified high-precision caller plus mined set. Do not draft it 
   - Implementation checkpoint (18 October): `scripts/preflight_dfl_family_training.py` and synthetic rejection tests are tracked; see `CLASSIFIER_DATA_GATE.md`. The actual versioned split, verified family map and launcher integration are still open. This is **not** B1 completion.
   - Source-capacity audit (18 October): four provenance-bearing candidate pools yield only 40 unique DFL-positive sequences after direct CAID3/DP94 sequence screening, and 5 outside benchmark-touching components under the declared *transitive local* graph. See `reports/DFL_B1_FEASIBILITY_AUDIT_2026-10-18.md`. Neither count certifies biological family independence or a viable split; B1 remains unchecked.
   - Weak annotated-source route (18 October): reconstructed 884 UniProt explicit flexible/disordered-linker annotations on full sequences with exact peptide/coordinate checks and `x` elsewhere. Eleven avoid direct registry screening, only one in the PubMed tier; they are **not** independently adjudicated DFL gold. See the same audit. No substitution for B1.
+  - Completed (18 October): Preregistered and built `data/processed/dfl_b1_v2_family_split/manifest.json` (`cbb0358c096c9c870b1e37528ad0d41fb261a5eda470c0b73c0ba9090c370050`, `family_manifest.json` `db484272985535f08cf182166503973e77753abd00c7a4df1a197cc9db971dd2`) via `literature/DFL_FIREWALL_V2_PREREGISTRATION_2026-10-18.md`, `schemas/dfl_family_split_v2.schema.json`, `scripts/preflight_dfl_family_training_v2.py`, and `scripts/build_dfl_b1_v2_split.py`. Under `RULE_V2` (`30%` identity, $\ge 50$ aligned columns, $\ge 80\%$ true ungapped residue coverage on both sequences; `0.000%` residue-shuffle and `0.021%` 12-mer block-shuffle false-hit rates) plus transitive `Pfam`/`Gene3D`/`UniRef50` family components, 97 proteins across 91 benchmark-disjoint family components survive (`60` train, `28` development, `9` auxiliary order panel; `1,920` `1` residues and `1,253` verified `0` residues). `scripts/preflight_caid3_protected_training.py`, `scripts/check_detector_autoresearch.py` (via `configs/detector_autoresearch_active.json` -> `reports/dfl_b1_v2_family_round_2026-10-18.json`), and `scripts/run_caid3_protected_dfl_trial.py --preflight-only` (via `configs/dfl_b1_v2_family_round_2026-10-18.json`) all pass on the V2 split while explicitly prohibiting `caid3_protected_dfl_v1`. Note: Paper II remains gated on `B2` (conformal risk control) and `B3` (adjudicated no-linker specificity panel).
 
 - [ ] **B2. Conformal thresholds with abstention.**
   - What: implement conformal risk control (Learn then Test) for a precision target. Calibrate on a small clean protein-split calibration set drawn from B1's split. Report the abstention rate.
@@ -123,11 +124,12 @@ Paper II is the certified high-precision caller plus mined set. Do not draft it 
 
 These can run on existing mined or natural linker data. Each is publishable either way.
 
-- [ ] **X1. Do Li et al.'s relative-position structural features transfer across domain pairs?**
+- [x] **X1. Do Li et al.'s relative-position structural features transfer across domain pairs?**
   - What: Li et al. assert that relative-position structural features transfer across domain pairs and never test it. Test on natural linkers from LinkerDB (E1) or SynLinker-derived sources, grouped by domain pair, with features computed from AlphaFold DB structures.
   - Done when: a held-out-domain-pair result is reported with a baseline that uses sequence only, and with raw counts.
   - Depends on: E1 or another source of natural linkers with flanking domains.
   - Integrity: Li et al.'s own figures are not used. The test is on our own data.
+  - Result (18 October): Evaluated via `scripts/evaluate_x1_relative_position_transfer.py` on 91 coordinate-complete CATH v4.4.0 natural two-domain proteins across 57 CATH domain-pair groups (5 seeds, 135 held-out evaluations; `reports/x1_relative_position_transfer_2026-10-18.json` and `reports/DFL_B1_V2_PREREGISTRATION_AND_X1_TRANSFER_2026-10-18.md`). Learned linear weights on 3D relative-position features (`sequence_plus_relative_position_3d`, mean MRR `0.0684`, Top-1 `0/135`, Top-5 `4/135`) do **not** improve over `sequence_only` (mean MRR `0.0709`, Top-1 `0/135`, Top-5 `5/135`; paired cluster-bootstrap $\Delta\text{MRR} = -0.0025$, 95% CI $[-0.0173, +0.0058]$) or `sequence_plus_local_port` (mean MRR `0.0697`, Top-1 `0/135`, Top-5 `6/135`), whereas a zero-parameter physical `geometry_span_match` rule ($3.8\,\text{\AA}/\text{res}$ reach + $2.5\,\text{\AA}/\text{res}$ span match) achieves mean MRR `0.1710` (Top-1 `7/135`, Top-5 `37/135`).
 
 - [ ] **X2. Does template retrieval reconstruct held-out natural linkers from flanking context?**
   - What: hold out natural linkers. For each, retrieve the closest linker from the template library (PR #2) using flanking domain context only. Measure sequence recovery and length error. Include a non-retrieval baseline (for example, the most frequent linker of matching length).
