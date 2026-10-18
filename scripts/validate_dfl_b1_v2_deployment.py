@@ -62,8 +62,15 @@ def score(run_dir: Path, role: str, selection: Path | None = None) -> dict:
             raise ValueError("Selection state or evaluator hash mismatch")
         if selected.get("checkpoint_sha256") != sha(checkpoint_path) or selected.get("run_manifest_sha256") != sha(manifest_path):
             raise ValueError("Frozen checkpoint or run manifest mismatch")
+        if selected.get("config_sha256") != manifest["config_sha256"]:
+            raise ValueError("Frozen config mismatch")
         if selected.get("split_manifest_sha256") != config["split_manifest_sha256"]:
             raise ValueError("Frozen split mismatch")
+        if selected.get("auxiliary_sha256") != config["auxiliary_sha256"]:
+            raise ValueError("Frozen auxiliary panel hash mismatch")
+        dev_audit_path = ROOT / selected["development_audit_path"]
+        if not dev_audit_path.resolve().is_relative_to(ROOT / "artifacts") or sha(dev_audit_path) != selected["development_audit_sha256"]:
+            raise ValueError("Frozen development audit missing or changed")
         threshold = selected["threshold"]
         if not isinstance(threshold, (int, float)) or not 0 <= threshold <= 1:
             raise ValueError("Frozen threshold invalid")
