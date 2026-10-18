@@ -78,5 +78,19 @@
       "precision_99_known_development": {"tp": 153, "fp": 1, "fn": 394, "empirical_precision": 0.9935064935064936, "known_positive_recall": 0.2797074954296161, "threshold": 0.7351904511451721, "unknown_residues_in_scored_windows": 9193}
     }
   ],
-  "next_action": "Need a separate independently adjudicated no-linker and DFL holdout with sealed labels; present development thresholds are selected and measured on the same 28-protein set, and unknown residues prevent a 99% mining precision claim."
+  "post_selection_order_panel": {
+    "selection_manifest": "reports/dfl_b1_v2_seed31_order_panel_selection_2026-10-18.json",
+    "selection_manifest_sha256": "aeac492ca9dd7c50662c8a2e3b790f3cc2708b46c869f065afc81a5019a3ee1e",
+    "selection_commit": "d73acf6",
+    "validation_output_sha256": "cbc770fda9d5fdcb83997d702ef31fa1e68c95c4d232f027a85e513463c268c1",
+    "seed": 31,
+    "frozen_threshold": 0.7351981997489929,
+    "known_order_false_positives": 14,
+    "known_order_negatives": 194,
+    "unknown_residues_called": 364,
+    "unknown_residues_total": 3347,
+    "precision_estimable": false,
+    "status": "one_time_order_panel_scored_no_retuning"
+  },
+  "next_action": "Do not mine or claim 99% precision with this checkpoint. Obtain an independently adjudicated family-audited DFL-positive and no-linker holdout, freeze a future model and threshold before labels, and validate once."
 }
