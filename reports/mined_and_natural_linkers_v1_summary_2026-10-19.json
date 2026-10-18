@@ -1,0 +1,118 @@
+{
+  "authority_tiers": {
+    "literature_engineered_template": {
+      "description": "Literature-curated engineered flexible, rigid, and cleavable linker templates (5..60 aa) from Chen et al. (2013) Adv. Drug Deliv. Rev. 65:1357-1369.",
+      "eligible_for_part2_geometry_and_retrieval": true,
+      "ground_truth_status": "literature_cited_engineered_template"
+    },
+    "mined_domain_gated_interdomain": {
+      "description": "Benchmark-disjoint hetero-Pfam inter-domain spans (5..60 aa) extracted via Stage 1 domain-boundary gating and stratified by Stage 2 frozen Seed-31 CNN scores into high-confidence calls, provisional candidates, and abstained gaps.",
+      "eligible_for_part2_geometry_and_retrieval": true,
+      "ground_truth_status": "model_mined_candidate_never_promoted_to_ground_truth_training_label"
+    },
+    "natural_cath_pdb_verified": {
+      "description": "Coordinate-verified CATH v4.4.0 two-domain natural inter-domain linkers (5..30 aa) with 3D attachment port C-alpha distances and biophysical annotations.",
+      "eligible_for_part2_geometry_and_retrieval": true,
+      "ground_truth_status": "experimental_structure_domain_boundary"
+    },
+    "natural_disprot_curated_dfl": {
+      "curated_spans_longer_than_60aa_excluded_from_design_window": 8,
+      "description": "Curator-validated DisProt_2026_06 IDPO:0000033 flexible linker spans (5..60 aa) from the benchmark-disjoint B1 V2 train and development splits.",
+      "eligible_for_part2_geometry_and_retrieval": true,
+      "ground_truth_status": "curator_validated_experimental_dfl"
+    }
+  },
+  "classifier_provenance": {
+    "checkpoint_sha256": "c0d356c55ed83807353e66b875501c61b17f0b9b83f2910c0f1147f6409fdf6f",
+    "encoder": "facebook/esm2_t12_35M_UR50D",
+    "frozen_residue_threshold": 0.7351981997489929,
+    "model_architecture": "ThreeLayerDFLCNN",
+    "provisional_span_threshold": 0.5,
+    "seed": 31
+  },
+  "counts_by_tier": {
+    "b3_no_linker_specificity_panel": 40,
+    "literature_engineered_template": 23,
+    "mined_domain_gap_abstained": 0,
+    "mined_high_confidence_dfl_call": 88,
+    "mined_provisional_dfl_candidate": 250,
+    "natural_cath_pdb_verified": 91,
+    "natural_disprot_curated_dfl": 57
+  },
+  "dataset_id": "mined_and_natural_linkers_v1",
+  "files": {
+    "all_records_jsonl": {
+      "path": "all_records.jsonl",
+      "records": 509,
+      "sha256": "ecf5e8d1108a205f2fe0fcf5205c4526f4c6b1ba37f4f6fccdf959d295cd3bd9"
+    },
+    "b3_no_linker_specificity_panel_jsonl": {
+      "path": "b3_no_linker_specificity_panel.jsonl",
+      "records": 40,
+      "sha256": "a55a516750a0b5055a8f624712cc331db66fbd979f19183359a8b94d544b5ee7"
+    },
+    "mined_candidates_jsonl": {
+      "path": "mined_candidates.jsonl",
+      "records": 338,
+      "sha256": "ec125f92772dd2a50518288061522f0e86498f42889673f9b44e54c8c2e3a033"
+    },
+    "natural_authorities_jsonl": {
+      "path": "natural_authorities.jsonl",
+      "records": 148,
+      "sha256": "c4fd1280f25a58f0036b837ffd2bd0595869d934e0ff2446a835d6d2a409310e"
+    },
+    "template_authorities_jsonl": {
+      "path": "template_authorities.jsonl",
+      "records": 23,
+      "sha256": "c7af81e765e7b153bde5ed0f5f0f11767e9e860aad54ec5da78658302a6514ca"
+    }
+  },
+  "limitations": [
+    "Mined candidates (`mined_high_confidence_dfl_call`, `mined_provisional_dfl_candidate`, `mined_domain_gap_abstained`) are model-scored inter-domain spans and are strictly segregated from curated ground-truth authorities (`natural_cath_pdb_verified`, `natural_disprot_curated_dfl`).",
+    "Two-stage domain-gated conformal calibration (B2) guarantees finite-sample risk control on known labels within family-disjoint multi-domain spans, while unannotated DisProt residues (`x`) remain unknown rather than negative.",
+    "CATH v4.4.0 natural linkers (`natural_cath_pdb_verified`) have coordinate-verified domain boundaries and 3D port distances (`inter_port_ca_distance_A`), whereas DisProt curated and mined spans are sequence-and-domain-resolved without experimental 3D port coordinates."
+  ],
+  "manifest_sha256": "009ea585050efe9c6af0b94b9224401a3cc026a6ddba9bb3c59e44c5bd078658",
+  "part1_validation_summary": {
+    "b1_family_disjoint_split_passed": true,
+    "b2_conformal_calibration": {
+      "two_stage_domain_gated_development_calibration": {
+        "attained": true,
+        "calibrated_threshold": 0.6391201615333557,
+        "empirical_fdr": 0.010638,
+        "empirical_recall": 0.170018,
+        "false_positives": 1,
+        "stage1_passed_development_proteins": 6,
+        "true_positives": 93,
+        "ucb_fdr_95": 0.049473
+      },
+      "ungated_development_residue_calibration": {
+        "attained": true,
+        "calibrated_threshold": 0.7300417423248291,
+        "empirical_fdr": 0.060914,
+        "empirical_recall": 0.338208,
+        "false_positives": 12,
+        "true_positives": 185,
+        "ucb_fdr_95": 0.096826
+      }
+    },
+    "b3_no_linker_specificity_panel": {
+      "auxiliary_order_proteins": 9,
+      "panel_proteins": 40,
+      "single_or_homo_domain_non_linker_proteins": 31,
+      "two_stage_false_positive_high_confidence_spans": 1,
+      "two_stage_false_positive_provisional_spans": 2,
+      "two_stage_protein_specificity": 0.975
+    }
+  },
+  "schema_version": "1.0.0",
+  "source_pins": {
+    "b1_v2_split_manifest_sha256": "d62136ce699294a0c07f0fa01a5350d3571643796cedadaf37d8399824893452",
+    "caid3_registry_sha256": "4c204ef49ffa12fe166883e6b2cff0012cabee21260b8f32f997081d0e2fa0f8",
+    "cath_full_pilot_sha256": "20deca0e0bff4d1c68b245cc4e15756fc4e6462537c67a7d4508b5f8f58cfd85",
+    "curated_template_library_sha256": "f49e791772ef4ee69bffeb8588a1f0dd3c3c5e16c02675adae6c66e69c25e22e",
+    "disprot_2026_06_sha256": "1fdfce26a3ea9b626e63559f36abd86e023b50b612dc2c8756acbb08edead140",
+    "dp94_registry_sha256": "fe64e7c688cfac48ed0dac73bcf09daae5cb0adfd0e03e9d530824d3d92c0051"
+  },
+  "status": "part1_completed_provenance_stratified_for_part2_design_and_retrieval"
+}
