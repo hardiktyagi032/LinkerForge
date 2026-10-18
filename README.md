@@ -26,7 +26,7 @@ LinkerForge is a **computational research prototype** for recommending a peptide
 
 This README is the canonical, self-contained project specification. A new team member, coding agent, cloud notebook, or clean laptop should be able to recover the project scope and continue without the original planning conversation.
 
-> **Current state:** the React demonstration interface, CI/CD, and an embedded Mol* reference-structure viewer are implemented. The viewer displays experimental PDB entries and is not a prediction service. Some Python extraction, baseline, streaming, and C-alpha structural-diagnostic code exists, but the validated dataset, trained models, full structural funnel, and cloud jobs below remain MVP specifications and must not be represented as completed results.
+> **Current state:** the React demonstration interface, CI/CD, a full-screen structure area, two-sequence template construction, and an embedded Mol* reference-structure viewer are implemented. A user may export a complete fusion FASTA and load a sequence-matched predicted PDB into a browser 3Dmol.js viewer; no structure is generated in the browser. An optional bounded ColabFold command adapter exists but ColabFold and its weights/databases are not bundled or validated on the target cloud image. The validated dataset, trained fusion ranker, full structural funnel, and cloud jobs below remain MVP specifications and must not be represented as completed results. See [full-fusion local workflow](./docs/FULL_FUSION_LOCAL_WORKFLOW.md).
 
 ## One-minute description
 
