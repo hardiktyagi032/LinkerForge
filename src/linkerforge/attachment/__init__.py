@@ -1,4 +1,4 @@
-"""Part 3 (Component 4): Two-Tower Attachment-Site Scorer and Geometric Site-Pair Ranker."""
+"""Research attachment-site models; scores do not certify fusion function."""
 
 from linkerforge.attachment.scorer import (
     AttachmentSiteCandidate,
@@ -9,6 +9,7 @@ from linkerforge.attachment.scorer import (
     rank_attachment_site_pairs,
     score_domain_attachment_sites,
 )
+from .model import SiteModel, SiteModelConfig, TASKS
 
 __all__ = [
     "AttachmentSiteCandidate",
@@ -18,4 +19,7 @@ __all__ = [
     "fit_two_tower_attachment_scorer",
     "rank_attachment_site_pairs",
     "score_domain_attachment_sites",
+    "SiteModel",
+    "SiteModelConfig",
+    "TASKS",
 ]

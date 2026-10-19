@@ -1,0 +1,6 @@
+# Observed working CPU environment, not a verified college-cloud image.
+# Use the institution's approved PyTorch wheel/index for its GPU image.
+torch==2.14.1
+safetensors==0.8.0
+transformers==5.20.1
+numpy==2.5.4

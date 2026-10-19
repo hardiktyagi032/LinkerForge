@@ -1,0 +1,27 @@
+{
+  "model": {
+    "backend": "hf_causal_lm",
+    "base_model": null,
+    "revision": null,
+    "local_files_only": true,
+    "max_linker_length": 128,
+    "flank_residues": 128,
+    "max_positions": 512,
+    "hidden_size": 256,
+    "layers": 4,
+    "heads": 8,
+    "dropout": 0.1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_targets": ["c_attn", "c_proj"]
+  },
+  "max_steps": 1000,
+  "batch_size": 8,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.01,
+  "gradient_clip": 1.0,
+  "seed": 17,
+  "checkpoint_every": 100,
+  "cpu_threads": 2,
+  "max_wall_seconds": 1800
+}

@@ -1,6 +1,4 @@
-"""Part 4: End-to-End Pairwise Compatibility Ranker, Hard Structural Rejection Scorecard,
-6-Baseline Benchmark, and sfGFP-mCherry 3D Fusion Pipeline (Component 5).
-"""
+"""Experimental fusion pipeline utilities; no biological validation implied."""
 
 from .ranker import (
     BASELINE_NAMES,

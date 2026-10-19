@@ -2,6 +2,15 @@
 
 Read `README.md` completely before changing this repository. It is the canonical scientific and MVP specification.
 
+For the code-only fusion-design components, read `DESIGN_READINESS_CHECKLIST.md`,
+`DESIGN_PIPELINE.md`, `ATTACHMENT_SITE_MODEL.md`, and `FUSION_GENERATOR.md` as
+applicable. The generator, site model and orchestration have synthetic software
+checks, not biologically trained or calibrated performance. Do not mine spans,
+fit on unreviewed data, launch cloud jobs, or reveal an independent benchmark
+merely because these components are present. Explicit routes derive connection
+counts; source flanks are not tolerance labels, fragment-context transfer is
+opt-in, and unknown annotations are not negatives.
+
 For the **active DFL detector** research, then read `RESEARCH_HANDOFF.md` and
 `literature/DFL_UNTOUCHED_COMPARISON_CONTRACT_2026-10-17.md`. The fusion-ranker
 decisions below are historical/future scope, not the active detector training
@@ -33,7 +42,7 @@ or a synthetic smoke test as biological validation.
 - Data: natural two-domain proteins for pretraining; engineered fusions for stronger evidence where available.
 - Learning task: pairwise/contrastive compatibility ranking, not experimental-success classification.
 - Model: frozen ESM-2 embeddings + attachment-point geometric GNN + small linker encoder + multitask heads.
-- Generation: constrained enumeration/mutation/retrieval for MVP; learned generation and diffusion are future work.
+- Generation: constrained enumeration/mutation/retrieval for MVP; a learned generator has code-only scaffolding but no qualified biological training. Diffusion is future work.
 - Blind test: homology-aware held-out proteins with masked natural linkers; save predictions before revealing references.
 - Structural funnel: Rosetta → AlphaFold/ColabFold → hard rejection → OpenMM; optional GROMACS for 1–3 finalists.
 - PyMOL is for inspection, measurements, and figures, not the simulation engine.
@@ -47,7 +56,7 @@ or a synthetic smoke test as biological validation.
 - Label natural observations, synthetic negatives, predictions, and experimental outcomes distinctly.
 - Split by homology/domain-family clusters before model development; never tune on blind examples.
 - Baselines and LinkerForge must use the same scoring and rejection rules.
-- Keep long scientific jobs on the college cloud, not web hosting or ordinary CI.
+- Keep long scientific training jobs on the college cloud, not web hosting or ordinary CI. The optional local desktop fold is exploratory and cannot replace the controlled structural-validation funnel.
 - Frontend example values must remain visibly labelled until replaced by provenance-bearing outputs.
 
 ## Branch contract

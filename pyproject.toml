@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "linkerforge-generator"
+version = "0.1.0"
+description = "Conditional fill-in-middle fusion linker generator research implementation"
+requires-python = ">=3.12,<3.15"
+dependencies = ["torch==2.14.1", "safetensors==0.8.0"]
+
+[project.optional-dependencies]
+pretrained = ["transformers==5.20.1"]
+
+[project.scripts]
+linkerforge-generator = "linkerforge.generation.cli:main"
+linkerforge-attachment = "linkerforge.attachment.cli:main"
+linkerforge-design = "linkerforge.pipeline.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/linkerforge"]
