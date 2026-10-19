@@ -1,10 +1,10 @@
-# Part 1 Completion: Two-Stage Domain-Gated Conformal Calling (`B1`–`B3`) and Large-Scale Multi-Proteome Mined & Natural Linker Dataset (`v1`)
+# Part 1 exploratory run: domain-gated candidate calling and local dataset assembly (`v1`)
 
 > **Correction, 19 October 2026:** This is a historical exploratory run, not completed B2/B3 certification. The residue-level Clopper–Pearson calculation is not a valid prospective conformal/span-level guarantee; the mixed control panel is not independently adjudicated no-linker data; and model-mined gaps are predictions, not verified linkers. The dataset files are not in this Git branch. See [the claims audit](./PAPER_CLAIMS_AUDIT_2026-10-19.md) and the corrected paper. Raw reported counts below are retained for provenance, not endorsed as certified precision or specificity.
 
-**Date:** 2026-10-19  
-**Branch:** `codex/classifier-foundation`  
-**Dataset Manifest (`data/processed/mined_and_natural_linkers_v1/manifest.json`) SHA-256:** `b1b8c5b34eb9a98eb627005a810f367e4364be9a75447af9740b3bff6d3e3232`  
+**Date:** 2026-10-19
+**Branch:** `codex/classifier-foundation`
+**Reported local dataset manifest SHA-256:** `b1b8c5b34eb9a98eb627005a810f367e4364be9a75447af9740b3bff6d3e3232` (ignored file, absent from a clean clone)
 **Tracked Summary Artifact:** `reports/mined_and_natural_linkers_v1_summary_2026-10-19.json`
 
 ---

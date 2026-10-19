@@ -1,8 +1,8 @@
-# Part 2 Completion: Geometry-Plus-Template Linker Design (`Q1`–`Q3`) and Domain-Pair/Family-Disjoint Retrieval Baseline (`X2`)
+# Part 2 software evaluation: geometry, templates and retrieval (`X2` exploratory)
 
-**Date:** 2026-10-19  
-**Branch:** `codex/classifier-foundation`  
-**Input Dataset (`data/processed/mined_and_natural_linkers_v1/manifest.json`) SHA-256:** `b1b8c5b34eb9a98eb627005a810f367e4364be9a75447af9740b3bff6d3e3232`  
+**Date:** 2026-10-19
+**Branch:** `codex/classifier-foundation`
+**Reported local input manifest SHA-256:** `b1b8c5b34eb9a98eb627005a810f367e4364be9a75447af9740b3bff6d3e3232` (ignored file, absent from a clean clone)
 **Tracked Evaluation Artifact:** `reports/x2_retrieval_and_part2_design_2026-10-19.json`
 
 ---

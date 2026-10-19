@@ -1,12 +1,12 @@
-# Part 3 Completion Report: Two-Tower Attachment-Site Scorer & Closed-Form 3D Geometric Site-Pair Re-Ranker
+# Part 3 software evaluation: attachment-site scorer and geometric reranker
 
 > **Correction, 19 October 2026:** The near-perfect site scores below come from a constructed terminal-vs-interior classification task whose features include terminal position; one evaluation path also supplies label-dependent simulated accessibility. They do not validate general biological attachment-site prediction. See [the claims audit](./PAPER_CLAIMS_AUDIT_2026-10-19.md).
 
-**Date:** 2026-10-19  
-**Dataset Authority:** `mined_and_natural_linkers_v1` (`27,766` total linker records across `161,317` full-length scanned proteins + `184,554` reference proteome domain-gap observations; `manifest.json` SHA-256 `b1b8c5b34eb9a98eb627005a810f367e4364be9a75447af9740b3bff6d3e3232`)  
-**Module:** `src/linkerforge/attachment/scorer.py`  
-**Evaluation Script:** `scripts/evaluate_part3_attachment_scorer.py`  
-**JSON Artifact:** `reports/part3_attachment_scorer_2026-10-19.json`
+**Date:** 2026-10-19
+**Reported local input:** `mined_and_natural_linkers_v1` (mixed candidate/annotation records; ignored manifest SHA-256 `b1b8c5b34eb9a98eb627005a810f367e4364be9a75447af9740b3bff6d3e3232`)
+**Module:** `src/linkerforge/attachment/scorer.py`
+**Evaluation script:** `scripts/evaluate_part3_attachment_scorer.py`
+**JSON artifact:** `reports/part3_attachment_scorer_2026-10-19.json`
 
 ---
 
