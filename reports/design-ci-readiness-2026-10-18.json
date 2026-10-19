@@ -1,0 +1,34 @@
+{
+  "date_asia_calcutta": "2026-10-18",
+  "purpose": "Workflow configuration verification, no scientific execution",
+  "yaml_validation": "passed",
+  "geometry_python": "3.11",
+  "model_python": "3.14",
+  "model_runtime": "CPU-only pinned requirements, offline model loading",
+  "hosted_actions_status": "pending_publication",
+  "local_software_tests": 165,
+  "full_historical_detector_suite_run": false,
+  "institution_cloud_verified": false,
+  "sources": [
+    {
+      "url": "https://github.com/actions/setup-python",
+      "supports": "Explicit interpreter version and action setup syntax; v7 tag verified by git ls-remote"
+    },
+    {
+      "url": "https://github.com/actions/checkout",
+      "supports": "v7 tag revision verified by git ls-remote"
+    },
+    {
+      "url": "https://github.com/actions/upload-artifact",
+      "supports": "v7 artifact action tag verified by git ls-remote"
+    },
+    {
+      "url": "https://download.pytorch.org/whl/cpu/torch/",
+      "supports": "Observed matching 2.14.1+cpu CPython 3.14 Windows wheel in official CPU index"
+    }
+  ],
+  "workflow_sha256s": {
+    ".github/workflows/design-python.yml": "1e7b2d4e07fde5f23bef0c29399a1d651c625c09e13ce709d61dc7818efb6a49",
+    ".github/workflows/ci.yml": "08eaa5610deb7f8576909cbd01bea6d44c44e6b6d2365b4da0fb4ae5bed267a8"
+  }
+}

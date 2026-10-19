@@ -10,6 +10,10 @@ on:
     branches:
       - main
       - integration
+      - codex/dfl-research-handoff
+      - codex/fusion-linker-generator
+      - codex/attachment-site-scorer
+      - codex/design-pipeline-readiness
 
 permissions:
   contents: read

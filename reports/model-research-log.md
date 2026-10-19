@@ -1,5 +1,23 @@
 # Model research log
 
+## 18 October 2026 — separate scoped CI increment (Asia/Calcutta)
+
+After draft pipeline PR #11 (`ba2497964e4e5dc8e086d137c2bf7b95cf4d6cad`),
+implemented the code-only part of legacy H1 in a separate branch. Added scoped
+geometry/Python 3.11 and Windows CPU model/Python 3.14 jobs; active PR bases;
+exact action revisions; offline model loading, report artifacts and timeouts.
+No detector suite, scientific job, new labels or model downloads. Existing 165
+scoped tests were not needlessly rerun for YAML/docs-only changes.
+
+Read official setup-python documentation; verified v7 action tag SHAs via
+`git ls-remote` and the matching torch 2.14.1+cpu cp314 Windows wheel in the
+official CPU index. Parsed YAML with `yaml.BaseLoader`, asserted jobs, branches,
+contents-read permission, timeouts, offline flags and 40-character action SHAs;
+all checks and `git diff --check` passed. Exact workflow hashes and supported
+source links are in `reports/design-ci-readiness-2026-10-18.json` and its guide.
+Hosted outcome is pending publication, not inferred from local verification.
+Legacy full-detector H1 and independent team/cloud review remain pending.
+
 ## 18 October 2026 — components 2–5 code readiness (Asia/Calcutta)
 
 **Scope.** The human requested all architecture/training preparation after
