@@ -1,0 +1,3731 @@
+{
+  "counts": {
+    "caid3_reference_entries": 31,
+    "disprot_entries": 3337,
+    "exact_caid3_overlap_entries": 31,
+    "exact_caid3_overlap_regions": 41,
+    "explicit_dfl_entries": 360,
+    "remaining_entries": 329,
+    "remaining_regions": 419,
+    "remaining_shared_uniref_entries": 0
+  },
+  "entries": [
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00009",
+      "explicit_dfl_region_ids": [
+        "DP00009r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P32774"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00011",
+      "explicit_dfl_region_ids": [
+        "DP00011r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0DMM9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00018",
+      "explicit_dfl_region_ids": [
+        "DP00018r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P46527"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00023",
+      "explicit_dfl_region_ids": [
+        "DP00023r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P14061"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00034",
+      "explicit_dfl_region_ids": [
+        "DP00034r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P03661"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00040",
+      "explicit_dfl_region_ids": [
+        "DP00040r029"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P17096"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00048",
+      "explicit_dfl_region_ids": [
+        "DP00048r012"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P03406"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00061",
+      "explicit_dfl_region_ids": [
+        "DP00061r006",
+        "DP00061r008"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P27694"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00075",
+      "explicit_dfl_region_ids": [
+        "DP00075r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P11387"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00098",
+      "explicit_dfl_region_ids": [
+        "DP00098r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q53654"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00111",
+      "explicit_dfl_region_ids": [
+        "DP00111r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P27577"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00133",
+      "explicit_dfl_region_ids": [
+        "DP00133r038"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P03422"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00135",
+      "explicit_dfl_region_ids": [
+        "DP00135r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P10961"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00156",
+      "explicit_dfl_region_ids": [
+        "DP00156r002",
+        "DP00156r004",
+        "DP00156r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P54725"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00161",
+      "explicit_dfl_region_ids": [
+        "DP00161r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P77173"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00162",
+      "explicit_dfl_region_ids": [
+        "DP00162r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O75324"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00166",
+      "explicit_dfl_region_ids": [
+        "DP00166r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P19429"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00194",
+      "explicit_dfl_region_ids": [
+        "DP00194r009"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0AFZ3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00197",
+      "explicit_dfl_region_ids": [
+        "DP00197r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0A707"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00226",
+      "explicit_dfl_region_ids": [
+        "DP00226r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9CXW3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00231",
+      "explicit_dfl_region_ids": [
+        "DP00231r008"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P14859"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00243",
+      "explicit_dfl_region_ids": [
+        "DP00243r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P23025"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00284",
+      "explicit_dfl_region_ids": [
+        "DP00284r010"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P16009"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00298",
+      "explicit_dfl_region_ids": [
+        "DP00298r002",
+        "DP00298r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q07817"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00315",
+      "explicit_dfl_region_ids": [
+        "DP00315r005",
+        "DP00315r007",
+        "DP00315r009"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O43464"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00324",
+      "explicit_dfl_region_ids": [
+        "DP00324r003",
+        "DP00324r013"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P09651"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00352",
+      "explicit_dfl_region_ids": [
+        "DP00352r004",
+        "DP00352r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O33599"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00359",
+      "explicit_dfl_region_ids": [
+        "DP00359r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "A6Q0K5"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00363",
+      "explicit_dfl_region_ids": [
+        "DP00363r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q16222"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00377",
+      "explicit_dfl_region_ids": [
+        "DP00377r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P45577"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00407",
+      "explicit_dfl_region_ids": [
+        "DP00407r002",
+        "DP00407r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P07363"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00410",
+      "explicit_dfl_region_ids": [
+        "DP00410r011",
+        "DP00410r012"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P12497"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00415",
+      "explicit_dfl_region_ids": [
+        "DP00415r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0ABE0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00428",
+      "explicit_dfl_region_ids": [
+        "DP00428r010",
+        "DP00428r011"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P53350"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00429",
+      "explicit_dfl_region_ids": [
+        "DP00429r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P32170"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00435",
+      "explicit_dfl_region_ids": [
+        "DP00435r014",
+        "DP00435r018"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q01853"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00438",
+      "explicit_dfl_region_ids": [
+        "DP00438r002",
+        "DP00438r004",
+        "DP00438r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q05158"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00455",
+      "explicit_dfl_region_ids": [
+        "DP00455r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P84092"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00575",
+      "explicit_dfl_region_ids": [
+        "DP00575r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P77072"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00611",
+      "explicit_dfl_region_ids": [
+        "DP00611r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P30291"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00653",
+      "explicit_dfl_region_ids": [
+        "DP00653r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P26039"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00656",
+      "explicit_dfl_region_ids": [
+        "DP00656r012",
+        "DP00656r016",
+        "DP00656r020",
+        "DP00656r024"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P07674"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00723",
+      "explicit_dfl_region_ids": [
+        "DP00723r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9MAA7"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00748",
+      "explicit_dfl_region_ids": [
+        "DP00748r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P46108"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00796",
+      "explicit_dfl_region_ids": [
+        "DP00796r004",
+        "DP00796r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P15382"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00839",
+      "explicit_dfl_region_ids": [
+        "DP00839r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q16186"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00856",
+      "explicit_dfl_region_ids": [
+        "DP00856r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q980M2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00865",
+      "explicit_dfl_region_ids": [
+        "DP00865r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q6P3W2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00868",
+      "explicit_dfl_region_ids": [
+        "DP00868r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9NHC3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00877",
+      "explicit_dfl_region_ids": [
+        "DP00877r012"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P9WHN5"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00885",
+      "explicit_dfl_region_ids": [
+        "DP00885r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9DDG2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00887",
+      "explicit_dfl_region_ids": [
+        "DP00887r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P21246"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00917",
+      "explicit_dfl_region_ids": [
+        "DP00917r002",
+        "DP00917r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P21583"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00922",
+      "explicit_dfl_region_ids": [
+        "DP00922r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P67966"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00925",
+      "explicit_dfl_region_ids": [
+        "DP00925r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "J8TM36"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00939",
+      "explicit_dfl_region_ids": [
+        "DP00939r010",
+        "DP00939r012",
+        "DP00939r013"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P04859"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00943",
+      "explicit_dfl_region_ids": [
+        "DP00943r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O35274"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00948",
+      "explicit_dfl_region_ids": [
+        "DP00948r019"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P59595"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00949",
+      "explicit_dfl_region_ids": [
+        "DP00949r010",
+        "DP00949r016"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9HAU5"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00954",
+      "explicit_dfl_region_ids": [
+        "DP00954r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9YGY0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00969",
+      "explicit_dfl_region_ids": [
+        "DP00969r011"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q02548"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP00973",
+      "explicit_dfl_region_ids": [
+        "DP00973r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P46108-2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01012",
+      "explicit_dfl_region_ids": [
+        "DP01012r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P27392"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01024",
+      "explicit_dfl_region_ids": [
+        "DP01024r010"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P27708"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01045",
+      "explicit_dfl_region_ids": [
+        "DP01045r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q7DB66"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01080",
+      "explicit_dfl_region_ids": [
+        "DP01080r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9C1S9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01083",
+      "explicit_dfl_region_ids": [
+        "DP01083r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q7TP21"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01084",
+      "explicit_dfl_region_ids": [
+        "DP01084r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q1K7R9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01085",
+      "explicit_dfl_region_ids": [
+        "DP01085r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9SKI4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01086",
+      "explicit_dfl_region_ids": [
+        "DP01086r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q10Q08"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01093",
+      "explicit_dfl_region_ids": [
+        "DP01093r004",
+        "DP01093r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "B7T1D7"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01098",
+      "explicit_dfl_region_ids": [
+        "DP01098r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q16222-2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01144",
+      "explicit_dfl_region_ids": [
+        "DP01144r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P08008"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01192",
+      "explicit_dfl_region_ids": [
+        "DP01192r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P55036"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01193",
+      "explicit_dfl_region_ids": [
+        "DP01193r010"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9H211"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01206",
+      "explicit_dfl_region_ids": [
+        "DP01206r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q15797"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01248",
+      "explicit_dfl_region_ids": [
+        "DP01248r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O95292"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01305",
+      "explicit_dfl_region_ids": [
+        "DP01305r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P08392"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01326",
+      "explicit_dfl_region_ids": [
+        "DP01326r010"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9Y4P1"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01329",
+      "explicit_dfl_region_ids": [
+        "DP01329r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P28324"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01336",
+      "explicit_dfl_region_ids": [
+        "DP01336r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P03709"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01339",
+      "explicit_dfl_region_ids": [
+        "DP01339r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0A903"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01342",
+      "explicit_dfl_region_ids": [
+        "DP01342r004",
+        "DP01342r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P52564"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01396",
+      "explicit_dfl_region_ids": [
+        "DP01396r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P01130"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01426",
+      "explicit_dfl_region_ids": [
+        "DP01426r003",
+        "DP01426r006",
+        "DP01426r008",
+        "DP01426r015"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P06400"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01429",
+      "explicit_dfl_region_ids": [
+        "DP01429r004",
+        "DP01429r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q09427"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01450",
+      "explicit_dfl_region_ids": [
+        "DP01450r014"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9UKT4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01461",
+      "explicit_dfl_region_ids": [
+        "DP01461r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q13188"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01465",
+      "explicit_dfl_region_ids": [
+        "DP01465r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8IW19"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01467",
+      "explicit_dfl_region_ids": [
+        "DP01467r012",
+        "DP01467r016",
+        "DP01467r020"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9SP32"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01475",
+      "explicit_dfl_region_ids": [
+        "DP01475r012",
+        "DP01475r013"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P55980"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01485",
+      "explicit_dfl_region_ids": [
+        "DP01485r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P40161"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01494",
+      "explicit_dfl_region_ids": [
+        "DP01494r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9VMA3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01496",
+      "explicit_dfl_region_ids": [
+        "DP01496r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0AFG0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01517",
+      "explicit_dfl_region_ids": [
+        "DP01517r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q06710"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01601",
+      "explicit_dfl_region_ids": [
+        "DP01601r004",
+        "DP01601r008"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P26599"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01605",
+      "explicit_dfl_region_ids": [
+        "DP01605r003",
+        "DP01605r006",
+        "DP01605r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P19339"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01611",
+      "explicit_dfl_region_ids": [
+        "DP01611r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q06696"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01620",
+      "explicit_dfl_region_ids": [
+        "DP01620r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P20823"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01629",
+      "explicit_dfl_region_ids": [
+        "DP01629r002",
+        "DP01629r004",
+        "DP01629r008",
+        "DP01629r014"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P32628"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01638",
+      "explicit_dfl_region_ids": [
+        "DP01638r005",
+        "DP01638r006",
+        "DP01638r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P32776"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01650",
+      "explicit_dfl_region_ids": [
+        "DP01650r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0A7K2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01661",
+      "explicit_dfl_region_ids": [
+        "DP01661r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P70444"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01663",
+      "explicit_dfl_region_ids": [
+        "DP01663r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P27177"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01733",
+      "explicit_dfl_region_ids": [
+        "DP01733r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8AVN9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01736",
+      "explicit_dfl_region_ids": [
+        "DP01736r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P52597"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01817",
+      "explicit_dfl_region_ids": [
+        "DP01817r009"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q15910"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01849",
+      "explicit_dfl_region_ids": [
+        "DP01849r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O60260"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01857",
+      "explicit_dfl_region_ids": [
+        "DP01857r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P09012"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01877",
+      "explicit_dfl_region_ids": [
+        "DP01877r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q96AY2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01931",
+      "explicit_dfl_region_ids": [
+        "DP01931r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q2YHF0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01933",
+      "explicit_dfl_region_ids": [
+        "DP01933r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P07986"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01934",
+      "explicit_dfl_region_ids": [
+        "DP01934r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9RJY2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01947",
+      "explicit_dfl_region_ids": [
+        "DP01947r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O65934"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP01996",
+      "explicit_dfl_region_ids": [
+        "DP01996r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q07009"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02004",
+      "explicit_dfl_region_ids": [
+        "DP02004r008",
+        "DP02004r011"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q92793"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02013",
+      "explicit_dfl_region_ids": [
+        "DP02013r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0DP23"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02138",
+      "explicit_dfl_region_ids": [
+        "DP02138r002",
+        "DP02138r004",
+        "DP02138r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P63159"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02144",
+      "explicit_dfl_region_ids": [
+        "DP02144r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P32337"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02170",
+      "explicit_dfl_region_ids": [
+        "DP02170r005",
+        "DP02170r010"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O15234"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02193",
+      "explicit_dfl_region_ids": [
+        "DP02193r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P21734"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02254",
+      "explicit_dfl_region_ids": [
+        "DP02254r012"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P14598"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02262",
+      "explicit_dfl_region_ids": [
+        "DP02262r010"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P42226"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02272",
+      "explicit_dfl_region_ids": [
+        "DP02272r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q7KLE5"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02292",
+      "explicit_dfl_region_ids": [
+        "DP02292r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q96PU5"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02333",
+      "explicit_dfl_region_ids": [
+        "DP02333r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P13861"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02345",
+      "explicit_dfl_region_ids": [
+        "DP02345r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q92804"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02398",
+      "explicit_dfl_region_ids": [
+        "DP02398r013"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q04637"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02410",
+      "explicit_dfl_region_ids": [
+        "DP02410r001"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P21952"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02414",
+      "explicit_dfl_region_ids": [
+        "DP02414r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P14653"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02418",
+      "explicit_dfl_region_ids": [
+        "DP02418r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P35568"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02448",
+      "explicit_dfl_region_ids": [
+        "DP02448r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q03707"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02464",
+      "explicit_dfl_region_ids": [
+        "DP02464r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q12476"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02476",
+      "explicit_dfl_region_ids": [
+        "DP02476r004",
+        "DP02476r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P36106"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02477",
+      "explicit_dfl_region_ids": [
+        "DP02477r002",
+        "DP02477r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q01970"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02481",
+      "explicit_dfl_region_ids": [
+        "DP02481r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P46674"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02509",
+      "explicit_dfl_region_ids": [
+        "DP02509r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0DOC6"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02511",
+      "explicit_dfl_region_ids": [
+        "DP02511r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P02640"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02521",
+      "explicit_dfl_region_ids": [
+        "DP02521r010"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "A5HC98"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02562",
+      "explicit_dfl_region_ids": [
+        "DP02562r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P10081"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02567",
+      "explicit_dfl_region_ids": [
+        "DP02567r001"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P01266"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02570",
+      "explicit_dfl_region_ids": [
+        "DP02570r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8BPB0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02583",
+      "explicit_dfl_region_ids": [
+        "DP02583r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "F1RAX4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02585",
+      "explicit_dfl_region_ids": [
+        "DP02585r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9H900"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02587",
+      "explicit_dfl_region_ids": [
+        "DP02587r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q96PM5"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02593",
+      "explicit_dfl_region_ids": [
+        "DP02593r007",
+        "DP02593r008",
+        "DP02593r009",
+        "DP02593r010"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9ESJ0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02599",
+      "explicit_dfl_region_ids": [
+        "DP02599r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q86VN1"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02600",
+      "explicit_dfl_region_ids": [
+        "DP02600r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P35916"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02601",
+      "explicit_dfl_region_ids": [
+        "DP02601r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q96NW4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02605",
+      "explicit_dfl_region_ids": [
+        "DP02605r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P02533"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02606",
+      "explicit_dfl_region_ids": [
+        "DP02606r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P13647"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02609",
+      "explicit_dfl_region_ids": [
+        "DP02609r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q96PY5"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02612",
+      "explicit_dfl_region_ids": [
+        "DP02612r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9Y6D6"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02617",
+      "explicit_dfl_region_ids": [
+        "DP02617r002",
+        "DP02617r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P21575"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02622",
+      "explicit_dfl_region_ids": [
+        "DP02622r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q15113"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02623",
+      "explicit_dfl_region_ids": [
+        "DP02623r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P42003"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02632",
+      "explicit_dfl_region_ids": [
+        "DP02632r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P31321"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02633",
+      "explicit_dfl_region_ids": [
+        "DP02633r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P22605"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02634",
+      "explicit_dfl_region_ids": [
+        "DP02634r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9UBV7"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02635",
+      "explicit_dfl_region_ids": [
+        "DP02635r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9ERE3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02636",
+      "explicit_dfl_region_ids": [
+        "DP02636r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O88393"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02637",
+      "explicit_dfl_region_ids": [
+        "DP02637r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P07237"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02638",
+      "explicit_dfl_region_ids": [
+        "DP02638r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q6ZPF4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02640",
+      "explicit_dfl_region_ids": [
+        "DP02640r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q4F883"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02644",
+      "explicit_dfl_region_ids": [
+        "DP02644r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9SUM3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02661",
+      "explicit_dfl_region_ids": [
+        "DP02661r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q6ZVN8"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02664",
+      "explicit_dfl_region_ids": [
+        "DP02664r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q81G39"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02681",
+      "explicit_dfl_region_ids": [
+        "DP02681r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "B8ZXI1"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02691",
+      "explicit_dfl_region_ids": [
+        "DP02691r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q92608"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02704",
+      "explicit_dfl_region_ids": [
+        "DP02704r003",
+        "DP02704r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P41214"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02716",
+      "explicit_dfl_region_ids": [
+        "DP02716r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0A873"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02718",
+      "explicit_dfl_region_ids": [
+        "DP02718r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8ST83"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02721",
+      "explicit_dfl_region_ids": [
+        "DP02721r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P32357"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02722",
+      "explicit_dfl_region_ids": [
+        "DP02722r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P33334"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02723",
+      "explicit_dfl_region_ids": [
+        "DP02723r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8VDP3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02726",
+      "explicit_dfl_region_ids": [
+        "DP02726r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q42521"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02727",
+      "explicit_dfl_region_ids": [
+        "DP02727r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q13526"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02728",
+      "explicit_dfl_region_ids": [
+        "DP02728r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P42166"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02729",
+      "explicit_dfl_region_ids": [
+        "DP02729r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q96EP1"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02730",
+      "explicit_dfl_region_ids": [
+        "DP02730r003",
+        "DP02730r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q6P1M3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02742",
+      "explicit_dfl_region_ids": [
+        "DP02742r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P06756"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02756",
+      "explicit_dfl_region_ids": [
+        "DP02756r002",
+        "DP02756r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P21447"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02757",
+      "explicit_dfl_region_ids": [
+        "DP02757r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9GZU1"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02759",
+      "explicit_dfl_region_ids": [
+        "DP02759r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q14181"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02765",
+      "explicit_dfl_region_ids": [
+        "DP02765r002",
+        "DP02765r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q14118"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02767",
+      "explicit_dfl_region_ids": [
+        "DP02767r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P15442"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02785",
+      "explicit_dfl_region_ids": [
+        "DP02785r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P16278"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02790",
+      "explicit_dfl_region_ids": [
+        "DP02790r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8BTI9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02791",
+      "explicit_dfl_region_ids": [
+        "DP02791r003",
+        "DP02791r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O08908"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02792",
+      "explicit_dfl_region_ids": [
+        "DP02792r002",
+        "DP02792r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P42337"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02797",
+      "explicit_dfl_region_ids": [
+        "DP02797r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P20061"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02798",
+      "explicit_dfl_region_ids": [
+        "DP02798r003",
+        "DP02798r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P23771"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02805",
+      "explicit_dfl_region_ids": [
+        "DP02805r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q91WA6"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02806",
+      "explicit_dfl_region_ids": [
+        "DP02806r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0CY08"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02809",
+      "explicit_dfl_region_ids": [
+        "DP02809r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P53193"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02818",
+      "explicit_dfl_region_ids": [
+        "DP02818r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q07157"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02822",
+      "explicit_dfl_region_ids": [
+        "DP02822r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8IVH8"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02828",
+      "explicit_dfl_region_ids": [
+        "DP02828r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9W058"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02830",
+      "explicit_dfl_region_ids": [
+        "DP02830r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q91YD9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02833",
+      "explicit_dfl_region_ids": [
+        "DP02833r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9Y4F1"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02834",
+      "explicit_dfl_region_ids": [
+        "DP02834r003",
+        "DP02834r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9Y2Z0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02835",
+      "explicit_dfl_region_ids": [
+        "DP02835r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q14849"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02836",
+      "explicit_dfl_region_ids": [
+        "DP02836r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P24785"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02856",
+      "explicit_dfl_region_ids": [
+        "DP02856r008"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P83916"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02864",
+      "explicit_dfl_region_ids": [
+        "DP02864r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P83917"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02874",
+      "explicit_dfl_region_ids": [
+        "DP02874r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q61033"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02878",
+      "explicit_dfl_region_ids": [
+        "DP02878r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8XAD5"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02881",
+      "explicit_dfl_region_ids": [
+        "DP02881r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q09428"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02885",
+      "explicit_dfl_region_ids": [
+        "DP02885r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q10589"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02892",
+      "explicit_dfl_region_ids": [
+        "DP02892r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q3UND0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02896",
+      "explicit_dfl_region_ids": [
+        "DP02896r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q91VS8"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02921",
+      "explicit_dfl_region_ids": [
+        "DP02921r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P26368"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02923",
+      "explicit_dfl_region_ids": [
+        "DP02923r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P33128"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02925",
+      "explicit_dfl_region_ids": [
+        "DP02925r013"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0DTD1"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02931",
+      "explicit_dfl_region_ids": [
+        "DP02931r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9RQJ2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02945",
+      "explicit_dfl_region_ids": [
+        "DP02945r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q96RD7"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02946",
+      "explicit_dfl_region_ids": [
+        "DP02946r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q2VL32"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02959",
+      "explicit_dfl_region_ids": [
+        "DP02959r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P42527"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02966",
+      "explicit_dfl_region_ids": [
+        "DP02966r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9SU24"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02976",
+      "explicit_dfl_region_ids": [
+        "DP02976r002",
+        "DP02976r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q05193"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP02999",
+      "explicit_dfl_region_ids": [
+        "DP02999r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P34808"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03004",
+      "explicit_dfl_region_ids": [
+        "DP03004r003",
+        "DP03004r005",
+        "DP03004r007",
+        "DP03004r017",
+        "DP03004r018"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P58004"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03027",
+      "explicit_dfl_region_ids": [
+        "DP03027r005",
+        "DP03027r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q81AN8"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03034",
+      "explicit_dfl_region_ids": [
+        "DP03034r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q48245"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03057",
+      "explicit_dfl_region_ids": [
+        "DP03057r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q20728"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03061",
+      "explicit_dfl_region_ids": [
+        "DP03061r008"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P54132"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03065",
+      "explicit_dfl_region_ids": [
+        "DP03065r002",
+        "DP03065r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P51400"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03069",
+      "explicit_dfl_region_ids": [
+        "DP03069r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P34712"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03100",
+      "explicit_dfl_region_ids": [
+        "DP03100r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q14258"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03101",
+      "explicit_dfl_region_ids": [
+        "DP03101r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O15344"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03121",
+      "explicit_dfl_region_ids": [
+        "DP03121r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P11686"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03125",
+      "explicit_dfl_region_ids": [
+        "DP03125r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O14965"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03131",
+      "explicit_dfl_region_ids": [
+        "DP03131r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q96AE4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03162",
+      "explicit_dfl_region_ids": [
+        "DP03162r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O00299"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03164",
+      "explicit_dfl_region_ids": [
+        "DP03164r001"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9Y696"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03178",
+      "explicit_dfl_region_ids": [
+        "DP03178r007",
+        "DP03178r008"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q99250"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03212",
+      "explicit_dfl_region_ids": [
+        "DP03212r008",
+        "DP03212r017",
+        "DP03212r047"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0DTC9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03217",
+      "explicit_dfl_region_ids": [
+        "DP03217r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9XWG3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03221",
+      "explicit_dfl_region_ids": [
+        "DP03221r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P55265"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03222",
+      "explicit_dfl_region_ids": [
+        "DP03222r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q92783"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03226",
+      "explicit_dfl_region_ids": [
+        "DP03226r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P30771"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03230",
+      "explicit_dfl_region_ids": [
+        "DP03230r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P11940"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03232",
+      "explicit_dfl_region_ids": [
+        "DP03232r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q7KZF4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03236",
+      "explicit_dfl_region_ids": [
+        "DP03236r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9UDY8"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03241",
+      "explicit_dfl_region_ids": [
+        "DP03241r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0ABH9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03256",
+      "explicit_dfl_region_ids": [
+        "DP03256r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P08253"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03283",
+      "explicit_dfl_region_ids": [
+        "DP03283r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O80452"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03285",
+      "explicit_dfl_region_ids": [
+        "DP03285r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8H1D4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03293",
+      "explicit_dfl_region_ids": [
+        "DP03293r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O43791"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03299",
+      "explicit_dfl_region_ids": [
+        "DP03299r003",
+        "DP03299r004",
+        "DP03299r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P00734"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03300",
+      "explicit_dfl_region_ids": [
+        "DP03300r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P31749"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03308",
+      "explicit_dfl_region_ids": [
+        "DP03308r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q96MS0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03309",
+      "explicit_dfl_region_ids": [
+        "DP03309r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O60486"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03318",
+      "explicit_dfl_region_ids": [
+        "DP03318r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q95ZK7"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03320",
+      "explicit_dfl_region_ids": [
+        "DP03320r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P46580"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03337",
+      "explicit_dfl_region_ids": [
+        "DP03337r003",
+        "DP03337r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0A9H7"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03345",
+      "explicit_dfl_region_ids": [
+        "DP03345r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O00214"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03359",
+      "explicit_dfl_region_ids": [
+        "DP03359r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P9WJD9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03379",
+      "explicit_dfl_region_ids": [
+        "DP03379r004",
+        "DP03379r005",
+        "DP03379r008"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q14766"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03389",
+      "explicit_dfl_region_ids": [
+        "DP03389r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9UBT3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03400",
+      "explicit_dfl_region_ids": [
+        "DP03400r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9H4L7"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03410",
+      "explicit_dfl_region_ids": [
+        "DP03410r002",
+        "DP03410r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q91MK1"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03433",
+      "explicit_dfl_region_ids": [
+        "DP03433r010"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q13153"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03444",
+      "explicit_dfl_region_ids": [
+        "DP03444r001"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9UPP1"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03485",
+      "explicit_dfl_region_ids": [
+        "DP03485r001"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9VKJ9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03499",
+      "explicit_dfl_region_ids": [
+        "DP03499r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q04637-8"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03529",
+      "explicit_dfl_region_ids": [
+        "DP03529r019"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9NP98"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03536",
+      "explicit_dfl_region_ids": [
+        "DP03536r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q05318"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03541",
+      "explicit_dfl_region_ids": [
+        "DP03541r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9DQX7"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03542",
+      "explicit_dfl_region_ids": [
+        "DP03542r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P13699"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03547",
+      "explicit_dfl_region_ids": [
+        "DP03547r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P89522"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03555",
+      "explicit_dfl_region_ids": [
+        "DP03555r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8K310"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03575",
+      "explicit_dfl_region_ids": [
+        "DP03575r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P03496"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03577",
+      "explicit_dfl_region_ids": [
+        "DP03577r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P15659"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03579",
+      "explicit_dfl_region_ids": [
+        "DP03579r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9JYY3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03586",
+      "explicit_dfl_region_ids": [
+        "DP03586r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q6VRY4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03589",
+      "explicit_dfl_region_ids": [
+        "DP03589r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P47897"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03593",
+      "explicit_dfl_region_ids": [
+        "DP03593r006",
+        "DP03593r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P13887"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03606",
+      "explicit_dfl_region_ids": [
+        "DP03606r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P0CE18"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03622",
+      "explicit_dfl_region_ids": [
+        "DP03622r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q12962"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03633",
+      "explicit_dfl_region_ids": [
+        "DP03633r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P36421"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03648",
+      "explicit_dfl_region_ids": [
+        "DP03648r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9SL42"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03650",
+      "explicit_dfl_region_ids": [
+        "DP03650r002",
+        "DP03650r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q01484"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03660",
+      "explicit_dfl_region_ids": [
+        "DP03660r002",
+        "DP03660r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "A0A5F9ZHA1"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03716",
+      "explicit_dfl_region_ids": [
+        "DP03716r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P22219"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03717",
+      "explicit_dfl_region_ids": [
+        "DP03717r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P22543"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03718",
+      "explicit_dfl_region_ids": [
+        "DP03718r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q05919"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03747",
+      "explicit_dfl_region_ids": [
+        "DP03747r003",
+        "DP03747r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "S8F2K7"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03782",
+      "explicit_dfl_region_ids": [
+        "DP03782r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "B5TV91"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03786",
+      "explicit_dfl_region_ids": [
+        "DP03786r002",
+        "DP03786r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "A0A175WC91"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03792",
+      "explicit_dfl_region_ids": [
+        "DP03792r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "G4VQX9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03794",
+      "explicit_dfl_region_ids": [
+        "DP03794r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q5SBG8"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP03804",
+      "explicit_dfl_region_ids": [
+        "DP03804r002",
+        "DP03804r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q9VVI2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03805",
+      "explicit_dfl_region_ids": [
+        "DP03805r003",
+        "DP03805r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q15858"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP03824",
+      "explicit_dfl_region_ids": [
+        "DP03824r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "A0A0G2KTI4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03835",
+      "explicit_dfl_region_ids": [
+        "DP03835r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P14868"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03866",
+      "explicit_dfl_region_ids": [
+        "DP03866r003",
+        "DP03866r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8IVH4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03870",
+      "explicit_dfl_region_ids": [
+        "DP03870r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "A0A6L0XH39"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP03913",
+      "explicit_dfl_region_ids": [
+        "DP03913r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P0AFW0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03944",
+      "explicit_dfl_region_ids": [
+        "DP03944r006",
+        "DP03944r008"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P19525"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03956",
+      "explicit_dfl_region_ids": [
+        "DP03956r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O14678"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP03966",
+      "explicit_dfl_region_ids": [
+        "DP03966r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P49419"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP03995",
+      "explicit_dfl_region_ids": [
+        "DP03995r003",
+        "DP03995r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P40484"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04050",
+      "explicit_dfl_region_ids": [
+        "DP04050r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q257B3"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04051",
+      "explicit_dfl_region_ids": [
+        "DP04051r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q8IJ45"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04054",
+      "explicit_dfl_region_ids": [
+        "DP04054r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q57WT9"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04066",
+      "explicit_dfl_region_ids": [
+        "DP04066r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P0A8P8"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04070",
+      "explicit_dfl_region_ids": [
+        "DP04070r002",
+        "DP04070r013"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q96F81"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04072",
+      "explicit_dfl_region_ids": [
+        "DP04072r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q12402"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04086",
+      "explicit_dfl_region_ids": [
+        "DP04086r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P54577"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04087",
+      "explicit_dfl_region_ids": [
+        "DP04087r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P07206"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04088",
+      "explicit_dfl_region_ids": [
+        "DP04088r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q7Y3F1"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04096",
+      "explicit_dfl_region_ids": [
+        "DP04096r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "A0A0B4JDC9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04104",
+      "explicit_dfl_region_ids": [
+        "DP04104r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9NRA2"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04127",
+      "explicit_dfl_region_ids": [
+        "DP04127r005",
+        "DP04127r006",
+        "DP04127r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "W1QJK4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04129",
+      "explicit_dfl_region_ids": [
+        "DP04129r023",
+        "DP04129r025",
+        "DP04129r027"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P42858"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04131",
+      "explicit_dfl_region_ids": [
+        "DP04131r002",
+        "DP04131r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q5TDH0"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04144",
+      "explicit_dfl_region_ids": [
+        "DP04144r016"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P21707"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04145",
+      "explicit_dfl_region_ids": [
+        "DP04145r002",
+        "DP04145r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P21579"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04156",
+      "explicit_dfl_region_ids": [
+        "DP04156r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q96B97"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04158",
+      "explicit_dfl_region_ids": [
+        "DP04158r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q9BX66"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04166",
+      "explicit_dfl_region_ids": [
+        "DP04166r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P56536"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04174",
+      "explicit_dfl_region_ids": [
+        "DP04174r003",
+        "DP04174r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q12211"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04198",
+      "explicit_dfl_region_ids": [
+        "DP04198r002",
+        "DP04198r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P26663"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04219",
+      "explicit_dfl_region_ids": [
+        "DP04219r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "O95433"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04242",
+      "explicit_dfl_region_ids": [
+        "DP04242r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P45973"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04255",
+      "explicit_dfl_region_ids": [
+        "DP04255r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "O60016"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04256",
+      "explicit_dfl_region_ids": [
+        "DP04256r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P54820"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04257",
+      "explicit_dfl_region_ids": [
+        "DP04257r010",
+        "DP04257r011"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q9NZI8"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04268",
+      "explicit_dfl_region_ids": [
+        "DP04268r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P93830"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04272",
+      "explicit_dfl_region_ids": [
+        "DP04272r005",
+        "DP04272r013"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9V2F4"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04284",
+      "explicit_dfl_region_ids": [
+        "DP04284r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q8TDX7"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04305",
+      "explicit_dfl_region_ids": [
+        "DP04305r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "E6Y8B9"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04310",
+      "explicit_dfl_region_ids": [
+        "DP04310r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "A0AVK6"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04319",
+      "explicit_dfl_region_ids": [
+        "DP04319r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P43912"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04373",
+      "explicit_dfl_region_ids": [
+        "DP04373r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P9WI79"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04378",
+      "explicit_dfl_region_ids": [
+        "DP04378r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "O82882"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04379",
+      "explicit_dfl_region_ids": [
+        "DP04379r006",
+        "DP04379r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q8DR55"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04381",
+      "explicit_dfl_region_ids": [
+        "DP04381r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "P0CL43"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04384",
+      "explicit_dfl_region_ids": [
+        "DP04384r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q7BCK4"
+    },
+    {
+      "caid3_exact_id": true,
+      "disprot_id": "DP04392",
+      "explicit_dfl_region_ids": [
+        "DP04392r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "exclude_public_benchmark",
+      "uniprot_accession": "Q83RJ4"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04408",
+      "explicit_dfl_region_ids": [
+        "DP04408r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q38AU6"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04411",
+      "explicit_dfl_region_ids": [
+        "DP04411r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q99181"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04419",
+      "explicit_dfl_region_ids": [
+        "DP04419r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q9UQF2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04437",
+      "explicit_dfl_region_ids": [
+        "DP04437r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P21827"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04438",
+      "explicit_dfl_region_ids": [
+        "DP04438r002",
+        "DP04438r004",
+        "DP04438r006",
+        "DP04438r008"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q86YT6"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04446",
+      "explicit_dfl_region_ids": [
+        "DP04446r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P19120"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04447",
+      "explicit_dfl_region_ids": [
+        "DP04447r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P25685"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04455",
+      "explicit_dfl_region_ids": [
+        "DP04455r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P25294"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04459",
+      "explicit_dfl_region_ids": [
+        "DP04459r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q49AH0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04461",
+      "explicit_dfl_region_ids": [
+        "DP04461r006"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P00748"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04466",
+      "explicit_dfl_region_ids": [
+        "DP04466r006",
+        "DP04466r007"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q8IDW0"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04470",
+      "explicit_dfl_region_ids": [
+        "DP04470r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q38854"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04472",
+      "explicit_dfl_region_ids": [
+        "DP04472r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "E9RIY6"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04491",
+      "explicit_dfl_region_ids": [
+        "DP04491r005"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "O60870"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04510",
+      "explicit_dfl_region_ids": [
+        "DP04510r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q99683"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04604",
+      "explicit_dfl_region_ids": [
+        "DP04604r003",
+        "DP04604r004"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q73VY8"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04605",
+      "explicit_dfl_region_ids": [
+        "DP04605r009"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P09651-2"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04607",
+      "explicit_dfl_region_ids": [
+        "DP04607r003"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "Q62871-3"
+    },
+    {
+      "caid3_exact_id": false,
+      "disprot_id": "DP04643",
+      "explicit_dfl_region_ids": [
+        "DP04643r002"
+      ],
+      "shared_caid3_uniref_cluster_fields": [],
+      "training_status": "pending_homology_and_label_audit",
+      "uniprot_accession": "P27318"
+    }
+  ],
+  "limitations": [
+    "UniRef IDs are a partial homology screen, not independence certification",
+    "No verified residue negatives or no-linker proteins are created"
+  ],
+  "provenance": {
+    "caid3_reference_sha256": "4c204ef49ffa12fe166883e6b2cff0012cabee21260b8f32f997081d0e2fa0f8",
+    "disprot_sha256": "1fdfce26a3ea9b626e63559f36abd86e023b50b612dc2c8756acbb08edead140",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "script_sha256": "6397f6045eeaf889fcb517a75c80b5d7fb0715ed7afae94374ab23387067425f"
+  },
+  "record_type": "dfl_training_exclusion_audit",
+  "schema_version": "0.1.0",
+  "semantics": {
+    "negative": "none_verified_by_this_audit",
+    "positive": "explicit DisProt IDPO:0000033 annotation",
+    "unannotated": "unknown_not_negative"
+  }
+}

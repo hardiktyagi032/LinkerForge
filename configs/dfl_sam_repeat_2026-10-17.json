@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "purpose": "Repeat promising SAM-like variants at matched protected-data baseline seeds",
+  "data_manifest": "data/processed/caid3_protected_dfl_v1/manifest.json",
+  "architecture": ["samlike"],
+  "conditions": ["disorder_transfer"],
+  "seeds": [17, 31],
+  "variants": ["multiscale_features", "boundary_plus_query"],
+  "frozen_encoder": "facebook/esm2_t12_35M_UR50D",
+  "batch_size": {"samlike": 2},
+  "max_residues_per_window": 510,
+  "auxiliary_semantic_epochs": 3,
+  "dfl_finetune_epochs": 12,
+  "optimizer": "AdamW",
+  "learning_rate": 0.0003,
+  "max_seconds_per_trial": 1800,
+  "max_gpu_hours_per_round": 6,
+  "rounds": [["multiscale_features", 17], ["boundary_plus_query", 17], ["multiscale_features", 31], ["boundary_plus_query", 31]],
+  "development_selection": "masked residue APS on filtered development set",
+  "claim_status": "development_only_not_independent"
+}

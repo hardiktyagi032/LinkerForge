@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/disprot-domain-context-review-queue.schema.json",
+  "title": "DisProt explicit-linker and Pfam-domain-gap review queue",
+  "type": "object",
+  "required": ["schema_version", "status", "config", "source_sha256", "pipeline_commit", "software", "candidates", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "review_queue_not_validated_linkers_or_independent_test"},
+    "config": {"type": "object"},
+    "source_sha256": {"type": "object", "additionalProperties": {"type": "string"}},
+    "pipeline_commit": {"type": "string"},
+    "software": {"type": "object"},
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["disprot_region_id", "uniprot_accession", "domain_a", "domain_b", "gap", "explicit_linker", "review_status", "evidence_quality"],
+        "properties": {
+          "disprot_region_id": {"type": "string"},
+          "uniprot_accession": {"type": "string"},
+          "domain_a": {"type": "object"},
+          "domain_b": {"type": "object"},
+          "gap": {"type": "object"},
+          "explicit_linker": {"type": "object"},
+          "review_status": {"const": "pending_manual_domain_and_coordinate_adjudication"},
+          "evidence_quality": {"const": "curated_disprot_term_plus_pfam_gap_screen_not_independent"}
+        }
+      }
+    },
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

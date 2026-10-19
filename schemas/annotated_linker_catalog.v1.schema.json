@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/annotated_linker_catalog.v1.schema.json",
+  "title": "Annotated-only LinkerForge sequence record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "sequence", "sequence_sha256", "length", "qualifying_source_keys", "qualifying_sources", "usage_status", "provenance"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "sequence": {"type": "string", "pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$"},
+    "sequence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "length": {"type": "integer", "minimum": 1},
+    "qualifying_source_keys": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["existing_catalog", "nrps_intermodular", "uniprot_explicit_linker_region"]}},
+    "qualifying_sources": {"type": "object", "minProperties": 1},
+    "usage_status": {"enum": ["protected_benchmark", "quarantined", "needs_boundary_and_homology_audit"]},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input_sha256", "config_sha256", "pipeline_commit", "pipeline_sha256"],
+      "properties": {
+        "input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "config_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "pipeline_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "pipeline_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

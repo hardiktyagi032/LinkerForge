@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/linker-pred2-style-pool-manifest.v1.schema.json",
+  "type": "object",
+  "required": ["schema_version", "status", "config", "config_hash", "pipeline_commit", "source_sha256", "files", "protected_sets", "limitations"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "status": {"const": "prepared_not_linker_pred2_exact_split_not_training_cleared"},
+    "config": {"type": "object"},
+    "config_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "pipeline_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "source_sha256": {"type": "object"},
+    "files": {"type": "object"},
+    "protected_sets": {"type": "array", "items": {"type": "string"}},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

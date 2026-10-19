@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Exploratory linker sequence-pattern discovery",
+  "type": "object",
+  "required": ["schema_version", "status", "config", "input", "counts", "patterns", "provenance", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "exploratory_not_functionally_validated"},
+    "config": {"type": "object"},
+    "input": {"type": "object"},
+    "counts": {"type": "object"},
+    "patterns": {"type": "array", "items": {"type": "object", "required": ["sequence_pattern", "length", "observed_proteins", "null_mean_proteins", "empirical_p", "bh_q", "protein_ids"]}},
+    "provenance": {"type": "object", "required": ["input_sha256", "config_sha256", "component_audit_sha256", "pipeline_commit", "python_version", "script_version", "evidence_quality"]},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

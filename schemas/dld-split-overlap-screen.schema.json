@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/dld-split-overlap-screen.schema.json",
+  "title": "DLD split sequence-overlap screen",
+  "type": "object",
+  "required": ["schema_version", "status", "query_count", "reference_count", "hits", "limitations", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "candidate_screen_not_homology_certification"},
+    "query_count": {"type": "integer", "minimum": 1},
+    "reference_count": {"type": "integer", "minimum": 1},
+    "hits": {"type": "array"},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "provenance": {"type": "object"}
+  }
+}

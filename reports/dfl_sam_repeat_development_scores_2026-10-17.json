@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "created_utc": "2026-10-16T20:18:23.544937+00:00",
+  "claim_status": "protected_development_only",
+  "data_manifest_sha256": "a8f5348c6b6d2845e51bc12fdba0b1dcf02c33b22039baa04cab91069b792d24",
+  "script_sha256": "59cb9d2fccffd8719bb3e1165840e0cc912f9af9368cf0052d5efde5969640cb",
+  "results": [
+    {
+      "variant": "baseline",
+      "seed": 7,
+      "checkpoint": "artifacts\\dfl-caid3-protected-baselines-2026-10-16\\samlike-disorder_transfer-seed7\\best.pt",
+      "checkpoint_sha256": "93430a22c3b36cd83ebca1295af430d453aa8b4304515864cd331d8d2af133f5",
+      "metrics": {
+        "aps": 0.8011956249610642,
+        "auroc": 0.9096727364979141,
+        "fmax": 0.715173025732032,
+        "known_residues": 7427,
+        "positive_residues": 1267
+      }
+    },
+    {
+      "variant": "baseline",
+      "seed": 17,
+      "checkpoint": "artifacts\\dfl-caid3-protected-baselines-2026-10-16\\samlike-disorder_transfer-seed17\\best.pt",
+      "checkpoint_sha256": "0ed2c60d92dc2da36590223aac7667786857f3fae98d61d2f98f432f4e1f856e",
+      "metrics": {
+        "aps": 0.8041171046854296,
+        "auroc": 0.9141630961776976,
+        "fmax": 0.7192982456140351,
+        "known_residues": 7427,
+        "positive_residues": 1267
+      }
+    },
+    {
+      "variant": "baseline",
+      "seed": 31,
+      "checkpoint": "artifacts\\dfl-caid3-protected-baselines-2026-10-16\\samlike-disorder_transfer-seed31\\best.pt",
+      "checkpoint_sha256": "673174c0e7ef9de826a524de2dad80d366fa4fff8caf2cd1f73d3780bace648c",
+      "metrics": {
+        "aps": 0.7702194429817304,
+        "auroc": 0.8989325690095223,
+        "fmax": 0.672153635116598,
+        "known_residues": 7427,
+        "positive_residues": 1267
+      }
+    },
+    {
+      "variant": "multiscale_features",
+      "seed": 7,
+      "checkpoint": "artifacts\\dfl-sam-ideas-batch-2026-10-17\\multiscale_features\\best.pt",
+      "checkpoint_sha256": "795a131093840ec5829a48e104df3636803912a3d694bf903e5be370fe85ddcc",
+      "metrics": {
+        "aps": 0.8123122211159172,
+        "auroc": 0.916947500999395,
+        "fmax": 0.7233319167020824,
+        "known_residues": 7427,
+        "positive_residues": 1267
+      }
+    },
+    {
+      "variant": "multiscale_features",
+      "seed": 17,
+      "checkpoint": "artifacts\\dfl-sam-repeat-2026-10-17\\multiscale_features-seed17\\best.pt",
+      "checkpoint_sha256": "507e0d60ebcbcef80a5aa3f879d89ce9f59770154ecdc356aa38f550b1fca32f",
+      "metrics": {
+        "aps": 0.8407758026129999,
+        "auroc": 0.9196959019670149,
+        "fmax": 0.7604562737642585,
+        "known_residues": 7427,
+        "positive_residues": 1267
+      }
+    },
+    {
+      "variant": "multiscale_features",
+      "seed": 31,
+      "checkpoint": "artifacts\\dfl-sam-repeat-2026-10-17\\multiscale_features-seed31\\best.pt",
+      "checkpoint_sha256": "ae8a4ab3f2b3784d84a2bf4c602707573c05a14aa0534eb0242a991660fa63ea",
+      "metrics": {
+        "aps": 0.7425910938286134,
+        "auroc": 0.8654031150380795,
+        "fmax": 0.6692124105011933,
+        "known_residues": 7427,
+        "positive_residues": 1267
+      }
+    },
+    {
+      "variant": "boundary_plus_query",
+      "seed": 7,
+      "checkpoint": "artifacts\\dfl-sam-ideas-batch-2026-10-17\\boundary_plus_query\\best.pt",
+      "checkpoint_sha256": "c9d04cb1dfbdf0e4bb34130dcb395f9a334add16525a6483b245e9253193d103",
+      "metrics": {
+        "aps": 0.8067431442138508,
+        "auroc": 0.9108160190243851,
+        "fmax": 0.7248628884826326,
+        "known_residues": 7427,
+        "positive_residues": 1267
+      }
+    },
+    {
+      "variant": "boundary_plus_query",
+      "seed": 17,
+      "checkpoint": "artifacts\\dfl-sam-repeat-2026-10-17\\boundary_plus_query-seed17\\best.pt",
+      "checkpoint_sha256": "2271fad22d0163f85b67abd36f1a4e29f61015a5d35dc629cd439587695118cc",
+      "metrics": {
+        "aps": 0.8076248834355665,
+        "auroc": 0.9153179101876814,
+        "fmax": 0.7318702290076337,
+        "known_residues": 7427,
+        "positive_residues": 1267
+      }
+    },
+    {
+      "variant": "boundary_plus_query",
+      "seed": 31,
+      "checkpoint": "artifacts\\dfl-sam-repeat-2026-10-17\\boundary_plus_query-seed31\\best.pt",
+      "checkpoint_sha256": "274b53c379632a9af567f2acf2b153880b480d088f857b5a3072f4d9ff3c503b",
+      "metrics": {
+        "aps": 0.7721842834690349,
+        "auroc": 0.9007714562469891,
+        "fmax": 0.6795265234546252,
+        "known_residues": 7427,
+        "positive_residues": 1267
+      }
+    }
+  ]
+}

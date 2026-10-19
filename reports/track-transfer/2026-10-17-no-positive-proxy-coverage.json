@@ -1,0 +1,139 @@
+{
+  "created_utc": "2026-10-16T23:45:01.949392+00:00",
+  "scope": "Protected development only; no CAID3 labels accessed",
+  "interpretation": "No annotated positive is not verified absence of a DFL where the source label is x.",
+  "sha256": {
+    "script": "e2a2b304382fe5e65fb17d25545deb684941ffde270930536727fd293a3e35d8",
+    "development": "8b6e54a6b8be9d8d6becb9f1ffa05b1518b3ed43503d0fc3156b4be329c81f91",
+    "manifest": "a8f5348c6b6d2845e51bc12fdba0b1dcf02c33b22039baa04cab91069b792d24"
+  },
+  "proxy_proteins": 17,
+  "fully_known_proteins": 4,
+  "partially_unknown_proteins": 13,
+  "known_zero_residues": 5951,
+  "unknown_residues": 2976,
+  "known_fraction_min": 0.4024390243902439,
+  "known_fraction_median": 0.7221189591078067,
+  "known_fraction_max": 1.0,
+  "protein_evidence": [
+    {
+      "protein_id": "DP00225",
+      "length": 915,
+      "known_zero": 569,
+      "unknown": 346,
+      "known_fraction": 0.6218579234972678
+    },
+    {
+      "protein_id": "DP00251",
+      "length": 575,
+      "known_zero": 432,
+      "unknown": 143,
+      "known_fraction": 0.7513043478260869
+    },
+    {
+      "protein_id": "DP00632",
+      "length": 656,
+      "known_zero": 264,
+      "unknown": 392,
+      "known_fraction": 0.4024390243902439
+    },
+    {
+      "protein_id": "DP01075",
+      "length": 1076,
+      "known_zero": 777,
+      "unknown": 299,
+      "known_fraction": 0.7221189591078067
+    },
+    {
+      "protein_id": "DP00564",
+      "length": 170,
+      "known_zero": 168,
+      "unknown": 2,
+      "known_fraction": 0.9882352941176471
+    },
+    {
+      "protein_id": "DP00609",
+      "length": 1503,
+      "known_zero": 839,
+      "unknown": 664,
+      "known_fraction": 0.5582168995342648
+    },
+    {
+      "protein_id": "DP01100",
+      "length": 441,
+      "known_zero": 441,
+      "unknown": 0,
+      "known_fraction": 1.0
+    },
+    {
+      "protein_id": "DP01047",
+      "length": 354,
+      "known_zero": 150,
+      "unknown": 204,
+      "known_fraction": 0.423728813559322
+    },
+    {
+      "protein_id": "DP00052",
+      "length": 302,
+      "known_zero": 285,
+      "unknown": 17,
+      "known_fraction": 0.9437086092715232
+    },
+    {
+      "protein_id": "DP01151",
+      "length": 266,
+      "known_zero": 266,
+      "unknown": 0,
+      "known_fraction": 1.0
+    },
+    {
+      "protein_id": "DP00250",
+      "length": 258,
+      "known_zero": 194,
+      "unknown": 64,
+      "known_fraction": 0.751937984496124
+    },
+    {
+      "protein_id": "DP01144",
+      "length": 219,
+      "known_zero": 100,
+      "unknown": 119,
+      "known_fraction": 0.45662100456621
+    },
+    {
+      "protein_id": "DP00543",
+      "length": 63,
+      "known_zero": 29,
+      "unknown": 34,
+      "known_fraction": 0.4603174603174603
+    },
+    {
+      "protein_id": "DP00978",
+      "length": 843,
+      "known_zero": 466,
+      "unknown": 377,
+      "known_fraction": 0.5527876631079478
+    },
+    {
+      "protein_id": "DP00472",
+      "length": 639,
+      "known_zero": 324,
+      "unknown": 315,
+      "known_fraction": 0.5070422535211268
+    },
+    {
+      "protein_id": "DP00221",
+      "length": 585,
+      "known_zero": 585,
+      "unknown": 0,
+      "known_fraction": 1.0
+    },
+    {
+      "protein_id": "DP00057",
+      "length": 62,
+      "known_zero": 62,
+      "unknown": 0,
+      "known_fraction": 1.0
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "status": "protected_development_only",
+  "method": "Fmax over exact score ties on known 0/1 residues of APS-selected checkpoints",
+  "data_manifest_sha256": "a8f5348c6b6d2845e51bc12fdba0b1dcf02c33b22039baa04cab91069b792d24",
+  "runs": [
+    {
+      "fmax": 0.7547671840354767,
+      "threshold": 0.8030323386192322,
+      "precision": 0.861336032388664,
+      "recall": 0.6716653512233622,
+      "positive_residues": 1267,
+      "negative_residues": 6160,
+      "trial": "global_context",
+      "arch": "samlike",
+      "condition": "disorder_transfer",
+      "seed": 7,
+      "checkpoint_sha256": "f1a6eb7b415f84aeba46f6bb4ae1260299a3915b8b3b00d6eeef75f7d5cfabc5",
+      "development_aps_from_trial": 0.8269122499475382,
+      "development_auroc_from_trial": 0.9171637163152555
+    },
+    {
+      "fmax": 0.759651307596513,
+      "threshold": 0.6636612415313721,
+      "precision": 0.8012259194395797,
+      "recall": 0.7221783741120757,
+      "positive_residues": 1267,
+      "negative_residues": 6160,
+      "trial": "global_context-seed17",
+      "arch": "samlike",
+      "condition": "disorder_transfer",
+      "seed": 17,
+      "checkpoint_sha256": "3bde2e57ba76ad6c73eb764c0c8dcf735e56d28e6fed5af7257e2f3f537f9d00",
+      "development_aps_from_trial": 0.8535847582947106,
+      "development_auroc_from_trial": 0.9391005058477434
+    },
+    {
+      "fmax": 0.6741028128031038,
+      "threshold": 0.518234133720398,
+      "precision": 0.8742138364779874,
+      "recall": 0.5485398579321231,
+      "positive_residues": 1267,
+      "negative_residues": 6160,
+      "trial": "global_context-seed31",
+      "arch": "samlike",
+      "condition": "disorder_transfer",
+      "seed": 31,
+      "checkpoint_sha256": "aae468f32d1f47785d62b02683c020aa4da2b3c6ca23549b29d1e542a1de4197",
+      "development_aps_from_trial": 0.7536967058869688,
+      "development_auroc_from_trial": 0.8719824670199572
+    }
+  ],
+  "claim_status": "does_not_reverse_preregistered_proxy_guardrail_failure"
+}

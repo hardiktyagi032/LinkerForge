@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/natural-linker-identification.schema.json",
+  "title": "Natural-protein linker identifier prediction",
+  "type": "object",
+  "required": ["schema_version", "task", "sequence_id", "sequence_length", "sequence_sha256", "predicted_linker_present", "predicted_linkers", "coordinate_system", "threshold", "model", "limitations", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "task": {"const": "natural_protein_linker_identifier"},
+    "sequence_id": {"type": "string", "minLength": 1},
+    "sequence_length": {"type": "integer", "minimum": 1},
+    "sequence_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "predicted_linker_present": {"type": "boolean"},
+    "predicted_linkers": {"type": "array", "items": {"type": "object", "required": ["start", "end", "length", "sequence", "composition_counts", "composition_fractions", "mean_residue_score", "max_residue_score"], "properties": {
+      "start": {"type": "integer", "minimum": 1}, "end": {"type": "integer", "minimum": 1},
+      "length": {"type": "integer", "minimum": 1}, "sequence": {"type": "string", "minLength": 1},
+      "composition_counts": {"type": "object"}, "composition_fractions": {"type": "object"},
+      "mean_residue_score": {"type": "number", "minimum": 0, "maximum": 1},
+      "max_residue_score": {"type": "number", "minimum": 0, "maximum": 1}
+    }}},
+    "coordinate_system": {"const": "1-based inclusive sequence positions"},
+    "threshold": {"type": "number", "minimum": 0, "maximum": 1},
+    "model": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "provenance": {"type": "object", "required": ["input_fasta_sha256", "pipeline_commit", "config_sha256", "software", "evidence_quality"]}
+  }
+}

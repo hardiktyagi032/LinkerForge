@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.example/schemas/detector-epoch.schema.json",
+  "title": "Linker detector training epoch result",
+  "type": "object",
+  "required": ["schema_version", "epoch", "train_loss", "validation"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "epoch": {"type": "integer", "minimum": 1},
+    "train_loss": {"type": "number", "minimum": 0},
+    "validation": {
+      "type": "object",
+      "required": ["residue_auprc", "residue_auroc", "positive_residues", "residues", "proteins", "validation_selected_operating_point"],
+      "properties": {
+        "residue_auprc": {"type": "number", "minimum": 0, "maximum": 1},
+        "residue_auroc": {"type": "number", "minimum": 0, "maximum": 1},
+        "positive_residues": {"type": "integer", "minimum": 1},
+        "residues": {"type": "integer", "minimum": 1},
+        "proteins": {"type": "integer", "minimum": 1},
+        "validation_selected_operating_point": {"type": "object"}
+      }
+    }
+  }
+}

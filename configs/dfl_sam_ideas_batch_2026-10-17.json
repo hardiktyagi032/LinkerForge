@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "purpose": "Five matched SAM-like DFL ideas: three single mechanisms and two combinations",
+  "data_manifest": "data/processed/caid3_protected_dfl_v1/manifest.json",
+  "architecture": ["samlike"],
+  "conditions": ["disorder_transfer"],
+  "seeds": [7],
+  "frozen_encoder": "facebook/esm2_t12_35M_UR50D",
+  "batch_size": {"samlike": 2},
+  "max_residues_per_window": 510,
+  "auxiliary_semantic_epochs": 3,
+  "dfl_finetune_epochs": 12,
+  "optimizer": "AdamW",
+  "learning_rate": 0.0003,
+  "max_seconds_per_trial": 1800,
+  "max_gpu_hours_per_round": 6,
+  "rounds": [
+    ["boundary_refine", "query_local_attention", "multiscale_features"],
+    ["boundary_plus_query", "boundary_plus_multiscale"]
+  ],
+  "development_selection": "masked residue APS on filtered development set",
+  "reference_baseline": "samlike-disorder_transfer-seed7 on identical filtered data",
+  "claim_status": "development_only_not_independent"
+}

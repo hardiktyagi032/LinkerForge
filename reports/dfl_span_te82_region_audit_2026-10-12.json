@@ -1,0 +1,173 @@
+{
+  "high_precision_intervals": {
+    "matched_regions_iou_0_5": 4,
+    "median_end_error_matched_residues": 1.5,
+    "median_start_error_matched_residues": 2.5,
+    "no_positive_proteins": 44,
+    "no_positive_proteins_without_scored_residue_prediction": 40,
+    "no_positive_scored_residue_specificity": 0.9090909090909091,
+    "predicted_regions": 27,
+    "region_precision_iou_0_5": 0.14814814814814814,
+    "region_recall_iou_0_5": 0.08695652173913043,
+    "true_regions": 46
+  },
+  "high_precision_operating_point": {
+    "false_positives": 20,
+    "minimum_true_positives": 50,
+    "precision": 0.9069767441860465,
+    "recall": 0.08771929824561403,
+    "target_precision": 0.9,
+    "threshold": 0.9498313069343567,
+    "true_positives": 195
+  },
+  "high_precision_per_protein": [
+    {
+      "false_positives": 0,
+      "protein_id": "DP00135",
+      "true_positives": 30
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP01085",
+      "true_positives": 21
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP00061",
+      "true_positives": 20
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP01084",
+      "true_positives": 19
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP01083",
+      "true_positives": 15
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP01098",
+      "true_positives": 11
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP00315",
+      "true_positives": 9
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP00736",
+      "true_positives": 9
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP01093",
+      "true_positives": 9
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP01605",
+      "true_positives": 9
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP00363",
+      "true_positives": 8
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP01086",
+      "true_positives": 8
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP00407",
+      "true_positives": 7
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP00284",
+      "true_positives": 6
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP01931",
+      "true_positives": 6
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP00011",
+      "true_positives": 4
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP00037",
+      "true_positives": 3
+    },
+    {
+      "false_positives": 0,
+      "protein_id": "DP02144",
+      "true_positives": 1
+    },
+    {
+      "false_positives": 2,
+      "protein_id": "DP00017",
+      "true_positives": 0
+    },
+    {
+      "false_positives": 4,
+      "protein_id": "DP00225",
+      "true_positives": 0
+    },
+    {
+      "false_positives": 10,
+      "protein_id": "DP00978",
+      "true_positives": 0
+    },
+    {
+      "false_positives": 4,
+      "protein_id": "DP01151",
+      "true_positives": 0
+    }
+  ],
+  "high_precision_proteins_with_true_positives": 18,
+  "intervals": {
+    "matched_regions_iou_0_5": 26,
+    "median_end_error_matched_residues": 0.0,
+    "median_start_error_matched_residues": 0.0,
+    "no_positive_proteins": 44,
+    "no_positive_proteins_without_scored_residue_prediction": 24,
+    "no_positive_scored_residue_specificity": 0.5454545454545454,
+    "predicted_regions": 144,
+    "region_precision_iou_0_5": 0.18055555555555555,
+    "region_recall_iou_0_5": 0.5652173913043478,
+    "true_regions": 46
+  },
+  "limitations": [
+    "Development threshold, not independent test",
+    "Masked positions break reported prediction intervals",
+    "No-positive specificity is measured only on scored 0/1 positions"
+  ],
+  "positive_residues": 2223,
+  "provenance": {
+    "checkpoint_sha256": "40c148b7eef61e820c203345f2cc5ffb03521f1fb4fb2efa512881e6c816d1d9",
+    "dev_sha256": "f15ac3eef1edc45b95bc600d661dab348a0cb0bee11e47febeac356ef93db916",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "script_sha256": "cf6171ecbbcc4ee10319a29dc0c0fbfc503a05bf673bf1b748190671f617e576"
+  },
+  "record_type": "dfl_span_region_audit",
+  "schema_version": "0.1.0",
+  "scored_residues": 13694,
+  "selected_operating_point": {
+    "f1": 0.4521287227663402,
+    "false_positives": 1649,
+    "precision": 0.4068345323741007,
+    "recall": 0.5087719298245614,
+    "threshold": 0.6616434454917908,
+    "true_positives": 1131
+  },
+  "split": "TE82_development_only",
+  "threshold_selection": "maximum_masked_residue_F1_on_TE82_exact_score_ties"
+}

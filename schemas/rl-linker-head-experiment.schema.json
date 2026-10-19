@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/rl-linker-head-experiment.schema.json",
+  "title": "Experimental linker-head RL comparison",
+  "type": "object",
+  "required": ["schema_version", "status", "method", "data", "config", "results", "provenance", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"enum": ["completed", "failed"]},
+    "method": {"const": "self_critical_policy_gradient_vs_supervised_continuation"},
+    "data": {"type": "object"},
+    "config": {"type": "object"},
+    "results": {"type": "object"},
+    "provenance": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

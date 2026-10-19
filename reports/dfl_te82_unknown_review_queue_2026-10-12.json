@@ -1,0 +1,194 @@
+{
+  "provenance": {
+    "checkpoint_sha256": "3e41d94048b60581ed7321f723d5c3c77e48a68465ef031172d93b196a2c05d1",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "script_sha256": "d7a7f02a85fd88b23ba2e6237c0f36a9b6270bb79b8ae012584a294738e855e2",
+    "source_sha256": "f15ac3eef1edc45b95bc600d661dab348a0cb0bee11e47febeac356ef93db916"
+  },
+  "records": [
+    {
+      "end_1based": 297,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.9731184422969819,
+      "protein_id": "DP00135",
+      "sequence": "SSNNHNSPSGNGNPANGSNI",
+      "source_label": "x_masked_unknown",
+      "start_1based": 278
+    },
+    {
+      "end_1based": 226,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.9416079014539719,
+      "protein_id": "DP01080",
+      "sequence": "CAAAASNGEWAIANNGANNY",
+      "source_label": "x_masked_unknown",
+      "start_1based": 207
+    },
+    {
+      "end_1based": 830,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.9159569412469863,
+      "protein_id": "DP02144",
+      "sequence": "DRHGDGDEYNENIDEEEDFT",
+      "source_label": "x_masked_unknown",
+      "start_1based": 811
+    },
+    {
+      "end_1based": 450,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.9155330806970596,
+      "protein_id": "DP01086",
+      "sequence": "GTSMASIGSDMGASRVGGAR",
+      "source_label": "x_masked_unknown",
+      "start_1based": 431
+    },
+    {
+      "end_1based": 1994,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.8676884114742279,
+      "protein_id": "DP01931",
+      "sequence": "PEGIIPTLFGPEREKTQAID",
+      "source_label": "x_masked_unknown",
+      "start_1based": 1975
+    },
+    {
+      "end_1based": 88,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.8570217043161392,
+      "protein_id": "DP01098",
+      "sequence": "MEPVPREVLGSATRDQDQLQ",
+      "source_label": "x_masked_unknown",
+      "start_1based": 69
+    },
+    {
+      "end_1based": 90,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.8489621102809906,
+      "protein_id": "DP00363",
+      "sequence": "PVPREVLGSATRDQDQLQAW",
+      "source_label": "x_masked_unknown",
+      "start_1based": 71
+    },
+    {
+      "end_1based": 440,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.846353965997696,
+      "protein_id": "DP00061",
+      "sequence": "ALDGVSISDLKSGGVGGSNT",
+      "source_label": "x_masked_unknown",
+      "start_1based": 421
+    },
+    {
+      "end_1based": 463,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.8459877401590348,
+      "protein_id": "DP01085",
+      "sequence": "TASFSISRDTMPGGVSRNEI",
+      "source_label": "x_masked_unknown",
+      "start_1based": 444
+    },
+    {
+      "end_1based": 180,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.7955274730920792,
+      "protein_id": "DP00037",
+      "sequence": "LKLGDSLKRAVPADWPNNEI",
+      "source_label": "x_masked_unknown",
+      "start_1based": 161
+    },
+    {
+      "end_1based": 60,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.7911114990711212,
+      "protein_id": "DP01093",
+      "sequence": "SLTLEAMLRFGDLPPAEPME",
+      "source_label": "x_masked_unknown",
+      "start_1based": 41
+    },
+    {
+      "end_1based": 433,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.7791655868291855,
+      "protein_id": "DP01084",
+      "sequence": "TFATHNNMQTLGGATGRKDD",
+      "source_label": "x_masked_unknown",
+      "start_1based": 414
+    },
+    {
+      "end_1based": 275,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.7504237145185471,
+      "protein_id": "DP01047",
+      "sequence": "KAKEEAAKFTKEDLEKNFKT",
+      "source_label": "x_masked_unknown",
+      "start_1based": 256
+    },
+    {
+      "end_1based": 130,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.7411426320672035,
+      "protein_id": "DP00839",
+      "sequence": "EPKTDQDEEHCRKVNEYLNN",
+      "source_label": "x_masked_unknown",
+      "start_1based": 111
+    },
+    {
+      "end_1based": 608,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.7234765619039536,
+      "protein_id": "DP00978",
+      "sequence": "LICTTTVPWNTSWSNKSLNE",
+      "source_label": "x_masked_unknown",
+      "start_1based": 589
+    },
+    {
+      "end_1based": 128,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.6943279935253991,
+      "protein_id": "DP00284",
+      "sequence": "LEGFSDPTGQYPRRLGND",
+      "source_label": "x_masked_unknown",
+      "start_1based": 111
+    },
+    {
+      "end_1based": 306,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.6450407095253468,
+      "protein_id": "DP00623",
+      "sequence": "DWLGTNGLRRRGRQTYTRYQ",
+      "source_label": "x_masked_unknown",
+      "start_1based": 287
+    },
+    {
+      "end_1based": 313,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.6379038920769324,
+      "protein_id": "DP01461",
+      "sequence": "RHEEQQRELEEEE",
+      "source_label": "x_masked_unknown",
+      "start_1based": 301
+    },
+    {
+      "end_1based": 106,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.6122060120105743,
+      "protein_id": "DP00011",
+      "sequence": "PGEPSGLETLKDTPPPRLIK",
+      "source_label": "x_masked_unknown",
+      "start_1based": 87
+    },
+    {
+      "end_1based": 202,
+      "evidence_quality": "unadjudicated_model_nominated",
+      "mean_model_score": 0.6115526273846627,
+      "protein_id": "DP00723",
+      "sequence": "VHIFLAGDSSGGNIAHNVAL",
+      "source_label": "x_masked_unknown",
+      "start_1based": 183
+    }
+  ],
+  "schema_version": "0.1.0",
+  "selection": "top mean-score 10-20-residue unknown window; at most one per protein",
+  "status": "annotation_review_queue_not_ground_truth",
+  "warning": "Selection is model-informed; do not train/evaluate on these as negatives or claim a random annotation audit."
+}

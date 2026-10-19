@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/published-linker-inference.schema.json",
+  "title": "Published linker predictor inference",
+  "type": "object",
+  "required": ["schema_version", "predictor", "sequence_id", "sequence_length", "scores", "labels", "threshold", "evidence_quality", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "predictor": {"enum": ["LINKER-Pred-Lite", "LINKER-Pred2"]},
+    "sequence_id": {"type": "string", "minLength": 1},
+    "sequence_length": {"type": "integer", "minimum": 1},
+    "scores": {"type": "array", "items": {"type": "number", "minimum": 0, "maximum": 1}},
+    "labels": {"type": "array", "items": {"enum": [0, 1]}},
+    "threshold": {"type": "number", "minimum": 0, "maximum": 1},
+    "evidence_quality": {"const": "published_checkpoint_inference"},
+    "provenance": {
+      "type": "object",
+      "required": ["source_ids", "upstream_commit", "pipeline_commit", "config_hash", "input_hashes", "checkpoint_hashes", "software"],
+      "properties": {
+        "source_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "upstream_commit": {"type": "string", "minLength": 40, "maxLength": 40},
+        "pipeline_commit": {"type": "string", "minLength": 40, "maxLength": 40},
+        "config_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "input_hashes": {"type": "object"},
+        "checkpoint_hashes": {"type": "object"},
+        "software": {"type": "object"}
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "limitations": [
+    "The x residues are unknown/masked under the source protocol, not established negatives.",
+    "Treating x as negative is a sensitivity test only and cannot prove CAID3 annotation equivalence.",
+    "No model weights, checkpoints or thresholds were changed."
+  ],
+  "provenance": {
+    "checkpoint_sha256": {
+      "CNN": "3e41d94048b60581ed7321f723d5c3c77e48a68465ef031172d93b196a2c05d1",
+      "precision": "b9002d55670e5e6a95788d03190bbe5c5ae86a5bd2de1f2611022a9352a66b3a",
+      "span": "40c148b7eef61e820c203345f2cc5ffb03521f1fb4fb2efa512881e6c816d1d9"
+    },
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "script_sha256": "8cf0c1ef114f66ab36feb08a442b10681735e7e4528788b2056227bbee73bde8",
+    "split_sha256": {
+      "TE64": "4d6321a0483182139149b1d535ad2b8c1a34688082eb80e91662f8c9972d43eb",
+      "TE82": "f15ac3eef1edc45b95bc600d661dab348a0cb0bee11e47febeac356ef93db916"
+    }
+  },
+  "results": {
+    "TE64": {
+      "CNN": {
+        "counterfactual_x_as_negative": {
+          "aps": 0.03397172408978366,
+          "auroc": 0.5344843842853346,
+          "positive_prevalence": 0.023536122616006547,
+          "positives": 949,
+          "residues": 40321
+        },
+        "masked_x_fraction_score_ge_0_5": 0.3946781972393148,
+        "masked_x_mean_score": 0.40123048607138984,
+        "published_masked_protocol": {
+          "aps": 0.21428023498145904,
+          "auroc": 0.6643827124920306,
+          "positive_prevalence": 0.09253120124804992,
+          "positives": 949,
+          "residues": 10256
+        }
+      },
+      "precision": {
+        "counterfactual_x_as_negative": {
+          "aps": 0.040576047734700214,
+          "auroc": 0.5446440357019323,
+          "positive_prevalence": 0.023536122616006547,
+          "positives": 949,
+          "residues": 40321
+        },
+        "masked_x_fraction_score_ge_0_5": 0.6698153999667388,
+        "masked_x_mean_score": 0.6268904116260021,
+        "published_masked_protocol": {
+          "aps": 0.22267452017609785,
+          "auroc": 0.668653323359385,
+          "positive_prevalence": 0.09253120124804992,
+          "positives": 949,
+          "residues": 10256
+        }
+      },
+      "span": {
+        "counterfactual_x_as_negative": {
+          "aps": 0.03687376128556872,
+          "auroc": 0.5392093968027216,
+          "positive_prevalence": 0.023536122616006547,
+          "positives": 949,
+          "residues": 40321
+        },
+        "masked_x_fraction_score_ge_0_5": 0.6847164476966573,
+        "masked_x_mean_score": 0.6226668601430367,
+        "published_masked_protocol": {
+          "aps": 0.21376514769804447,
+          "auroc": 0.6690942595866125,
+          "positive_prevalence": 0.09253120124804992,
+          "positives": 949,
+          "residues": 10256
+        }
+      }
+    },
+    "TE82": {
+      "CNN": {
+        "counterfactual_x_as_negative": {
+          "aps": 0.11513144419667933,
+          "auroc": 0.6347361319980467,
+          "positive_prevalence": 0.060181926471384484,
+          "positives": 2223,
+          "residues": 36938
+        },
+        "masked_x_fraction_score_ge_0_5": 0.1728618138014111,
+        "masked_x_mean_score": 0.25567015790527126,
+        "published_masked_protocol": {
+          "aps": 0.4501386874954209,
+          "auroc": 0.7734216265524049,
+          "positive_prevalence": 0.1623338688476705,
+          "positives": 2223,
+          "residues": 13694
+        }
+      },
+      "precision": {
+        "counterfactual_x_as_negative": {
+          "aps": 0.13586905957911938,
+          "auroc": 0.6433673556326437,
+          "positive_prevalence": 0.060181926471384484,
+          "positives": 2223,
+          "residues": 36938
+        },
+        "masked_x_fraction_score_ge_0_5": 0.517122698330752,
+        "masked_x_mean_score": 0.49960697491246925,
+        "published_masked_protocol": {
+          "aps": 0.4970157632548141,
+          "auroc": 0.7591632332397373,
+          "positive_prevalence": 0.1623338688476705,
+          "positives": 2223,
+          "residues": 13694
+        }
+      },
+      "span": {
+        "counterfactual_x_as_negative": {
+          "aps": 0.12337502876845098,
+          "auroc": 0.6209411913953405,
+          "positive_prevalence": 0.060181926471384484,
+          "positives": 2223,
+          "residues": 36938
+        },
+        "masked_x_fraction_score_ge_0_5": 0.5252108070900017,
+        "masked_x_mean_score": 0.49760895578728015,
+        "published_masked_protocol": {
+          "aps": 0.454866239156391,
+          "auroc": 0.7488051878207374,
+          "positive_prevalence": 0.1623338688476705,
+          "positives": 2223,
+          "residues": 13694
+        }
+      }
+    }
+  },
+  "schema_version": "0.1.0",
+  "status": "counterfactual_label_policy_diagnostic_not_training_or_model_selection"
+}

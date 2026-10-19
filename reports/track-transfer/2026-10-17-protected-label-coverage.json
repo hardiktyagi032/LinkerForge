@@ -1,0 +1,78 @@
+{
+  "created_utc": "2026-10-16T23:30:06.942995+00:00",
+  "scope": "CAID3-protected DFL train/development and auxiliary; CAID3 labels not opened",
+  "semantics": "0 and 1 are source labels; x is unknown and must remain masked. Auxiliary labels have a different source task.",
+  "limits": "Coverage difference does not establish a causal explanation for external transfer.",
+  "sha256": {
+    "script": "4200001b41d29ac8bae07cb3cfe70a8e7171195d451c309cdd42c71375240bc7",
+    "manifest": "a8f5348c6b6d2845e51bc12fdba0b1dcf02c33b22039baa04cab91069b792d24",
+    "train": "be3eb763366064be9bb8bae6d46368518a3e06c7487466707452c150eee0fa9a",
+    "development": "8b6e54a6b8be9d8d6becb9f1ffa05b1518b3ed43503d0fc3156b4be329c81f91",
+    "auxiliary": "a069833d97850f2c771c5aee9fb84216eccaaa385b2abf2656a8f0d2172467d2"
+  },
+  "splits": {
+    "train": {
+      "records": {
+        "records": 79,
+        "has_positive": 47,
+        "no_positive_but_known": 32,
+        "all_unknown": 0,
+        "partially_unknown": 66,
+        "fully_known": 13
+      },
+      "residues": {
+        "0": 7695,
+        "1": 2272,
+        "x": 24478
+      },
+      "known_fraction": 0.289359849034693,
+      "mean_record_known_fraction": 0.38809905457346083,
+      "min_record_known_fraction": 0.011806375442739079,
+      "max_record_known_fraction": 1.0,
+      "length_min": 32,
+      "length_max": 2541
+    },
+    "development": {
+      "records": {
+        "records": 42,
+        "has_positive": 25,
+        "no_positive_but_known": 17,
+        "all_unknown": 0,
+        "partially_unknown": 37,
+        "fully_known": 5
+      },
+      "residues": {
+        "0": 6160,
+        "1": 1267,
+        "x": 15541
+      },
+      "known_fraction": 0.3233629397422501,
+      "mean_record_known_fraction": 0.37063030082942655,
+      "min_record_known_fraction": 0.010101010101010102,
+      "max_record_known_fraction": 1.0,
+      "length_min": 62,
+      "length_max": 1503
+    },
+    "auxiliary": {
+      "records": {
+        "records": 72,
+        "has_positive": 72,
+        "no_positive_but_known": 0,
+        "all_unknown": 0,
+        "partially_unknown": 0,
+        "fully_known": 72
+      },
+      "residues": {
+        "0": 25629,
+        "1": 5328,
+        "x": 0
+      },
+      "known_fraction": 1.0,
+      "mean_record_known_fraction": 1.0,
+      "min_record_known_fraction": 1.0,
+      "max_record_known_fraction": 1.0,
+      "length_min": 49,
+      "length_max": 1273
+    }
+  }
+}

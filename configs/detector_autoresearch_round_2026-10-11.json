@@ -1,0 +1,69 @@
+{
+  "schema_version": "0.1.0",
+  "round_id": "dld-lora-2026-10-11",
+  "status": "ready",
+  "track": "natural_protein_linker_identifier_not_fusion_ranker",
+  "per_round_budget": {
+    "maximum_architecture_trials": 3,
+    "maximum_gpu_hours": 6,
+    "single_job_maximum_hours": 2
+  },
+  "data": {
+    "training": "data/processed/dld_reference/dld_train.jsonl.gz",
+    "training_sha256": "c43952c4f943f458ba61905c34a59e04fadca5607b95d6afc9bd9d1475252c41",
+    "validation": "data/processed/dld_reference/dld_validation.jsonl.gz",
+    "validation_sha256": "290992af4a93c14ba007197c282367734af8ec878783d5e668ee4960128a3461",
+    "fold_5": "previously_viewed_not_for_model_selection"
+  },
+  "reference": {
+    "model_id": "facebook/esm2_t12_35M_UR50D",
+    "revision": "6fbf070e65b0b7291e7bbcd451118c216cff79d8",
+    "weighted_bce_recall": 0.076551,
+    "weighted_bce_no_linker_specificity": 0.971631,
+    "prior_asymmetric_recall": 0.084609,
+    "prior_asymmetric_no_linker_specificity": 0.964539
+  },
+  "primary_decision": "maximum residue recall at empirical precision >=0.90 with >=50 TP and score ties intact",
+  "guardrail": "no-linker-protein specificity loss <=0.02 absolute versus weighted-BCE",
+  "first_trial": {
+    "id": "lora-35m-r8-seed7-001",
+    "mechanism": "query/value LoRA adaptation of ESM-2 35M with residue CNN",
+    "source_paper": "https://doi.org/10.1038/s41467-024-51844-2",
+    "script": "scripts/train_lora_linker_detector.py",
+    "epochs": 10,
+    "seed": 7,
+    "lora_rank": 8,
+    "batch_size": 1,
+    "gradient_accumulation": 4,
+    "maximum_hours": 2,
+    "output_dir": "artifacts/lora-35m-r8-seed7-001"
+  },
+  "second_trial": {
+    "id": "frozen-reference-min4-span-decoder-001",
+    "mechanism": "Remove predicted intervals shorter than four residues after thresholding the unchanged weighted-BCE residue scores",
+    "hypothesis": "A minimum length supported by the training-fold annotations may eliminate short false-positive intervals while preserving enough true-positive residues to improve the frozen high-precision recall",
+    "expected_failure": "Thresholding can fragment genuine linkers into short intervals, so filtering may reduce recall more than false positives",
+    "basis": "All 1350 contiguous positive training spans are at least four residues; fold-4 error audit found 13 of 15 false-only predicted spans shorter than five residues. This is development-informed, not independent evidence.",
+    "fixed_minimum_length": 4,
+    "no_refitting_or_new_training": true,
+    "candidate_thresholds": "all exact unique scores, ties intact; select maximum recall subject to frozen >=0.90 empirical precision and >=50 TP",
+    "comparator": "same checkpoint, validation fold, scores and operating-point selection, without the minimum-length decoder",
+    "output_dir": "artifacts/frozen-reference-min4-span-decoder-001"
+  },
+  "third_trial": {
+    "id": "asymmetric-35m-min4-span-decoder-001",
+    "mechanism": "Apply the unchanged four-residue minimum-span decoder to the already-trained asymmetric 35M checkpoint",
+    "hypothesis": "The fixed decoder may complement the asymmetric residue scorer and improve high-precision recall over that checkpoint without exceeding the no-linker specificity guardrail",
+    "expected_failure": "Asymmetric scores may fragment genuine linker spans, causing a smaller gain or a loss",
+    "checkpoint": "artifacts/transfer-35m-asymmetric-highprecision-run-001/best.pt",
+    "checkpoint_sha256": "adc41ba95190df0c55a50e75f80f1042386f6e90ae87c1a1620e53eb09afc42c",
+    "minimum_length": 4,
+    "no_refitting_or_new_training": true,
+    "candidate_thresholds": "all exact unique scores, ties intact; select maximum recall subject to frozen >=0.90 empirical precision and >=50 TP",
+    "comparators": "same asymmetric checkpoint without decoder and weighted-BCE checkpoint with and without decoder, on the same fold and metrics",
+    "output_dir": "artifacts/asymmetric-35m-min4-span-decoder-001"
+  },
+  "on_completed_trial": "record metrics and hashes, compare guardrail, then select the next independent mechanism or repeat a promising variant with another seed",
+  "on_failed_trial": "record error, diagnose once, then move to safe data or evaluation work; never silently retry indefinitely",
+  "on_unverified_label_semantics": "do not train a source-code head; continue an independently eligible trial or explicit data audit"
+}

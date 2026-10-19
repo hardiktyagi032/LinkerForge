@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.example/schemas/detector-training-run.schema.json",
+  "title": "Linker detector GPU training run manifest",
+  "type": "object",
+  "required": ["schema_version", "status", "created_utc", "model_id", "revision", "architecture", "train_sha256", "validation_sha256", "preflight", "versions", "gpu", "pipeline_commit", "note"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"enum": ["running", "completed", "failed"]},
+    "created_utc": {"type": "string", "format": "date-time"},
+    "model_id": {"type": "string", "minLength": 1},
+    "revision": {"type": "string", "minLength": 1},
+    "resolved_model_commit": {"type": ["string", "null"]},
+    "architecture": {"const": "frozen_esm2_with_trainable_residue_cnn"},
+    "train_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "validation_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "preflight": {"type": "object"},
+    "train_windows": {"type": "integer", "minimum": 1},
+    "validation_windows": {"type": "integer", "minimum": 1},
+    "versions": {"type": "object"},
+    "gpu": {"type": "string", "minLength": 1},
+    "pipeline_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "note": {"type": "string"},
+    "best_validation_auprc": {"type": "number", "minimum": 0, "maximum": 1},
+    "error": {"type": "string"}
+  }
+}

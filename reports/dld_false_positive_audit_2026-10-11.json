@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.1.0",
+  "created_utc": "2026-10-11T09:11:36.260723+00:00",
+  "purpose": "development_error_audit_not_independent_test",
+  "checkpoint": "artifacts\\esm2-35m-linker-run-001\\best.pt",
+  "checkpoint_sha256": "1dac5c4097eb96acdc6de237bae28af7e1f067cfd72857898fc208a551331ec0",
+  "validation_sha256": "290992af4a93c14ba007197c282367734af8ec878783d5e668ee4960128a3461",
+  "source_sha256": "0695a5d77bd8f16690c1f949d3641fc8ae2d17caa80e7ab38f6cb2fa6e9e0c3a",
+  "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+  "model_id": "facebook/esm2_t12_35M_UR50D",
+  "revision": "6fbf070e65b0b7291e7bbcd451118c216cff79d8",
+  "point": {
+    "target_precision": 0.9,
+    "minimum_true_positives": 50,
+    "threshold": 0.9945900440216064,
+    "precision": 0.9013282732447818,
+    "recall": 0.07655116841257051,
+    "true_positives": 475,
+    "false_positives": 52
+  },
+  "predicted_span_count": 101,
+  "predicted_span_length_bins": {
+    "1-2": 26,
+    "3-4": 13,
+    "5-9": 59,
+    "10-19": 3,
+    "20-39": 0,
+    "40+": 0
+  },
+  "false_only_span_count": 15,
+  "false_only_span_length_bins": {
+    "1-2": 8,
+    "3-4": 5,
+    "5-9": 1,
+    "10-19": 1,
+    "20-39": 0,
+    "40+": 0
+  },
+  "no_linker_proteins": 141,
+  "no_linker_proteins_with_any_prediction": 4,
+  "highest_scoring_false_only_spans": [
+    {
+      "source_id": "2nqr_a_P12281",
+      "start_1_based": 175,
+      "end_1_based_inclusive": 179,
+      "length": 5,
+      "maximum_score": 0.9999427795410156
+    },
+    {
+      "source_id": "1uz5_a_O58335",
+      "start_1_based": 178,
+      "end_1_based_inclusive": 181,
+      "length": 4,
+      "maximum_score": 0.9989816546440125
+    },
+    {
+      "source_id": "1aoz_a_P37064",
+      "start_1_based": 307,
+      "end_1_based_inclusive": 316,
+      "length": 10,
+      "maximum_score": 0.9988200068473816
+    },
+    {
+      "source_id": "2cnd_a_P17571",
+      "start_1_based": 135,
+      "end_1_based_inclusive": 137,
+      "length": 3,
+      "maximum_score": 0.9988068342208862
+    },
+    {
+      "source_id": "1ycs_b_Q13625",
+      "start_1_based": 169,
+      "end_1_based_inclusive": 170,
+      "length": 2,
+      "maximum_score": 0.9986438155174255
+    },
+    {
+      "source_id": "1xi8_a_Q8U034",
+      "start_1_based": 179,
+      "end_1_based_inclusive": 182,
+      "length": 4,
+      "maximum_score": 0.9983069896697998
+    },
+    {
+      "source_id": "1wu2_a_O59354",
+      "start_1_based": 181,
+      "end_1_based_inclusive": 183,
+      "length": 3,
+      "maximum_score": 0.9977349042892456
+    },
+    {
+      "source_id": "2qqm_a_O14786",
+      "start_1_based": 294,
+      "end_1_based_inclusive": 294,
+      "length": 1,
+      "maximum_score": 0.9970832467079163
+    },
+    {
+      "source_id": "1y9q_a_Q9KQN0",
+      "start_1_based": 70,
+      "end_1_based_inclusive": 70,
+      "length": 1,
+      "maximum_score": 0.9970703125
+    },
+    {
+      "source_id": "1a8p_a_Q44532",
+      "start_1_based": 106,
+      "end_1_based_inclusive": 108,
+      "length": 3,
+      "maximum_score": 0.9970384836196899
+    },
+    {
+      "source_id": "1h8a_c_P01104",
+      "start_1_based": 22,
+      "end_1_based_inclusive": 22,
+      "length": 1,
+      "maximum_score": 0.9966015815734863
+    },
+    {
+      "source_id": "1aoz_a_P37064",
+      "start_1_based": 318,
+      "end_1_based_inclusive": 319,
+      "length": 2,
+      "maximum_score": 0.9956219792366028
+    },
+    {
+      "source_id": "2qqm_a_O14786",
+      "start_1_based": 136,
+      "end_1_based_inclusive": 136,
+      "length": 1,
+      "maximum_score": 0.9952593445777893
+    },
+    {
+      "source_id": "2awi_a_Q04114",
+      "start_1_based": 67,
+      "end_1_based_inclusive": 67,
+      "length": 1,
+      "maximum_score": 0.9952137470245361
+    },
+    {
+      "source_id": "2awi_a_Q04114",
+      "start_1_based": 65,
+      "end_1_based_inclusive": 65,
+      "length": 1,
+      "maximum_score": 0.9947274327278137
+    }
+  ],
+  "limitation": "A label-negative interval may contain an unannotated true linker; this audit does not adjudicate biology."
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/disorder-transfer-pilot-manifest.v1.schema.json",
+  "type": "object",
+  "required": ["schema_version", "status", "source_sha256", "config_hash", "pipeline_commit", "files", "exclusion_reasons", "limitations"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "status": {"const": "development_pilot_not_homology_certified"},
+    "source_sha256": {"type": "object"},
+    "config_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pipeline_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "files": {"type": "object"},
+    "exclusion_reasons": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

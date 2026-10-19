@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.example/schemas/detector-heldout-evaluation.schema.json",
+  "title": "Frozen linker-detector held-out evaluation",
+  "type": "object",
+  "required": ["schema_version", "status", "model_id", "revision", "checkpoint_sha256", "validation_sha256", "blind_sha256", "calibration", "blind_metrics", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"enum": ["evaluated_frozen_blind", "evaluated_screened_blind"]},
+    "model_id": {"type": "string"},
+    "revision": {"type": "string"},
+    "checkpoint_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "validation_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "blind_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "calibration": {"type": "object"},
+    "blind_metrics": {"type": "object"},
+    "exclusion": {"type": "object"},
+    "provenance": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

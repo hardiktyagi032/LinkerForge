@@ -1,0 +1,1484 @@
+{
+  "config": {
+    "component_audit_path": "reports/dfl_candidate_component_audit_2026-10-12.json",
+    "exclude_transitively_protected": true,
+    "input_path": "data/processed/dfl_positive_candidates_2026_10_12.jsonl",
+    "k_values": [
+      3,
+      4,
+      5
+    ],
+    "max_reported_patterns": 100,
+    "max_span_length": 100,
+    "min_span_length": 5,
+    "minimum_distinct_proteins": 3,
+    "permutations": 2000,
+    "purpose": "exploratory_sequence_pattern_discovery_not_function_assignment_or_detector_training",
+    "schema_version": "0.1.0",
+    "seed": 20261012
+  },
+  "counts": {
+    "excluded_protected_similarity_review": 52,
+    "included_proteins": 146,
+    "included_spans": 175,
+    "patterns_with_bh_q_below_0_05": 4,
+    "source_proteins": 205,
+    "tested_patterns": 387
+  },
+  "input": {
+    "path": "data/processed/dfl_positive_candidates_2026_10_12.jsonl",
+    "source_type": "DisProt 2026_06 curated flexible-linker positive regions, NOT SynLinker"
+  },
+  "limitations": [
+    "This pilot uses DisProt positives, not the unavailable original SynLinker row-level collection.",
+    "The component screen is not full homology or domain-family clearance.",
+    "Composition-preserving shuffles are a null control, not verified non-linker negatives.",
+    "Patterns were selected for minimum observed support before BH adjustment, so q-values are descriptive and not confirmatory FDR guarantees.",
+    "Exact short patterns can reflect low complexity or shared ancestry; no geometric or biochemical function is inferred.",
+    "Data are not a fresh external benchmark and no detector is trained here."
+  ],
+  "patterns": [
+    {
+      "bh_q": 0.04835082458770615,
+      "empirical_p": 0.0004997501249375312,
+      "length": 3,
+      "null_mean_proteins": 1.002,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP01877",
+        "DP03069",
+        "DP03222",
+        "DP03541",
+        "DP03792",
+        "DP04491"
+      ],
+      "sequence_pattern": "IGS"
+    },
+    {
+      "bh_q": 0.04835082458770615,
+      "empirical_p": 0.0004997501249375312,
+      "length": 3,
+      "null_mean_proteins": 0.318,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02587",
+        "DP02756",
+        "DP02945",
+        "DP03221"
+      ],
+      "sequence_pattern": "LDM"
+    },
+    {
+      "bh_q": 0.04835082458770615,
+      "empirical_p": 0.0004997501249375312,
+      "length": 4,
+      "null_mean_proteins": 0.051,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02892",
+        "DP03410",
+        "DP03606"
+      ],
+      "sequence_pattern": "ADTI"
+    },
+    {
+      "bh_q": 0.04835082458770615,
+      "empirical_p": 0.0004997501249375312,
+      "length": 4,
+      "null_mean_proteins": 0.115,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP03389",
+        "DP03400",
+        "DP04466"
+      ],
+      "sequence_pattern": "SIKK"
+    },
+    {
+      "bh_q": 0.05525808524309274,
+      "empirical_p": 0.0009995002498750624,
+      "length": 4,
+      "null_mean_proteins": 0.495,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02398",
+        "DP02896",
+        "DP03499",
+        "DP03747"
+      ],
+      "sequence_pattern": "EESE"
+    },
+    {
+      "bh_q": 0.05525808524309274,
+      "empirical_p": 0.0009995002498750624,
+      "length": 4,
+      "null_mean_proteins": 0.154,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP01857",
+        "DP02398",
+        "DP03499"
+      ],
+      "sequence_pattern": "APGQ"
+    },
+    {
+      "bh_q": 0.05525808524309274,
+      "empirical_p": 0.0009995002498750624,
+      "length": 3,
+      "null_mean_proteins": 0.13,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02931",
+        "DP03057",
+        "DP03337"
+      ],
+      "sequence_pattern": "RAW"
+    },
+    {
+      "bh_q": 0.05802098950524738,
+      "empirical_p": 0.0014992503748125937,
+      "length": 3,
+      "null_mean_proteins": 1.338,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP01857",
+        "DP02896",
+        "DP03069",
+        "DP03410",
+        "DP03547",
+        "DP04643"
+      ],
+      "sequence_pattern": "GPV"
+    },
+    {
+      "bh_q": 0.05802098950524738,
+      "empirical_p": 0.0014992503748125937,
+      "length": 4,
+      "null_mean_proteins": 0.305,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02398",
+        "DP03400",
+        "DP03499"
+      ],
+      "sequence_pattern": "GEES"
+    },
+    {
+      "bh_q": 0.05802098950524738,
+      "empirical_p": 0.0014992503748125937,
+      "length": 3,
+      "null_mean_proteins": 0.273,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02567",
+        "DP03337",
+        "DP03410"
+      ],
+      "sequence_pattern": "RLF"
+    },
+    {
+      "bh_q": 0.11819090454772614,
+      "empirical_p": 0.005497251374312844,
+      "length": 3,
+      "null_mean_proteins": 1.712,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP02612",
+        "DP02931",
+        "DP03100",
+        "DP03222",
+        "DP03529",
+        "DP03589"
+      ],
+      "sequence_pattern": "AKA"
+    },
+    {
+      "bh_q": 0.11819090454772614,
+      "empirical_p": 0.004997501249375313,
+      "length": 3,
+      "null_mean_proteins": 1.665,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP02765",
+        "DP03100",
+        "DP03221",
+        "DP03222",
+        "DP03241",
+        "DP03410"
+      ],
+      "sequence_pattern": "DPG"
+    },
+    {
+      "bh_q": 0.11819090454772614,
+      "empirical_p": 0.004997501249375313,
+      "length": 3,
+      "null_mean_proteins": 1.702,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP02170",
+        "DP02835",
+        "DP03162",
+        "DP03232",
+        "DP03747",
+        "DP04086"
+      ],
+      "sequence_pattern": "EEV"
+    },
+    {
+      "bh_q": 0.11819090454772614,
+      "empirical_p": 0.004497751124437781,
+      "length": 3,
+      "null_mean_proteins": 1.619,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP02759",
+        "DP02791",
+        "DP03230",
+        "DP03337",
+        "DP03593",
+        "DP03747"
+      ],
+      "sequence_pattern": "GAR"
+    },
+    {
+      "bh_q": 0.11819090454772614,
+      "empirical_p": 0.0034982508745627187,
+      "length": 3,
+      "null_mean_proteins": 1.629,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP01429",
+        "DP02756",
+        "DP03299",
+        "DP03389",
+        "DP03410",
+        "DP04491"
+      ],
+      "sequence_pattern": "LDE"
+    },
+    {
+      "bh_q": 0.11819090454772614,
+      "empirical_p": 0.005497251374312844,
+      "length": 4,
+      "null_mean_proteins": 0.435,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP01817",
+        "DP04466",
+        "DP04491"
+      ],
+      "sequence_pattern": "EEEK"
+    },
+    {
+      "bh_q": 0.11819090454772614,
+      "empirical_p": 0.004997501249375313,
+      "length": 4,
+      "null_mean_proteins": 0.333,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP01817",
+        "DP03100",
+        "DP04491"
+      ],
+      "sequence_pattern": "EEKK"
+    },
+    {
+      "bh_q": 0.11819090454772614,
+      "empirical_p": 0.005497251374312844,
+      "length": 3,
+      "null_mean_proteins": 0.332,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP01248",
+        "DP02756",
+        "DP02805"
+      ],
+      "sequence_pattern": "PHD"
+    },
+    {
+      "bh_q": 0.12214945158999448,
+      "empirical_p": 0.005997001499250375,
+      "length": 4,
+      "null_mean_proteins": 0.759,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02410",
+        "DP02727",
+        "DP03065",
+        "DP04491"
+      ],
+      "sequence_pattern": "SSSG"
+    },
+    {
+      "bh_q": 0.12571214392803598,
+      "empirical_p": 0.006496751624187906,
+      "length": 3,
+      "null_mean_proteins": 0.784,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02170",
+        "DP02756",
+        "DP02805",
+        "DP03400"
+      ],
+      "sequence_pattern": "RKL"
+    },
+    {
+      "bh_q": 0.12613258588097256,
+      "empirical_p": 0.0074962518740629685,
+      "length": 3,
+      "null_mean_proteins": 0.799,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02170",
+        "DP02723",
+        "DP02791",
+        "DP03944"
+      ],
+      "sequence_pattern": "QRK"
+    },
+    {
+      "bh_q": 0.12613258588097256,
+      "empirical_p": 0.0069965017491254375,
+      "length": 3,
+      "null_mean_proteins": 0.363,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP01857",
+        "DP02959",
+        "DP04461"
+      ],
+      "sequence_pattern": "LMP"
+    },
+    {
+      "bh_q": 0.12613258588097256,
+      "empirical_p": 0.0074962518740629685,
+      "length": 4,
+      "null_mean_proteins": 0.401,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02833",
+        "DP03004",
+        "DP03318"
+      ],
+      "sequence_pattern": "SPAP"
+    },
+    {
+      "bh_q": 0.12645600276784685,
+      "empirical_p": 0.0079960019990005,
+      "length": 3,
+      "null_mean_proteins": 2.252,
+      "observed_proteins": 7,
+      "protein_ids": [
+        "DP02759",
+        "DP02828",
+        "DP03100",
+        "DP04086",
+        "DP04305",
+        "DP04408",
+        "DP04438"
+      ],
+      "sequence_pattern": "PSK"
+    },
+    {
+      "bh_q": 0.12645600276784685,
+      "empirical_p": 0.00849575212393803,
+      "length": 3,
+      "null_mean_proteins": 0.82,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP00226",
+        "DP02729",
+        "DP03648",
+        "DP03944"
+      ],
+      "sequence_pattern": "LTT"
+    },
+    {
+      "bh_q": 0.12645600276784685,
+      "empirical_p": 0.00849575212393803,
+      "length": 3,
+      "null_mean_proteins": 0.861,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02634",
+        "DP02759",
+        "DP02836",
+        "DP04305"
+      ],
+      "sequence_pattern": "QKR"
+    },
+    {
+      "bh_q": 0.13609861735798767,
+      "empirical_p": 0.009495252373813094,
+      "length": 3,
+      "null_mean_proteins": 0.409,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP00352",
+        "DP02418",
+        "DP02836"
+      ],
+      "sequence_pattern": "HDG"
+    },
+    {
+      "bh_q": 0.14005066432301091,
+      "empirical_p": 0.010494752623688156,
+      "length": 3,
+      "null_mean_proteins": 7.727,
+      "observed_proteins": 14,
+      "protein_ids": [
+        "DP01817",
+        "DP02410",
+        "DP02727",
+        "DP02805",
+        "DP02999",
+        "DP03061",
+        "DP03065",
+        "DP03217",
+        "DP03400",
+        "DP03870",
+        "DP03944",
+        "DP04419",
+        "DP04466",
+        "DP04491"
+      ],
+      "sequence_pattern": "SSS"
+    },
+    {
+      "bh_q": 0.14005066432301091,
+      "empirical_p": 0.010494752623688156,
+      "length": 3,
+      "null_mean_proteins": 0.807,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02830",
+        "DP03100",
+        "DP03308",
+        "DP03593"
+      ],
+      "sequence_pattern": "RPV"
+    },
+    {
+      "bh_q": 0.14182908545727138,
+      "empirical_p": 0.010994502748625687,
+      "length": 3,
+      "null_mean_proteins": 1.339,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP01817",
+        "DP02567",
+        "DP02587",
+        "DP04419",
+        "DP04461"
+      ],
+      "sequence_pattern": "QTP"
+    },
+    {
+      "bh_q": 0.15597040189582626,
+      "empirical_p": 0.01249375312343828,
+      "length": 3,
+      "null_mean_proteins": 1.472,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP01429",
+        "DP02718",
+        "DP03299",
+        "DP04272",
+        "DP04491"
+      ],
+      "sequence_pattern": "NLS"
+    },
+    {
+      "bh_q": 0.16318403298350825,
+      "empirical_p": 0.013493253373313344,
+      "length": 3,
+      "null_mean_proteins": 1.97,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP01817",
+        "DP02170",
+        "DP02756",
+        "DP03057",
+        "DP03241",
+        "DP03579"
+      ],
+      "sequence_pattern": "KDE"
+    },
+    {
+      "bh_q": 0.18817618217918067,
+      "empirical_p": 0.01699150424787606,
+      "length": 3,
+      "null_mean_proteins": 1.563,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP00410",
+        "DP02892",
+        "DP03410",
+        "DP03606",
+        "DP03944"
+      ],
+      "sequence_pattern": "ADT"
+    },
+    {
+      "bh_q": 0.18817618217918067,
+      "empirical_p": 0.01649175412293853,
+      "length": 3,
+      "null_mean_proteins": 1.538,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP02272",
+        "DP02410",
+        "DP03389",
+        "DP03400",
+        "DP04491"
+      ],
+      "sequence_pattern": "KRK"
+    },
+    {
+      "bh_q": 0.18817618217918067,
+      "empirical_p": 0.017991004497751123,
+      "length": 3,
+      "null_mean_proteins": 1.163,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP01305",
+        "DP02600",
+        "DP02756",
+        "DP03747"
+      ],
+      "sequence_pattern": "RRR"
+    },
+    {
+      "bh_q": 0.18817618217918067,
+      "empirical_p": 0.017991004497751123,
+      "length": 3,
+      "null_mean_proteins": 0.567,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02718",
+        "DP02892",
+        "DP04470"
+      ],
+      "sequence_pattern": "DEY"
+    },
+    {
+      "bh_q": 0.18817618217918067,
+      "empirical_p": 0.017991004497751123,
+      "length": 3,
+      "null_mean_proteins": 0.577,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02999",
+        "DP03100",
+        "DP03579"
+      ],
+      "sequence_pattern": "FGA"
+    },
+    {
+      "bh_q": 0.1934032983508246,
+      "empirical_p": 0.01899050474762619,
+      "length": 3,
+      "null_mean_proteins": 1.195,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP01849",
+        "DP02723",
+        "DP03648",
+        "DP03944"
+      ],
+      "sequence_pattern": "TTT"
+    },
+    {
+      "bh_q": 0.19790104947526238,
+      "empirical_p": 0.021989005497251374,
+      "length": 3,
+      "null_mean_proteins": 1.596,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP02765",
+        "DP02881",
+        "DP03337",
+        "DP03541",
+        "DP03542"
+      ],
+      "sequence_pattern": "LQS"
+    },
+    {
+      "bh_q": 0.19790104947526238,
+      "empirical_p": 0.020989505247376312,
+      "length": 3,
+      "null_mean_proteins": 1.093,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02410",
+        "DP02634",
+        "DP02881",
+        "DP03400"
+      ],
+      "sequence_pattern": "RKR"
+    },
+    {
+      "bh_q": 0.19790104947526238,
+      "empirical_p": 0.020989505247376312,
+      "length": 3,
+      "null_mean_proteins": 0.993,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP00377",
+        "DP02896",
+        "DP03299",
+        "DP03359"
+      ],
+      "sequence_pattern": "TPR"
+    },
+    {
+      "bh_q": 0.19790104947526238,
+      "empirical_p": 0.02048975512243878,
+      "length": 3,
+      "null_mean_proteins": 0.602,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02681",
+        "DP02759",
+        "DP02836"
+      ],
+      "sequence_pattern": "IQE"
+    },
+    {
+      "bh_q": 0.19790104947526238,
+      "empirical_p": 0.02148925537231384,
+      "length": 3,
+      "null_mean_proteins": 0.608,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP03069",
+        "DP03164",
+        "DP03718"
+      ],
+      "sequence_pattern": "KFS"
+    },
+    {
+      "bh_q": 0.20658988687474444,
+      "empirical_p": 0.02348825587206397,
+      "length": 3,
+      "null_mean_proteins": 2.955,
+      "observed_proteins": 7,
+      "protein_ids": [
+        "DP01429",
+        "DP03236",
+        "DP03359",
+        "DP03379",
+        "DP03400",
+        "DP03782",
+        "DP04272"
+      ],
+      "sequence_pattern": "AES"
+    },
+    {
+      "bh_q": 0.21397811732431657,
+      "empirical_p": 0.025987006496751622,
+      "length": 3,
+      "null_mean_proteins": 0.637,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02892",
+        "DP03410",
+        "DP03606"
+      ],
+      "sequence_pattern": "DTI"
+    },
+    {
+      "bh_q": 0.21397811732431657,
+      "empirical_p": 0.02498750624687656,
+      "length": 3,
+      "null_mean_proteins": 0.638,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP03593",
+        "DP03717",
+        "DP04054"
+      ],
+      "sequence_pattern": "IPT"
+    },
+    {
+      "bh_q": 0.21397811732431657,
+      "empirical_p": 0.025487256371814093,
+      "length": 3,
+      "null_mean_proteins": 0.682,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP03792",
+        "DP04438",
+        "DP04470"
+      ],
+      "sequence_pattern": "QIG"
+    },
+    {
+      "bh_q": 0.22434782608695653,
+      "empirical_p": 0.028985507246376812,
+      "length": 3,
+      "null_mean_proteins": 1.378,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP01849",
+        "DP03389",
+        "DP03786",
+        "DP04411"
+      ],
+      "sequence_pattern": "GTT"
+    },
+    {
+      "bh_q": 0.22434782608695653,
+      "empirical_p": 0.02848575712143928,
+      "length": 4,
+      "null_mean_proteins": 0.698,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP01429",
+        "DP01817",
+        "DP02759"
+      ],
+      "sequence_pattern": "EEEE"
+    },
+    {
+      "bh_q": 0.22434782608695653,
+      "empirical_p": 0.02798600699650175,
+      "length": 4,
+      "null_mean_proteins": 0.719,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP01817",
+        "DP03400",
+        "DP03944"
+      ],
+      "sequence_pattern": "SSSE"
+    },
+    {
+      "bh_q": 0.22989448671890467,
+      "empirical_p": 0.031484257871064465,
+      "length": 3,
+      "null_mean_proteins": 1.839,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP02637",
+        "DP02966",
+        "DP03648",
+        "DP04272",
+        "DP04491"
+      ],
+      "sequence_pattern": "EGK"
+    },
+    {
+      "bh_q": 0.22989448671890467,
+      "empirical_p": 0.031484257871064465,
+      "length": 3,
+      "null_mean_proteins": 0.722,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP01877",
+        "DP03541",
+        "DP03944"
+      ],
+      "sequence_pattern": "FSA"
+    },
+    {
+      "bh_q": 0.22989448671890467,
+      "empirical_p": 0.031484257871064465,
+      "length": 3,
+      "null_mean_proteins": 0.734,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP03782",
+        "DP03944",
+        "DP04472"
+      ],
+      "sequence_pattern": "SMG"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.04247876061969016,
+      "length": 3,
+      "null_mean_proteins": 5.494,
+      "observed_proteins": 10,
+      "protein_ids": [
+        "DP02418",
+        "DP02612",
+        "DP02756",
+        "DP02767",
+        "DP03299",
+        "DP03444",
+        "DP03622",
+        "DP03792",
+        "DP04470",
+        "DP04491"
+      ],
+      "sequence_pattern": "GSS"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.04597701149425287,
+      "length": 3,
+      "null_mean_proteins": 4.343,
+      "observed_proteins": 8,
+      "protein_ids": [
+        "DP01429",
+        "DP01817",
+        "DP02013",
+        "DP02170",
+        "DP02759",
+        "DP03835",
+        "DP04466",
+        "DP04491"
+      ],
+      "sequence_pattern": "EEE"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.046476761619190406,
+      "length": 3,
+      "null_mean_proteins": 2.829,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP01817",
+        "DP02583",
+        "DP03100",
+        "DP03589",
+        "DP04305",
+        "DP04491"
+      ],
+      "sequence_pattern": "EKK"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.034482758620689655,
+      "length": 3,
+      "null_mean_proteins": 1.839,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP03101",
+        "DP03579",
+        "DP04310",
+        "DP04459",
+        "DP04491"
+      ],
+      "sequence_pattern": "ASV"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.035982008995502246,
+      "length": 3,
+      "null_mean_proteins": 1.798,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP02718",
+        "DP03337",
+        "DP04050",
+        "DP04272",
+        "DP04491"
+      ],
+      "sequence_pattern": "GKE"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.03548225887056472,
+      "length": 3,
+      "null_mean_proteins": 1.817,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP00410",
+        "DP02806",
+        "DP02833",
+        "DP03541",
+        "DP04272"
+      ],
+      "sequence_pattern": "NKS"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.044977511244377814,
+      "length": 3,
+      "null_mean_proteins": 1.899,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP01736",
+        "DP03100",
+        "DP03101",
+        "DP03221",
+        "DP03241"
+      ],
+      "sequence_pattern": "PNS"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.046476761619190406,
+      "length": 3,
+      "null_mean_proteins": 2.026,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP02878",
+        "DP02892",
+        "DP03718",
+        "DP03944",
+        "DP04272"
+      ],
+      "sequence_pattern": "SLA"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.04447776111944028,
+      "length": 3,
+      "null_mean_proteins": 2.003,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP03485",
+        "DP03717",
+        "DP03944",
+        "DP04272",
+        "DP04491"
+      ],
+      "sequence_pattern": "STL"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.04397801099450275,
+      "length": 3,
+      "null_mean_proteins": 1.325,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02587",
+        "DP02756",
+        "DP03359",
+        "DP04491"
+      ],
+      "sequence_pattern": "ALD"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.037481259370314844,
+      "length": 3,
+      "null_mean_proteins": 1.26,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02718",
+        "DP03221",
+        "DP03529",
+        "DP04446"
+      ],
+      "sequence_pattern": "DLL"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.04697651174412794,
+      "length": 3,
+      "null_mean_proteins": 1.421,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP01857",
+        "DP02759",
+        "DP03065",
+        "DP04305"
+      ],
+      "sequence_pattern": "ETP"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.04697651174412794,
+      "length": 3,
+      "null_mean_proteins": 1.438,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP01877",
+        "DP02583",
+        "DP02959",
+        "DP03061"
+      ],
+      "sequence_pattern": "KKQ"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.03498250874562719,
+      "length": 3,
+      "null_mean_proteins": 1.198,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02818",
+        "DP02966",
+        "DP03410",
+        "DP03586"
+      ],
+      "sequence_pattern": "LPK"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.046476761619190406,
+      "length": 3,
+      "null_mean_proteins": 1.393,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02921",
+        "DP02945",
+        "DP03410",
+        "DP04310"
+      ],
+      "sequence_pattern": "PGV"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.0384807596201899,
+      "length": 3,
+      "null_mean_proteins": 1.244,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP00377",
+        "DP02477",
+        "DP03747",
+        "DP04461"
+      ],
+      "sequence_pattern": "PTT"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.04247876061969016,
+      "length": 3,
+      "null_mean_proteins": 1.312,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP00377",
+        "DP03232",
+        "DP03308",
+        "DP04054"
+      ],
+      "sequence_pattern": "PVE"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.03398300849575212,
+      "length": 4,
+      "null_mean_proteins": 1.308,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP01817",
+        "DP02805",
+        "DP03400",
+        "DP03870"
+      ],
+      "sequence_pattern": "SSSS"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.047976011994003,
+      "length": 3,
+      "null_mean_proteins": 1.42,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP01857",
+        "DP02718",
+        "DP02791",
+        "DP02999"
+      ],
+      "sequence_pattern": "VGA"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.047476261869065464,
+      "length": 3,
+      "null_mean_proteins": 0.776,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02767",
+        "DP03589",
+        "DP04472"
+      ],
+      "sequence_pattern": "DVV"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.043478260869565216,
+      "length": 3,
+      "null_mean_proteins": 0.794,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02681",
+        "DP02791",
+        "DP03782"
+      ],
+      "sequence_pattern": "IEA"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.046476761619190406,
+      "length": 3,
+      "null_mean_proteins": 0.845,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP03293",
+        "DP03718",
+        "DP04411"
+      ],
+      "sequence_pattern": "NIS"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.0384807596201899,
+      "length": 3,
+      "null_mean_proteins": 0.765,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP00410",
+        "DP03236",
+        "DP03337"
+      ],
+      "sequence_pattern": "NLQ"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.04697651174412794,
+      "length": 3,
+      "null_mean_proteins": 0.854,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02756",
+        "DP03379",
+        "DP04419"
+      ],
+      "sequence_pattern": "QDR"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.04597701149425287,
+      "length": 3,
+      "null_mean_proteins": 0.827,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02718",
+        "DP02833",
+        "DP02896"
+      ],
+      "sequence_pattern": "RGN"
+    },
+    {
+      "bh_q": 0.23502172964150836,
+      "empirical_p": 0.03298350824587706,
+      "length": 4,
+      "null_mean_proteins": 0.737,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02418",
+        "DP02756",
+        "DP03622"
+      ],
+      "sequence_pattern": "SGSS"
+    },
+    {
+      "bh_q": 0.23638180909545228,
+      "empirical_p": 0.049475262368815595,
+      "length": 3,
+      "null_mean_proteins": 0.864,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP01429",
+        "DP02756",
+        "DP03485"
+      ],
+      "sequence_pattern": "DNL"
+    },
+    {
+      "bh_q": 0.23638180909545228,
+      "empirical_p": 0.04897551224387806,
+      "length": 3,
+      "null_mean_proteins": 0.818,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02836",
+        "DP02896",
+        "DP04438"
+      ],
+      "sequence_pattern": "GNR"
+    },
+    {
+      "bh_q": 0.2428785607196402,
+      "empirical_p": 0.053973013493253376,
+      "length": 3,
+      "null_mean_proteins": 2.184,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP00352",
+        "DP01305",
+        "DP02818",
+        "DP03359",
+        "DP03747"
+      ],
+      "sequence_pattern": "TAG"
+    },
+    {
+      "bh_q": 0.2428785607196402,
+      "empirical_p": 0.05347326336831584,
+      "length": 3,
+      "null_mean_proteins": 1.424,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02170",
+        "DP03222",
+        "DP03241",
+        "DP04070"
+      ],
+      "sequence_pattern": "EQA"
+    },
+    {
+      "bh_q": 0.2428785607196402,
+      "empirical_p": 0.05347326336831584,
+      "length": 3,
+      "null_mean_proteins": 1.435,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP01305",
+        "DP02742",
+        "DP02767",
+        "DP02835"
+      ],
+      "sequence_pattern": "VAG"
+    },
+    {
+      "bh_q": 0.2428785607196402,
+      "empirical_p": 0.05147426286856572,
+      "length": 3,
+      "null_mean_proteins": 0.849,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP01429",
+        "DP02791",
+        "DP03299"
+      ],
+      "sequence_pattern": "QDQ"
+    },
+    {
+      "bh_q": 0.2428785607196402,
+      "empirical_p": 0.05297351324337831,
+      "length": 3,
+      "null_mean_proteins": 0.898,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02587",
+        "DP03389",
+        "DP03410"
+      ],
+      "sequence_pattern": "QLD"
+    },
+    {
+      "bh_q": 0.24614965244650405,
+      "empirical_p": 0.05547226386806597,
+      "length": 3,
+      "null_mean_proteins": 2.233,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP02818",
+        "DP02836",
+        "DP03359",
+        "DP03547",
+        "DP03866"
+      ],
+      "sequence_pattern": "GGD"
+    },
+    {
+      "bh_q": 0.24614965244650405,
+      "empirical_p": 0.0559720139930035,
+      "length": 3,
+      "null_mean_proteins": 2.044,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP02583",
+        "DP02818",
+        "DP02833",
+        "DP03065",
+        "DP04408"
+      ],
+      "sequence_pattern": "LSA"
+    },
+    {
+      "bh_q": 0.2529120055356937,
+      "empirical_p": 0.059470264867566215,
+      "length": 3,
+      "null_mean_proteins": 2.796,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP01736",
+        "DP02797",
+        "DP02806",
+        "DP02881",
+        "DP03004",
+        "DP03944"
+      ],
+      "sequence_pattern": "SAD"
+    },
+    {
+      "bh_q": 0.2529120055356937,
+      "empirical_p": 0.05897051474262868,
+      "length": 3,
+      "null_mean_proteins": 1.515,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP00352",
+        "DP02477",
+        "DP02966",
+        "DP04461"
+      ],
+      "sequence_pattern": "QSQ"
+    },
+    {
+      "bh_q": 0.2529120055356937,
+      "empirical_p": 0.05847076461769116,
+      "length": 3,
+      "null_mean_proteins": 0.888,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02600",
+        "DP02836",
+        "DP04446"
+      ],
+      "sequence_pattern": "QDL"
+    },
+    {
+      "bh_q": 0.2551277552713005,
+      "empirical_p": 0.06196901549225387,
+      "length": 3,
+      "null_mean_proteins": 1.526,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP02878",
+        "DP02881",
+        "DP03379",
+        "DP04408"
+      ],
+      "sequence_pattern": "RPA"
+    },
+    {
+      "bh_q": 0.2551277552713005,
+      "empirical_p": 0.06146926536731634,
+      "length": 3,
+      "null_mean_proteins": 0.954,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02756",
+        "DP03164",
+        "DP04491"
+      ],
+      "sequence_pattern": "DEI"
+    },
+    {
+      "bh_q": 0.2551277552713005,
+      "empirical_p": 0.06096951524237881,
+      "length": 3,
+      "null_mean_proteins": 0.904,
+      "observed_proteins": 3,
+      "protein_ids": [
+        "DP02585",
+        "DP02836",
+        "DP03004"
+      ],
+      "sequence_pattern": "PLN"
+    },
+    {
+      "bh_q": 0.2610005676773264,
+      "empirical_p": 0.06596701649175413,
+      "length": 3,
+      "null_mean_proteins": 3.735,
+      "observed_proteins": 7,
+      "protein_ids": [
+        "DP00352",
+        "DP01849",
+        "DP02836",
+        "DP03622",
+        "DP03786",
+        "DP04437",
+        "DP04438"
+      ],
+      "sequence_pattern": "ASG"
+    },
+    {
+      "bh_q": 0.2610005676773264,
+      "empirical_p": 0.06596701649175413,
+      "length": 3,
+      "null_mean_proteins": 3.045,
+      "observed_proteins": 6,
+      "protein_ids": [
+        "DP02398",
+        "DP03241",
+        "DP03400",
+        "DP03499",
+        "DP03747",
+        "DP03835"
+      ],
+      "sequence_pattern": "GEE"
+    },
+    {
+      "bh_q": 0.2610005676773264,
+      "empirical_p": 0.06646676661669165,
+      "length": 3,
+      "null_mean_proteins": 2.207,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP01326",
+        "DP01857",
+        "DP02999",
+        "DP03410",
+        "DP04491"
+      ],
+      "sequence_pattern": "GAT"
+    },
+    {
+      "bh_q": 0.2610005676773264,
+      "empirical_p": 0.06896551724137931,
+      "length": 3,
+      "null_mean_proteins": 2.176,
+      "observed_proteins": 5,
+      "protein_ids": [
+        "DP02805",
+        "DP02836",
+        "DP02966",
+        "DP03293",
+        "DP04408"
+      ],
+      "sequence_pattern": "SGQ"
+    },
+    {
+      "bh_q": 0.2610005676773264,
+      "empirical_p": 0.06946526736631684,
+      "length": 3,
+      "null_mean_proteins": 1.598,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP01339",
+        "DP02410",
+        "DP02634",
+        "DP04438"
+      ],
+      "sequence_pattern": "AAQ"
+    },
+    {
+      "bh_q": 0.2610005676773264,
+      "empirical_p": 0.06746626686656672,
+      "length": 3,
+      "null_mean_proteins": 1.608,
+      "observed_proteins": 4,
+      "protein_ids": [
+        "DP00226",
+        "DP01305",
+        "DP03217",
+        "DP04607"
+      ],
+      "sequence_pattern": "AAV"
+    }
+  ],
+  "provenance": {
+    "component_audit_sha256": "3702797e5d7e88793092d321e23b98e38742195d68f963d500ab62ac8434041b",
+    "config_sha256": "4eca83cd9c038e728cb1960f9b418c20d9d7018e7030fdba4e147d84efb98f57",
+    "evidence_quality": "exploratory_sequence_enrichment_only",
+    "input_sha256": "2bc6726545f47256bcec70376bd51d689db0b5c80a64f45a221b9d88bb0c4c8d",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "python_version": "3.12.14",
+    "script_version": "0.1.0"
+  },
+  "schema_version": "0.1.0",
+  "status": "exploratory_not_functionally_validated"
+}

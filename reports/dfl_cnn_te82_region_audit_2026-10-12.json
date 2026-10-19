@@ -1,0 +1,39 @@
+{
+  "intervals": {
+    "matched_regions_iou_0_5": 29,
+    "median_end_error_matched_residues": 0.0,
+    "median_start_error_matched_residues": 0.0,
+    "no_positive_proteins": 44,
+    "no_positive_proteins_without_scored_residue_prediction": 19,
+    "no_positive_scored_residue_specificity": 0.4318181818181818,
+    "predicted_regions": 139,
+    "region_precision_iou_0_5": 0.20863309352517986,
+    "region_recall_iou_0_5": 0.6304347826086957,
+    "true_regions": 46
+  },
+  "limitations": [
+    "Development threshold, not independent test",
+    "Masked positions break reported prediction intervals",
+    "No-positive specificity is measured only on scored 0/1 positions"
+  ],
+  "positive_residues": 2223,
+  "provenance": {
+    "checkpoint_sha256": "3e41d94048b60581ed7321f723d5c3c77e48a68465ef031172d93b196a2c05d1",
+    "dev_sha256": "f15ac3eef1edc45b95bc600d661dab348a0cb0bee11e47febeac356ef93db916",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "script_sha256": "33c493bef917d921e636806392cfd1aca8f5827a2957458ec8f2254065c8a2e2"
+  },
+  "record_type": "dfl_baseline_region_audit",
+  "schema_version": "0.1.0",
+  "scored_residues": 13694,
+  "selected_operating_point": {
+    "f1": 0.4743067675004848,
+    "false_positives": 1711,
+    "precision": 0.4168370824812543,
+    "recall": 0.550157444894287,
+    "threshold": 0.22606830298900604,
+    "true_positives": 1223
+  },
+  "split": "TE82_development_only",
+  "threshold_selection": "maximum_masked_residue_F1_on_TE82_exact_score_ties"
+}
