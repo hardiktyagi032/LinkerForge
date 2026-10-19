@@ -1,0 +1,14 @@
+{
+  "format": "fusion-design-input.v0",
+  "kind": "synthetic_software_fixture",
+  "plans": [
+    {"plan_id": "SYNTHETIC-tandem", "domain_a_id": "SYNTHETIC-a", "domain_b_id": "SYNTHETIC-b",
+     "sequence_a": "ACDE", "sequence_b": "FGHI", "linker_lengths": [15]},
+    {"plan_id": "SYNTHETIC-three-connections", "topology": "explicit_route",
+     "domain_a_id": "SYNTHETIC-a", "domain_b_id": "SYNTHETIC-b", "sequence_a": "ACDE", "sequence_b": "FGHI",
+     "segments": [["a", 1, 2], ["b", 1, 2], ["a", 3, 4], ["b", 3, 4]],
+     "linker_lengths": [15, 15, 15], "linker_types": ["flexible", "flexible", "flexible"]}
+  ],
+  "budget": {"max_plans": 2, "candidates_per_junction": 2, "attempts_per_junction": 4,
+             "assemblies_per_plan": 4, "seed": 17, "allow_junction_context_transfer": false}
+}

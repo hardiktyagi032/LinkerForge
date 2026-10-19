@@ -90,6 +90,9 @@ def parser():
     evaluate.add_argument("--seed", type=int, default=17)
     evaluate.add_argument("--device", default="cpu")
     evaluate.add_argument("--synthetic-smoke", action="store_true")
+    evaluate.add_argument("--bootstrap-draws", type=int, default=200)
+    evaluate.add_argument("--library", help="Optional fixed source-library comparator, never mined from development")
+    evaluate.add_argument("--library-exposure-review", help="Source/family exposure audit reference for the supplied library")
     commands.add_parser("environment", help="Print environment identity for future reviewed execution")
     templates = commands.add_parser("templates", help="Source-library baseline with bounded explicit cassette substitutions")
     templates.add_argument("--library", required=True)
@@ -143,7 +146,11 @@ def main(argv=None):
                           synthetic_software_fixture=identity["synthetic_software_fixture"],
                           model_metadata_sha256=file_sha256(Path(args.checkpoint) / "model.json"))
         else:
-            result = evaluate_development(model, data, seed=args.seed, device=args.device)
+            result = evaluate_development(model, data, seed=args.seed, device=args.device,
+                bootstrap_draws=args.bootstrap_draws, library=load_json(args.library) if args.library else None,
+                library_exposure_review=args.library_exposure_review)
+            if args.library:
+                result["library_file_sha256"] = file_sha256(args.library)
         write_json(target, result)
     print(json.dumps(result, indent=2, allow_nan=False))
     return 0

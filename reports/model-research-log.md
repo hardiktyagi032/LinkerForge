@@ -1,5 +1,56 @@
 # Model research log
 
+## 18 October 2026 — components 2–5 code readiness (Asia/Calcutta)
+
+**Scope.** The human requested all architecture/training preparation after
+component 1 without data generation. Isolated from attachment PR #10 commit
+`f037238f756622d5df947ebcc279629a155fab34`; preserved detector/data/model worktrees.
+No detector change, mining, new scientific data, real fitting or cloud job.
+
+**Hypothesis/decision.** Explicit chain routes plus the existing common-placement
+solver can connect site scores and bounded sequence proposals without treating
+multiple tethers as independent tandem fusions. Three- and five-contact fixed
+fixtures verify sequence preservation/operation mapping. Final assembly screening
+rejects motifs spanning more than one junction. Direct fusion remains separate;
+fragment-context FIM reuse remains explicit, unvalidated opt-in. No optimal-count
+or fusion-function model/labels are invented.
+
+**Training/comparison setup.** Nine planned jobs: site MLP, matched linear
+control and native FIM, seeds 7/17/31, 16,200 reserved child seconds under the
+six-hour ceiling, one dispatcher's host/account lock. Every job is blocked by
+missing reviewed data/round reference. Receipt/config/input/source checks,
+timeout, failure retention and checksum-bound completion are implemented; mocked
+children test execution controls. Benchmark argv retain every requested seed.
+Generator development comparison now adds full/common coverage and paired family
+intervals; frequency/training-only retrieval and optional exposure-reviewed library
+remain controls. No biological comparison, calibration or benchmark reveal occurred.
+
+**Files/evidence.** `src/linkerforge/pipeline/`, generator benchmark/helper and
+CLI changes, shared family grouping, two scripts/two configs, packaging entry,
+26 new tests, `DESIGN_PIPELINE.md`, `DESIGN_READINESS_CHECKLIST.md`, dated readiness
+MD/JSON; README/AGENTS/CHECKLIST scope notes. Shared schemas/default models intact.
+Sources: [architecture PR #7](https://github.com/richennacht/LinkerForge/pull/7),
+[generator PR #9](https://github.com/richennacht/LinkerForge/pull/9),
+[site PR #10](https://github.com/richennacht/LinkerForge/pull/10); these establish
+component interfaces, not biological efficacy of the new orchestration.
+
+**Validation.** Exact commands, source/input/artifact hashes and raw counts are
+in `reports/pipeline-readiness-2026-10-18.json` and its MD companion. Ran
+`python scripts/verify_design_architecture.py --scope all --output tmp/pipeline-verification/tests.json`:
+165 tests passed, no failures/errors/skips, 17.461 seconds. Existing optimizer
+regressions use invented fixtures; the new FIM integration uses random untrained
+weights, with no fit. Actual prepare/design/geometry/development-command CLIs
+ran on labelled software examples. Two toy-coordinate reports connected to two
+design plans (one/three connections); one template assembly each. Wheel built,
+78 source files matched, ignored assets absent, extracted-wheel CLI worked,
+`git diff --check` passed. CPython 3.14.7, torch 2.14.1+cpu, Transformers 5.20.1,
+safetensors 0.8.0, NumPy 2.5.4; existing borrowed CPU runtime, not cloud verification.
+
+**Next.** Publish review increments and add scoped CI in its own PR (legacy H1).
+Then obtain reviewed data/assets/exclusions/splits/target semantics and actual
+institution-approved execution evidence. Team review and scientific results
+remain pending. Local scientific jobs launched: zero; remote jobs unverified.
+
 ## 18 October 2026 — attachment sites, topology and benchmark implementation (Asia/Calcutta)
 
 **Instruction and source state.** The human requested publishing the generator,

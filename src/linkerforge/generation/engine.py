@@ -198,23 +198,36 @@ def train(manifest_path, config: TrainConfig, output, *, synthetic=False, device
         raise
 
 
-def evaluate_development(model, data, *, seed=17, device="cpu"):
+def evaluate_development(model, data, *, seed=17, device="cpu", bootstrap_draws=200, library=None, library_exposure_review=None):
     """One candidate/attempt per method; no best-of-k or blind set access."""
     rows = []
+    if library is not None and (not isinstance(library_exposure_review, str) or not library_exposure_review.strip()):
+        raise ValueError("Source-library comparison requires explicit source/family exposure review")
     for i, example in enumerate(data["records"]["development"]):
         sampled = generate(model, example.request, count=1, max_attempts=1, seed=seed + i)
         candidate = sampled["candidates"][0]["linker_sequence"] if sampled["candidates"] else None
         baselines = template_baselines(data["records"]["train"], example.request, model.config.flank_residues)
         calls = {"infiller": candidate, **{key: baselines[key] for key in ("length_matched_frequency", "training_only_context_retrieval")}}
+        library_report = None
+        if library is not None:
+            from .templates import template_candidates
+            library_report = template_candidates(library, example.request, count=1)
+            calls["cited_source_library"] = library_report["candidates"][0]["linker_sequence"] if library_report["candidates"] else None
         rows.append({"record_id": example.record_id, "family_ids": example.family_ids,
                      "calls": calls, "exact": {key: value == example.linker for key, value in calls.items()},
                      "edit_distance": {key: edit_distance(value, example.linker) if value is not None else None for key, value in calls.items()},
-                     "generation": sampled, "baseline_eligibility": baselines["eligible_training_templates"]})
+                     "generation": sampled, "baseline_eligibility": baselines["eligible_training_templates"],
+                     "source_library": library_report})
     methods = list(rows[0]["calls"])
+    from .benchmark import compare_reconstruction
+    comparison = compare_reconstruction(data["records"]["development"],
+        {name: {row["record_id"]: row["calls"][name] for row in rows} for name in methods},
+        bootstrap_draws=bootstrap_draws, seed=seed)
     return {"task": "known_length_natural_linker_reconstruction_development_only", "synthetic_software_fixture": data["synthetic"],
             "seed": seed, "candidate_budget": 1, "attempt_budget_per_method": 1, "rows": rows,
             "summary": {key: {"attempted_records": len(rows), "valid_calls": sum(row["calls"][key] is not None for row in rows),
                                "exact_matches": sum(row["exact"][key] for row in rows),
                                "missing_or_rejected": sum(row["calls"][key] is None for row in rows)} for key in methods},
             "input_hashes": data["input_hashes"],
+            "paired_comparison": comparison, "library_exposure_review": library_exposure_review,
             "limitation": "Sequence reconstruction only; no structural, functional, uncertainty-calibration or frontier claim. This helper does not implement blind evaluation."}

@@ -1,5 +1,11 @@
 # LinkerForge checklist: minimum viable publishable result
 
+**18 October 2026 scope note:** the human resumed code-only implementation after
+component 1. The actionable software checklist is
+[DESIGN_READINESS_CHECKLIST.md](DESIGN_READINESS_CHECKLIST.md). The detector,
+publication, collection and scientific-result items below remain uncompleted;
+this scope note does not approve them or bypass their dependencies.
+
 Companion to `SPEC.md`. Read that first, especially section 5 (integrity constraints). Items are ordered. Do not start a blocked item until its dependencies are checked off.
 
 Pause rule: the project is paused. Do not run any item without Dorya's explicit go-ahead. Items marked PAPER I need no GPU, no laptop and no new data.
