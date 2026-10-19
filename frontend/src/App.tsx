@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import FusionStructureViewer from './FusionStructureViewer'
 import { buildTemplateCandidates, fusionFasta, parseProteinSequence, validateFusionPdb, type FusionCandidate } from './fusion'
+import { getComputeStatus, getFoldStatus, inDesktop, startLocalFold, type ComputeStatus, type FoldStatus } from './desktopFold'
 
 const stages = [
   ['01', 'Check inputs', 'Confirm both protein files and protected sites are usable.'],
@@ -345,9 +346,55 @@ function ProteinViewer({
   const [fullscreen, setFullscreen] = useState(false)
   const [structures, setStructures] = useState<Record<string, string>>({})
   const [uploadError, setUploadError] = useState<string | null>(null)
+  const [compute, setCompute] = useState<ComputeStatus | null>(null)
+  const [fold, setFold] = useState<FoldStatus | null>(null)
+  const [foldSequence, setFoldSequence] = useState<string | null>(null)
   const selectedSequence = candidate?.fullSequence ?? ''
   const pdb = structures[selectedSequence] ?? null
   const reference = referenceStructures[selected]
+
+  useEffect(() => {
+    if (!inDesktop()) return
+    void getComputeStatus().then(setCompute).catch(() => setCompute(null))
+  }, [])
+
+  useEffect(() => {
+    if (!foldSequence) return
+    const timer = window.setInterval(() => {
+      void getFoldStatus().then((status) => {
+        setFold(status)
+        if (status.phase === 'complete' && status.pdb) {
+          try {
+            validateFusionPdb(status.pdb, foldSequence)
+            setStructures((previous) => ({ ...previous, [foldSequence]: status.pdb! }))
+            setMode('fusion')
+            setUploadError(null)
+          } catch (cause) {
+            setUploadError(cause instanceof Error ? cause.message : 'Predicted PDB did not match the fusion.')
+          }
+          setFoldSequence(null)
+        } else if (status.phase === 'failed') {
+          setFoldSequence(null)
+        }
+      }).catch((cause) => {
+        setUploadError(cause instanceof Error ? cause.message : 'Could not check the local fold.')
+        setFoldSequence(null)
+      })
+    }, 2000)
+    return () => window.clearInterval(timer)
+  }, [foldSequence])
+
+  const handleLocalFold = async () => {
+    if (!candidate) return
+    try {
+      const status = await startLocalFold(candidate.fullSequence)
+      setFold(status)
+      setFoldSequence(candidate.fullSequence)
+      setUploadError(null)
+    } catch (cause) {
+      setUploadError(cause instanceof Error ? cause.message : 'Could not start ColabFold.')
+    }
+  }
 
   useEffect(() => {
     if (!fullscreen) return
@@ -429,6 +476,10 @@ function ProteinViewer({
                   Load predicted full-fusion PDB
                   <input type="file" accept=".pdb,.ent,text/plain" onChange={(event) => void handlePdbUpload(event.target.files?.[0])} />
                 </label>
+                {inDesktop() && <button type="button" disabled={!compute?.predictorAvailable || fold?.phase === 'running'}
+                  onClick={() => void handleLocalFold()}>
+                  <Play size={14} /> {fold?.phase === 'running' ? 'Folding locally…' : 'Fold full fusion on this GPU'}
+                </button>}
                 {pdb && <button type="button" onClick={() => downloadText('linkerforge-fusion.pml', pml)}>
                   <Download size={14} /> PyMOL colouring script
                 </button>}
@@ -438,6 +489,11 @@ function ProteinViewer({
             )}
           </div>
           {uploadError && <p className="structure-error" role="alert">{uploadError}</p>}
+          {inDesktop() && <div className="desktop-compute" aria-live="polite">
+            <strong>Local compute:</strong> {compute?.gpu ?? 'Checking GPU…'} · ColabFold {compute?.predictorAvailable ? `available via ${compute.predictorBackend}` : 'not installed'}.
+            {fold && <p>{fold.phase}: {fold.message}</p>}
+            {fold?.runDir && <small>Run files: {fold.runDir}</small>}
+          </div>}
           <p className="viewer-disclaimer">The uploaded PDB is user-provided and sequence-checked, not independently verified as an AlphaFold result. Linker coordinates appear only when the full fusion has actually been predicted.</p>
         </>
       ) : (
@@ -562,7 +618,7 @@ function App() {
           <a href="#runs">Ranked candidates</a>
           <a href="#provenance">Provenance</a>
         </nav>
-        <span className="release">Computational prototype · {customCandidates.length ? 'template mode' : 'example mode'}</span>
+        <span className="release">{inDesktop() ? 'Local desktop' : 'Computational prototype'} · {customCandidates.length ? 'template mode' : 'example mode'}</span>
       </header>
 
       <main id="top">
@@ -574,7 +630,9 @@ function App() {
           <p className="hero-copy">
             Enter two protein sequences to build complete fusion candidates, then inspect a
             sequence-matched predicted structure. Sequence-only templates are available locally;
-            learned ranking and AlphaFold/ColabFold prediction require separate scientific compute.
+            {inDesktop()
+              ? ' this desktop app can launch a full-fusion prediction when LocalColabFold is separately installed.'
+              : ' learned ranking and AlphaFold/ColabFold prediction require separate scientific compute.'}
           </p>
           <div className="hero-actions">
             <a className="primary-btn" href="#studio">

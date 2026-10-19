@@ -66,6 +66,9 @@ h1 { max-width: 980px; margin: 24px 0; font-size: clamp(44px, 7vw, 82px); line-h
 .structure-error { color: #a42222; font-weight: 600; }
 .viewer-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
 .viewer-actions button { display: inline-flex; align-items: center; gap: 7px; }
+.viewer-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+.desktop-compute { margin-top: 12px; padding: 12px 14px; border: 1px solid #b5c9bc; border-radius: 6px; background: #f4faf5; line-height: 1.5; overflow-wrap: anywhere; }
+.desktop-compute p { margin: 6px 0; }
 .upload-pdb { display: inline-grid; gap: 6px; background: #1f4d33; color: #fff; border-color: #1f4d33; }
 .upload-pdb input { display: block; max-width: 260px; font-size: 12px; }
 .viewer-disclaimer { color: #4b5a4f; font-size: 13px; line-height: 1.5; }

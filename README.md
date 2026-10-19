@@ -1,5 +1,9 @@
 # LinkerForge
 
+**New here?** Read [START_HERE.md](./START_HERE.md) for the current project map,
+what runs today, and the entry point for each workstream. This README remains
+the canonical scientific specification; historical goals below are labelled.
+
 > **Current programme (18 October 2026):** begin with a trustworthy sequence-based
 > disordered flexible linker (DFL) classifier; use only an independently
 > validated, high-precision caller to mine natural linkers. Downstream design
@@ -27,6 +31,8 @@ LinkerForge is a **computational research prototype** for recommending a peptide
 This README is the canonical, self-contained project specification. A new team member, coding agent, cloud notebook, or clean laptop should be able to recover the project scope and continue without the original planning conversation.
 
 > **Current state:** the React demonstration interface, CI/CD, a full-screen structure area, two-sequence template construction, and an embedded Mol* reference-structure viewer are implemented. A user may export a complete fusion FASTA and load a sequence-matched predicted PDB into a browser 3Dmol.js viewer; no structure is generated in the browser. An optional bounded ColabFold command adapter exists but ColabFold and its weights/databases are not bundled or validated on the target cloud image. The validated dataset, trained fusion ranker, full structural funnel, and cloud jobs below remain MVP specifications and must not be represented as completed results. See [full-fusion local workflow](./docs/FULL_FUSION_LOCAL_WORKFLOW.md).
+
+The optional [Tauri desktop shell](./docs/DESKTOP_LOCAL_FOLDING.md) can launch a bounded local full-fusion ColabFold job and display a sequence-checked PDB. ColabFold itself is not included; 6 GB GPU feasibility has not been established.
 
 ## One-minute description
 
