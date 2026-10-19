@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.1.0",
+  "track": "natural_protein_linker_identifier_not_fusion_ranker",
+  "status": "completed_no_promoted_model",
+  "budget": {"maximum_new_architecture_trials": 3, "maximum_gpu_hours": 6, "promising_variant_seeds": [7, 17, 29]},
+  "data": {
+    "training": "data/processed/dld_reference/dld_train.jsonl.gz",
+    "training_sha256": "c43952c4f943f458ba61905c34a59e04fadca5607b95d6afc9bd9d1475252c41",
+    "validation": "data/processed/dld_reference/dld_validation.jsonl.gz",
+    "validation_sha256": "290992af4a93c14ba007197c282367734af8ec878783d5e668ee4960128a3461",
+    "blind_fold_5": "not_for_model_selection_previously_viewed",
+    "disprot_2026_06": "external_curated_linker_source_pending_homology_overlap_audit"
+  },
+  "reference": {
+    "backbone": "facebook/esm2_t12_35M_UR50D",
+    "revision": "6fbf070e65b0b7291e7bbcd451118c216cff79d8",
+    "checkpoint": "artifacts/esm2-35m-linker-run-001/best.pt",
+    "asymmetric_checkpoint": "artifacts/transfer-35m-asymmetric-highprecision-run-001/best.pt"
+  },
+  "primary_metric": "maximum fold-4 residue recall at empirical precision >=0.90, >=50 true-positive residues, exact ties intact",
+  "guardrail": "no-linker-protein specificity loss <=0.02 absolute relative to matched baseline",
+  "secondary_metrics": ["AUPRC", "region precision and recall", "start/end boundary error", "runtime", "VRAM", "raw TP/FP/FN"],
+  "first_mechanism": "span-aware start/end auxiliary head; source-class head remains gated on code-0 semantics",
+  "stop_rules": ["six GPU-hours consumed", "three architecture trials completed", "data-integrity failure", "two repeated infrastructure failures", "competing GPU training job"],
+  "promotion": "manual review only; no auto-promotion, push, or independent claim"
+}

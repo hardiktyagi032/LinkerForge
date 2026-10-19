@@ -1,0 +1,16 @@
+default	0.08
+npv	0.001
+ppv	0.529
+tpr	0.0
+tnr	0.805
+fpr	0.0
+fnr	0.805
+fom	0.0
+csi	0.192
+bac	0.009
+f1s	0.193
+f2s	0.018
+f05	0.227
+mcc	0.192
+inf	0.009
+mk	0.529

@@ -1,0 +1,116 @@
+{
+  "limitations": [
+    "Public CAID3 labels are not a fresh independent test.",
+    "Original competitor weights are not retrained here; these are released historical score submissions.",
+    "Our three checkpoints were selected on TE82, not CAID3; prior DLD CAID3 review exists in the project.",
+    "TR166-to-CAID3 remote homology is not certified absent.",
+    "CAID3 reference is linker-positive proteins only; no-linker specificity is unavailable.",
+    "This scikit-learn common-score summary must be checked against official CAID evaluation."
+  ],
+  "provenance": {
+    "baseline_sha256": {
+      "APOD.caid": "182b2ba253496c6cb91efe1bc9817c7181bd6d7a061293674c2b23ccdc82c06d",
+      "DFLpred.caid": "c12efe88776f436c788ecdf7b58b4a00371bfaa11b74001dcf4db2bb9fcedaa0",
+      "DisoFLAG-DFL.caid": "42c37fcc65463830a404c76d424059527f7cf52cc0246008cfce2d929fff8cb3",
+      "IPA-AF2-Linker.caid": "e286d39115f2832a195c6e4804e3382fc0e1bfdf6288890a131dc8a156d7bf4f",
+      "LINKER-Pred-Lite.caid": "0cf9b9b232f48ebbdc8ad2de852817bea47a59fb108ab1b4a5942acd366d68cd",
+      "LINKER-Pred.caid": "90d3cfd587d89f8f3b36763cfa361175dfe951303f3c6d3795eee96270a12b7a",
+      "LINKER-Pred2.caid": "d8c2ead75258c05f4a38678c7efff3aaee95fd24ec4e40aadca831351025a97b"
+    },
+    "checkpoint_sha256": {
+      "LinkerForge_CNN": "3e41d94048b60581ed7321f723d5c3c77e48a68465ef031172d93b196a2c05d1",
+      "LinkerForge_precision": "b9002d55670e5e6a95788d03190bbe5c5ae86a5bd2de1f2611022a9352a66b3a",
+      "LinkerForge_span": "40c148b7eef61e820c203345f2cc5ffb03521f1fb4fb2efa512881e6c816d1d9"
+    },
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "python": "3.12.14",
+    "reference_sha256": "8d3931f2778f72e640e841ef05751b78cea951ebd726766a3863de21198fb53e",
+    "script_sha256": "bf3b8e1e4dbe074a2b2c90208cca113b10e63fbc3c7408b0a12b6ede57bfecd2",
+    "torch": "2.14.1+cu130"
+  },
+  "reference": "CAID3_Linker_27_protein_full_coverage_intersection",
+  "results": {
+    "APOD": {
+      "aps": 0.3685446805310782,
+      "auroc": 0.8517830658661855,
+      "fmax": 0.4372024899304284,
+      "positive_residues": 1214,
+      "proteins": 27,
+      "residues": 15570
+    },
+    "DFLpred": {
+      "aps": 0.09682673341085135,
+      "auroc": 0.49127579786855585,
+      "fmax": 0.14727815063385533,
+      "positive_residues": 1214,
+      "proteins": 27,
+      "residues": 15570
+    },
+    "DisoFLAG-DFL": {
+      "aps": 0.4094047020048327,
+      "auroc": 0.8461749084127181,
+      "fmax": 0.4642014162077105,
+      "positive_residues": 1214,
+      "proteins": 27,
+      "residues": 15570
+    },
+    "IPA-AF2-Linker": {
+      "aps": 0.4821214662961236,
+      "auroc": 0.8984967108449166,
+      "fmax": 0.49057971014492757,
+      "positive_residues": 1214,
+      "proteins": 27,
+      "residues": 15570
+    },
+    "LINKER-Pred": {
+      "aps": 0.3981412573867159,
+      "auroc": 0.8841113336880078,
+      "fmax": 0.4676320272572402,
+      "positive_residues": 1214,
+      "proteins": 27,
+      "residues": 15570
+    },
+    "LINKER-Pred-Lite": {
+      "aps": 0.4290992453346312,
+      "auroc": 0.8717173860454996,
+      "fmax": 0.4732061762034514,
+      "positive_residues": 1214,
+      "proteins": 27,
+      "residues": 15570
+    },
+    "LINKER-Pred2": {
+      "aps": 0.3856210427483444,
+      "auroc": 0.8888548571669888,
+      "fmax": 0.463905325443787,
+      "positive_residues": 1214,
+      "proteins": 27,
+      "residues": 15570
+    },
+    "LinkerForge_CNN": {
+      "aps": 0.08936902973082618,
+      "auroc": 0.5418370324756727,
+      "fmax": 0.16467630421118792,
+      "positive_residues": 1214,
+      "proteins": 27,
+      "residues": 15570
+    },
+    "LinkerForge_precision": {
+      "aps": 0.08725371662896,
+      "auroc": 0.5203050415350217,
+      "fmax": 0.15860146947048392,
+      "positive_residues": 1214,
+      "proteins": 27,
+      "residues": 15570
+    },
+    "LinkerForge_span": {
+      "aps": 0.08484080312395603,
+      "auroc": 0.50659776141909,
+      "fmax": 0.15375062096373573,
+      "positive_residues": 1214,
+      "proteins": 27,
+      "residues": 15570
+    }
+  },
+  "schema_version": "0.1.0",
+  "status": "retrospective_public_benchmark_not_independent_test"
+}

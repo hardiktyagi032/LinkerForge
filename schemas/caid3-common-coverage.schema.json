@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CAID3 linker common-coverage audit",
+  "type": "object",
+  "required": ["schema_version", "status", "reference_sha256", "prediction_sha256", "pipeline_commit", "script_sha256", "config_sha256", "software", "common_proteins", "methods", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "common_target_subset_not_independent_test"},
+    "reference_sha256": {"type": "string"},
+    "prediction_sha256": {"type": "object"},
+    "pipeline_commit": {"type": "string"},
+    "script_sha256": {"type": "string"},
+    "config_sha256": {"type": "string"},
+    "software": {"type": "object"},
+    "common_proteins": {"type": "array", "items": {"type": "string"}},
+    "methods": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

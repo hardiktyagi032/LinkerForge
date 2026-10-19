@@ -1,0 +1,199 @@
+{
+  "schema_version": "0.1.0",
+  "created_utc": "2026-10-11T15:17:41.111897+00:00",
+  "status": "review_queue_not_validated_linkers_or_independent_test",
+  "config": {
+    "minimum_explicit_linker_coverage_by_gap": 0.8,
+    "minimum_gap_coverage_by_explicit_linker": 0.8,
+    "exclude_any_candidate_homology_screen_hit": true,
+    "length_range_residues": [
+      5,
+      30
+    ]
+  },
+  "config_sha256": "a2cde07e6113c087573392b3b169fc9545646f11699da7d318a36ca467bd44a8",
+  "source_sha256": {
+    "data\\processed\\disprot_2026_06_flexible_linkers.jsonl": "2ee3c2737d07c69d53e25ad43f83714b42a28d19ef1f3ccddd96408495547006",
+    "data\\processed\\disprot_2026_06_domain_gap_screen.jsonl": "d08b3cdc6f02ab41641a69820f47c32e30231a4e996c929ad27bc58ed4f88985",
+    "reports\\disprot_dld_homology_screen_2026-10-11.json": "9e4a736f41c50cc7a4896f822f2282d43fc09b6d0de709321bab179fb908c1cb"
+  },
+  "script_sha256": "50e57322a416a24975a63b0848d423fa94dc0c219a7c0b7b9b538d4fcbe5f08f",
+  "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+  "software": {
+    "python": "3.12.14",
+    "extractor": "0.1.0"
+  },
+  "explicit_regions": 460,
+  "screened_gaps": 291,
+  "homology_flagged_regions_excluded": 106,
+  "candidate_pairs": 4,
+  "candidate_regions": 4,
+  "candidates": [
+    {
+      "disprot_region_id": "DP00865r003",
+      "disprot_id": "DP00865",
+      "uniprot_accession": "Q6P3W2",
+      "domain_a": {
+        "end": 79,
+        "pfam_id": "PF00226",
+        "start": 11
+      },
+      "domain_b": {
+        "end": 146,
+        "pfam_id": "PF05207",
+        "start": 96
+      },
+      "gap": {
+        "end": 95,
+        "length": 16,
+        "sequence": "LQRCEDDLRNVGPVDA",
+        "start": 80
+      },
+      "explicit_linker": {
+        "end": 92,
+        "length": 16,
+        "sequence": "EYDLQRCEDDLRNVGP",
+        "start": 77,
+        "term_id": "IDPO:0000033",
+        "term_name": "flexible linker"
+      },
+      "shared_residues": 13,
+      "disprot_evidence": {
+        "curator_id": "zdosztanyi",
+        "eco_id": "ECO:0006165",
+        "reference_id": "22367199",
+        "reference_source": "pmid",
+        "release": "2022_03",
+        "validated_by": null
+      },
+      "review_status": "pending_manual_domain_and_coordinate_adjudication",
+      "evidence_quality": "curated_disprot_term_plus_pfam_gap_screen_not_independent"
+    },
+    {
+      "disprot_region_id": "DP04129r025",
+      "disprot_id": "DP04129",
+      "uniprot_accession": "P42858",
+      "domain_a": {
+        "end": 2062,
+        "pfam_id": "PF20925",
+        "start": 1785
+      },
+      "domain_b": {
+        "end": 3098,
+        "pfam_id": "PF20927",
+        "start": 2092
+      },
+      "gap": {
+        "end": 2091,
+        "length": 29,
+        "sequence": "RLSTMQDSLSPSPPVSSHPLDGDGHVSLE",
+        "start": 2063
+      },
+      "explicit_linker": {
+        "end": 2095,
+        "length": 29,
+        "sequence": "MQDSLSPSPPVSSHPLDGDGHVSLETVSP",
+        "start": 2067,
+        "term_id": "IDPO:0000033",
+        "term_name": "flexible linker"
+      },
+      "shared_residues": 25,
+      "disprot_evidence": {
+        "curator_id": "tlazar",
+        "eco_id": "ECO:0006224",
+        "reference_id": "32668197",
+        "reference_source": "pmid",
+        "release": "2023_12",
+        "validated_by": "vnugnes"
+      },
+      "review_status": "pending_manual_domain_and_coordinate_adjudication",
+      "evidence_quality": "curated_disprot_term_plus_pfam_gap_screen_not_independent"
+    },
+    {
+      "disprot_region_id": "DP04129r027",
+      "disprot_id": "DP04129",
+      "uniprot_accession": "P42858",
+      "domain_a": {
+        "end": 2062,
+        "pfam_id": "PF20925",
+        "start": 1785
+      },
+      "domain_b": {
+        "end": 3098,
+        "pfam_id": "PF20927",
+        "start": 2092
+      },
+      "gap": {
+        "end": 2091,
+        "length": 29,
+        "sequence": "RLSTMQDSLSPSPPVSSHPLDGDGHVSLE",
+        "start": 2063
+      },
+      "explicit_linker": {
+        "end": 2090,
+        "length": 24,
+        "sequence": "MQDSLSPSPPVSSHPLDGDGHVSL",
+        "start": 2067,
+        "term_id": "IDPO:0000033",
+        "term_name": "flexible linker"
+      },
+      "shared_residues": 24,
+      "disprot_evidence": {
+        "curator_id": "tlazar",
+        "eco_id": "ECO:0006236",
+        "reference_id": "32668197",
+        "reference_source": "pmid",
+        "release": "2023_12",
+        "validated_by": "vnugnes"
+      },
+      "review_status": "pending_manual_domain_and_coordinate_adjudication",
+      "evidence_quality": "curated_disprot_term_plus_pfam_gap_screen_not_independent"
+    },
+    {
+      "disprot_region_id": "DP04438r004",
+      "disprot_id": "DP04438",
+      "uniprot_accession": "Q86YT6",
+      "domain_a": {
+        "end": 311,
+        "pfam_id": "PF18346",
+        "start": 247
+      },
+      "domain_b": {
+        "end": 397,
+        "pfam_id": "PF18346",
+        "start": 333
+      },
+      "gap": {
+        "end": 332,
+        "length": 21,
+        "sequence": "TKANIVRSGDAAQGAEGGTSQ",
+        "start": 312
+      },
+      "explicit_linker": {
+        "end": 331,
+        "length": 17,
+        "sequence": "NIVRSGDAAQGAEGGTS",
+        "start": 315,
+        "term_id": "IDPO:0000033",
+        "term_name": "flexible linker"
+      },
+      "shared_residues": 17,
+      "disprot_evidence": {
+        "curator_id": "vnugnes",
+        "eco_id": "ECO:0006220",
+        "reference_id": "25747658",
+        "reference_source": "pmid",
+        "release": "2026_06",
+        "validated_by": null
+      },
+      "review_status": "pending_manual_domain_and_coordinate_adjudication",
+      "evidence_quality": "curated_disprot_term_plus_pfam_gap_screen_not_independent"
+    }
+  ],
+  "limitations": [
+    "The top-20 local-alignment homology screen can miss remote relatives; unflagged is not independent.",
+    "Pfam assignments and gap boundaries are not manually adjudicated; two-domain context is unproven.",
+    "UniProt region coordinates are not mapped to PDB atoms; no record is eligible for validation or training.",
+    "The same protein can contribute multiple candidate domain-gap pairs."
+  ]
+}

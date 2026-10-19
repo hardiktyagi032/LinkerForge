@@ -1,0 +1,1618 @@
+{
+  "schema_version": "1.0.0",
+  "created_utc": "2026-10-16T22:23:42.719643+00:00",
+  "status": "provisional_local_similarity_components_not_homology_certification",
+  "source_sha256": "c3a610f51aa4aeecf51272e8c85361e54dbd1c6be5ea2fa679c7c15be2079f9c",
+  "script_sha256": "0ab4df5ccc550c1377f70a0f69b7e31bd69e39468fdee7be9d929b96842a0ae4",
+  "rule": {
+    "algorithm": "parasail.sw_stats_striped_16",
+    "gap_extend": 1,
+    "gap_open": 10,
+    "matrix": "BLOSUM62",
+    "review_trigger": "identity>=0.25 and aligned_length>=50",
+    "strong_review_trigger": "identity>=0.30 and aligned_length>=80 and shorter_coverage_proxy>=0.70",
+    "x_handling": "X substituted A for scoring only; affected pairs need manual review"
+  },
+  "candidate_count": 205,
+  "strong_edge_count": 78,
+  "component_count": 182,
+  "candidate_ids_connected_to_protected_anchor": [
+    "DP00428",
+    "DP00887",
+    "DP00973",
+    "DP01024",
+    "DP01193",
+    "DP01329",
+    "DP01342",
+    "DP01467",
+    "DP01475",
+    "DP01663",
+    "DP02345",
+    "DP02476",
+    "DP02509",
+    "DP02601",
+    "DP02606",
+    "DP02609",
+    "DP02617",
+    "DP02623",
+    "DP02632",
+    "DP02633",
+    "DP02638",
+    "DP02728",
+    "DP02790",
+    "DP02792",
+    "DP02798",
+    "DP02822",
+    "DP02856",
+    "DP02864",
+    "DP02874",
+    "DP02976",
+    "DP03125",
+    "DP03178",
+    "DP03212",
+    "DP03256",
+    "DP03283",
+    "DP03300",
+    "DP03433",
+    "DP03555",
+    "DP03577",
+    "DP03650",
+    "DP03660",
+    "DP03716",
+    "DP03794",
+    "DP03805",
+    "DP03956",
+    "DP04129",
+    "DP04319",
+    "DP04447",
+    "DP04455",
+    "DP04510",
+    "DP04604",
+    "DP04605"
+  ],
+  "connected_to_protected_count": 52,
+  "components": [
+    {
+      "candidate_ids": [
+        "DP00428",
+        "DP03125",
+        "DP03300"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te64",
+          "protein_id": "DP02635"
+        }
+      ],
+      "strong_edges": 4
+    },
+    {
+      "candidate_ids": [
+        "DP01342",
+        "DP02822",
+        "DP03433"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te82",
+          "protein_id": "DP01461"
+        },
+        {
+          "source": "caid3",
+          "protein_id": "DP04284"
+        }
+      ],
+      "strong_edges": 6
+    },
+    {
+      "candidate_ids": [
+        "DP01429",
+        "DP02881"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02398",
+        "DP03499"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02609",
+        "DP02638"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00219"
+        }
+      ],
+      "strong_edges": 2
+    },
+    {
+      "candidate_ids": [
+        "DP02617",
+        "DP02976"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te82",
+          "protein_id": "DP00024"
+        }
+      ],
+      "strong_edges": 3
+    },
+    {
+      "candidate_ids": [
+        "DP02727",
+        "DP03648"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02728",
+        "DP02874"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00040"
+        }
+      ],
+      "strong_edges": 2
+    },
+    {
+      "candidate_ids": [
+        "DP02756",
+        "DP03069"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02790",
+        "DP02792"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01001"
+        }
+      ],
+      "strong_edges": 2
+    },
+    {
+      "candidate_ids": [
+        "DP02833",
+        "DP02896"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02856",
+        "DP02864"
+      ],
+      "protected_anchors": [
+        {
+          "source": "caid3",
+          "protein_id": "DP04242"
+        }
+      ],
+      "strong_edges": 3
+    },
+    {
+      "candidate_ids": [
+        "DP03065",
+        "DP03221"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03162",
+        "DP03164"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03178",
+        "DP03805"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te82",
+          "protein_id": "DP01074"
+        },
+        {
+          "source": "tr166",
+          "protein_id": "DP00040"
+        }
+      ],
+      "strong_edges": 3
+    },
+    {
+      "candidate_ids": [
+        "DP03230",
+        "DP04411"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03541",
+        "DP03542"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03547",
+        "DP04643"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03633",
+        "DP04086"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03650",
+        "DP03660"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00040"
+        }
+      ],
+      "strong_edges": 2
+    },
+    {
+      "candidate_ids": [
+        "DP04447",
+        "DP04455"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te82",
+          "protein_id": "DP00689"
+        },
+        {
+          "source": "te82",
+          "protein_id": "DP00112"
+        }
+      ],
+      "strong_edges": 3
+    },
+    {
+      "candidate_ids": [
+        "DP00023"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP00226"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP00352"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP00377"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP00410"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP00887"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00885"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP00973"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00748"
+        },
+        {
+          "source": "tr166",
+          "protein_id": "DP00868"
+        }
+      ],
+      "strong_edges": 2
+    },
+    {
+      "candidate_ids": [
+        "DP01024"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00028"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP01193"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00039"
+        },
+        {
+          "source": "tr166",
+          "protein_id": "DP00195"
+        }
+      ],
+      "strong_edges": 2
+    },
+    {
+      "candidate_ids": [
+        "DP01248"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01305"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01326"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01329"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te82",
+          "protein_id": "DP01173"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP01339"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01450"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01467"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00359"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP01475"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01650"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP01611"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01663"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00187"
+        },
+        {
+          "source": "tr166",
+          "protein_id": "DP00466"
+        }
+      ],
+      "strong_edges": 2
+    },
+    {
+      "candidate_ids": [
+        "DP01736"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01817"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01849"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01857"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01877"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP01947"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02004"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02013"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02170"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02254"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02272"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02345"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te82",
+          "protein_id": "DP00632"
+        },
+        {
+          "source": "te82",
+          "protein_id": "DP00689"
+        },
+        {
+          "source": "te82",
+          "protein_id": "DP01109"
+        },
+        {
+          "source": "te82",
+          "protein_id": "DP00324"
+        }
+      ],
+      "strong_edges": 4
+    },
+    {
+      "candidate_ids": [
+        "DP02410"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02418"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02448"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02464"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02476"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01092"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02477"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02481"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02509"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01092"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02567"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02583"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02585"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02587"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02600"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02601"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01001"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02606"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te64",
+          "protein_id": "DP02605"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02612"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02623"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01206"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02632"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP02333"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02633"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00718"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02634"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02637"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02681"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02691"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02718"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02723"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02729"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02742"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02757"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02759"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02765"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02767"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02785"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02791"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02797"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02798"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01069"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP02805"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02806"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02809"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02818"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02828"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02830"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02834"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02835"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02836"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02878"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02892"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02921"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02931"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02945"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02959"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02966"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP02999"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03004"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03057"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03061"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03100"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03101"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03131"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03212"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00948"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03217"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03222"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03232"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03236"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03241"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03256"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00571"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03283"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00387"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03285"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03293"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03299"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03308"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03318"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03320"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03337"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03359"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03379"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03389"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03400"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03410"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03444"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03485"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03529"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03536"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03555"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01055"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03575"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03577"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01054"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03579"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03586"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03589"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03593"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03606"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03622"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03716"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00958"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03717"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03718"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03747"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03782"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03786"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03792"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03794"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te82",
+          "protein_id": "DP01931"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03835"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03866"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03870"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03944"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP03956"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP00919"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP03966"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04050"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04054"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04070"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04088"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04104"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04129"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01055"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP04272"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04305"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04310"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04319"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te64",
+          "protein_id": "DP02716"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP04408"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04419"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04437"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04438"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04446"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04459"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04461"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04466"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04470"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04472"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04491"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    },
+    {
+      "candidate_ids": [
+        "DP04510"
+      ],
+      "protected_anchors": [
+        {
+          "source": "caid3",
+          "protein_id": "DP04284"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP04604"
+      ],
+      "protected_anchors": [
+        {
+          "source": "tr166",
+          "protein_id": "DP01157"
+        }
+      ],
+      "strong_edges": 1
+    },
+    {
+      "candidate_ids": [
+        "DP04605"
+      ],
+      "protected_anchors": [
+        {
+          "source": "te82",
+          "protein_id": "DP00324"
+        },
+        {
+          "source": "te82",
+          "protein_id": "DP01109"
+        }
+      ],
+      "strong_edges": 2
+    },
+    {
+      "candidate_ids": [
+        "DP04607"
+      ],
+      "protected_anchors": [],
+      "strong_edges": 0
+    }
+  ],
+  "limitations": [
+    "Local alignment flags are provisional, not domain-family assignments.",
+    "Unflagged candidates are not certified independent.",
+    "No CAID3 linker labels were used; CAID3 appears only as a protected sequence source."
+  ]
+}

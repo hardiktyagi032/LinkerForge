@@ -1,0 +1,5 @@
+{
+  "schema_version": "0.1.0",
+  "config": "configs/dfl_autoresearch_data_gate_2026-10-12.json",
+  "ledger": "reports/dfl_autoresearch_data_gate_2026-10-12.json"
+}

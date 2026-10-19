@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "source_query": "reviewed:true AND ft_domain:*",
+  "source_fields": "accession,sequence,ft_domain,ft_repeat,ft_transmem",
+  "source_name": "UniProtKB_reviewed_domain_features",
+  "source_key": "uniprot_reviewed",
+  "min_gap_residues": 5,
+  "max_gap_residues": 150,
+  "allow_noncanonical_amino_acids": false,
+  "exclude_gap_overlapping_repeat_or_transmembrane": true,
+  "evidence_tier": "inferred_interdomain_candidate",
+  "warning": "A gap between domain feature annotations is not a confirmed functional linker. Do not merge this tier into DLD, DisProt, or experimentally assayed labels."
+}

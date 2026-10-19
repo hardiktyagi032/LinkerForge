@@ -1,0 +1,18 @@
+{
+  "schema_version": "0.1.0",
+  "round_id": "dfl-data-and-matched-baselines-2026-10-12",
+  "track": "sequence_only_disordered_flexible_linker_detection",
+  "status": "data_gate_no_gpu_trial_preapproved",
+  "maximum_architecture_trials": 3,
+  "maximum_gpu_hours": 6,
+  "train_sha256": "8fbfa1a503857131b8e485f511f5c84d9fbea24b9d5bbac2aa003508cb4f716c",
+  "development_sha256": "f15ac3eef1edc45b95bc600d661dab348a0cb0bee11e47febeac356ef93db916",
+  "required_before_training": [
+    "stronger family-cluster split audit than top-20 local alignment",
+    "matched obtainable competitor predictions on common sequences or explicit inability report",
+    "verified semantics of published 0 and x for any partial-label method",
+    "frozen hypothesis, baseline, primary and region metrics, and isolated output"
+  ],
+  "model_selection_prohibited": ["TE64", "CAID3"],
+  "source_round_report": "reports/DFL_CROSS_DOMAIN_ROUND_2026-10-12.md"
+}

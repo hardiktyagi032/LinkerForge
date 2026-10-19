@@ -1,0 +1,91 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[a4paper,margin=19mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{microtype}
+\hypersetup{colorlinks=false,pdfborder={0 0 0}}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.25em}
+\title{LinkerForge: Auditable Natural-Linker Mining and Context-Aware Ranking for Two-Domain Fusion Design\\\large Preliminary computational study}
+\author{LinkerForge Project Team}
+\date{8 October 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Choosing a peptide linker for two protein domains is a context-dependent design task, yet the mere presence of a linker in a native multi-domain protein does not establish that it is optimal for a new fusion. We define an auditable computational workflow that identifies candidate natural inter-domain segments from CATH boundaries and RCSB sequences, constructs a leakage-conscious ranking benchmark, and compares context-free retrieval with a small context-aware pairwise model. This paper reports an initial \emph{unreviewed feasibility study}, not a validated design system. The available evidence supports only reproducible data extraction and diagnostic ranking; it does not establish fusion activity, linker optimality, or superiority over published tools. A later study will test whether frozen protein-language-model and local attachment-site geometry features improve held-out native-linker ranking under identical candidate sets.
+\end{abstract}
+
+\noindent\textbf{Keywords:} protein linkers; fusion proteins; domain boundaries; data provenance; pairwise ranking; computational design.
+
+\section{Research question and relationship to prior work}
+The operational question is: given domain A, domain B, and a fixed C-terminus-to-N-terminus fusion topology, can a model rank feasible 5--30-residue peptide linkers using the domains' sequence and local attachment environments? LinkerForge's intended comparison is a controlled one: does context information improve recovery of a held-out native linker relative to context-free retrieval and simple sequence/length rules? Native recovery is only a proxy for contextual compatibility. It cannot prove that a recovered linker is experimentally best.
+
+SynLinker already mines and designs linkers and joins uploaded domain structures, so general linker recommendation or fusion assembly is \emph{not} claimed as new \cite{synlinker}. Earlier random-forest work addresses sequence-based inter-domain linker identification \cite{drop}; natural multi-domain linkers and flexible linker design are established topics \cite{chen}. A recent DLD dataset provides a more carefully annotated disordered-linker resource and an important independent comparator for our coarse CATH-gap extraction \cite{dld}. The proposed contribution, if supported by later experiments, is a provenance-bearing, family-separated benchmark and matched comparison of context-aware versus context-free \emph{ranking} for two specified domains. This study does not yet test that proposed contribution.
+
+\section{Data and methods}
+\subsection{Candidate mining and evidence tiers}
+We downloaded CATH v4.4 domain boundaries and classifications \cite{cath} and selected entries labelled as exactly two domains, each continuous and at least 40 residues, on the same author-numbered PDB chain. A gap of 5--30 numbered residues between the two boundaries was treated as a \emph{candidate linker}, not a confirmed linker. Annotations were joined to CATH domain identifiers. For a deterministic SHA-256-ordered subset of doubly annotated chains, RCSB legacy PDB coordinates and mmCIF polymer sequence schemes were downloaded \cite{rcsb}. Sequence-scheme mappings supplied residues absent from the coordinates; C$\alpha$ coordinates at domain ports supplied a local contact-density proxy. This proxy is not measured solvent accessibility. Each output retains source IDs, raw-file hashes, pipeline commit, configuration hash, and provisional evidence status. Manual review of engineered status, domain boundaries, and linker secondary structure remains outstanding.
+
+\subsection{Diagnostic ranker and evaluation}
+Only port-complete provisional records entered the pilot. Ordered CATH family-pair labels served as a \emph{coarse architecture proxy} for group separation, not true sequence-identity or homology clusters. Candidate alternatives were retrieved from training records; training pairs contrasted each observed linker with transplanted alternatives. These are synthetic comparisons, not experimental failure labels. We compared nearest-training retrieval with a linear pairwise ranker using hand-built linker and local-port features. For evaluation, the hidden reference linker was injected into the same candidate set for both scorers; separate production-pool coverage was measured without injection. This reference-injected benchmark estimates conditional ranking only. Mean reciprocal rank (MRR), top-1 and top-5 rates were calculated on the blind partition. No ESM-2 embeddings, geometric neural network, structural relaxation, or molecular dynamics were run in this pilot.
+
+\section{Preliminary results}
+The full CATH boundary pass produced 612 simple-gap candidates, of which 368 had both domain families assigned. A deterministic subset of 120 chains was requested from RCSB. Ninety-one passed mechanical sequence and port checks, and all 91 had complete pilot features. All 91 had at least one linker residue absent from resolved coordinates, though present in the deposited polymer sequence. These remain unreviewed candidate linker records; the accepted count must not be interpreted as validated natural linkers.
+
+\begin{figure}[h]
+\centering
+\begin{tabular}{@{}l l r@{}}
+\toprule
+Stage & Count visualisation (relative scale) & $n$\\
+\midrule
+Simple CATH two-domain gaps & \rule{60mm}{2.2mm} & 612\\
+Both CATH families annotated & \rule{36.1mm}{2.2mm} & 368\\
+RCSB subset requested & \rule{11.8mm}{2.2mm} & 120\\
+Mechanically accepted & \rule{8.9mm}{2.2mm} & 91\\
+Port-complete pilot records & \rule{8.9mm}{2.2mm} & 91\\
+\bottomrule
+\end{tabular}
+\caption{Extraction funnel. Bars share a 0--612 scale; ``accepted'' means only that automatic checks passed, not that biological linker identity was manually confirmed.}
+\label{fig:funnel}
+\end{figure}
+
+The pilot split contained 64 training, 14 validation, and 13 blind examples, with 320 training pairs. The reference-injected candidate sets had 35 candidates per blind example. Figure~\ref{fig:ranking} reports diagnostic blind-set metrics; production exact-reference coverage was 0\%. Although the hand-feature ranker had higher MRR in this small pilot, neither method placed a reference in the top five. These values cannot establish a method advantage.
+
+\begin{figure}[h]
+\centering
+\begin{tabular}{@{}l c c c l@{}}
+\toprule
+Method & MRR & Top-1 & Top-5 & MRR visualisation (0--0.25)\\
+\midrule
+Nearest-training retrieval & 0.0319 & 0\% & 0\% & \rule{5.1mm}{2.2mm}\\
+Pairwise hand-feature ranker & 0.0632 & 0\% & 0\% & \rule{10.1mm}{2.2mm}\\
+\bottomrule
+\end{tabular}
+\caption{Reference-injected ranking diagnostic on 13 provisional blind examples. Bar width maps MRR 0--0.25 to 0--40\,mm. Identical candidate sets were used. This is not prospective design success.}
+\label{fig:ranking}
+\end{figure}
+
+\section{Interpretation, limitations, and next tests}
+The data-mining pipeline demonstrates that an auditable pilot can be assembled from public resources, but CATH inter-domain gaps are not automatically peptide linkers. Missing junction coordinates in all 91 accepted records and unreviewed constructs weaken biological interpretation. The current family-pair grouping is not a homology-aware split; near-duplicate chains and shared sequence families may remain across partitions. Moreover, a native linker may be one of many functional sequences, so exact recovery undercounts plausible alternatives while also failing to measure expression, folding, or activity.
+
+Before a paper-level model comparison, we will manually adjudicate a stratified sample, compare against DLD annotations where IDs overlap, add explicit engineered/fragment exclusions, cluster full-chain and domain sequences (for example with MMseqs2), freeze held-out groups before feature development, and construct a larger equal-candidate benchmark. We will then compare fixed GS controls, nearest-training retrieval, hand features, frozen ESM-2 sequence features \cite{esm}, local geometric features, and their combination. Structural modelling will be reported as an additional computational plausibility screen, not functional validation. For unrelated domains from separate proteins, there is no native reference; such pairs require an independent engineered-fusion benchmark or are limited to demonstration.
+
+For scale, the planned detector will learn residue-level linker versus non-linker labels from an independently annotated set such as DLD, then screen a much larger UniProt/InterPro sequence-and-domain stream. A low-confidence or no-linker output is allowed. Confident predictions can support weakly supervised ranker training, but their quantity is not a substitute for independent ground truth. A bounded GPU loader will prefetch one network batch while training on the current batch; metadata-only accession and checksum ledgers will permit reconstruction without archiving raw sequences. Million-scale training and validation counts are targets, \emph{not results of this pilot}.
+
+\section{Conclusion}
+The present result is a scripted \emph{feasibility baseline} with traceable data and explicit failure modes. It does not yet support a claim that LinkerForge outperforms existing linker-design methods. The falsifiable next claim is whether domain-context information improves family-held-out native-linker ranking over matched context-free baselines; that claim may be accepted or rejected after a curated, leakage-audited evaluation.
+
+\begin{thebibliography}{9}
+\bibitem{synlinker} C. Liu, J. X. Chin, and D.-Y. Lee, ``SynLinker: an integrated system for designing linkers and synthetic fusion proteins,'' \emph{Bioinformatics}, 31(22), 3700--3702, 2015. \url{https://doi.org/10.1093/bioinformatics/btv447}.
+\bibitem{drop} M. Shatnawi, N. Zaki, and P. D. Yoo, ``Protein inter-domain linker prediction using Random Forest and amino acid physiochemical properties,'' \emph{BMC Bioinformatics}, 15(Suppl. 16), S8, 2014. \url{https://doi.org/10.1186/1471-2105-15-S16-S8}.
+\bibitem{chen} X. Chen, J. L. Zaro, and W.-C. Shen, ``Fusion protein linkers: property, design and functionality,'' \emph{Advanced Drug Delivery Reviews}, 65, 1357--1369, 2013. \url{https://doi.org/10.1016/j.addr.2012.09.039}.
+\bibitem{cath} V. P. Waman et al., ``CATH v4.4: major expansion of CATH by experimental and predicted structural data,'' \emph{Nucleic Acids Research}, 53, D348--D355, 2025. \url{https://doi.org/10.1093/nar/gkae1087}.
+\bibitem{rcsb} S. K. Burley et al., ``RCSB Protein Data Bank: powerful new tools for exploring 3D structures of biological macromolecules,'' \emph{Nucleic Acids Research}, 49, D437--D451, 2021. \url{https://doi.org/10.1093/nar/gkaa1038}.
+\bibitem{esm} Z. Lin et al., ``Evolutionary-scale prediction of atomic-level protein structure with a language model,'' \emph{Science}, 379, 1123--1130, 2023. \url{https://doi.org/10.1126/science.ade2574}.
+\bibitem{dld} D. Meng et al., ``Expanding the Landscape of Disordered Flexible Linkers: A Structural and Computational Framework for DLD Dataset Assembly,'' \emph{Journal of Molecular Biology}, 438, 169994, 2026. \url{https://doi.org/10.1016/j.jmb.2026.169994}.
+\end{thebibliography}
+\end{document}

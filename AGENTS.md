@@ -2,6 +2,21 @@
 
 Read `README.md` completely before changing this repository. It is the canonical scientific and MVP specification.
 
+On `codex/fusion-linker-generator`, the human's 18 October 2026 instruction
+authorizes component 5 implementation from `ARCHITECTURE_HANDOFF.md`.
+Read `FUSION_GENERATOR.md` for this checkout's code and limits. Build and test
+the generator without biological training while data is absent; preserve the
+detector firewall, all other checkouts and unreviewed shared contracts.
+Do not interpret the historical detector-only scope below as cancelling that
+direct instruction. No team review, cloud readiness or trained performance is
+implied by this implementation.
+
+For the **active DFL detector** research, then read `RESEARCH_HANDOFF.md` and
+`literature/DFL_UNTOUCHED_COMPARISON_CONTRACT_2026-10-17.md`. The fusion-ranker
+decisions below are historical/future scope, not the active detector training
+objective. The current protected DFL split fails the prospective benchmark
+firewall; never bypass preflight or use public CAID3 scores to select a model.
+
 ## Current state
 
 - The React/Vite frontend exists and uses labelled demonstration data.

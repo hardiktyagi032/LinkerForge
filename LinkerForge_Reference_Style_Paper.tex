@@ -1,0 +1,360 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,top=1.55cm,bottom=1.65cm,left=1.75cm,right=1.75cm,headheight=14pt]{geometry}
+\usepackage{mathptmx}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\definecolor{journalpurple}{HTML}{4A214E}
+\definecolor{rulegray}{HTML}{777777}
+\hypersetup{colorlinks=true,linkcolor=journalpurple,citecolor=journalpurple,urlcolor=journalpurple}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize LinkerForge Research Proposal}
+\fancyhead[R]{\footnotesize \thepage}
+\fancyfoot[L]{\footnotesize Computational protein-linker design}
+\fancyfoot[R]{\footnotesize \url{https://github.com/richennacht/LinkerForge}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\titleformat{\section}{\bfseries\normalsize}{\thesection.}{0.45em}{}
+\titleformat{\subsection}{\bfseries\small}{\thesubsection.}{0.45em}{}
+\titlespacing*{\section}{0pt}{1.15em}{0.35em}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.25em}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\setlist{nosep,leftmargin=1.6em}
+\renewcommand{\arraystretch}{1.15}
+
+\begin{document}
+
+\thispagestyle{fancy}
+
+\noindent
+\begin{tabularx}{\textwidth}{@{}Xr@{}}
+  {\color{journalpurple}\rule{0.75cm}{0.75cm}}\hspace{0.3cm}\begin{minipage}[b]{0.58\textwidth}
+  \small Computational Structural Bioinformatics\\[-1pt]
+  \textbf{LinkerForge Research Paper}
+  \end{minipage}
+  & \textbf{Research Proposal}\\
+\end{tabularx}
+\vspace{0.25em}
+\hrule
+\vspace{1.2em}
+
+\noindent\textit{Article}
+
+\vspace{0.35em}
+{\raggedright\fontsize{19}{22}\selectfont\bfseries
+LinkerForge: Structure-Conditioned Ranking of Peptide Linkers\\
+for Computational Fusion-Protein Design\par}
+
+\vspace{0.75em}
+\noindent\textbf{LinkerForge Project Team}
+
+\vspace{1.2em}
+\begin{center}
+\begin{minipage}{0.73\textwidth}
+\small
+Computational research project; twelve-week proposed duration; four-person team.\\
+Repository: \url{https://github.com/richennacht/LinkerForge}
+
+\vspace{1em}
+\noindent\textbf{Abstract:}
+Peptide linkers can determine whether two fused protein partners retain suitable separation, orientation, folding, and access to functional regions. Existing resources such as SynLinker retrieve natural or empirical linker sequences according to user-selected properties and can construct a possible fused conformation, but they do not learn a context-specific compatibility function from the sequences and three-dimensional attachment environments of the supplied fusion partners. We propose LinkerForge, an explainable computational workflow that ranks constrained peptide-linker candidates for two supplied soluble fusion partners and explicitly selected attachment residues. The model will learn from natural same-chain two-domain proteins using frozen protein-language-model embeddings, a geometric graph of both attachment environments, and a compact linker-sequence encoder. Training will use pairwise comparisons between observed natural linkers and labelled corrupted or transplanted alternatives. Evaluation will use homology- and domain-family-aware held-out groups, with masked natural linkers revealed only after predictions are frozen. Candidate structures will pass through a predefined Rosetta, AlphaFold/ColabFold, hard-rejection, and OpenMM funnel. The primary endpoint is the fraction of unseen fusion-partner pairs for which at least one top-five candidate passes every frozen structural requirement. The sfGFP--mCherry fusion is reserved as a final worked demonstration and is neither the core task nor the training target. The project is computational only and will report ranked computational candidates rather than experimental proof.
+
+\vspace{0.75em}
+\noindent\textbf{Keywords:} peptide linker; fusion protein; protein language model; geometric neural network; structural bioinformatics; explainable ranking; computational protein design
+\end{minipage}
+\end{center}
+
+\vspace{0.65em}
+\hrule
+\vspace{0.45em}
+
+\section{Introduction}
+
+Fusion proteins join independently folding protein components within one polypeptide chain. The connecting linker is not merely a separator: its length, composition, charge, flexibility, and conformation can affect folding, steric accessibility, inter-partner orientation, stability, expression, and retained function \citep{chen2013,george2002}. Flexible glycine/serine-rich linkers are common practical defaults, but no fixed sequence is appropriate for every pair of attachment sites.
+
+Natural multidomain proteins provide observed examples of domains joined by evolutionarily retained intervening sequences. LinkerDB and SynLinker showed that these observations can support systematic linker retrieval \citep{george2002,liu2015}. SynLinker compiled 2,150 natural and 110 artificial or empirical linkers, supports filtering by properties such as length, end-to-end distance, solvent accessibility, composition, terminal residues, and proteolytic sites, and can attach a selected linker to two uploaded PDB structures \citep{liu2015}. This is an important prior system and an explicit baseline for LinkerForge.
+
+The proposed contribution is narrower than unrestricted protein generation and more context-dependent than database filtering. LinkerForge will learn a ranking function conditioned jointly on the two fusion partners, their selected attachment points, and the candidate linker. The scientific question is whether such conditioning improves ranking on unseen protein-family groups under leakage-resistant evaluation.
+
+\section{Problem Formulation and Scope}
+
+\subsection{User-level input}
+
+The user supplies fusion partner A and fusion partner B as experimental PDB/mmCIF structures or as amino-acid sequences accompanied by separately labelled predicted structures. A fusion partner may be a single domain, a complete single-domain protein, or a larger soluble protein with a valid attachment site. The user also specifies one attachment residue on each partner and the permitted linker design space.
+
+The distinction between \emph{fusion partners} and \emph{natural domains} is deliberate. User inputs are fusion partners. Training records are extracted from natural proteins in which two adjacent annotated domains are separated by an observed linker:
+\begin{equation}
+  \mathrm{Domain\ A} \;\Vert\; \mathrm{natural\ linker} \;\Vert\; \mathrm{Domain\ B}.
+\end{equation}
+
+\subsection{Research question}
+
+Given two soluble fusion partners, selected attachment residues, and a constrained linker space, can an explainable multimodal model rank linkers that are more compatible with the partner sequences and attachment geometry than fixed, random, geometry-only, retrieval-based, and feature-based alternatives?
+
+The project excludes unrestricted whole-protein generation, membrane-protein design, cleavable-linker design, wet-lab work, and claims of experimental success. Learned diffusion is outside the minimum viable product.
+
+\section{Relationship to SynLinker}
+
+Table~\ref{tab:synlinker} separates the established SynLinker capabilities from the proposed LinkerForge contribution. The difference is not that LinkerForge accepts two structures; SynLinker already does. The difference is whether the uploaded structures condition linker selection itself.
+
+\begin{table}[t]
+  \caption{Operational comparison with SynLinker. LinkerForge entries describe planned capabilities and are not completed results.}
+  \label{tab:synlinker}
+  \centering
+  \small
+  \begin{tabular}{p{0.18\linewidth}p{0.35\linewidth}p{0.37\linewidth}}
+    \toprule
+    Aspect & SynLinker & LinkerForge proposal \\
+    \midrule
+    Decision rule & Database search using user-selected linker properties & Learned compatibility ranking conditioned on both partners, ports, and linker \\
+    Structural input & Two uploaded PDB structures used after linker selection for fusion construction & PDB/mmCIF structures or labelled predictions used during ranking \\
+    Candidate source & Natural and artificial/empirical linker database & Retrieval, constrained enumeration, and auditable mutation \\
+    Evaluation & Candidate search and possible fused conformation & Family-held-out masked-linker ranking plus common structural rejection rules \\
+    Output & Matching linker list and constructed conformation & Ranked candidates, uncertainty, rejection reasons, metrics, and provenance \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+If LinkerForge were reduced to an updated linker database, rule-based filter, and structure viewer, its distinction from SynLinker would be weak. The defensible contribution therefore requires domain-pair-conditioned learning, blind family-level evaluation, predefined baselines, and provenance-bearing outputs.
+
+\section{Natural-Linker Dataset}
+
+\subsection{Sources and operational definition}
+
+Experimentally determined chains will be obtained from the Protein Data Bank \citep{burley2022}. Residue mappings will be reconciled using SIFTS \citep{dana2019}; canonical sequences and identifiers will come from UniProt \citep{uniprot2025}; and domain boundaries will be supported by CATH and InterPro \citep{waman2025,blum2025}. AlphaFold DB structures may form a separately labelled supplementary tier but will not be mixed with experimental ground truth \citep{varadi2022}.
+
+For adjacent non-overlapping domains in one continuous chain, with $A_{\mathrm{end}} < B_{\mathrm{start}}$, the natural linker is
+\begin{equation}
+  L = \{A_{\mathrm{end}}+1,\ldots,B_{\mathrm{start}}-1\}.
+\end{equation}
+A record will be admitted only when chain identity and residue numbering are reconcilable, the domains are adjacent, no third domain lies between them, boundary evidence passes a configured rule, and the record is not an obvious affinity tag, cleavage product, or unrelated engineered chimera. Raw collection may retain linkers of 1--60 residues; the first design task will restrict candidates to 5--30 residues.
+
+\subsection{Evidence tiers and provenance}
+
+Records will be labelled as gold experimental, silver experimental, predicted supplementary, or rejected. Missing flexible-linker coordinates will not automatically remove a sequence-level record; instead, geometry usability will be explicitly false. Every derived record will preserve source identifiers, database releases, file checksums, residue ranges in source and canonical numbering, observation masks, evidence quality, transformation history, software versions, configuration hash, and pipeline commit.
+
+\subsection{Leakage-resistant partitions}
+
+Repeated PDB structures and chains mapping to the same UniProt protein will first be grouped. MMseqs2 will support sequence clustering \citep{steinegger2017}. Whole groups, not individual rows, will be assigned to training, validation, or blind partitions using full-sequence similarity, both domain-family identities, ordered family pair, linker similarity, and shared UniProt identity. A nominal 70/15/15 split will be targeted, but cluster integrity takes priority over exact proportions. The blind split manifest will be frozen before model selection.
+
+\section{Proposed Model}
+
+For fusion partners $P_A$ and $P_B$, selected ports $a$ and $b$, and candidate linker $L$, LinkerForge estimates an ordinal compatibility score
+\begin{equation}
+  s(P_A,P_B,a,b,L)=f_{\theta}\!\left(e_A,e_B,g_{a,b},\ell_L,d_L\right),
+\end{equation}
+where $e_A$ and $e_B$ are frozen protein-language-model representations, $g_{a,b}$ is a geometric representation of the two local attachment environments, $\ell_L$ is a learned linker representation, and $d_L$ contains deterministic linker descriptors.
+
+\subsection{Sequence representation}
+
+Frozen ESM-2 residue embeddings will encode both fusion partners \citep{lin2023}. Freezing reduces compute and data requirements and prevents the 12-week study from becoming foundation-model training.
+
+\subsection{Attachment-point geometry}
+
+A local graph will contain residues around both selected ports. Node features will include amino-acid identity, sequence embedding, secondary structure, solvent accessibility, observation or prediction confidence, backbone orientation, and partner identity. Edges will represent covalent and spatial neighbours. A geometric vector perceptron-style encoder will model scalar and directional features without depending on an arbitrary global frame \citep{jing2021}.
+
+\subsection{Linker representation and multitask heads}
+
+A compact Transformer, bidirectional recurrent network, or one-dimensional convolutional network will encode linker sequence and length. Deterministic descriptors will include composition, hydropathy, net-charge proxy, predicted flexibility, low-complexity fraction, and prohibited-motif flags. The fused representation will produce a compatibility score and auxiliary estimates of suitable length/class, clash risk, domain-deformation risk, protected-site obstruction risk, and confidence or abstention.
+
+\subsection{Learning objective}
+
+For each natural example, the observed linker $L^{+}$ will be compared with explicitly labelled alternatives $L^{-}$ produced by length perturbation, residue shuffling, reversal, transplantation, hydrophobisation, or motif insertion. Pairwise logistic ranking may use
+\begin{equation}
+  \mathcal{L}_{\mathrm{rank}} = -\log \sigma\!\left(s(P_A,P_B,a,b,L^{+})-s(P_A,P_B,a,b,L^{-})\right).
+\end{equation}
+Synthetic negatives mean less compatible under the training construction, not experimentally failed proteins. Batches will group candidates belonging to the same context so the task cannot be solved solely from partner identity.
+
+\section{Baselines and Evaluation}
+
+All methods will receive the same candidate sets and face the same structural rejection rules. Required baselines are direct fusion, fixed $(\mathrm{GGGGS})_3$, random length-matched GS-rich linkers, terminal-geometry-only length selection, nearest-neighbour natural-linker retrieval, and an XGBoost-style feature ranker. Sequence-only and geometry-only neural ablations will test the value of multimodal conditioning.
+
+For each blind example, the natural linker will be hidden and top-$k$ recommendations saved before reference reveal. The primary endpoint is the percentage of unseen partner pairs for which at least one top-five LinkerForge candidate passes every frozen structural requirement. Secondary outcomes include natural-linker rank, mean reciprocal rank, pairwise accuracy, class accuracy, length error, sequence and physicochemical similarity, chain closure, clash count, partner preservation, protected-site clearance, domain-specific pLDDT, inter-partner PAE, runtime, abstention, and failure rate. Bootstrap intervals will resample held-out family groups, and methods will be paired on identical blind examples.
+
+\section{Structural Validation Funnel}
+
+Shortlisted complete fusion sequences will pass through the following fixed stages.
+
+\begin{enumerate}
+  \item \textbf{Rosetta/PyRosetta:} construct the connection, sample linker conformations, test closure, and remove severe clashes; kinematic-closure methods provide a relevant foundation \citep{stein2013}.
+  \item \textbf{AlphaFold/ColabFold:} predict complete sequences and retain structures, pLDDT, PAE, pTM, seeds, settings, and versions \citep{jumper2021,mirdita2022}.
+  \item \textbf{Hard rejection:} reject closure failure, severe residual clashes, substantial partner deformation, protected-site obstruction, invalid output, sequence-rule violations, or uncertainty above a threshold frozen on validation data.
+  \item \textbf{OpenMM:} minimise passing finalists and, if resources permit, run short explicitly limited simulations for only the best candidates \citep{eastman2024}.
+\end{enumerate}
+
+Low linker pLDDT alone will not cause rejection because a flexible linker may legitimately have low local confidence. AlphaFold/ColabFold is a structure predictor and cannot establish expression, fluorescence, stability, or function.
+
+\section{Final Demonstration}
+
+Only after blind evaluation is complete will the frozen workflow be applied to the example
+\begin{equation}
+  \mathrm{sfGFP}\;\Vert\;L\;\Vert\;\mathrm{mCherry}.
+\end{equation}
+Fusion partner A is sfGFP with its C terminus selected as the initial port. Fusion partner B is mCherry with its N terminus selected as the initial port. Candidate linkers will be flexible, non-cleavable, primarily GS-rich, and 5--30 residues long, with configured auxiliary residues. The fixed comparator is $(\mathrm{GGGGS})_3$. This case demonstrates the end-to-end process only; it is not the core project, the training target, or evidence of universal generalisation.
+
+\section{Twelve-Week Execution Plan}
+
+\begin{table}[h]
+  \caption{Project sequence and exit evidence.}
+  \label{tab:plan}
+  \centering
+  \small
+  \begin{tabular}{c p{0.53\linewidth} p{0.29\linewidth}}
+    \toprule
+    Week & Main activity & Exit evidence \\
+    \midrule
+    1 & Freeze schemas, environment, sources, and inclusion rules & Reviewed data contract \\
+    2 & Implement small PDB/SIFTS/UniProt/CATH extraction & Valid natural-linker records \\
+    3 & Reconstruct one known linker with Rosetta & Closure report \\
+    4 & Scale collection, grading, and deduplication & Dataset quality report \\
+    5 & Compute sequence and attachment-geometry features & Reproducible feature records \\
+    6 & Freeze grouped splits; generate negatives and baselines & Leakage audit \\
+    7 & Implement frozen ESM, geometry, and linker encoders & Training smoke test \\
+    8 & Train on development data and freeze thresholds & Model package \\
+    9 & Run blind evaluation once & Immutable predictions \\
+    10 & Run Rosetta and ColabFold scorecards & Structural report \\
+    11 & Run the sfGFP--mCherry example & Final demonstration \\
+    12 & Reproduce cleanly and prepare paper artefacts & Evidence package \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The four atomic workstreams are data and provenance; baselines and machine learning; structure and scoring; and interface and reproducibility. Shared versioned JSON schemas will prevent one workstream from silently changing another's contract.
+
+\section{Expected Outputs and Claim Boundary}
+
+Expected outputs are a provenance-bearing natural-linker dataset, frozen family-aware splits, deterministic and learned baselines, a trained ranking prototype, blind masked-linker results with raw counts and uncertainty, structural scorecards, and a browser interface displaying structures and provenance. The strongest permissible conclusion is that LinkerForge identified the highest-ranked computational candidate under predefined criteria. No computational output will be called experimentally validated.
+
+\section{Limitations and Broader Considerations}
+
+A natural linker is evidence of occurrence rather than optimality for an engineered fusion. Synthetic alternatives may remain biologically viable. Missing coordinates can bias structural data toward ordered linkers. Domain boundaries vary across annotation systems. PDB redundancy creates leakage risk. Relative partner orientation may remain underdetermined even when each partner is predicted accurately. The 12-week schedule permits a rigorous prototype, not a production platform or a new folding foundation model.
+
+The work uses public protein data and involves no human participants, animals, patient data, or wet-lab procedures. Database, model, and software licences will be recorded by version. Credentials, restricted weights, and large licensed databases will not be committed. Computational predictions will be labelled as theoretical.
+
+\section{Reproducibility Plan}
+
+Every run will receive an immutable configuration, source-manifest hash, Git commit, random seeds, environment identifier, resource request, and output directory. Every stage will write machine-readable status, versions, checksums, warnings, and failure reasons. Long jobs will run on institutional cloud infrastructure rather than web hosting or routine continuous integration. Frontend example values will remain visibly labelled until replaced by schema-valid provenance-bearing records.
+
+\begin{thebibliography}{99}
+
+\bibitem{chen2013}
+X.~Chen, J.~L. Zaro, and W.-C. Shen.
+\newblock Fusion protein linkers: Property, design and functionality.
+\newblock \emph{Advanced Drug Delivery Reviews}, 65(10):1357--1369, 2013.
+\newblock \url{https://doi.org/10.1016/j.addr.2012.09.039}.
+
+\bibitem{george2002}
+R.~A. George and J.~Heringa.
+\newblock An analysis of protein domain linkers: Their classification and role in protein folding.
+\newblock \emph{Protein Engineering}, 15(11):871--879, 2002.
+\newblock \url{https://doi.org/10.1093/protein/15.11.871}.
+
+\bibitem{liu2015}
+C.~Liu, J.~X. Chin, and D.-Y. Lee.
+\newblock SynLinker: An integrated system for designing linkers and synthetic fusion proteins.
+\newblock \emph{Bioinformatics}, 31(22):3700--3702, 2015.
+\newblock \url{https://doi.org/10.1093/bioinformatics/btv447}.
+
+\bibitem{lin2023}
+Z.~Lin, H.~Akin, R.~Rao, et~al.
+\newblock Evolutionary-scale prediction of atomic-level protein structure with a language model.
+\newblock \emph{Science}, 379(6637):1123--1130, 2023.
+\newblock \url{https://doi.org/10.1126/science.ade2574}.
+
+\bibitem{jing2021}
+B.~Jing, S.~Eismann, P.~Suriana, R.~J.~L. Townshend, and R.~O. Dror.
+\newblock Learning from protein structure with geometric vector perceptrons.
+\newblock \emph{International Conference on Learning Representations}, 2021.
+\newblock \url{https://openreview.net/forum?id=1YLJDvSx6J4}.
+
+\bibitem{jumper2021}
+J.~Jumper, R.~Evans, A.~Pritzel, et~al.
+\newblock Highly accurate protein structure prediction with AlphaFold.
+\newblock \emph{Nature}, 596:583--589, 2021.
+\newblock \url{https://doi.org/10.1038/s41586-021-03819-2}.
+
+\bibitem{mirdita2022}
+M.~Mirdita, K.~Schuetze, Y.~Moriwaki, et~al.
+\newblock ColabFold: Making protein folding accessible to all.
+\newblock \emph{Nature Methods}, 19:679--682, 2022.
+\newblock \url{https://doi.org/10.1038/s41592-022-01488-1}.
+
+\bibitem{burley2022}
+S.~K. Burley, C.~Bhikadiya, C.~Bi, et~al.
+\newblock RCSB Protein Data Bank: Celebrating 50 years of the PDB with new tools for understanding and visualizing biological macromolecules in 3D.
+\newblock \emph{Protein Science}, 31(1):187--208, 2022.
+\newblock \url{https://doi.org/10.1002/pro.4213}.
+
+\bibitem{dana2019}
+J.~M. Dana, A.~Gutmanas, N.~Tyagi, et~al.
+\newblock SIFTS: Updated Structure Integration with Function, Taxonomy and Sequences resource allows 40-fold increase in coverage of structure-based annotations for proteins.
+\newblock \emph{Nucleic Acids Research}, 47(D1):D482--D489, 2019.
+\newblock \url{https://doi.org/10.1093/nar/gky1114}.
+
+\bibitem{uniprot2025}
+The UniProt Consortium.
+\newblock UniProt: The Universal Protein Knowledgebase in 2025.
+\newblock \emph{Nucleic Acids Research}, 53(D1):D609--D617, 2025.
+\newblock \url{https://doi.org/10.1093/nar/gkae1010}.
+
+\bibitem{waman2025}
+V.~P. Waman, N.~Bordin, A.~Lau, et~al.
+\newblock CATH v4.4: Major expansion of CATH by experimental and predicted structural data.
+\newblock \emph{Nucleic Acids Research}, 53(D1):D348--D355, 2025.
+\newblock \url{https://doi.org/10.1093/nar/gkae1087}.
+
+\bibitem{blum2025}
+M.~Blum, A.~Andreeva, L.~C. Florentino, et~al.
+\newblock InterPro: The protein sequence classification resource in 2025.
+\newblock \emph{Nucleic Acids Research}, 53(D1):D444--D456, 2025.
+\newblock \url{https://doi.org/10.1093/nar/gkae1082}.
+
+\bibitem{varadi2022}
+M.~Varadi, S.~Anyango, M.~Deshpande, et~al.
+\newblock AlphaFold Protein Structure Database: Massively expanding the structural coverage of protein-sequence space with high-accuracy models.
+\newblock \emph{Nucleic Acids Research}, 50(D1):D439--D444, 2022.
+\newblock \url{https://doi.org/10.1093/nar/gkab1061}.
+
+\bibitem{steinegger2017}
+M.~Steinegger and J.~Soeding.
+\newblock MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets.
+\newblock \emph{Nature Biotechnology}, 35:1026--1028, 2017.
+\newblock \url{https://doi.org/10.1038/nbt.3988}.
+
+\bibitem{stein2013}
+A.~Stein and T.~Kortemme.
+\newblock Improvements to robotics-inspired conformational sampling in Rosetta.
+\newblock \emph{PLoS ONE}, 8(5):e63090, 2013.
+\newblock \url{https://doi.org/10.1371/journal.pone.0063090}.
+
+\bibitem{eastman2024}
+P.~Eastman, R.~Galvelis, R.~P. Pelaez, et~al.
+\newblock OpenMM 8: Molecular dynamics simulation with machine learning potentials.
+\newblock \emph{The Journal of Physical Chemistry B}, 128(1):109--116, 2024.
+\newblock \url{https://doi.org/10.1021/acs.jpcb.3c06662}.
+
+\end{thebibliography}
+
+\section*{Proposal Status}
+
+This document is a research proposal and therefore contains no completed experiments or claimed results. The final manuscript will report the number of dataset examples, train/validation/test partitions, hyperparameters, compute resources, random seeds, uncertainty estimates, baseline implementations, failure counts, licences, and reproducibility instructions. Any use of language models or automated research assistants in manuscript preparation will be disclosed according to the policy of the selected publication venue.
+
+\end{document}

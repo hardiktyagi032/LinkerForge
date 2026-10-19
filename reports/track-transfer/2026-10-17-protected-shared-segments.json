@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-17T00:15:06.200793+00:00",
+  "scope": "protected train vs development; no CAID3 labels accessed",
+  "method": "distinct exact 12-mers with >=5 residue types; flag >=10 shared and >=5% of smaller set",
+  "interpretation_limit": "A flag is not proof of homology; no flag is not proof of family independence. Low-complexity and distant homology need dedicated alignment/cluster review.",
+  "sha256": {
+    "script": "9c5985a5489ba36abcf3e209933077066f3337981067f9b412cedfd1205e8955",
+    "manifest": "a8f5348c6b6d2845e51bc12fdba0b1dcf02c33b22039baa04cab91069b792d24",
+    "train": "be3eb763366064be9bb8bae6d46368518a3e06c7487466707452c150eee0fa9a",
+    "development": "8b6e54a6b8be9d8d6becb9f1ffa05b1518b3ed43503d0fc3156b4be329c81f91"
+  },
+  "pairs_examined": 3318,
+  "flagged_pairs": 0,
+  "hits": []
+}

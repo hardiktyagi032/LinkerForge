@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.org/schemas/0.1.0/final-result.schema.json",
+  "title": "LinkerForge computational structural result",
+  "type": "object",
+  "required": ["schema_version", "run_id", "candidate_id", "status", "hard_rejections", "structure_prediction", "structural_metrics", "limitations", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "run_id": {"type": "string", "minLength": 1},
+    "candidate_id": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "enum": ["pass", "reject", "unassessed", "failed"]},
+    "hard_rejections": {"type": "array", "items": {"type": "string"}},
+    "structure_prediction": {"type": "object"},
+    "structural_metrics": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "provenance": {"type": "object", "required": ["pipeline_commit", "config_hash", "software"]}
+  }
+}

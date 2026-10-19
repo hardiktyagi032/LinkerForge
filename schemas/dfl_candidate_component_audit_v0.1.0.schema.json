@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DFL provisional candidate component audit",
+  "type": "object",
+  "required": ["schema_version", "status", "source_sha256", "provenance", "counts", "components", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "provisional_strong_hit_component_review_not_homology_certification"},
+    "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "provenance": {"type": "object", "required": ["candidate_manifest_sha256", "candidate_records_sha256", "config_sha256", "pipeline_commit", "script_version", "evidence_quality"]},
+    "counts": {"type": "object", "required": ["candidate_ids_seen_in_hits", "strong_hits", "candidate_components", "direct_protected_flagged_candidates", "transitively_protected_flagged_candidates", "additional_transitive_candidates"]},
+    "components": {"type": "array", "items": {"type": "object", "required": ["candidate_ids", "protected_nodes", "requires_protected_split_review"]}},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

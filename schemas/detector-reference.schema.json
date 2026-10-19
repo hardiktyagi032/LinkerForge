@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.example/schemas/detector-reference.schema.json",
+  "title": "Versioned residue-level linker reference record",
+  "type": "object",
+  "required": ["schema_version", "source_id", "sequence", "labels", "domain_tokens", "homology_cluster_id", "split", "label_tier", "evidence_quality", "observation_type", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "source_id": {"type": "string", "minLength": 1},
+    "sequence": {"type": "string", "pattern": "^[ACDEFGHIKLMNPQRSTVWYX]+$"},
+    "labels": {"type": "array", "items": {"enum": [0, 1, 2]}, "minItems": 1},
+    "domain_tokens": {"type": "array", "items": {"enum": [0, 1, 2, 3]}, "minItems": 1},
+    "homology_cluster_id": {"type": "string", "minLength": 1},
+    "split": {"enum": ["train", "validation", "blind"]},
+    "label_tier": {"enum": ["experimental_gold", "curated_reference"]},
+    "evidence_quality": {"type": "string", "minLength": 1},
+    "observation_type": {"const": "natural_reference_annotation"},
+    "provenance": {
+      "type": "object",
+      "required": ["source_url", "source_member", "source_archive_sha256", "source_fold", "pipeline_commit", "config_hash", "software"],
+      "properties": {
+        "source_url": {"type": "string", "format": "uri"},
+        "source_member": {"type": "string", "minLength": 1},
+        "source_archive_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "source_fold": {"type": "integer", "minimum": 1, "maximum": 5},
+        "pipeline_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "config_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "software": {"type": "object"}
+      }
+    }
+  }
+}

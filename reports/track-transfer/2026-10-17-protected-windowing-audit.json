@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-10-16T23:15:41.230636+00:00",
+  "question": "How often do non-overlapping 510-aa training windows fragment protected DFL labels?",
+  "scope": "CAID3-protected train and development only; no CAID3 labels accessed",
+  "window_width": 510,
+  "windowing_implementation": "scripts/train_dfl_masked_cnn.py::windows",
+  "interpretation_limit": "Counts alone cannot establish cause of poor transfer to another dataset.",
+  "hashes_sha256": {
+    "config": "e49780fa6917a446a73d8fb93ae9303151268617fe482cd357c0fa1db69035a1",
+    "data_manifest": "a8f5348c6b6d2845e51bc12fdba0b1dcf02c33b22039baa04cab91069b792d24",
+    "windowing_source": "4e0b7b6e9c7a4df57148dff89756af2e378e933b153a824f3ca7b3d217a75ce8",
+    "train": "be3eb763366064be9bb8bae6d46368518a3e06c7487466707452c150eee0fa9a",
+    "development": "8b6e54a6b8be9d8d6becb9f1ffa05b1518b3ed43503d0fc3156b4be329c81f91",
+    "audit_source": "bf70148d9be9248600ea44889bbf864851c17448a4f27278282526f35828d745"
+  },
+  "splits": {
+    "train": {
+      "proteins": 79,
+      "proteins_longer_than_window": 21,
+      "positive_spans": 61,
+      "positive_spans_crossing_cut": 1,
+      "positive_residues_total": 2272,
+      "positive_residues_in_crossing_spans": 31,
+      "positive_residues_within_16_of_cut": 28,
+      "known_residues_total": 9967,
+      "windows": 105,
+      "windows_with_no_known_residues": 19,
+      "windows_with_positive_residues": 50
+    },
+    "development": {
+      "proteins": 42,
+      "proteins_longer_than_window": 24,
+      "positive_spans": 30,
+      "positive_spans_crossing_cut": 0,
+      "positive_residues_total": 1267,
+      "positive_residues_in_crossing_spans": 0,
+      "positive_residues_within_16_of_cut": 0,
+      "known_residues_total": 7427,
+      "windows": 69,
+      "windows_with_no_known_residues": 20,
+      "windows_with_positive_residues": 26
+    }
+  }
+}

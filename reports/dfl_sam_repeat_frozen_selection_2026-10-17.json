@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "created_utc": "2026-10-16T20:18:51.042861+00:00",
+  "frozen_before_caid3": true,
+  "selection_basis": "filtered_development_only",
+  "claim_status": "public_retrospective_not_fresh_blind",
+  "arch": "samlike",
+  "variant": null,
+  "selected_seed": 7,
+  "checkpoint": "artifacts\\dfl-caid3-protected-baselines-2026-10-16\\samlike-disorder_transfer-seed7\\best.pt",
+  "checkpoint_sha256": "93430a22c3b36cd83ebca1295af430d453aa8b4304515864cd331d8d2af133f5",
+  "checkpoint_manifest_sha256": "abe7ed4224add39a473a769f29788cc9424a0020201cc89826ebabb99d7b64a7",
+  "score_file_sha256": "6855c742ba8a1337808a7dd1c6a63a62fdb9679c008a758a4227774691e67cb6",
+  "selection_rule_sha256": "85e51d77ac75b90046990149685b470b2be4c04f65a0b8012d323239881aba56",
+  "protected_data_manifest_sha256": "a8f5348c6b6d2845e51bc12fdba0b1dcf02c33b22039baa04cab91069b792d24",
+  "eligible_variants": [],
+  "summary": {
+    "baseline": {
+      "mean_aps": 0.7918440575427415,
+      "mean_fmax": 0.7022083021542217,
+      "specificity_by_seed": {
+        "7": 0.8235294117647058,
+        "17": 0.7647058823529411,
+        "31": 0.7647058823529411
+      },
+      "mean_proxy_specificity": 0.7843137254901961
+    },
+    "multiscale_features": {
+      "mean_aps": 0.7985597058525101,
+      "mean_fmax": 0.717666866989178,
+      "specificity_by_seed": {
+        "7": 0.7647058823529411,
+        "17": 0.7647058823529411,
+        "31": 0.7058823529411765
+      },
+      "mean_proxy_specificity": 0.7450980392156863
+    },
+    "boundary_plus_query": {
+      "mean_aps": 0.7955174370394841,
+      "mean_fmax": 0.7120865469816304,
+      "specificity_by_seed": {
+        "7": 0.8235294117647058,
+        "17": 0.5882352941176471,
+        "31": 0.7058823529411765
+      },
+      "mean_proxy_specificity": 0.7058823529411765
+    }
+  },
+  "selection_reason": "highest eligible mean APS, closest-to-mean seed"
+}

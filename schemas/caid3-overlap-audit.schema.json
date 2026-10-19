@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.example/schemas/caid3-overlap-audit.schema.json",
+  "title": "CAID3 versus DLD training overlap audit",
+  "type": "object",
+  "required": ["schema_version", "status", "source_url", "source_sha256", "source_records", "pipeline_commit", "config_hash", "software", "evidence_quality", "hits", "limitations"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "sequence_overlap_screen_not_full_homology_certification"},
+    "source_url": {"type": "string", "format": "uri"},
+    "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_records": {"type": "integer", "minimum": 1},
+    "pipeline_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "config_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "software": {"type": "object"},
+    "evidence_quality": {"const": "official_caid3_reference_and_curated_dld"},
+    "hits": {"type": "array", "items": {"type": "object", "required": ["caid_id", "dld_source_id", "dld_split", "query_coverage", "aligned_identity"]}},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

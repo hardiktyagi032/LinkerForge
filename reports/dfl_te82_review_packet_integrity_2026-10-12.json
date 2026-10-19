@@ -1,0 +1,26 @@
+{
+  "category_counts": {
+    "model_nominated_unknown": 20,
+    "published_negative_control": 10,
+    "published_positive_control": 10,
+    "random_unknown": 10
+  },
+  "distinct_proteins": 50,
+  "limitations": [
+    "Protein IDs and coordinates allow a reviewer to look up public source labels; instruct reviewers not to do so.",
+    "Published positive and negative controls are not independent biological truth.",
+    "No expert decisions are present yet; no biological validity or performance claim follows."
+  ],
+  "private_key_git_ignored": true,
+  "provenance": {
+    "key_sha256": "6f9d5b387299e24d39f916b201b076757dfdac26bc72bef0bd78b4b0bf78ae21",
+    "packet_sha256": "06b005124f9fd1b49bfbc837fc4962ed644fdb172702d5ca0b52a775bf1496c4",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "schema_sha256": "d231813a587286b13c6e1d7d3cbc82c1b48e61fc0428f46b2f6d9452d96964f6",
+    "script_sha256": "456bb6515f24c072bb00a8a08b23703af3881359114252b02ea2e66f034f3a40",
+    "source_sha256": "f15ac3eef1edc45b95bc600d661dab348a0cb0bee11e47febeac356ef93db916"
+  },
+  "records": 50,
+  "schema_version": "0.1.0",
+  "status": "packet_integrity_passed_not_biological_validation"
+}

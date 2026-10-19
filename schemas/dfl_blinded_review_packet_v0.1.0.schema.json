@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/dfl_blinded_review_packet_v0.1.0.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "instructions", "records", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "status": {"const": "blinded_unadjudicated_review_packet"},
+    "instructions": {"type": "string", "minLength": 1},
+    "records": {
+      "type": "array", "minItems": 50, "maxItems": 50,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["case_id", "protein_id", "start_1based", "end_1based", "candidate_sequence", "context_start_1based", "context_end_1based", "context_sequence", "reviewer_label", "reviewer_confidence", "reviewer_evidence"],
+        "properties": {
+          "case_id": {"type": "string", "pattern": "^TE82-R[0-9]{3}$"},
+          "protein_id": {"type": "string", "minLength": 1},
+          "start_1based": {"type": "integer", "minimum": 1},
+          "end_1based": {"type": "integer", "minimum": 1},
+          "candidate_sequence": {"type": "string", "pattern": "^[A-Z]+$"},
+          "context_start_1based": {"type": "integer", "minimum": 1},
+          "context_end_1based": {"type": "integer", "minimum": 1},
+          "context_sequence": {"type": "string", "pattern": "^[A-Z]+$"},
+          "reviewer_label": {"type": ["string", "null"], "enum": ["linker", "not_linker", "uncertain", null]},
+          "reviewer_confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "reviewer_evidence": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_sha256", "nomination_sha256", "pipeline_commit", "seed"],
+      "properties": {
+        "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "nomination_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "pipeline_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "seed": {"type": "integer"}
+      }
+    }
+  }
+}

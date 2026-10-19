@@ -1,0 +1,419 @@
+{
+  "schema_version": "1.0.0",
+  "created_utc": "2026-10-16T20:53:38.549333+00:00",
+  "status": "coverage_audit_not_negative_adjudication",
+  "data_manifest_sha256": "a8f5348c6b6d2845e51bc12fdba0b1dcf02c33b22039baa04cab91069b792d24",
+  "script_sha256": "5e7e9f828a7a648138d2f0e543b7c8fe089722d2e5b6af02843f6d2c899c255f",
+  "definition": "No-positive means zero label-1 residues; zeros are source-published negatives, not independent absence adjudication.",
+  "sections": {
+    "train": {
+      "proteins": 79,
+      "no_positive_proteins": 32,
+      "records": [
+        {
+          "protein_id": "DP00357",
+          "source": "TransDFL_TR166",
+          "sequence_length": 44,
+          "known_negative_residues": 44,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00795",
+          "source": "TransDFL_TR166",
+          "sequence_length": 44,
+          "known_negative_residues": 44,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00539",
+          "source": "TransDFL_TR166",
+          "sequence_length": 486,
+          "known_negative_residues": 221,
+          "unknown_residues": 265,
+          "known_fraction": 0.4547325102880658
+        },
+        {
+          "protein_id": "DP00086",
+          "source": "TransDFL_TR166",
+          "sequence_length": 393,
+          "known_negative_residues": 167,
+          "unknown_residues": 226,
+          "known_fraction": 0.42493638676844786
+        },
+        {
+          "protein_id": "DP00329",
+          "source": "TransDFL_TR166",
+          "sequence_length": 224,
+          "known_negative_residues": 224,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00136",
+          "source": "TransDFL_TR166",
+          "sequence_length": 219,
+          "known_negative_residues": 217,
+          "unknown_residues": 2,
+          "known_fraction": 0.9908675799086758
+        },
+        {
+          "protein_id": "DP00518",
+          "source": "TransDFL_TR166",
+          "sequence_length": 196,
+          "known_negative_residues": 113,
+          "unknown_residues": 83,
+          "known_fraction": 0.576530612244898
+        },
+        {
+          "protein_id": "DP00803",
+          "source": "TransDFL_TR166",
+          "sequence_length": 144,
+          "known_negative_residues": 58,
+          "unknown_residues": 86,
+          "known_fraction": 0.4027777777777778
+        },
+        {
+          "protein_id": "DP01106",
+          "source": "TransDFL_TR166",
+          "sequence_length": 622,
+          "known_negative_residues": 363,
+          "unknown_residues": 259,
+          "known_fraction": 0.5836012861736335
+        },
+        {
+          "protein_id": "DP00214",
+          "source": "TransDFL_TR166",
+          "sequence_length": 314,
+          "known_negative_residues": 314,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00241",
+          "source": "TransDFL_TR166",
+          "sequence_length": 726,
+          "known_negative_residues": 318,
+          "unknown_residues": 408,
+          "known_fraction": 0.4380165289256198
+        },
+        {
+          "protein_id": "DP00291",
+          "source": "TransDFL_TR166",
+          "sequence_length": 256,
+          "known_negative_residues": 192,
+          "unknown_residues": 64,
+          "known_fraction": 0.75
+        },
+        {
+          "protein_id": "DP00563",
+          "source": "TransDFL_TR166",
+          "sequence_length": 204,
+          "known_negative_residues": 204,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP01833",
+          "source": "TransDFL_TR166",
+          "sequence_length": 32,
+          "known_negative_residues": 22,
+          "unknown_residues": 10,
+          "known_fraction": 0.6875
+        },
+        {
+          "protein_id": "DP00118",
+          "source": "TransDFL_TR166",
+          "sequence_length": 449,
+          "known_negative_residues": 449,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00719",
+          "source": "TransDFL_TR166",
+          "sequence_length": 410,
+          "known_negative_residues": 182,
+          "unknown_residues": 228,
+          "known_fraction": 0.44390243902439025
+        },
+        {
+          "protein_id": "DP00521",
+          "source": "TransDFL_TR166",
+          "sequence_length": 202,
+          "known_negative_residues": 202,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00811",
+          "source": "TransDFL_TR166",
+          "sequence_length": 140,
+          "known_negative_residues": 68,
+          "unknown_residues": 72,
+          "known_fraction": 0.4857142857142857
+        },
+        {
+          "protein_id": "DP00242",
+          "source": "TransDFL_TR166",
+          "sequence_length": 84,
+          "known_negative_residues": 83,
+          "unknown_residues": 1,
+          "known_fraction": 0.9880952380952381
+        },
+        {
+          "protein_id": "DP01146",
+          "source": "TransDFL_TR166",
+          "sequence_length": 56,
+          "known_negative_residues": 56,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00133",
+          "source": "TransDFL_TR166",
+          "sequence_length": 507,
+          "known_negative_residues": 300,
+          "unknown_residues": 207,
+          "known_fraction": 0.591715976331361
+        },
+        {
+          "protein_id": "DP00699",
+          "source": "TransDFL_TR166",
+          "sequence_length": 709,
+          "known_negative_residues": 406,
+          "unknown_residues": 303,
+          "known_fraction": 0.5726375176304654
+        },
+        {
+          "protein_id": "DP00700",
+          "source": "TransDFL_TR166",
+          "sequence_length": 707,
+          "known_negative_residues": 404,
+          "unknown_residues": 303,
+          "known_fraction": 0.5714285714285714
+        },
+        {
+          "protein_id": "DP01474",
+          "source": "TransDFL_TR166",
+          "sequence_length": 294,
+          "known_negative_residues": 201,
+          "unknown_residues": 93,
+          "known_fraction": 0.6836734693877551
+        },
+        {
+          "protein_id": "DP00816",
+          "source": "TransDFL_TR166",
+          "sequence_length": 205,
+          "known_negative_residues": 156,
+          "unknown_residues": 49,
+          "known_fraction": 0.7609756097560976
+        },
+        {
+          "protein_id": "DP00421",
+          "source": "TransDFL_TR166",
+          "sequence_length": 202,
+          "known_negative_residues": 202,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP01178",
+          "source": "TransDFL_TR166",
+          "sequence_length": 699,
+          "known_negative_residues": 699,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00520",
+          "source": "TransDFL_TR166",
+          "sequence_length": 451,
+          "known_negative_residues": 217,
+          "unknown_residues": 234,
+          "known_fraction": 0.4811529933481153
+        },
+        {
+          "protein_id": "DP00948",
+          "source": "TransDFL_TR166",
+          "sequence_length": 422,
+          "known_negative_residues": 179,
+          "unknown_residues": 243,
+          "known_fraction": 0.42417061611374407
+        },
+        {
+          "protein_id": "DP01071",
+          "source": "TransDFL_TR166",
+          "sequence_length": 422,
+          "known_negative_residues": 422,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00068",
+          "source": "TransDFL_TR166",
+          "sequence_length": 206,
+          "known_negative_residues": 206,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00219",
+          "source": "TransDFL_TR166",
+          "sequence_length": 126,
+          "known_negative_residues": 126,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        }
+      ]
+    },
+    "development": {
+      "proteins": 42,
+      "no_positive_proteins": 17,
+      "records": [
+        {
+          "protein_id": "DP00225",
+          "source": "TransDFL_TE82",
+          "sequence_length": 915,
+          "known_negative_residues": 569,
+          "unknown_residues": 346,
+          "known_fraction": 0.6218579234972678
+        },
+        {
+          "protein_id": "DP00251",
+          "source": "TransDFL_TE82",
+          "sequence_length": 575,
+          "known_negative_residues": 432,
+          "unknown_residues": 143,
+          "known_fraction": 0.7513043478260869
+        },
+        {
+          "protein_id": "DP00632",
+          "source": "TransDFL_TE82",
+          "sequence_length": 656,
+          "known_negative_residues": 264,
+          "unknown_residues": 392,
+          "known_fraction": 0.4024390243902439
+        },
+        {
+          "protein_id": "DP01075",
+          "source": "TransDFL_TE82",
+          "sequence_length": 1076,
+          "known_negative_residues": 777,
+          "unknown_residues": 299,
+          "known_fraction": 0.7221189591078067
+        },
+        {
+          "protein_id": "DP00564",
+          "source": "TransDFL_TE82",
+          "sequence_length": 170,
+          "known_negative_residues": 168,
+          "unknown_residues": 2,
+          "known_fraction": 0.9882352941176471
+        },
+        {
+          "protein_id": "DP00609",
+          "source": "TransDFL_TE82",
+          "sequence_length": 1503,
+          "known_negative_residues": 839,
+          "unknown_residues": 664,
+          "known_fraction": 0.5582168995342648
+        },
+        {
+          "protein_id": "DP01100",
+          "source": "TransDFL_TE82",
+          "sequence_length": 441,
+          "known_negative_residues": 441,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP01047",
+          "source": "TransDFL_TE82",
+          "sequence_length": 354,
+          "known_negative_residues": 150,
+          "unknown_residues": 204,
+          "known_fraction": 0.423728813559322
+        },
+        {
+          "protein_id": "DP00052",
+          "source": "TransDFL_TE82",
+          "sequence_length": 302,
+          "known_negative_residues": 285,
+          "unknown_residues": 17,
+          "known_fraction": 0.9437086092715232
+        },
+        {
+          "protein_id": "DP01151",
+          "source": "TransDFL_TE82",
+          "sequence_length": 266,
+          "known_negative_residues": 266,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00250",
+          "source": "TransDFL_TE82",
+          "sequence_length": 258,
+          "known_negative_residues": 194,
+          "unknown_residues": 64,
+          "known_fraction": 0.751937984496124
+        },
+        {
+          "protein_id": "DP01144",
+          "source": "TransDFL_TE82",
+          "sequence_length": 219,
+          "known_negative_residues": 100,
+          "unknown_residues": 119,
+          "known_fraction": 0.45662100456621
+        },
+        {
+          "protein_id": "DP00543",
+          "source": "TransDFL_TE82",
+          "sequence_length": 63,
+          "known_negative_residues": 29,
+          "unknown_residues": 34,
+          "known_fraction": 0.4603174603174603
+        },
+        {
+          "protein_id": "DP00978",
+          "source": "TransDFL_TE82",
+          "sequence_length": 843,
+          "known_negative_residues": 466,
+          "unknown_residues": 377,
+          "known_fraction": 0.5527876631079478
+        },
+        {
+          "protein_id": "DP00472",
+          "source": "TransDFL_TE82",
+          "sequence_length": 639,
+          "known_negative_residues": 324,
+          "unknown_residues": 315,
+          "known_fraction": 0.5070422535211268
+        },
+        {
+          "protein_id": "DP00221",
+          "source": "TransDFL_TE82",
+          "sequence_length": 585,
+          "known_negative_residues": 585,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        },
+        {
+          "protein_id": "DP00057",
+          "source": "TransDFL_TE82",
+          "sequence_length": 62,
+          "known_negative_residues": 62,
+          "unknown_residues": 0,
+          "known_fraction": 1.0
+        }
+      ]
+    },
+    "auxiliary": {
+      "proteins": 72,
+      "no_positive_proteins": 0,
+      "records": []
+    }
+  }
+}

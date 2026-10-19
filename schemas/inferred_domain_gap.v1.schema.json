@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richennacht/LinkerForge/schemas/inferred_domain_gap.v1.schema.json",
+  "title": "UniProt inferred interdomain candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source", "accession", "start_1based", "end_1based", "sequence", "left_domain", "right_domain", "evidence_tier", "provenance"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "source": {"enum": ["UniProtKB_reviewed_domain_features", "UniProtKB_unreviewed_human_reference_proteome_domain_features", "UniProtKB_unreviewed_mouse_domain_features", "UniProtKB_unreviewed_zebrafish_domain_features", "UniProtKB_unreviewed_arabidopsis_domain_features", "UniProtKB_unreviewed_drosophila_domain_features"]},
+    "accession": {"type": "string", "minLength": 1},
+    "start_1based": {"type": "integer", "minimum": 1},
+    "end_1based": {"type": "integer", "minimum": 1},
+    "sequence": {"type": "string", "pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$"},
+    "left_domain": {"type": "object", "required": ["start_1based", "end_1based", "annotation"], "properties": {"start_1based": {"type": "integer"}, "end_1based": {"type": "integer"}, "annotation": {"type": "string"}}},
+    "right_domain": {"type": "object", "required": ["start_1based", "end_1based", "annotation"], "properties": {"start_1based": {"type": "integer"}, "end_1based": {"type": "integer"}, "annotation": {"type": "string"}}},
+    "evidence_tier": {"enum": ["inferred_interdomain_candidate", "inferred_unreviewed_interdomain_candidate"]},
+    "provenance": {"type": "object", "required": ["source_url", "source_sha256", "config_sha256", "pipeline_commit", "pipeline_sha256", "retrieved_at_utc"], "properties": {"source_url": {"type": "string"}, "source_sha256": {"type": "string"}, "config_sha256": {"type": "string"}, "pipeline_commit": {"type": "string"}, "pipeline_sha256": {"type": "string"}, "retrieved_at_utc": {"type": "string"}}}
+  }
+}

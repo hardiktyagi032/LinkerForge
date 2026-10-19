@@ -1,0 +1,17 @@
+{
+  "created_utc": "2026-10-17T00:00:03.830159+00:00",
+  "scope": "protected train vs development only; CAID3 labels never opened",
+  "test": "exact protein ID, full-sequence equality, and either-direction full-sequence containment",
+  "limit": "A zero-hit result does not exclude local similarity, homologs, or domain-family leakage.",
+  "sha256": {
+    "script": "14d4148f98060ebd11b741a62c0c2760609c6a61e7bd08369a66f32ddd70594b",
+    "manifest": "a8f5348c6b6d2845e51bc12fdba0b1dcf02c33b22039baa04cab91069b792d24",
+    "train": "be3eb763366064be9bb8bae6d46368518a3e06c7487466707452c150eee0fa9a",
+    "development": "8b6e54a6b8be9d8d6becb9f1ffa05b1518b3ed43503d0fc3156b4be329c81f91"
+  },
+  "train_records": 79,
+  "development_records": 42,
+  "pairs_examined": 3318,
+  "hit_count": 0,
+  "hits": []
+}

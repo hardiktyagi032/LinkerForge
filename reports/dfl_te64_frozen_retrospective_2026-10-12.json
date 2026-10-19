@@ -1,0 +1,38 @@
+{
+  "limitations": [
+    "TE64 is a published historical test, not a fresh blind test.",
+    "The prior TE82-selected checkpoints are unchanged; do not tune or select on TE64.",
+    "This does not reproduce original TransDFL inference."
+  ],
+  "provenance": {
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "script_sha256": "7cba4e251f4385f7b9979a182e28215eccdf0b2329a328e73d1434e3538fd775",
+    "te64_sha256": "4d6321a0483182139149b1d535ad2b8c1a34688082eb80e91662f8c9972d43eb"
+  },
+  "results": {
+    "LinkerForge_CNN": {
+      "aps": 0.21428023498145904,
+      "auroc": 0.6643827124920306,
+      "checkpoint_sha256": "3e41d94048b60581ed7321f723d5c3c77e48a68465ef031172d93b196a2c05d1",
+      "positive_residues": 949,
+      "scored_residues": 10256
+    },
+    "LinkerForge_precision": {
+      "aps": 0.22267452017609785,
+      "auroc": 0.668653323359385,
+      "checkpoint_sha256": "b9002d55670e5e6a95788d03190bbe5c5ae86a5bd2de1f2611022a9352a66b3a",
+      "positive_residues": 949,
+      "scored_residues": 10256
+    },
+    "LinkerForge_span": {
+      "aps": 0.21376514769804447,
+      "auroc": 0.6690942595866125,
+      "checkpoint_sha256": "40c148b7eef61e820c203345f2cc5ffb03521f1fb4fb2efa512881e6c816d1d9",
+      "positive_residues": 949,
+      "scored_residues": 10256
+    }
+  },
+  "schema_version": "0.1.0",
+  "status": "retrospective_test_frozen_checkpoints_no_selection",
+  "test": "TransDFL_TE64"
+}

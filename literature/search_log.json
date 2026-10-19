@@ -1,0 +1,86 @@
+﻿[
+    {
+        "query":  "protein interdomain linker prediction",
+        "api_total":  5779,
+        "returned":  200,
+        "new_unique":  200
+    },
+    {
+        "query":  "protein domain boundary prediction linker",
+        "api_total":  56862,
+        "returned":  200,
+        "new_unique":  177
+    },
+    {
+        "query":  "natural protein linker identification",
+        "api_total":  756917,
+        "returned":  200,
+        "new_unique":  193
+    },
+    {
+        "query":  "fusion protein peptide linker design",
+        "api_total":  162577,
+        "returned":  200,
+        "new_unique":  195
+    },
+    {
+        "query":  "synthetic fusion protein linker optimization",
+        "api_total":  67685,
+        "returned":  200,
+        "new_unique":  177
+    },
+    {
+        "query":  "protein linker sequence machine learning",
+        "api_total":  99274,
+        "returned":  200,
+        "new_unique":  195
+    },
+    {
+        "query":  "protein linker generative design",
+        "api_total":  54537,
+        "returned":  200,
+        "new_unique":  194
+    },
+    {
+        "query":  "protein domain insertion site prediction",
+        "api_total":  81876,
+        "returned":  200,
+        "new_unique":  167
+    },
+    {
+        "query":  "circular permutation linker design",
+        "api_total":  14668,
+        "returned":  200,
+        "new_unique":  200
+    },
+    {
+        "query":  "protein fusion site selection",
+        "api_total":  219044,
+        "returned":  200,
+        "new_unique":  174
+    },
+    {
+        "query":  "protein loop design domain connection",
+        "api_total":  54504,
+        "returned":  200,
+        "new_unique":  175
+    },
+    {
+        "query":  "multidomain protein linker structure dynamics",
+        "api_total":  9492,
+        "returned":  200,
+        "new_unique":  169
+    },
+    {
+        "query":  "protein fusion structural modeling linker",
+        "api_total":  266700,
+        "returned":  200,
+        "new_unique":  141
+    },
+    {
+        "query":  "peptide linker sequence function fusion protein",
+        "api_total":  175222,
+        "returned":  200,
+        "new_unique":  80
+    }
+]

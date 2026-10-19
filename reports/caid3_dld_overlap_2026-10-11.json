@@ -1,0 +1,55 @@
+{
+  "schema_version": "0.1.0",
+  "status": "sequence_overlap_screen_not_full_homology_certification",
+  "source_url": "https://caid.idpcentral.org/assets/sections/challenge/static/references/3/linker.fasta",
+  "source_sha256": "4c204ef49ffa12fe166883e6b2cff0012cabee21260b8f32f997081d0e2fa0f8",
+  "source_records": 31,
+  "dld_records": 2620,
+  "dld_shards_sha256": {
+    "data\\processed\\dld_reference\\dld_train.jsonl.gz": "c43952c4f943f458ba61905c34a59e04fadca5607b95d6afc9bd9d1475252c41",
+    "data\\processed\\dld_reference\\dld_validation.jsonl.gz": "290992af4a93c14ba007197c282367734af8ec878783d5e668ee4960128a3461",
+    "data\\processed\\dld_reference\\dld_blind.jsonl.gz": "a2f34eb8485d3c358b2617e2c28c4934e71d615a6bfe059534b921fa24d4bff4"
+  },
+  "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+  "config_hash": "6aaa42bdeee08b4f182c49ea954f7618bb15cfc1d5d4a213441fe1c10bb2ee2d",
+  "software": {
+    "python": "3.12.14",
+    "biopython": "1.88"
+  },
+  "evidence_quality": "official_caid3_reference_and_curated_dld",
+  "hits": [
+    {
+      "caid_id": "DP04066",
+      "dld_source_id": "1a0p_a_P0A8P8",
+      "dld_split": "train",
+      "dld_cluster_id": "1a0p_a_P0A8P8",
+      "query_coverage": 0.9732,
+      "aligned_identity": 1.0,
+      "same_full_sequence": false
+    },
+    {
+      "caid_id": "DP04255",
+      "dld_source_id": "1mvh_a_O60016",
+      "dld_split": "train",
+      "dld_cluster_id": "1ml9_a_Q8X225",
+      "query_coverage": 0.6102,
+      "aligned_identity": 1.0,
+      "same_full_sequence": false
+    },
+    {
+      "caid_id": "DP04392",
+      "dld_source_id": "3cvr_a_Q83RJ4",
+      "dld_split": "validation",
+      "dld_cluster_id": "4puf_a_D0ZRB2",
+      "query_coverage": 1.0,
+      "aligned_identity": 1.0,
+      "same_full_sequence": true
+    }
+  ],
+  "hits_with_train": 2,
+  "limitations": [
+    "Top-5 k-mer prescreen plus local alignment may miss remote homologs.",
+    "A hit indicates potential benchmark contamination, not functional equivalence.",
+    "No CAID3 model accuracy is claimed by this audit."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/validated_linker_subsequence.v1.schema.json",
+  "title": "Validated linker subsequence inventory record, not a DFL detector training example",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "sequence", "sequence_sha256", "length", "qualifying_source_keys", "qualifying_sources", "usage_status", "review_tier", "annotation_scope", "full_protein_sequence_in_this_record", "verified_nonlinker_residues_in_this_record", "dfl_segmentation_training_ready", "reason_not_dfl_training_ready", "source_provenance"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "sequence": {"type": "string", "pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$"},
+    "sequence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "length": {"type": "integer", "minimum": 1},
+    "qualifying_source_keys": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["existing_catalog", "nrps_intermodular", "uniprot_explicit_linker_region"]}},
+    "qualifying_sources": {"type": "object", "minProperties": 1},
+    "usage_status": {"enum": ["protected_benchmark", "quarantined", "needs_boundary_and_homology_audit"]},
+    "review_tier": {"enum": ["protected_do_not_train", "quarantine_overlap", "explicit_uniprot_region_pending_homology_and_evidence_review", "existing_annotation_pending_homology_and_ontology_review", "nrps_intermodular_pending_full_protein_mapping"]},
+    "annotation_scope": {"const": "positive_linker_subsequence_only"},
+    "full_protein_sequence_in_this_record": {"const": false},
+    "verified_nonlinker_residues_in_this_record": {"const": 0},
+    "dfl_segmentation_training_ready": {"const": false},
+    "reason_not_dfl_training_ready": {"type": "string", "minLength": 1},
+    "source_provenance": {"type": "object"}
+  }
+}

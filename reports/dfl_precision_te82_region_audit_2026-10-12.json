@@ -1,0 +1,58 @@
+{
+  "f1_operating_point": {
+    "f1": 0.4735135135135135,
+    "false_positives": 1307,
+    "precision": 0.45587010824313073,
+    "recall": 0.4925775978407557,
+    "threshold": 0.7476525902748108,
+    "true_positives": 1095
+  },
+  "f1_regions": {
+    "matched_regions_iou_0_5": 26,
+    "median_end_error_matched_residues": 1.0,
+    "median_start_error_matched_residues": 0.0,
+    "no_positive_proteins": 44,
+    "no_positive_proteins_without_scored_residue_prediction": 22,
+    "no_positive_scored_residue_specificity": 0.5,
+    "predicted_regions": 150,
+    "region_precision_iou_0_5": 0.17333333333333334,
+    "region_recall_iou_0_5": 0.5652173913043478,
+    "true_regions": 46
+  },
+  "high_precision_operating_point": {
+    "false_positives": 23,
+    "minimum_true_positives": 50,
+    "precision": 0.9012875536480687,
+    "recall": 0.09446693657219973,
+    "target_precision": 0.9,
+    "threshold": 0.9800351858139038,
+    "true_positives": 210
+  },
+  "high_precision_regions": {
+    "matched_regions_iou_0_5": 4,
+    "median_end_error_matched_residues": 2.0,
+    "median_start_error_matched_residues": 2.5,
+    "no_positive_proteins": 44,
+    "no_positive_proteins_without_scored_residue_prediction": 39,
+    "no_positive_scored_residue_specificity": 0.8863636363636364,
+    "predicted_regions": 33,
+    "region_precision_iou_0_5": 0.12121212121212122,
+    "region_recall_iou_0_5": 0.08695652173913043,
+    "true_regions": 46
+  },
+  "limitations": [
+    "Development threshold, not independent test",
+    "Masked positions break reported intervals",
+    "No-positive specificity only on scored residues"
+  ],
+  "provenance": {
+    "checkpoint_sha256": "b9002d55670e5e6a95788d03190bbe5c5ae86a5bd2de1f2611022a9352a66b3a",
+    "dev_sha256": "f15ac3eef1edc45b95bc600d661dab348a0cb0bee11e47febeac356ef93db916",
+    "pipeline_commit": "4519cab377c531e0dc3131a8136654b2a98844c3",
+    "script_sha256": "ef45479695ac792586b9211dd9c6e8e6487d277bfcdbc6c52689037f2967e132"
+  },
+  "record_type": "dfl_precision_trial_region_audit",
+  "schema_version": "0.1.0",
+  "split": "TE82_development_only",
+  "threshold_selection": "TE82_exact_score_ties"
+}

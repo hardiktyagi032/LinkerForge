@@ -1,0 +1,168 @@
+{
+  "date_asia_calcutta": "2026-10-18",
+  "status": "software_implemented_awaiting_data_and_review",
+  "branch": "codex/fusion-linker-generator",
+  "base_commit": "8e0a75f0148c6d2e3fda753e6e49e42ec135c9ad",
+  "scope_authority": "Direct human request to implement architecture PR #7 component 5 without data/training",
+  "hypothesis": "A causal FIM infiller can expose both domain flanks, respect supplied residue length and explicit cassette constraints, and train/resume without loss leakage.",
+  "controlled_comparators": [
+    "training-only length-matched frequency",
+    "training-only unfitted flank 2-mer retrieval",
+    "source-library exact-length/cited-cassette substitution adapter"
+  ],
+  "scientific_performance": null,
+  "biological_records_used": 0,
+  "real_training_runs": 0,
+  "cloud_jobs_launched": 0,
+  "model_downloads": 0,
+  "team_review": "not_performed",
+  "environment": {
+    "python": "3.14.7",
+    "torch": "2.14.1+cpu",
+    "safetensors": "0.8.0",
+    "host": "sPC",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cuda": null,
+    "transformers": "5.20.1",
+    "tokenizers": "0.23.3",
+    "numpy": "2.5.4"
+  },
+  "runtime": "C:/Users/saubh/Documents/ChatGPT/Research/LinkerForge-models/.venv/Scripts/python.exe",
+  "validation": {
+    "generator_tests_passed": 31,
+    "generator_test_seconds": 8.885,
+    "existing_region_tests_passed": 4,
+    "source_wheel_content_matches": true,
+    "synthetic_smoke": {
+      "seed": 17,
+      "train_records": 2,
+      "development_records": 1,
+      "optimizer_updates": 3,
+      "parameters": 17044,
+      "measured_wall_seconds": 1.016045899999881,
+      "resource_ceiling": {
+        "device": "cpu",
+        "threads": 1,
+        "max_steps": 3,
+        "max_wall_seconds": 120
+      },
+      "one_attempt_development_generated_candidates": 1,
+      "separate_cli_generated_candidates": 2
+    }
+  },
+  "source_hashes": {
+    "__init__.py": "e7a6b1d91b6f474f431c5de7937d1dc808cf2c32da941bab1c1cde7d583c2a76",
+    "__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "baselines.py": "6e4e1c428ce126f82be46469a0cf30ffe611ba944c47a121d70653daed6d809d",
+    "cli.py": "e1fedb44fd1343e1c7a59a9b8a809a5a951e1ec45abb3d73b0b879bc53b7c6bd",
+    "constraints.py": "f5f38a5168e1411de7486bec5a41e632526c734896f4b34e7595f6d1504d05a0",
+    "contracts.py": "0e309229110a8ccd1a2ad19449c6e82b60a0156e62a48fa9a7e4af909b6d821a",
+    "data.py": "dc0303083c71dbb3e5df6b0dee02ebf89409408b7571231c5a9489cf4f9d47df",
+    "engine.py": "48ababefc9129d5014067ebd29955fcfa4ce5db618cf3c1b45473c99c4a1813d",
+    "model.py": "dff690058aee7adcf8b671bb806e18aa08b9249f789c65453c2b54087bba084f",
+    "templates.py": "dbeea01830635bd452eb8affd3f52c6ee499b2c1a2f14c9dd4a48b5d961f1be2",
+    "tokenizer.py": "390c5fe53618d51fb8cc407ce592af34800596fb2cbd3c3b456fb1ccd86ba07d"
+  },
+  "input_hashes": {
+    "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-generator\\tmp\\generator-verification\\smoke-final\\fixtures\\manifest.json": "99cfe1648cd1e1ccf372876bc58c8a8783036f1f3762f16c9d70511553193740",
+    "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-generator\\tmp\\generator-verification\\smoke-final\\fixtures\\train.jsonl": "94e1de12809f615bc10265a831260a55f23c9bbe0b793df4c4f9f847a7656aea",
+    "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-generator\\tmp\\generator-verification\\smoke-final\\fixtures\\development.jsonl": "8597d6d818b3acda658e4ca9a60818dac60f9af34472824d4a00be15b6eff0d2"
+  },
+  "files_changed_sha256": {
+    "AGENTS.md": "c85e2f54bdc083b36eba7bc449357ec67c830f1b1089a7b23a4d97a8252f53e0",
+    "README.md": "694b9a1a8b2b4c9447c465ce0e437caf486826cb7597a371d2450a844e6bc3fb",
+    "FUSION_GENERATOR.md": "5acde3e4e8e242f5bfbd275baaa2f4813bbe6b5b4e7c989b53f92807d3d44f14",
+    "pyproject.toml": "a081b510cfdd9f749ce17b1b5502caa8db47bd5b49f8e51ee8d2321d808fa947",
+    "requirements/generator-cpu.txt": "c58e1587b85d2f8096757dfc6ca208a5cb24f8c64382f9063a354c65c0dcb525",
+    "configs/fusion-generator-native.json": "a7592a2875788112bc326302110aaa47e0124e76facfc1097bfb5a64210eb66e",
+    "configs/fusion-generator-pretrained-lora.json": "2382adf06dc58000653c66142b37e985b2e294ab556a27ae12c08cdd5355e6ba",
+    "scripts/fusion_linker_generator.py": "c050b2fb66f0f92477c35e14824a3deb20f683e8d4ff65273bcbd8e3f213b6b5",
+    "src/linkerforge/__init__.py": "d13a0712b60f62474c3c2318a73fd1e81162ec01494f158735f508518c6c0635",
+    "tests/test_fusion_generator.py": "eac294ae1ad0ca06f03ccb40eeb4abc6231fae9cb7b4bec774eb18f3e375b39f",
+    "src/linkerforge/generation/__init__.py": "e7a6b1d91b6f474f431c5de7937d1dc808cf2c32da941bab1c1cde7d583c2a76",
+    "src/linkerforge/generation/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/linkerforge/generation/baselines.py": "6e4e1c428ce126f82be46469a0cf30ffe611ba944c47a121d70653daed6d809d",
+    "src/linkerforge/generation/cli.py": "e1fedb44fd1343e1c7a59a9b8a809a5a951e1ec45abb3d73b0b879bc53b7c6bd",
+    "src/linkerforge/generation/constraints.py": "f5f38a5168e1411de7486bec5a41e632526c734896f4b34e7595f6d1504d05a0",
+    "src/linkerforge/generation/contracts.py": "0e309229110a8ccd1a2ad19449c6e82b60a0156e62a48fa9a7e4af909b6d821a",
+    "src/linkerforge/generation/data.py": "dc0303083c71dbb3e5df6b0dee02ebf89409408b7571231c5a9489cf4f9d47df",
+    "src/linkerforge/generation/engine.py": "48ababefc9129d5014067ebd29955fcfa4ce5db618cf3c1b45473c99c4a1813d",
+    "src/linkerforge/generation/model.py": "dff690058aee7adcf8b671bb806e18aa08b9249f789c65453c2b54087bba084f",
+    "src/linkerforge/generation/templates.py": "dbeea01830635bd452eb8affd3f52c6ee499b2c1a2f14c9dd4a48b5d961f1be2",
+    "src/linkerforge/generation/tokenizer.py": "390c5fe53618d51fb8cc407ce592af34800596fb2cbd3c3b456fb1ccd86ba07d"
+  },
+  "local_artifact_sha256": {
+    "tmp/generator-verification/tests-final.txt": "5172b4d85b196a9233d9c333a2dc2e2f51ddad3bfec0d711aabd241814ec2763",
+    "tmp/generator-verification/smoke-final/smoke.json": "0a6c687b11a66681135a35a129f43be6807395ee8a649e1b0eed6c2a6b37bd9e",
+    "tmp/generator-verification/smoke-final/config.json": "ba266c574b97a324be3fdb29600ab1b38ab4731f73e92fdbb6dc7745a8c9898a",
+    "tmp/generator-verification/smoke-final/training/run.json": "d832365bc0d2c105662f3107abf84f3a8331cf2cc6f4197350346a59312f1b7c",
+    "tmp/generator-verification/smoke-final/training/history.json": "5ff174c359abe577931656c72b99fff649abffd43c2561be7e89e73c85801c10",
+    "tmp/generator-verification/smoke-final/training/step-000003/model.json": "aae91c2c60ee882d7db351ecf1cd036887f2d97daccd5c0e0603f88184100e9f",
+    "tmp/generator-verification/smoke-final/training/step-000003/model.safetensors": "463d82bc6badb3a089fca0d70579b886593af4774195333ffb89e8a6f34c4d96",
+    "tmp/generator-verification/smoke-final/training/step-000003/optimizer.pt": "47c4d3b518db2017bd298d2d3f6dfe8eedc27b628a346c66d2abc143c4a1efc7",
+    "tmp/generator-verification/smoke-final/training/step-000003/training.json": "353b20366cbf57ca3f5c3928dd5694b178edee42f26ae2b2a3946184f924e5e3",
+    "tmp/generator-verification/cli-proposals.json": "cb392e7fae066a4542b750c34d9c3efd47066126dcb5cd7122dd1c6df4c732ad",
+    "tmp/generator-verification/cli-development.json": "7207ac88289ab7d2e6b97f3754e3330c0bfd1d725db477467e39c1dc14876637",
+    "tmp/generator-verification/dist-final/linkerforge_generator-0.1.0-py3-none-any.whl": "162b80ef6ae083f1f8a6034894bb0dae47c298f5a18eee02a7ee7b444337f25d"
+  },
+  "commands": [
+    "$env:PYTHONPATH = (Join-Path (Get-Location) 'src'); & $generatorPython -m unittest discover -s tests -p test_fusion_generator.py -v",
+    "$env:PYTHONPATH = (Join-Path (Get-Location) 'src'); & $generatorPython -m unittest discover -s tests -p test_detector_regions.py -v",
+    "& $generatorPython scripts/fusion_linker_generator.py smoke --output tmp/generator-verification/smoke-final",
+    "& $generatorPython scripts/fusion_linker_generator.py generate --checkpoint tmp/generator-verification/smoke-final/training/step-000003 --request tmp/generator-verification/request.json --count 2 --max-attempts 3 --seed 17 --output tmp/generator-verification/cli-proposals.json",
+    "& $generatorPython scripts/fusion_linker_generator.py evaluate-development --checkpoint tmp/generator-verification/smoke-final/training/step-000003 --manifest tmp/generator-verification/smoke-final/fixtures/manifest.json --synthetic-smoke --output tmp/generator-verification/cli-development.json",
+    "& $generatorUv build --wheel --python $generatorPython --out-dir tmp/generator-verification/dist-final",
+    "& $generatorPython tmp/generator-verification/verify_artifacts.py",
+    "$env:PYTHONPATH = (Join-Path (Get-Location) 'tmp/generator-verification/wheel-extracted'); & $generatorPython -m linkerforge.generation --help",
+    "git diff --check"
+  ],
+  "command_variables": {
+    "generatorPython": "C:/Users/saubh/Documents/ChatGPT/Research/LinkerForge-models/.venv/Scripts/python.exe",
+    "generatorUv": "C:/Users/saubh/Documents/ChatGPT/Research/LinkerForge/.venv/Scripts/uv.exe",
+    "cwd": "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-generator",
+    "TMP_TEMP": "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-generator\\tmp",
+    "UV_CACHE_DIR": "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-generator\\tmp\\uv-cache"
+  },
+  "failure_criteria": [
+    "Target leakage into public prompts/loss",
+    "future-residue causal leakage",
+    "changed frozen base weights",
+    "checkpoint/resume mismatch",
+    "silent data-family/benchmark collision",
+    "unlabelled synthetic output"
+  ],
+  "decision": "Reviewable implementation; no biological efficacy decision possible. Keep weights synthetic and scientific execution gated.",
+  "remaining": [
+    "Reviewed generator dataset with provenance/evidence semantics and audited family splits/protected registries",
+    "Private input-contract/data-team review and separate peer implementation review",
+    "Select/licence/verify compatible pretrained protein checkpoint for the optional adapter path",
+    "Verify institution-approved cloud image/resources and bind the actual reviewed execution receipt",
+    "Review external-library exposure and independent X2 structural/function evaluation protocol"
+  ],
+  "sources": [
+    {
+      "url": "https://github.com/richennacht/LinkerForge/pull/7",
+      "claim": "Component 5: prefix/suffix FIM, supplied length and cleavage, template/adapters baseline architecture"
+    },
+    {
+      "url": "https://github.com/richennacht/LinkerForge/pull/2",
+      "claim": "Unmerged source-library adapter interface; no curated records copied"
+    },
+    {
+      "url": "https://arxiv.org/abs/2303.16452",
+      "claim": "Protein FIM exposes both sequence sides; does not establish LinkerForge fusion efficacy"
+    },
+    {
+      "url": "https://arxiv.org/abs/2106.09685",
+      "claim": "Frozen projections plus trainable low-rank residual mechanism"
+    },
+    {
+      "url": "https://huggingface.co/docs/transformers/en/model_doc/gpt2",
+      "claim": "Tested causal-backbone fixture interface"
+    },
+    {
+      "url": "https://github.com/TeletcheaLab/protGPT2",
+      "claim": "BPE oligomer representation is not a verified residue-exact backend"
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/linker-junction-geometry.v1.schema.json",
+  "title": "Deterministic geometry record for one linker junction or tether set",
+  "description": "Output of linkerforge.geometry. Contains measured geometry and literature-sourced bounds only: no learned score, no fitted threshold and no prediction of expression, folding or activity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "provenance", "geometry"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "record_type": {"enum": ["linker_junction_geometry", "linker_tether_set_geometry"]},
+    "evidence_quality": {
+      "const": "deterministic_geometry",
+      "description": "This record is a measurement under a stated model, not a natural observation, a prediction or an experimental outcome."
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inputs", "commit_sha", "python_version", "constants_sha256", "generated_by"],
+      "properties": {
+        "inputs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["role", "path", "sha256", "chain"],
+            "properties": {
+              "role": {"enum": ["domain_a", "domain_b"]},
+              "path": {"type": "string", "minLength": 1},
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "chain": {"type": "string", "minLength": 1},
+              "residue_count": {"type": "integer", "minimum": 1}
+            }
+          }
+        },
+        "commit_sha": {
+          "type": ["string", "null"],
+          "description": "Repository commit the calculation ran at, or null when it was run outside a git checkout."
+        },
+        "python_version": {"type": "string", "minLength": 1},
+        "constants_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "Digest of the literature constants module, so a record cannot be silently reinterpreted under changed constants."
+        },
+        "generated_by": {"type": "string", "minLength": 1},
+        "command": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "required": ["record_type", "schema_version", "citations", "out_of_scope"],
+      "properties": {
+        "record_type": {"enum": ["linker_junction_geometry", "linker_tether_set_geometry"]},
+        "schema_version": {"const": "1.0.0"},
+        "citations": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string", "minLength": 1},
+          "description": "Every constant used, with its source."
+        },
+        "out_of_scope": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "linker_type": {"enum": ["flexible", "helical"]},
+        "single_chain_input": {"type": "boolean"},
+        "attachment_points": {
+          "type": "object",
+          "required": ["domain_a", "domain_b"],
+          "additionalProperties": {
+            "type": "object",
+            "required": ["chain", "residue", "residue_name", "ca", "side"],
+            "properties": {
+              "chain": {"type": "string"},
+              "residue": {"type": "integer"},
+              "residue_name": {"type": "string"},
+              "ca": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}},
+              "side": {"enum": ["n_terminal", "c_terminal"]}
+            }
+          }
+        },
+        "span": {
+          "type": "object",
+          "required": ["straight_ca_distance_angstrom", "path_length_used_angstrom", "path"],
+          "properties": {
+            "straight_ca_distance_angstrom": {"type": "number", "exclusiveMinimum": 0},
+            "path_length_used_angstrom": {"type": "number", "exclusiveMinimum": 0},
+            "path": {
+              "type": "object",
+              "required": ["passes_through_domain", "path_model", "required_clearance_angstrom"],
+              "properties": {
+                "passes_through_domain": {"type": "boolean"},
+                "path_model": {"enum": ["straight_line", "tangent_arc_tangent_around_blocking_sphere", "undefined"]},
+                "path_length_angstrom": {"type": ["number", "null"]},
+                "detour_lower_bound": {"type": "boolean"},
+                "required_length_is_lower_bound_only": {"type": "boolean"}
+              }
+            }
+          }
+        },
+        "required_linker_length": {
+          "type": "object",
+          "required": ["linker_type", "minimum_residues", "per_residue_rise_angstrom"],
+          "properties": {
+            "minimum_residues": {"type": "integer", "minimum": 0},
+            "maximum_residues": {"type": ["integer", "null"], "minimum": 0},
+            "minimum_residues_design": {"type": "integer", "minimum": 0},
+            "minimum_residues_range": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 0}},
+            "unstrained_residues": {"type": ["integer", "null"], "minimum": 0},
+            "per_residue_rise_angstrom": {"type": "number", "exclusiveMinimum": 0}
+          }
+        },
+        "requested_length_verdict": {
+          "type": "object",
+          "required": ["verdict", "reason", "requested_residues"],
+          "properties": {
+            "verdict": {"enum": ["bridgeable", "too_short", "too_long"]},
+            "reason": {"type": "string", "minLength": 1},
+            "requested_residues": {"type": "integer", "minimum": 0}
+          }
+        },
+        "accessibility": {
+          "type": "object",
+          "properties": {
+            "context_chains": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "verdict": {
+          "enum": [
+            "certified_infeasible",
+            "undetermined",
+            "spans_satisfiable_but_domains_clash",
+            "feasible_with_witness"
+          ],
+          "description": "Tether-set verdicts. 'certified_infeasible' is a proof from the pairwise distance-geometry bound; 'feasible_with_witness' is backed by a returned placement; 'undetermined' means the search found nothing and proves nothing."
+        },
+        "verdict_reason": {"type": "string", "minLength": 1},
+        "chain_topology": {
+          "type": "object",
+          "required": ["tether_count", "peptide_tethers", "topology", "requirement"],
+          "properties": {
+            "tether_count": {"type": "integer", "minimum": 1},
+            "peptide_tethers": {"type": "integer", "minimum": 0},
+            "non_peptide_tethers": {"type": "integer", "minimum": 0},
+            "chain_crossings_required": {"type": "integer", "minimum": 0},
+            "topology": {"enum": ["tandem", "insertional", "split_or_non_peptide", "crosslink_only"]},
+            "requirement": {"type": "string", "minLength": 1}
+          }
+        },
+        "tethers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["tether", "tether_type", "span_window_angstrom"],
+            "properties": {
+              "tether": {"type": "string"},
+              "tether_type": {"enum": ["flexible", "helical", "disulfide"]},
+              "linker_residues": {"type": "integer", "minimum": 0},
+              "span_window_angstrom": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "minimum": 0}}
+            }
+          }
+        },
+        "pairwise_necessary_condition": {
+          "type": "object",
+          "required": ["pairs", "certified_infeasible"],
+          "properties": {
+            "certified_infeasible": {"type": "boolean"},
+            "pairs": {"type": "array", "items": {"type": "object"}}
+          }
+        },
+        "placement": {"type": "object"},
+        "placement_search": {"type": "object"},
+        "placement_screening": {"type": "object"},
+        "placement_recheck": {"type": "object"},
+        "steric_check": {
+          "type": "object",
+          "required": ["clashing_atom_pairs", "overlap_tolerance_angstrom", "domains_clash"],
+          "properties": {
+            "clashing_atom_pairs": {"type": "integer", "minimum": 0},
+            "worst_overlap_angstrom": {"type": "number", "minimum": 0},
+            "overlap_tolerance_angstrom": {"type": "number", "exclusiveMinimum": 0},
+            "domains_clash": {"type": "boolean"}
+          }
+        },
+        "orientation": {"type": "object"}
+      }
+    }
+  }
+}

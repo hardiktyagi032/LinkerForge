@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.org/schemas/0.1.0/candidate-recommendation.schema.json",
+  "title": "LinkerForge candidate recommendation",
+  "type": "object",
+  "required": ["schema_version", "run_id", "candidate_id", "linker_sequence", "linker_length", "generation_method", "scores", "rank", "model", "provenance", "evidence_type"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "run_id": {"type": "string", "minLength": 1},
+    "input_example_id": {"type": ["string", "null"]},
+    "candidate_id": {"type": "string", "minLength": 1},
+    "linker_sequence": {"type": "string", "pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$"},
+    "linker_length": {"type": "integer", "minimum": 5, "maximum": 30},
+    "generation_method": {"type": "string", "minLength": 1},
+    "evidence_type": {"type": "string", "enum": ["natural_reconstruction", "unrelated_demonstration", "engineered_observation"]},
+    "scores": {"type": "object"},
+    "rank": {"type": ["integer", "null"], "minimum": 1},
+    "model": {
+      "type": "object",
+      "required": ["name", "version", "checkpoint_hash"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "checkpoint_hash": {"type": ["string", "null"]}
+      }
+    },
+    "provenance": {"type": "object", "required": ["pipeline_commit", "config_hash", "software"]}
+  }
+}

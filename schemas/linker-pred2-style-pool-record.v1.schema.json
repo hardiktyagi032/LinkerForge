@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkerforge.local/schemas/linker-pred2-style-pool-record.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source", "protein_id", "sequence", "labels", "task", "training_role", "reason", "provenance"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "source": {"enum": ["TransDFL_TR166", "DLD", "DisProt_2026_06"]},
+    "protein_id": {"type": "string", "minLength": 1},
+    "sequence": {"type": "string", "pattern": "^[A-Z]+$"},
+    "labels": {"type": "string", "pattern": "^[012x]+$"},
+    "task": {"enum": ["DFL", "structural_IDL_DDL", "DFL_positive_unlabeled"]},
+    "training_role": {"enum": ["published_dfl_train", "dld_auxiliary_candidate", "disprot_positive_only", "quarantine"]},
+    "reason": {"type": ["string", "null"]},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "input_sha256", "pipeline_commit", "config_hash", "software"],
+      "properties": {
+        "source_id": {"oneOf": [{"type": "string"}, {"type": "array", "items": {"type": "string"}}]},
+        "input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "pipeline_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "config_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "software": {"type": "object"}
+      }
+    }
+  }
+}
