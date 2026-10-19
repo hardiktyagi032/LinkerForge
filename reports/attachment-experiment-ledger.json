@@ -1,0 +1,26 @@
+{
+  "format": "attachment-software-ledger.v0",
+  "date_asia_calcutta": "2026-10-18",
+  "scientific_runs": [],
+  "remote_job_state": "unverified_no_remote_jobs_launched_by_this_increment",
+  "completed_software_increment": {
+    "evidence": "reports/attachment-readiness-2026-10-18.json",
+    "source_hashes": {
+      "attachment/__init__.py": "42c76cb23a4815fdd9f537d998b8674cfcb77f3c8be631021e15c8a5581fee2e",
+      "attachment/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+      "attachment/benchmark.py": "f7378ea32c8694d1f8a852ee48ddc71f5528ac012494f8d43bad2a0bb4a1a82d",
+      "attachment/cli.py": "dc5c3383e677111906ceb370920f075e34ef0c66cda14ef9f83da6cb8a061dae",
+      "attachment/data.py": "9f2e57b00a2ebad25cd55399c00b8b0861cb27c6c7bbb1a6aca3eee051f9b459",
+      "attachment/engine.py": "0662307000cc45989dc61fc8283480ed074ba4c853c4ef832ed057c22ddfc39e",
+      "attachment/features.py": "d3a93b1e2880ee19084320ee0aed3a965b495074856dfdb870a20b6130314121",
+      "attachment/model.py": "01d57b6d695e39f40c15216dc0e71c31813f49905b0d4145ba68aef16ba900da",
+      "attachment/plans.py": "53f2aea3b63c05fb2070b3f85cabf9fc92758deb24b5afaae6835d6c85db644e",
+      "generation/contracts.py": "ec4957d461bd9ac6561bdda64247299185c2e7b5887f918448344ace407baec6",
+      "generation/data.py": "bfaca6c41d950f077dee5a73272134ac16e12ddb56ccfeabb997e68f49cca346",
+      "generation/engine.py": "349b3c28b40dafac210553a9ce900630ae0b1f889e7b1a518ad91843a6dbdd85"
+    },
+    "pid": 39996,
+    "status": "completed",
+    "tests_passed": 139
+  }
+}

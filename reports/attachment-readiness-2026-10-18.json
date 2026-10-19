@@ -1,0 +1,274 @@
+{
+  "date_asia_calcutta": "2026-10-18",
+  "scope": "architecture_component_4_attachment_sites_and_explicit_connection_plans",
+  "branch": "codex/attachment-site-scorer",
+  "base_commit": "7a4ccc2cf87a3cba6fb54ba5539a08ddb48511ce",
+  "generator_commit": "7a4ccc2cf87a3cba6fb54ba5539a08ddb48511ce",
+  "generator_pr": "https://github.com/richennacht/LinkerForge/pull/9",
+  "status": "implemented_awaiting_data_and_peer_review",
+  "scientific_performance": null,
+  "hypothesis": "Frozen residue context and an operation-specific MLP may rank tolerance beyond position and linear controls on unseen families; biological transfer is untested.",
+  "failure_rule": "No improvement claim without audited endpoints/family splits, matched controls/coverage, seed robustness and uncertainty; retain all failures/negative results.",
+  "comparators": [
+    "uniform",
+    "terminal_proximity",
+    "frozen_ESM_linear",
+    "official_ProDomino_unassessed",
+    "reviewed_external_peer_score_interface"
+  ],
+  "benchmark_design": {
+    "status": "unreviewed_design_no_launch_authorization",
+    "hypothesis": "Frozen ESM residue context supports operation-specific attachment tolerance beyond position-only and linear controls on unseen domain families.",
+    "encoder": {
+      "model_id": "facebook/esm2_t36_3B_UR50D",
+      "revision": null,
+      "weights_sha256": null,
+      "layer": 36,
+      "embedding_dim": 2560
+    },
+    "seeds": [
+      7,
+      17,
+      31
+    ],
+    "comparators": [
+      "uniform",
+      "terminal_proximity",
+      "frozen_ESM_linear",
+      "frozen_ESM_MLP",
+      "official_ProDomino_pending_license_and_scores"
+    ],
+    "primary_metrics": [
+      "task_stratified_known_label_AUROC",
+      "task_stratified_precision_at_frozen_coverage"
+    ],
+    "secondary_metrics": [
+      "known_label_average_precision",
+      "full_attempted_coverage",
+      "common_coverage",
+      "paired_family_cluster_uncertainty",
+      "cost_and_failure_counts"
+    ],
+    "coverage_fraction": null,
+    "dataset_manifest": null,
+    "family_split_audit": null,
+    "label_aggregation_protocol": null,
+    "independent_benchmark_freeze": null,
+    "external_method_exposure_audit": null,
+    "execution_receipt": null,
+    "resource_ceiling": {
+      "architecture_variants": 3,
+      "gpu_jobs_at_once": 1,
+      "gpu_hours_per_reviewed_round": 6
+    },
+    "failure_rule": "Do not advance if MLP gains disappear against linear/position controls, family uncertainty includes no improvement, failed coverage explains the result, or endpoint assumptions fail. Preserve negative results.",
+    "one_factor_ablation": "Keep encoder, masks, split, optimizer and compute budget fixed; compare linear versus one-hidden-layer MLP.",
+    "ineligible_labels": [
+      "unknown_as_negative",
+      "natural_linker_flank_without_tolerance_validation",
+      "variant_specific_donor_fitness_as_universal_site_label",
+      "detector_benchmark_errors_or_predictions"
+    ]
+  },
+  "validation": {
+    "tests": {
+      "attachment": {
+        "passed": 28,
+        "seconds": 10.772,
+        "raw_log_sha256": "97f5e820ee2b7dfaf30722cc836414e811f316688fd6283e2325003ce7f722e2"
+      },
+      "generator": {
+        "passed": 31,
+        "seconds": 8.964,
+        "raw_log_sha256": "6ecfb30b1157c16618ff45c50ab2794430a642ea12b25182105eac1343578f47"
+      },
+      "geometry": {
+        "passed": 80,
+        "seconds": 1.846,
+        "raw_log_sha256": "1de78e2a3f7c767d03273db5265b92b84f5062eb46832967a1d210eaa7a7cdab"
+      }
+    },
+    "total_selected_tests_passed": 139,
+    "source_wheel_contents_match": true,
+    "wheel_has_attachment_entry_point": true,
+    "wheel_members": 74,
+    "smoke": {
+      "seed": 17,
+      "synthetic_software_fixture": true,
+      "counts": {
+        "train": {
+          "records": 6,
+          "positive": 4,
+          "negative": 4,
+          "unknown": 16
+        },
+        "development": {
+          "records": 6,
+          "positive": 4,
+          "negative": 4,
+          "unknown": 16
+        }
+      },
+      "invented_unique_sequences": 4,
+      "updates": 3,
+      "parameters": 195,
+      "measured_wall_seconds": 1.5349396999990859,
+      "ceiling": {
+        "device": "cpu",
+        "threads": 1,
+        "updates": 3,
+        "max_wall_seconds": 120
+      },
+      "trained_fixture_tasks": [
+        "internal_insertion",
+        "n_terminal_extension",
+        "c_terminal_extension"
+      ]
+    },
+    "esm_interface": "Tiny local random ESM; no pretrained weights or scientific inference.",
+    "geometry": "Synthetic anchor fixture plus 80 committed geometry regressions; no new structure acquisition."
+  },
+  "environment": {
+    "python": "3.14.7",
+    "torch": "2.14.1+cpu",
+    "safetensors": "0.8.0",
+    "host": "sPC",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cuda": null,
+    "transformers": "5.20.1",
+    "tokenizers": "0.23.3",
+    "numpy": "2.5.4"
+  },
+  "input_hashes": {
+    "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-attachment\\tmp\\attachment-verification\\smoke-complete\\fixtures\\manifest.json": "fe03a818885a895941c3cfd3125cc37d4b65c35025b98844c4f6a4dc6fde0e02",
+    "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-attachment\\tmp\\attachment-verification\\smoke-complete\\fixtures\\train.jsonl": "02b1981ee6a4c34da9f993337ea6b4cd3714da82c7b67499d7cb81548927475a",
+    "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-attachment\\tmp\\attachment-verification\\smoke-complete\\fixtures\\SYNTHETIC-train-0.safetensors": "0a6f6da72593ed44f4c48d6cbbf362aeff9364505f02206ed59abe4a037ac7c2",
+    "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-attachment\\tmp\\attachment-verification\\smoke-complete\\fixtures\\SYNTHETIC-train-1.safetensors": "a2ee6ea78d7bcaf9ce05fbaa97685738648115884edfd3ff3a652845385cfeaa",
+    "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-attachment\\tmp\\attachment-verification\\smoke-complete\\fixtures\\development.jsonl": "d29894269443b4ebfccbda4d4567db694419c14bfb3764c1f0c939d4136ac16b",
+    "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-attachment\\tmp\\attachment-verification\\smoke-complete\\fixtures\\SYNTHETIC-development-0.safetensors": "09a5034c79fed23935db8222e01456e0d711e6763302d2193b9eaa86c6bc608f",
+    "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-attachment\\tmp\\attachment-verification\\smoke-complete\\fixtures\\SYNTHETIC-development-1.safetensors": "c10d37e136e582b5a6d015f6916fd317240485faafd0114ba33760437f777d1b"
+  },
+  "source_hashes": {
+    "attachment/__init__.py": "42c76cb23a4815fdd9f537d998b8674cfcb77f3c8be631021e15c8a5581fee2e",
+    "attachment/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "attachment/benchmark.py": "f7378ea32c8694d1f8a852ee48ddc71f5528ac012494f8d43bad2a0bb4a1a82d",
+    "attachment/cli.py": "dc5c3383e677111906ceb370920f075e34ef0c66cda14ef9f83da6cb8a061dae",
+    "attachment/data.py": "9f2e57b00a2ebad25cd55399c00b8b0861cb27c6c7bbb1a6aca3eee051f9b459",
+    "attachment/engine.py": "0662307000cc45989dc61fc8283480ed074ba4c853c4ef832ed057c22ddfc39e",
+    "attachment/features.py": "d3a93b1e2880ee19084320ee0aed3a965b495074856dfdb870a20b6130314121",
+    "attachment/model.py": "01d57b6d695e39f40c15216dc0e71c31813f49905b0d4145ba68aef16ba900da",
+    "attachment/plans.py": "53f2aea3b63c05fb2070b3f85cabf9fc92758deb24b5afaae6835d6c85db644e",
+    "generation/contracts.py": "ec4957d461bd9ac6561bdda64247299185c2e7b5887f918448344ace407baec6",
+    "generation/data.py": "bfaca6c41d950f077dee5a73272134ac16e12ddb56ccfeabb997e68f49cca346",
+    "generation/engine.py": "349b3c28b40dafac210553a9ce900630ae0b1f889e7b1a518ad91843a6dbdd85"
+  },
+  "changed_files_sha256": {
+    "ATTACHMENT_SITE_MODEL.md": "a4b40d3606f6f992543915433039f200ffb1686934c6b74f79e900233b6f206f",
+    "AGENTS.md": "0fb283c2dcfc87eaf0d08b85864ba182026cae0c776cc3aeb89408f8effb117b",
+    "README.md": "b870e1a7ba8a6c12d5cb88d4fca7ce6e400aa0f33979a1d7aef94a6ad30d631c",
+    "pyproject.toml": "c8639675a36b685524ff9cf69c7353a04477f779fa8d8f343bd3ce00d0df5477",
+    "scripts/attachment_site_model.py": "15f7b15fdd92645ef742fa6f425b9dc39083719e912dcab4ab6d2a65c9806bde",
+    "configs/attachment-site-mlp.json": "c5dfd381e2139fb33ecf44e65c7b70744d1d6ae6476c8af5e8ec10706a693a7a",
+    "configs/attachment-site-linear.json": "98a1593f13a1cd9b399a988925b98f2450f5fe7dad74c99b88666edf363851eb",
+    "configs/attachment-benchmark-plan.json": "003ce7a1196139b726f4d1a28aa58f73b40b16187c0dd079678add268761cb93",
+    "tests/test_attachment_sites.py": "0b4593eaad518c7c0594c995d9aca93151e80d856b40cb3a15aae211a4a357eb",
+    "reports/model-research-log.md": "fae7c1de06ca117504e34395a36b100ccac43050410a0a0fb5c5f08bc2ebbea2",
+    "reports/attachment-readiness-2026-10-18.md": "e923fe276707d27532c68ca9f01b6424b9833b22a9dd9c4c52e8efbd25c24194",
+    "src/linkerforge/attachment/__init__.py": "42c76cb23a4815fdd9f537d998b8674cfcb77f3c8be631021e15c8a5581fee2e",
+    "src/linkerforge/attachment/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/linkerforge/attachment/benchmark.py": "f7378ea32c8694d1f8a852ee48ddc71f5528ac012494f8d43bad2a0bb4a1a82d",
+    "src/linkerforge/attachment/cli.py": "dc5c3383e677111906ceb370920f075e34ef0c66cda14ef9f83da6cb8a061dae",
+    "src/linkerforge/attachment/data.py": "9f2e57b00a2ebad25cd55399c00b8b0861cb27c6c7bbb1a6aca3eee051f9b459",
+    "src/linkerforge/attachment/engine.py": "0662307000cc45989dc61fc8283480ed074ba4c853c4ef832ed057c22ddfc39e",
+    "src/linkerforge/attachment/features.py": "d3a93b1e2880ee19084320ee0aed3a965b495074856dfdb870a20b6130314121",
+    "src/linkerforge/attachment/model.py": "01d57b6d695e39f40c15216dc0e71c31813f49905b0d4145ba68aef16ba900da",
+    "src/linkerforge/attachment/plans.py": "53f2aea3b63c05fb2070b3f85cabf9fc92758deb24b5afaae6835d6c85db644e"
+  },
+  "local_artifact_sha256": {
+    "tmp/attachment-verification/tests-complete.txt": "97f5e820ee2b7dfaf30722cc836414e811f316688fd6283e2325003ce7f722e2",
+    "tmp/attachment-verification/generator-regressions.txt": "6ecfb30b1157c16618ff45c50ab2794430a642ea12b25182105eac1343578f47",
+    "tmp/attachment-verification/geometry-regressions.txt": "1de78e2a3f7c767d03273db5265b92b84f5062eb46832967a1d210eaa7a7cdab",
+    "tmp/attachment-verification/cli-benchmark.json": "acb06e1b45919c9f545c60f9ead5f70b0a3a2b80539e272cee51a29814146f7b",
+    "tmp/attachment-verification/cli-domain-scores.json": "d4092c3c80b9686398ea4a1b3de4def0b09facd3d62c7de121b2d8d185bd1232",
+    "tmp/attachment-verification/score-input.json": "94ea7f42040ed3fe6a2c396de34d35f95444c992923e59394368f68a947420a1",
+    "tmp/attachment-verification/sequence.json": "22ba53c854eaa8fab18511dee5426013684564f7aaf04d2450ea37a6ef529277",
+    "tmp/attachment-verification/smoke-complete/smoke.json": "fee7c943d7c4c53bfc04abac08ba3e24427571ed84270ebca76cb8a9e8045b24",
+    "tmp/attachment-verification/smoke-complete/config.json": "4f847456303ac825bb181aa6931bc6f7be7fa5a3c0165387615b99c3f6e1ebf2",
+    "tmp/attachment-verification/smoke-complete/training/history.json": "4089c739ceacc4aec21187cf7eb496bd1ac8406537da077e3f5edfc12eb4aab8",
+    "tmp/attachment-verification/smoke-complete/training/run.json": "2043291755dce535a05d478edddb927914bebf0f0fc27966e2f630bd14201e22",
+    "tmp/attachment-verification/smoke-complete/training/step-000003/model.json": "d3393563b6b1caacb167c49aa7460d79abdea952b9dc9abcaf07669e2a55d8de",
+    "tmp/attachment-verification/smoke-complete/training/step-000003/model.safetensors": "1adc5fc6216190ce634c70bf8c09cf64cb121f463a9254b2e468f3b0029895e0",
+    "tmp/attachment-verification/smoke-complete/training/step-000003/training.json": "aad0d9a2faccd14096a2e7b4477ca6a0d3cf080a6af3cf1401f1e56973a5f7e8",
+    "tmp/attachment-verification/smoke-complete/training/step-000003/optimizer.pt": "3ea7f039d87e74e70b8a72432c8b8e687ef7cc2020f61eb6e3292c6022c53f41",
+    "tmp/attachment-verification/dist/linkerforge_generator-0.1.0-py3-none-any.whl": "adec8b9b2c2213b6c1c569c612784575b9833f82fdf2f7f00cd7a1b278e29e03"
+  },
+  "commands": [
+    "$env:PYTHONPATH = (Join-Path (Get-Location) 'src'); & $attachmentPython -m unittest discover -s tests -p test_attachment_sites.py -v",
+    "$env:PYTHONPATH = (Join-Path (Get-Location) 'src'); & $attachmentPython -m unittest discover -s tests -p test_fusion_generator.py -v",
+    "$env:PYTHONPATH = (Join-Path (Get-Location) 'src'); & $attachmentPython -m unittest discover -s tests -p 'test_linker_geometry_*.py' -v",
+    "& $attachmentPython scripts/attachment_site_model.py smoke --output tmp/attachment-verification/smoke-complete",
+    "& $attachmentPython scripts/attachment_site_model.py benchmark-development --manifest tmp/attachment-verification/smoke-complete/fixtures/manifest.json --checkpoint mlp=tmp/attachment-verification/smoke-complete/training/step-000003 --coverage-fraction 0.5 --bootstrap-draws 20 --seed 17 --synthetic-smoke --output tmp/attachment-verification/cli-benchmark.json",
+    "& $attachmentPython scripts/attachment_site_model.py score --checkpoint tmp/attachment-verification/smoke-complete/training/step-000003 --sequence-json tmp/attachment-verification/sequence.json --embedding $scoreInput.path --embedding-sha256 $scoreInput.sha256 --output tmp/attachment-verification/cli-domain-scores.json",
+    "& $attachmentUv build --wheel --python $attachmentPython --out-dir tmp/attachment-verification/dist",
+    "& $attachmentPython tmp/attachment-verification/verify_artifacts.py",
+    "$env:PYTHONPATH = (Join-Path (Get-Location) 'tmp/attachment-verification/wheel-extracted'); & $attachmentPython -m linkerforge.attachment --help",
+    "git diff --check"
+  ],
+  "command_variables": {
+    "cwd": "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-attachment",
+    "attachmentPython": "C:/Users/saubh/Documents/ChatGPT/Research/LinkerForge-models/.venv/Scripts/python.exe",
+    "attachmentUv": "C:/Users/saubh/Documents/ChatGPT/Research/LinkerForge/.venv/Scripts/uv.exe",
+    "TMP_TEMP": "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-attachment\\tmp",
+    "UV_CACHE_DIR": "C:\\Users\\saubh\\Documents\\ChatGPT\\Research\\LinkerForge-attachment\\tmp\\uv-cache",
+    "scoreInput": {
+      "path": "tmp\\attachment-verification\\smoke-complete\\fixtures\\SYNTHETIC-development-0.safetensors",
+      "sha256": "09a5034c79fed23935db8222e01456e0d711e6763302d2193b9eaa86c6bc608f"
+    }
+  },
+  "jobs": {
+    "scientific_jobs_launched_by_this_increment": [],
+    "remote_job_state": "not_verified_no_remote_job_launched",
+    "software_smoke": {
+      "pid": 39996,
+      "status": "completed",
+      "local_command_exit_code": 0
+    }
+  },
+  "data_acquisition": 0,
+  "pretrained_weight_downloads": 0,
+  "real_training_runs": 0,
+  "team_review": "pending",
+  "next_prerequisites": [
+    "Reviewed operation endpoints and donor aggregation/negative evidence",
+    "Traceable family-disjoint data and full benchmark exclusion registries",
+    "Actual pinned/licensed frozen encoder and approved cloud environment",
+    "Official peer score exposure/endpoint/position mapping verification",
+    "Independent evaluation freeze before label reveal"
+  ],
+  "sources": [
+    {
+      "url": "https://github.com/richennacht/LinkerForge/pull/7",
+      "claim": "Component 4 two-tower architecture and geometry separation"
+    },
+    {
+      "url": "https://github.com/Niopek-Lab/ProDomino/blob/e0762470a27a5804a5c96c44d6e923bc21ee13f6/src/ProDomino/models/base.py",
+      "claim": "2560-to-1280-to-1 residue MLP"
+    },
+    {
+      "url": "https://github.com/Niopek-Lab/ProDomino/blob/e0762470a27a5804a5c96c44d6e923bc21ee13f6/src/ProDomino/inference/inference.py",
+      "claim": "Frozen ESM-2 3B layer-36 special-token-excluded residue features"
+    },
+    {
+      "url": "https://www.nature.com/articles/s41467-021-27342-0",
+      "claim": "Donor-dependent insertion expression is distinct from general fusion function"
+    },
+    {
+      "url": "https://huggingface.co/facebook/esm2_t36_3B_UR50D/blob/main/config.json",
+      "claim": "36 layers, 2560 dimensions"
+    },
+    {
+      "url": "https://huggingface.co/docs/transformers/en/model_doc/esm",
+      "claim": "Local extraction API"
+    }
+  ]
+}

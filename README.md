@@ -1,5 +1,12 @@
 # LinkerForge
 
+> **Attachment component update (18 October 2026):** the human also requested
+> component 4, identifying/ranking attachment points and connecting them to the
+> existing geometry calculator. [ATTACHMENT_SITE_MODEL.md](./ATTACHMENT_SITE_MODEL.md)
+> documents the trainable frozen-feature site model, task-specific supervision,
+> contact/topology plans and development benchmark harness. No biological site
+> training, optimal-linker-count model or fusion-function result is claimed.
+
 > **Generator implementation update (18 October 2026):** the human requested
 > component 5 of [architecture PR #7](https://github.com/richennacht/LinkerForge/pull/7):
 > conditional fusion-linker sequence generation, ready for future reviewed data.

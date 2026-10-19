@@ -1,0 +1,20 @@
+{
+  "status": "unreviewed_design_no_launch_authorization",
+  "hypothesis": "Frozen ESM residue context supports operation-specific attachment tolerance beyond position-only and linear controls on unseen domain families.",
+  "encoder": {"model_id": "facebook/esm2_t36_3B_UR50D", "revision": null, "weights_sha256": null, "layer": 36, "embedding_dim": 2560},
+  "seeds": [7, 17, 31],
+  "comparators": ["uniform", "terminal_proximity", "frozen_ESM_linear", "frozen_ESM_MLP", "official_ProDomino_pending_license_and_scores"],
+  "primary_metrics": ["task_stratified_known_label_AUROC", "task_stratified_precision_at_frozen_coverage"],
+  "secondary_metrics": ["known_label_average_precision", "full_attempted_coverage", "common_coverage", "paired_family_cluster_uncertainty", "cost_and_failure_counts"],
+  "coverage_fraction": null,
+  "dataset_manifest": null,
+  "family_split_audit": null,
+  "label_aggregation_protocol": null,
+  "independent_benchmark_freeze": null,
+  "external_method_exposure_audit": null,
+  "execution_receipt": null,
+  "resource_ceiling": {"architecture_variants": 3, "gpu_jobs_at_once": 1, "gpu_hours_per_reviewed_round": 6},
+  "failure_rule": "Do not advance if MLP gains disappear against linear/position controls, family uncertainty includes no improvement, failed coverage explains the result, or endpoint assumptions fail. Preserve negative results.",
+  "one_factor_ablation": "Keep encoder, masks, split, optimizer and compute budget fixed; compare linear versus one-hidden-layer MLP.",
+  "ineligible_labels": ["unknown_as_negative", "natural_linker_flank_without_tolerance_validation", "variant_specific_donor_fitness_as_universal_site_label", "detector_benchmark_errors_or_predictions"]
+}

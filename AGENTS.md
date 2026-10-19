@@ -2,6 +2,14 @@
 
 Read `README.md` completely before changing this repository. It is the canonical scientific and MVP specification.
 
+On `codex/attachment-site-scorer`, the human's next direct instruction authorizes
+component 4 implementation without data. Read `ATTACHMENT_SITE_MODEL.md`.
+Keep insertion and terminal-extension endpoints separate; unknown annotations
+are not negatives and unvalidated linker flanks are not tolerance supervision.
+Use the existing geometry engine for explicit connection plans; do not infer
+optimal tether count or function from a site score. Synthetic checks are software
+verification only; preserve detector protections and require review before fitting.
+
 On `codex/fusion-linker-generator`, the human's 18 October 2026 instruction
 authorizes component 5 implementation from `ARCHITECTURE_HANDOFF.md`.
 Read `FUSION_GENERATOR.md` for this checkout's code and limits. Build and test
