@@ -2,29 +2,14 @@
 
 Read `README.md` completely before changing this repository. It is the canonical scientific and MVP specification.
 
-On `codex/design-pipeline-readiness`, the human's latest direct instruction
-authorizes architecture/training preparation for components 2–5, excluding the
-detector and actual data generation. Follow `DESIGN_READINESS_CHECKLIST.md` and
-`DESIGN_PIPELINE.md`. No automatic mining, scientific fitting, cloud execution or
-independent benchmark reveal. Explicit routes derive connection counts; source
-flanks do not become tolerance labels and fragment-context transfer stays opt-in.
-
-On `codex/attachment-site-scorer`, the human's next direct instruction authorizes
-component 4 implementation without data. Read `ATTACHMENT_SITE_MODEL.md`.
-Keep insertion and terminal-extension endpoints separate; unknown annotations
-are not negatives and unvalidated linker flanks are not tolerance supervision.
-Use the existing geometry engine for explicit connection plans; do not infer
-optimal tether count or function from a site score. Synthetic checks are software
-verification only; preserve detector protections and require review before fitting.
-
-On `codex/fusion-linker-generator`, the human's 18 October 2026 instruction
-authorizes component 5 implementation from `ARCHITECTURE_HANDOFF.md`.
-Read `FUSION_GENERATOR.md` for this checkout's code and limits. Build and test
-the generator without biological training while data is absent; preserve the
-detector firewall, all other checkouts and unreviewed shared contracts.
-Do not interpret the historical detector-only scope below as cancelling that
-direct instruction. No team review, cloud readiness or trained performance is
-implied by this implementation.
+For the code-only fusion-design components, read `DESIGN_READINESS_CHECKLIST.md`,
+`DESIGN_PIPELINE.md`, `ATTACHMENT_SITE_MODEL.md`, and `FUSION_GENERATOR.md` as
+applicable. The generator, site model and orchestration have synthetic software
+checks, not biologically trained or calibrated performance. Do not mine spans,
+fit on unreviewed data, launch cloud jobs, or reveal an independent benchmark
+merely because these components are present. Explicit routes derive connection
+counts; source flanks are not tolerance labels, fragment-context transfer is
+opt-in, and unknown annotations are not negatives.
 
 For the **active DFL detector** research, then read `RESEARCH_HANDOFF.md` and
 `literature/DFL_UNTOUCHED_COMPARISON_CONTRACT_2026-10-17.md`. The fusion-ranker
@@ -34,10 +19,20 @@ firewall; never bypass preflight or use public CAID3 scores to select a model.
 
 ## Current state
 
-- The React/Vite frontend exists and uses labelled demonstration data.
+- The React/Vite frontend exists and uses labelled demonstration data. Its
+  two-sequence template workflow exports a complete fusion FASTA and accepts a
+  sequence-matched predicted PDB; it does not produce a trained recommendation.
+- An optional Tauri desktop shell can launch a separately installed local
+  ColabFold command and display its full-fusion PDB. ColabFold/weights are not
+  bundled, and a successful fold on the 6 GB laptop has not been verified.
 - CI and GitHub Pages deployment exist.
-- The scientific Python pipeline, dataset, trained ranker, and cloud jobs are specified but not implemented.
+- Some detector and design-pipeline code exists; the qualified dataset, trained
+  fusion ranker, completed structural funnel, and cloud jobs do not.
 - Do not imply that proposed architecture or example scores are completed results.
+
+Start with `START_HERE.md` to choose the active detector, the untrained design
+pipeline, the frontend, or the desktop shell. Do not treat code-only readiness
+or a synthetic smoke test as biological validation.
 
 ## Frozen decisions
 
@@ -47,7 +42,7 @@ firewall; never bypass preflight or use public CAID3 scores to select a model.
 - Data: natural two-domain proteins for pretraining; engineered fusions for stronger evidence where available.
 - Learning task: pairwise/contrastive compatibility ranking, not experimental-success classification.
 - Model: frozen ESM-2 embeddings + attachment-point geometric GNN + small linker encoder + multitask heads.
-- Generation: constrained enumeration/mutation/retrieval for MVP; learned generation and diffusion are future work.
+- Generation: constrained enumeration/mutation/retrieval for MVP; a learned generator has code-only scaffolding but no qualified biological training. Diffusion is future work.
 - Blind test: homology-aware held-out proteins with masked natural linkers; save predictions before revealing references.
 - Structural funnel: Rosetta → AlphaFold/ColabFold → hard rejection → OpenMM; optional GROMACS for 1–3 finalists.
 - PyMOL is for inspection, measurements, and figures, not the simulation engine.
@@ -61,7 +56,7 @@ firewall; never bypass preflight or use public CAID3 scores to select a model.
 - Label natural observations, synthetic negatives, predictions, and experimental outcomes distinctly.
 - Split by homology/domain-family clusters before model development; never tune on blind examples.
 - Baselines and LinkerForge must use the same scoring and rejection rules.
-- Keep long scientific jobs on the college cloud, not web hosting or ordinary CI.
+- Keep long scientific training jobs on the college cloud, not web hosting or ordinary CI. The optional local desktop fold is exploratory and cannot replace the controlled structural-validation funnel.
 - Frontend example values must remain visibly labelled until replaced by provenance-bearing outputs.
 
 ## Branch contract

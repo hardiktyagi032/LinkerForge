@@ -1,11 +1,25 @@
 # LinkerForge
 
+**New here?** Read [START_HERE.md](./START_HERE.md) for the current project map,
+what runs today, and the entry point for each workstream. This README remains
+the canonical scientific specification; historical goals below are labelled.
+
+> **Current programme (18 October 2026):** begin with a trustworthy sequence-based
+> disordered flexible linker (DFL) classifier; use only an independently
+> validated, high-precision caller to mine natural linkers. Downstream design
+> combines the deterministic geometry calculator, a cited linker-template
+> library, and a matched retrieval baseline before considering generation.
+> The existing classifier checkpoint can run provisional inference, but is not
+> certified for mining. See [the current direction](./CURRENT_DIRECTION_2026-10-18.md)
+> and [classifier inference contract](./CLASSIFIER_INFERENCE.md).
+
 > **Code preparation update (18 October 2026):** the human requested the work
 > after component 1, without data generation or scientific training. Follow
 > [DESIGN_READINESS_CHECKLIST.md](./DESIGN_READINESS_CHECKLIST.md) and
 > [DESIGN_PIPELINE.md](./DESIGN_PIPELINE.md) for components 2–5 intake boundaries,
 > explicit multi-contact routes, joint geometry/sequence orchestration, per-seed
-> training preparation and matched development commands. Detector work is excluded.
+> training preparation and matched development commands. This design work does
+> not validate or replace the active DFL detector.
 > Code readiness does not establish data, cloud, scientific-result or team-review gates.
 
 > **Attachment component update (18 October 2026):** the human also requested
@@ -20,9 +34,8 @@
 > conditional fusion-linker sequence generation, ready for future reviewed data.
 > See [FUSION_GENERATOR.md](./FUSION_GENERATOR.md) for the implemented FIM model,
 > adapter interface, trainer, constraints, baselines and verification commands.
-> This checkout implements that authorized work; the detector history and
-> benchmark protections below remain preserved. No biological generator training
-> or fusion-performance result is claimed. Component implementation PRs await review.
+> The detector history and benchmark protections below remain preserved. No
+> biological generator training or fusion-performance result is claimed.
 
 > **Research-direction update (11 October 2026):** LinkerForge's active research
 > goal has changed from *designing a fusion linker* to *detecting linker spans
@@ -41,7 +54,9 @@ LinkerForge is a **computational research prototype** for recommending a peptide
 
 This README is the canonical, self-contained project specification. A new team member, coding agent, cloud notebook, or clean laptop should be able to recover the project scope and continue without the original planning conversation.
 
-> **Current state:** the React demonstration interface, CI/CD, and an embedded Mol* reference-structure viewer are implemented. The viewer displays experimental PDB entries and is not a prediction service. Some Python extraction, baseline, streaming, and C-alpha structural-diagnostic code exists, but the validated dataset, trained models, full structural funnel, and cloud jobs below remain MVP specifications and must not be represented as completed results.
+> **Current state:** the React demonstration interface, CI/CD, a full-screen structure area, two-sequence template construction, and an embedded Mol* reference-structure viewer are implemented. A user may export a complete fusion FASTA and load a sequence-matched predicted PDB into a browser 3Dmol.js viewer; no structure is generated in the browser. An optional bounded ColabFold command adapter exists but ColabFold and its weights/databases are not bundled or validated on the target cloud image. The validated dataset, trained fusion ranker, full structural funnel, and cloud jobs below remain MVP specifications and must not be represented as completed results. See [full-fusion local workflow](./docs/FULL_FUSION_LOCAL_WORKFLOW.md).
+
+The optional [Tauri desktop shell](./docs/DESKTOP_LOCAL_FOLDING.md) can launch a bounded local full-fusion ColabFold job and display a sequence-checked PDB. ColabFold itself is not included; 6 GB GPU feasibility has not been established.
 
 ## One-minute description
 
@@ -444,39 +459,35 @@ Build custom orchestration, data, scoring, and provenance around validated tools
 
 ---
 
-## 9. Proposed repository layout
+## 9. Repository layout
 
-Only `frontend/` exists today. Add the remaining directories as work begins.
+The current checkout has these working areas. Use [START_HERE.md](./START_HERE.md)
+to choose an entry point; a directory's existence does not mean that its model
+or dataset has passed a scientific validation gate.
 
 ```text
 LinkerForge/
-├── README.md
-├── AGENTS.md
-├── CONTRIBUTING.md
-├── frontend/                 # React demonstration and experimental-reference Mol* viewer
-├── schemas/                  # versioned JSON Schema files
-├── configs/                  # immutable experiment configurations
-├── src/linkerforge/
-│   ├── data/                 # ingestion, boundaries, evidence grading
-│   ├── features/             # sequence and structural features
-│   ├── negatives/            # synthetic-negative generation
-│   ├── models/               # baselines and neural ranker
-│   ├── generation/           # constrained candidates
-│   ├── structure/            # Rosetta/ColabFold/OpenMM adapters
-│   ├── scoring/              # metrics and hard rejection
-│   └── provenance/           # manifests, hashes, versions
-├── tests/
-├── scripts/                  # thin reproducible entry points
-├── data/
-│   ├── raw/                  # ignored; never hand-edited
-│   ├── interim/              # ignored
-│   ├── processed/            # ignored or external store
-│   └── manifests/            # small tracked manifests
-├── artifacts/                # ignored model/structure outputs
-└── reports/                  # tracked summaries, not huge binaries
+├── README.md, START_HERE.md, AGENTS.md
+├── frontend/                 # React/Vite demonstration
+│   └── src-tauri/            # optional Windows desktop and local fold adapter
+├── src/linkerforge/          # detector, geometry, retrieval and design code
+├── scripts/                  # reproducible Python entry points
+├── tests/                    # CPU and synthetic software checks
+├── schemas/                  # versioned record schemas
+├── configs/                  # experiment and pipeline configurations
+├── data/curated/             # small cited source records
+├── docs/                     # application workflows
+├── literature/               # research contracts and surveys
+├── reports/                  # evidence, limitations and failed gates
+├── paper/                    # manuscript sources
+├── data/raw/, data/processed/ # ignored local data
+└── artifacts/                # ignored model and structure outputs
 ```
 
-Large datasets, checkpoints, AlphaFold databases, trajectories, and structures belong in the college cloud or an artefact store. Track hashes and manifests in Git.
+Older root-level proposals and handoffs are preserved for traceability; their
+claims are subordinate to current gate reports. Large datasets, checkpoints,
+AlphaFold databases, trajectories and structures belong in an artefact store
+or the approved compute environment, not in Git. Track hashes and manifests.
 
 ---
 
@@ -510,9 +521,13 @@ npm run dev
 
 The current UI displays labelled demonstration data and is not connected to a trained scientific service.
 
-### Scientific environment to create
+### Scientific environment status
 
-The backend environment is not committed yet. The first backend change must add a reproducible `pyproject.toml` plus lock file, or an equivalent Conda definition, and test it on the college-cloud image.
+`pyproject.toml` and `requirements/generator-cpu.txt` pin a limited CPU
+environment for the code-only generator/site/design components. This is **not**
+a pinned or college-cloud-verified environment for the complete scientific
+pipeline. The detector and structural funnel still need a reproducible target
+environment and their separate data, model and benchmark gates.
 
 Expected Python packages include:
 
@@ -530,7 +545,7 @@ Long jobs run on the college cloud, not GitHub Pages or Vercel. Every job receiv
 
 ---
 
-## 11. Twelve-week MVP plan
+## 11. Historical twelve-week fusion MVP plan
 
 | Week | Work | Exit evidence |
 | --- | --- | --- |
@@ -594,7 +609,7 @@ The MVP is complete only when:
 
 ---
 
-## 15. Immediate next actions
+## 15. Historical fusion-MVP next actions
 
 1. Add formal JSON Schema files for Section 7.
 2. Pin the Python environment on the college-cloud image.
