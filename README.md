@@ -50,6 +50,12 @@ the canonical scientific specification; historical goals below are labelled.
 > and next work. The [untouched-comparison contract](./literature/DFL_UNTOUCHED_COMPARISON_CONTRACT_2026-10-17.md)
 > currently blocks new training on the old protected split.
 
+> **Historical data downloads:** the original B1 V2 classifier split and the
+> separate mined-and-natural candidate composite are published under
+> [datasets/](./datasets/README.md), with byte-level validation and source-tier
+> caveats. Their availability does not certify a new training split, biological
+> linker calls, or the former high-precision claim.
+
 LinkerForge is a **computational research prototype** for recommending a peptide linker between two independently folding soluble protein domains. It learns compatibility patterns from naturally occurring multidomain proteins, ranks constrained linker candidates, and evaluates complete fusion-protein predictions through a reproducible structural-validation pipeline.
 
 This README is the canonical, self-contained project specification. A new team member, coding agent, cloud notebook, or clean laptop should be able to recover the project scope and continue without the original planning conversation.
@@ -476,6 +482,7 @@ LinkerForge/
 ├── schemas/                  # versioned record schemas
 ├── configs/                  # experiment and pipeline configurations
 ├── data/curated/             # small cited source records
+├── datasets/                 # historical public classifier split and mined candidate archive
 ├── docs/                     # application workflows
 ├── literature/               # research contracts and surveys
 ├── reports/                  # evidence, limitations and failed gates
