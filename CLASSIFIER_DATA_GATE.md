@@ -136,5 +136,13 @@ To resolve the V1 sequence-firewall deadlock documented above, the **Firewall V2
 
 ## Part 1 Completion (`B2` / `B3`) and Provenance-Stratified Mined & Natural Linker Dataset (`v1`) (19 October)
 
+**20 October data-publication correction:** the original B1 V2 split and the
+27,766-row mined composite are now available under [`datasets/`](datasets/README.md)
+with matching original hashes. The `509` count and the calibration/specificity
+claims in the historical notes below are superseded by the verified composite
+manifest and [`reports/PAPER_CLAIMS_AUDIT_2026-10-19.md`](reports/PAPER_CLAIMS_AUDIT_2026-10-19.md).
+Data publication is not independent biological validation or authorization to
+train on model-mined calls.
+
 1. **Two-Stage Domain-Gated Conformal Calling (`B2` & `B3`):** Implemented in [`src/linkerforge/detector/domain_gate.py`](src/linkerforge/detector/domain_gate.py) and [`src/linkerforge/detector/conformal_mining.py`](src/linkerforge/detector/conformal_mining.py). Combining Stage 1 non-overlapping hetero-domain ($5\text{--}60\text{ aa}$, `left.accession != right.accession`) gating with Stage 2 frozen Seed-31 `ThreeLayerDFLCNN` (`c0d356c55ed83807353e66b875501c61b17f0b9b83f2910c0f1147f6409fdf6f`) calibration achieves `1.06%` empirical FDR (`98.94%` empirical precision, `93` TP / `1` FP) and `4.95%` 95%-Clopper–Pearson UCB FDR on `development` (`B2`), and `97.50%` protein-level specificity (`100.0%` on single/homo-domain proteins) across the 40-protein benchmark-disjoint No-Linker Specificity Panel (`B3`).
 2. **Mined and Natural Linker Dataset (`mined_and_natural_linkers_v1`):** Built and verified via [`scripts/build_mined_and_natural_linker_dataset.py`](scripts/build_mined_and_natural_linker_dataset.py), validated against [`schemas/mined_and_natural_linker_dataset_v1.schema.json`](schemas/mined_and_natural_linker_dataset_v1.schema.json), and exposed to Part 2 via [`src/linkerforge/dataset_v1.py`](src/linkerforge/dataset_v1.py). Contains `509` linker records ($5\text{--}60\text{ aa}$) across four provenance-stratified tiers (`91` `natural_cath_pdb_verified`, `57` `natural_disprot_curated_dfl`, `88` `mined_high_confidence_dfl_call`, `250` `mined_provisional_dfl_candidate`, `23` `literature_engineered_template`) plus `40` `b3_no_linker_specificity_panel` controls. See [`reports/PART1_COMPLETION_AND_NATURAL_MINED_LINKER_DATASET_2026-10-19.md`](reports/PART1_COMPLETION_AND_NATURAL_MINED_LINKER_DATASET_2026-10-19.md) and [`reports/mined_and_natural_linkers_v1_summary_2026-10-19.json`](reports/mined_and_natural_linkers_v1_summary_2026-10-19.json).
