@@ -131,6 +131,7 @@ def main() -> None:
     parser.add_argument("--protected-site-assessment", type=Path)
     parser.add_argument("--matched-comparison", type=Path)
     parser.add_argument("--openmm-run", type=Path)
+    parser.add_argument("--openmm-convergence", type=Path)
     parser.add_argument("--surface-burial", type=Path, help="Sequence/hash-verified CPU surface-burial panel JSON")
     parser.add_argument("--reduce-probe", type=Path, help="Sequence/hash-verified Reduce/Probe overlap panel JSON")
     parser.add_argument("--output", type=Path, required=True)
@@ -198,6 +199,23 @@ def main() -> None:
             "evidence_quality": openmm_run.get("evidence_quality"),
         }
         source_ids.append(f"openmm-run-sha256:{sha256(args.openmm_run)}")
+    if args.openmm_convergence:
+        if not args.openmm_run:
+            raise ValueError("OpenMM convergence evidence requires its run manifest")
+        convergence = json.loads(args.openmm_convergence.read_text(encoding="utf-8"))
+        schema_path = Path(__file__).resolve().parents[1] / "schemas/openmm-convergence-summary.v1.schema.json"
+        Draft202012Validator(json.loads(schema_path.read_text(encoding="utf-8"))).validate(convergence)
+        if convergence["run_manifest_sha256"] != sha256(args.openmm_run):
+            raise ValueError("OpenMM convergence summary refers to a different run manifest")
+        linked_evidence["openmm_convergence"] = {
+            "path": str(args.openmm_convergence),
+            "sha256": sha256(args.openmm_convergence),
+            "replicates": len(convergence["replicates"]),
+            "blocks_per_replicate": convergence["config"]["blocks_per_replicate"],
+            "threshold_status": convergence["threshold_status"],
+            "interpretation": "Descriptive block drift and between-replicate dispersion; no convergence pass threshold is frozen.",
+        }
+        source_ids.append(f"openmm-convergence-sha256:{sha256(args.openmm_convergence)}")
     if args.surface_burial:
         surface = json.loads(args.surface_burial.read_text(encoding="utf-8"))
         schema_path = Path(__file__).resolve().parents[1] / "schemas/fusion-surface-burial.v1.schema.json"
@@ -289,6 +307,8 @@ def main() -> None:
         not_performed.append("matched full structural prediction for every linker baseline")
     if "openmm_run" not in linked_evidence:
         not_performed.append("OpenMM or GROMACS minimization/dynamics")
+    elif "openmm_convergence" not in linked_evidence:
+        not_performed.append("replicated OpenMM trajectory convergence diagnostics")
     if "surface_burial" not in linked_evidence:
         not_performed.append("fixed-coordinate domain surface-burial analysis")
     if "reduce_probe_overlap_screen" not in linked_evidence:

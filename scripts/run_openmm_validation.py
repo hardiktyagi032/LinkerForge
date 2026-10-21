@@ -331,7 +331,7 @@ def main() -> None:
                 text=True,
             ).stdout.strip(),
             "worktree_modified": bool(subprocess.run(
-                ["git", "status", "--porcelain"],
+                ["git", "status", "--porcelain", "--untracked-files=no"],
                 cwd=Path(__file__).resolve().parents[1],
                 check=True,
                 capture_output=True,
