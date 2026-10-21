@@ -26,6 +26,11 @@ conflated:
 
 ## Changes verified in this audit
 
+Follow-up: [evidence alternatives and future integrations](./EVIDENCE_ALTERNATIVES_2026-10-21.md)
+documents the CPU surface-burial extension, MolProbity feasibility, existing
+OpenMM/DFLpred alternatives and the remaining scientific and deployment scope.
+Run completion is recorded in the referenced durable job artifacts.
+
 - Individual domain structures are no longer fixed sfGFP/mCherry examples. The
   Structure page accepts a sequence-matched PDB independently for Domain A and
   Domain B, plus its source ID and experimental/predicted classification.

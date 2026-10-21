@@ -16,6 +16,8 @@ from pathlib import Path
 import platform
 import subprocess
 
+from jsonschema import Draft202012Validator
+
 
 THREE_TO_ONE = {
     "ALA": "A", "ARG": "R", "ASN": "N", "ASP": "D", "CYS": "C",
@@ -23,6 +25,7 @@ THREE_TO_ONE = {
     "LEU": "L", "LYS": "K", "MET": "M", "PHE": "F", "PRO": "P",
     "SER": "S", "THR": "T", "TRP": "W", "TYR": "Y", "VAL": "V",
 }
+ONE_TO_THREE = {one: three for three, one in THREE_TO_ONE.items()}
 
 
 def sha256(path: Path) -> str:
@@ -128,8 +131,11 @@ def main() -> None:
     parser.add_argument("--protected-site-assessment", type=Path)
     parser.add_argument("--matched-comparison", type=Path)
     parser.add_argument("--openmm-run", type=Path)
+    parser.add_argument("--surface-burial", type=Path, help="Sequence/hash-verified CPU surface-burial panel JSON")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    if args.output.exists():
+        raise FileExistsError(f"Refusing to overwrite an existing evidence record: {args.output}")
 
     fusion = read_ca(args.fusion_pdb)
     domain_a = read_ca(args.domain_a_reference, "A")
@@ -191,6 +197,47 @@ def main() -> None:
             "evidence_quality": openmm_run.get("evidence_quality"),
         }
         source_ids.append(f"openmm-run-sha256:{sha256(args.openmm_run)}")
+    if args.surface_burial:
+        surface = json.loads(args.surface_burial.read_text(encoding="utf-8"))
+        schema_path = Path(__file__).resolve().parents[1] / "schemas/fusion-surface-burial.v1.schema.json"
+        Draft202012Validator(json.loads(schema_path.read_text(encoding="utf-8"))).validate(surface)
+        surface_rows = [row for row in surface["records"] if row["pdb_sha256"] == fusion_sha]
+        sequence_sha = hashlib.sha256("".join(row[0] for row in fusion).encode()).hexdigest()
+        if len(surface_rows) != 1 or surface_rows[0]["sequence_sha256"] != sequence_sha:
+            raise ValueError("Surface-burial report does not match exactly one fusion PDB and sequence")
+        selected_surface = surface_rows[0]
+        expected_boundaries = {
+            "domain_a_length": args.domain_a_length,
+            "linker_length": args.linker_length,
+            "domain_b_length": len(fusion) - b_start,
+        }
+        if any(selected_surface["boundaries"][key] != value for key, value in expected_boundaries.items()):
+            raise ValueError("Surface-burial report boundaries do not match the fusion audit")
+        expected_residues = list(range(1, args.domain_a_length + 1)) + list(range(b_start + 1, len(fusion) + 1))
+        if [row["fusion_residue"] for row in selected_surface["measurements"]] != expected_residues:
+            raise ValueError("Surface-burial measurements do not cover each domain residue exactly once")
+        for row in selected_surface["measurements"]:
+            fusion_index = row["fusion_residue"] - 1
+            expected_domain = "A" if fusion_index < args.domain_a_length else "B"
+            expected_domain_residue = fusion_index + 1 if expected_domain == "A" else fusion_index - b_start + 1
+            expected_residue_name = ONE_TO_THREE[fusion[fusion_index][0]]
+            if (row["domain"], row["domain_residue"], row["residue_name"]) != (
+                expected_domain, expected_domain_residue, expected_residue_name
+            ):
+                raise ValueError("Surface-burial residue identity or domain mapping is inconsistent")
+        linker_total = round(sum(row["linker_attributed_burial_angstrom2"] for row in selected_surface["measurements"]), 4)
+        context_total = round(sum(row["total_added_context_burial_angstrom2"] for row in selected_surface["measurements"]), 4)
+        if linker_total != selected_surface["domain_surface_buried_by_linker_angstrom2"] or context_total != selected_surface["domain_surface_buried_by_added_context_angstrom2"]:
+            raise ValueError("Surface-burial totals do not match the residue measurements")
+        linked_evidence["surface_burial"] = {
+            "path": str(args.surface_burial), "sha256": sha256(args.surface_burial),
+            "measurement_count": len(selected_surface["measurements"]),
+            "domain_surface_buried_by_linker_angstrom2": selected_surface["domain_surface_buried_by_linker_angstrom2"],
+            "domain_surface_buried_by_added_context_angstrom2": selected_surface["domain_surface_buried_by_added_context_angstrom2"],
+            "threshold_status": surface["threshold_status"],
+            "interpretation": "Fixed-coordinate surface burial; functional sites require explicit annotations.",
+        }
+        source_ids.append(f"surface-burial-sha256:{sha256(args.surface_burial)}")
     config_record = {
         "domain_a_length": args.domain_a_length,
         "linker_length": args.linker_length,
@@ -215,6 +262,8 @@ def main() -> None:
         not_performed.append("matched full structural prediction for every linker baseline")
     if "openmm_run" not in linked_evidence:
         not_performed.append("OpenMM or GROMACS minimization/dynamics")
+    if "surface_burial" not in linked_evidence:
+        not_performed.append("fixed-coordinate domain surface-burial analysis")
     not_performed.append("experimental expression, stability, or activity testing")
     result = {
         "schema_version": "linkerforge.structure-evidence.v1",
@@ -261,6 +310,8 @@ def main() -> None:
         "evidence_quality": "predicted_unvalidated",
         "claim_boundary": "Deterministic audit of one prediction; not evidence of expression, function, or linker optimality.",
     }
+    output_schema = root / "schemas/linkerforge-structure-evidence.v1.schema.json"
+    Draft202012Validator(json.loads(output_schema.read_text(encoding="utf-8"))).validate(result)
     args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
 
 
