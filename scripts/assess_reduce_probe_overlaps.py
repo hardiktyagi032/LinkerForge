@@ -167,9 +167,15 @@ def main() -> None:
     versions: dict[str, str] = {}
     for tool, command in version_commands.items():
         completed = run(command)
-        if completed.returncode != 0:
-            raise RuntimeError(f"{tool} version check failed: {completed.stderr.strip()}")
-        versions[tool] = (completed.stdout or completed.stderr).strip()
+        version_text = (completed.stdout or completed.stderr).strip()
+        # Reduce 4.15 prints a valid version to stderr and exits 2 for -version.
+        # Validate the identity string instead of assuming Unix success semantics.
+        if not version_text.lower().startswith(f"{tool}."):
+            raise RuntimeError(
+                f"{tool} version check failed (exit {completed.returncode}): "
+                f"{completed.stderr.strip()}"
+            )
+        versions[tool] = version_text
 
     args.output_dir.mkdir(parents=True, exist_ok=False)
     reduced_dir, raw_dir = args.output_dir / "reduced", args.output_dir / "probe_raw"

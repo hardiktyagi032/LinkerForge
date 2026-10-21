@@ -2,6 +2,7 @@
 import hashlib
 import json
 import sys
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -11,7 +12,7 @@ from jsonschema import ValidationError
 from scripts.assess_fusion_surface_burial import main as surface_main
 from scripts.assess_fusion_surface_burial import measure, read_protein
 from scripts.audit_fusion_structure_evidence import main as evidence_main
-from scripts.assess_reduce_probe_overlaps import count_explicit_atoms, parse_probe_records
+from scripts.assess_reduce_probe_overlaps import count_explicit_atoms, parse_probe_records, tool_command
 
 
 def structure_at(points):
@@ -100,6 +101,14 @@ def test_explicit_atom_count_ignores_duplicate_altloc_and_nonprotein():
         "HETATM    3  O   HOH A   2       1.000   0.000   0.000  1.00 10.00           O",
     ])
     assert count_explicit_atoms(text) == 1
+
+
+def test_tool_command_records_pinned_manifest_and_no_shell():
+    command = tool_command(Path("M:/project/pixi.toml"), "reduce", "-version")
+    assert command[:5] == [
+        "wsl.exe", "--exec", "/home/linkerforge/.pixi/bin/pixi", "run", "--manifest-path",
+    ]
+    assert command[-2:] == ["reduce", "-version"]
 
 
 def test_sequence_mismatch_and_missing_backbone_are_rejected(tmp_path):
