@@ -104,9 +104,13 @@ of trajectory data and 31.76 GPU hours. With the unchanged 1.5× allowance plus
 space passes. Artifact:
 `reports/openmm-production-preflight-storage-aware-2026-10-21.json`.
 
-This only removes the storage blocker. The run must wait for the active
-ColabFold job to release the GPU, and a completed production run would still
-require convergence analysis; it would not prove biological stability.
+This only removes the storage blocker. A durable six-stage production pipeline
+is now running in a wait state at
+`runs/job-control/openmm-production-v2-after-colabfold-20261021/`. It waits for
+the ColabFold comparison artifact, repeats the disk preflight, acquires the
+shared GPU lock, runs all three replicas, produces descriptive five-block and
+between-replicate diagnostics, links the evidence, and validates schemas. A
+completed run still would not prove biological stability.
 
 ## Sources checked
 
