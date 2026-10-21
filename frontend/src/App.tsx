@@ -7,9 +7,11 @@ import {
   ExternalLink,
   MessageSquare,
   Moon,
+  Pencil,
   Play,
   Plus,
   Sun,
+  Trash2,
   XCircle,
 } from 'lucide-react'
 import FusionStructureViewer from './FusionStructureViewer'
@@ -958,9 +960,28 @@ function App() {
     setCustomCandidates([])
     setCandidates([])
     setSelectedCustomIndex(0)
+    setSelectedCandidateSeq('')
     setViewerResult({ fold: null, pdb: null, source: null, metrics: null, elapsed: null, running: false })
+    setDomainReferences({
+      A: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null },
+      B: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null },
+    })
     setCustomError(null)
     goToPage('structure')
+  }
+
+  const editSession = (session: DesignSession) => {
+    openSession(session)
+    setComposerOpen(true)
+  }
+
+  const deleteSession = (session: DesignSession) => {
+    const confirmed = window.confirm(
+      `Delete "${session.projectName}"? This removes the saved design from this device but does not delete any prediction run files.`
+    )
+    if (!confirmed) return
+    setDesignSessions((previous) => previous.filter((item) => item.id !== session.id))
+    if (activeSessionId === session.id) startNewDesign()
   }
 
   const handleRunDesign = async (
@@ -972,6 +993,15 @@ function App() {
       const domainA = parseProteinSequence(domainAInput, 'Domain A')
       const domainB = parseProteinSequence(domainBInput, 'Domain B')
       const generated = buildTemplateCandidates(domainA, domainB, nextLength, nextRigidity, nextCleavable)
+      const protectedSiteParse = parseProtectedSites(
+        protectedSites,
+        domainA.length,
+        generated[0]?.linker.length ?? nextLength,
+        domainB.length
+      )
+      if (protectedSiteParse.errors.length > 0) {
+        throw new Error(`Protected residues must use valid domain-relative positions (for example A:48;B:12-18). Check: ${protectedSiteParse.errors.join(', ')}`)
+      }
       setDomainALength(domainA.length)
       setCustomCandidates(generated)
       setCandidates([])
@@ -1312,8 +1342,8 @@ function App() {
                   onChange={(event) => { setTargetLength(Number(event.target.value)); setCustomCandidates([]) }} />
               </label>
 
-              <details className="sidebar-advanced-inputs">
-                <summary>Biological context and safeguards</summary>
+              <section className="sidebar-advanced-inputs" aria-labelledby="biological-context-heading">
+                <div id="biological-context-heading" className="sidebar-advanced-heading">Biological context and safeguards</div>
                 <label htmlFor="biological-objective">Biological objective
                   <textarea id="biological-objective" value={biologicalObjective} rows={3}
                     onChange={(event) => setBiologicalObjective(event.target.value)} placeholder="What must the fusion preserve or enable?" />
@@ -1331,7 +1361,7 @@ function App() {
                   <span>Allow this complete sequence to use the public ColabFold/MMseqs2 MSA service.</span>
                 </label>
                 <p>Use exact expressed sequences. Signal peptides, tags and propeptides must be included or removed intentionally. Only canonical amino acids are accepted.</p>
-              </details>
+              </section>
 
               <button type="submit" className="sidebar-submit" disabled={!domainAInput.trim() || !domainBInput.trim()}>
                 <Play size={15} /> Create prediction workspace
@@ -1347,11 +1377,19 @@ function App() {
           <div className="session-list" aria-label="Saved design sessions">
             <div className="session-list-heading"><span>Designs</span><small>{designSessions.length}</small></div>
             {designSessions.length === 0 ? <p>No designs yet. Your submitted inputs will appear here.</p> : designSessions.map((session) => (
-              <button type="button" key={session.id} className={activeSessionId === session.id ? 'active' : ''}
-                onClick={() => openSession(session)}>
-                <MessageSquare size={15} />
-                <span><strong>{session.projectName}</strong><small>{session.domainALabel} → {session.domainBLabel} · {session.targetLength} aa</small></span>
-              </button>
+              <div key={session.id} className={`session-item ${activeSessionId === session.id ? 'active' : ''}`}>
+                <button type="button" className="session-open" aria-label={`Open ${session.projectName}`}
+                  onClick={() => openSession(session)}>
+                  <MessageSquare size={15} />
+                  <span><strong>{session.projectName}</strong><small>{session.domainALabel} → {session.domainBLabel} · {session.targetLength} aa</small></span>
+                </button>
+                <div className="session-actions" aria-label={`${session.projectName} actions`}>
+                  <button type="button" aria-label={`Edit ${session.projectName}`} title="Edit design"
+                    onClick={() => editSession(session)}><Pencil size={13} /></button>
+                  <button type="button" aria-label={`Delete ${session.projectName}`} title="Delete design"
+                    onClick={() => deleteSession(session)}><Trash2 size={13} /></button>
+                </div>
+              </div>
             ))}
           </div>
           <div className="sidebar-status"><strong>{workspaceState}</strong><small>Saved locally on this device · computational evidence only</small></div>

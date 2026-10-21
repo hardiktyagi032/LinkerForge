@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::{
+    ffi::OsStr,
     fs,
     fs::OpenOptions,
     io::Write,
@@ -12,8 +13,27 @@ use std::{
 use tauri::Manager;
 use tokio::process::Command;
 
+#[cfg(windows)]
+use std::os::windows::process::CommandExt;
+
 const MAX_RESIDUES: usize = 2_100;
 const MAX_PDB_BYTES: u64 = 15_000_000;
+#[cfg(windows)]
+const CREATE_NO_WINDOW: u32 = 0x08000000;
+
+fn hidden_command<S: AsRef<OsStr>>(program: S) -> std::process::Command {
+    let mut command = std::process::Command::new(program);
+    #[cfg(windows)]
+    command.creation_flags(CREATE_NO_WINDOW);
+    command
+}
+
+fn hidden_async_command<S: AsRef<OsStr>>(program: S) -> Command {
+    let mut command = Command::new(program);
+    #[cfg(windows)]
+    command.as_std_mut().creation_flags(CREATE_NO_WINDOW);
+    command
+}
 
 #[derive(Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -70,24 +90,126 @@ struct GpuJobLock {
     file: Option<fs::File>,
 }
 
+fn read_lock_pid(path: &Path) -> Result<u32, String> {
+    let contents = fs::read_to_string(path)
+        .map_err(|error| format!("Could not inspect GPU job lock {}: {error}", path.display()))?;
+    contents
+        .lines()
+        .find_map(|line| line.strip_prefix("pid="))
+        .ok_or_else(|| {
+            format!(
+                "GPU job lock {} has no PID and was left in place for safety.",
+                path.display()
+            )
+        })?
+        .parse::<u32>()
+        .ok()
+        .filter(|pid| *pid > 0)
+        .ok_or_else(|| {
+            format!(
+                "GPU job lock {} has an invalid PID and was left in place for safety.",
+                path.display()
+            )
+        })
+}
+
+#[cfg(windows)]
+fn process_is_active(pid: u32) -> Result<bool, String> {
+    let filter = format!("PID eq {pid}");
+    let output = hidden_command("tasklist.exe")
+        .args(["/FI", &filter, "/FO", "CSV", "/NH"])
+        .output()
+        .map_err(|error| format!("Could not verify GPU lock PID {pid}: {error}"))?;
+    if !output.status.success() {
+        return Err(format!(
+            "Could not verify GPU lock PID {pid}; the lock was left in place."
+        ));
+    }
+    Ok(String::from_utf8_lossy(&output.stdout).contains(&format!("\"{pid}\"")))
+}
+
+#[cfg(not(windows))]
+fn process_is_active(pid: u32) -> Result<bool, String> {
+    Ok(Path::new("/proc").join(pid.to_string()).exists())
+}
+
+#[cfg(windows)]
+fn prediction_or_simulation_active() -> Result<bool, String> {
+    let script = r#"$active = Get-CimInstance Win32_Process | Where-Object { $_.ProcessId -ne $PID -and (($_.Name -match '^(colabfold|alphafold|gmx|gromacs|rosetta)') -or ($_.CommandLine -match '(?i)(colabfold_batch|run_alphafold|openmm|gromacs|(?:^|[\\/ ])gmx(?:\.exe)?(?: |$)|rosetta)')) } | Select-Object -First 1; if ($null -ne $active) { 'active' } else { 'inactive' }"#;
+    let output = hidden_command("powershell.exe")
+        .args(["-NoProfile", "-NonInteractive", "-Command", script])
+        .output()
+        .map_err(|error| {
+            format!("Could not inspect prediction and simulation processes: {error}")
+        })?;
+    if !output.status.success() {
+        return Err("Could not verify whether a prediction or simulation is active; the GPU lock was left in place.".into());
+    }
+    Ok(String::from_utf8_lossy(&output.stdout).trim() == "active")
+}
+
+#[cfg(not(windows))]
+fn prediction_or_simulation_active() -> Result<bool, String> {
+    let needles = [
+        "colabfold",
+        "alphafold",
+        "openmm",
+        "gromacs",
+        "gmx",
+        "rosetta",
+    ];
+    for entry in fs::read_dir("/proc").map_err(|error| error.to_string())? {
+        let entry = entry.map_err(|error| error.to_string())?;
+        if entry.file_name().to_string_lossy().parse::<u32>().is_err() {
+            continue;
+        }
+        let command_line = fs::read(entry.path().join("cmdline")).unwrap_or_default();
+        let command_line = String::from_utf8_lossy(&command_line).to_ascii_lowercase();
+        if needles.iter().any(|needle| command_line.contains(needle)) {
+            return Ok(true);
+        }
+    }
+    Ok(false)
+}
+
+fn create_gpu_lock(path: &Path) -> Result<fs::File, std::io::Error> {
+    OpenOptions::new().write(true).create_new(true).open(path)
+}
+
 impl GpuJobLock {
     fn acquire(runs_root: &Path) -> Result<Self, String> {
         fs::create_dir_all(runs_root).map_err(|error| error.to_string())?;
         let path = runs_root.join(".linkerforge-gpu.lock");
-        let mut file = OpenOptions::new()
-            .write(true)
-            .create_new(true)
-            .open(&path)
-            .map_err(|error| {
-                if error.kind() == std::io::ErrorKind::AlreadyExists {
+        let mut file = match create_gpu_lock(&path) {
+            Ok(file) => file,
+            Err(error) if error.kind() == std::io::ErrorKind::AlreadyExists => {
+                let pid = read_lock_pid(&path)?;
+                if process_is_active(pid)? || prediction_or_simulation_active()? {
+                    return Err(format!(
+                        "Another LinkerForge GPU job may be running (lock PID {pid}). Inspect {} and remove it only after confirming no prediction or simulation process is active.",
+                        path.display()
+                    ));
+                }
+                fs::remove_file(&path).map_err(|error| {
                     format!(
-                        "Another LinkerForge GPU job may be running. Inspect {} and remove it only after confirming no prediction or simulation process is active.",
+                        "Confirmed stale GPU job lock {} could not be removed: {error}",
                         path.display()
                     )
-                } else {
-                    format!("Could not create GPU job lock {}: {error}", path.display())
-                }
-            })?;
+                })?;
+                create_gpu_lock(&path).map_err(|error| {
+                    format!(
+                        "Could not claim GPU job lock {} after stale-lock recovery: {error}",
+                        path.display()
+                    )
+                })?
+            }
+            Err(error) => {
+                return Err(format!(
+                    "Could not create GPU job lock {}: {error}",
+                    path.display()
+                ));
+            }
+        };
         writeln!(
             file,
             "pid={}\ncreated_unix_seconds={}",
@@ -302,19 +424,19 @@ fn colabfold_metrics(
         let domain_b_start = domain_a_length + linker_length;
         let mut cross_domain = Vec::new();
         if let Some(rows) = pae {
-            for left in 0..domain_a_length.min(rows.len()) {
-                if let Some(row) = rows[left].as_array() {
-                    for right in domain_b_start..row.len() {
-                        if let Some(number) = row[right].as_f64() {
+            for row_value in rows.iter().take(domain_a_length) {
+                if let Some(row) = row_value.as_array() {
+                    for cell in row.iter().skip(domain_b_start) {
+                        if let Some(number) = cell.as_f64() {
                             cross_domain.push(number);
                         }
                     }
                 }
             }
-            for left in domain_b_start..rows.len() {
-                if let Some(row) = rows[left].as_array() {
-                    for right in 0..domain_a_length.min(row.len()) {
-                        if let Some(number) = row[right].as_f64() {
+            for row_value in rows.iter().skip(domain_b_start) {
+                if let Some(row) = row_value.as_array() {
+                    for cell in row.iter().take(domain_a_length) {
+                        if let Some(number) = cell.as_f64() {
                             cross_domain.push(number);
                         }
                     }
@@ -347,7 +469,7 @@ fn colabfold_metrics(
 }
 
 fn executable_from_path(name: &str) -> Option<PathBuf> {
-    let output = std::process::Command::new("where.exe")
+    let output = hidden_command("where.exe")
         .arg(name)
         .stdout(Stdio::piped())
         .stderr(Stdio::null())
@@ -365,7 +487,7 @@ fn executable_from_path(name: &str) -> Option<PathBuf> {
 }
 
 fn windows_path_to_wsl(path: &Path) -> Result<String, String> {
-    let output = std::process::Command::new("wsl.exe")
+    let output = hidden_command("wsl.exe")
         .arg("--exec")
         .arg("wslpath")
         .arg("-a")
@@ -445,7 +567,7 @@ fn pymol_script(domain_a_length: usize, linker_length: usize, sequence_length: u
 }
 
 fn probe_compute() -> ComputeStatus {
-    let native_available = std::process::Command::new("where.exe")
+    let native_available = hidden_command("where.exe")
         .arg("colabfold_batch")
         .stdout(Stdio::null())
         .stderr(Stdio::null())
@@ -456,13 +578,13 @@ fn probe_compute() -> ComputeStatus {
     let wsl_enabled = std::env::var("LINKERFORGE_ENABLE_WSL").as_deref() == Ok("1");
     let wsl_available = wsl_enabled
         && !native_available
-        && std::process::Command::new("wsl.exe")
+        && hidden_command("wsl.exe")
             .args(["--exec", "which", "colabfold_batch"])
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .status()
             .is_ok_and(|status| status.success());
-    let gpu = std::process::Command::new("nvidia-smi")
+    let gpu = hidden_command("nvidia-smi")
         .args([
             "--query-gpu=name,memory.total,memory.free",
             "--format=csv,noheader",
@@ -548,7 +670,7 @@ async fn open_pdb_in_pymol(
         fs::write(&pml_path, script).map_err(|error| error.to_string())?;
         match pymol {
             PymolBackend::Native(executable) => {
-                std::process::Command::new(executable)
+                hidden_command(executable)
                     .arg(&pdb_path)
                     .arg(&pml_path)
                     .spawn()
@@ -558,7 +680,7 @@ async fn open_pdb_in_pymol(
                 let executable = windows_path_to_wsl(&executable)?;
                 let pdb = windows_path_to_wsl(&pdb_path)?;
                 let script = windows_path_to_wsl(&pml_path)?;
-                std::process::Command::new("wsl.exe")
+                hidden_command("wsl.exe")
                     .arg("--exec")
                     .arg(executable)
                     .arg(pdb)
@@ -656,7 +778,7 @@ async fn start_fold(
                     output.display().to_string(),
                 )
             };
-            let mut command = Command::new(program);
+            let mut command = hidden_async_command(program);
             command
                 .args(prefix)
                 .arg("--use-fast-kernels")
@@ -787,6 +909,44 @@ mod tests {
         let second = GpuJobLock::acquire(&directory).expect("lock after drop");
         drop(second);
         fs::remove_dir(&directory).expect("remove lock test directory");
+    }
+
+    #[test]
+    fn gpu_job_lock_recovers_only_after_dead_pid_and_process_scan() {
+        let directory = std::env::temp_dir().join(format!(
+            "linkerforge-stale-lock-test-{}-{}",
+            std::process::id(),
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .expect("system clock")
+                .as_nanos()
+        ));
+        fs::create_dir(&directory).expect("create stale lock test directory");
+        let path = directory.join(".linkerforge-gpu.lock");
+        fs::write(&path, "pid=2147483647\ncreated_unix_seconds=1\n").expect("write stale lock");
+        let recovered = GpuJobLock::acquire(&directory).expect("recover stale lock");
+        assert!(path.exists());
+        drop(recovered);
+        fs::remove_dir(&directory).expect("remove stale lock test directory");
+    }
+
+    #[test]
+    fn gpu_job_lock_leaves_malformed_lock_in_place() {
+        let directory = std::env::temp_dir().join(format!(
+            "linkerforge-malformed-lock-test-{}-{}",
+            std::process::id(),
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .expect("system clock")
+                .as_nanos()
+        ));
+        fs::create_dir(&directory).expect("create malformed lock test directory");
+        let path = directory.join(".linkerforge-gpu.lock");
+        fs::write(&path, "not-a-valid-lock\n").expect("write malformed lock");
+        assert!(GpuJobLock::acquire(&directory).is_err());
+        assert!(path.exists());
+        fs::remove_file(&path).expect("remove malformed lock");
+        fs::remove_dir(&directory).expect("remove malformed lock test directory");
     }
 
     #[test]

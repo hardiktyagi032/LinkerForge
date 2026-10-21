@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 
 function submitTestDesign(name = 'Public test fusion') {
@@ -37,6 +37,8 @@ describe('LinkerForge interface', () => {
     expect(screen.getByLabelText(/saved design sessions/i)).toBeInTheDocument()
     expect(screen.getByText(/computational evidence only/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/domain a amino-acid sequence/i)).toBeInTheDocument()
+    expect(screen.getByRole('region', { name: /biological context and safeguards/i })).toBeInTheDocument()
+    expect(screen.getByLabelText(/biological objective/i)).toBeVisible()
     expect(screen.getByRole('heading', { name: /start a linker prediction/i })).toBeInTheDocument()
     expect(screen.queryByText(/^overview$/i)).not.toBeInTheDocument()
   })
@@ -54,7 +56,9 @@ describe('LinkerForge interface', () => {
     submitTestDesign()
 
     const sessions = screen.getByLabelText(/saved design sessions/i)
-    expect(within(sessions).getByRole('button', { name: /public test fusion/i })).toBeInTheDocument()
+    expect(within(sessions).getByRole('button', { name: /open public test fusion/i })).toBeInTheDocument()
+    expect(within(sessions).getByRole('button', { name: /edit public test fusion/i })).toBeInTheDocument()
+    expect(within(sessions).getByRole('button', { name: /delete public test fusion/i })).toBeInTheDocument()
     expect(screen.getByRole('tablist', { name: /prediction models/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /full fusion model/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /domain a.*individual model/i })).toBeInTheDocument()
@@ -69,10 +73,28 @@ describe('LinkerForge interface', () => {
     fireEvent.click(screen.getByRole('button', { name: /new linker design/i }))
     expect(screen.getByRole('heading', { name: /start a linker prediction/i })).toBeInTheDocument()
 
-    fireEvent.click(within(screen.getByLabelText(/saved design sessions/i)).getByRole('button', { name: /reusable fusion/i }))
+    fireEvent.click(within(screen.getByLabelText(/saved design sessions/i)).getByRole('button', { name: /open reusable fusion/i }))
     fireEvent.click(screen.getByRole('button', { name: /edit design inputs/i }))
     expect(screen.getByLabelText(/domain a amino-acid sequence/i)).toHaveValue('ACDEFG')
     expect(screen.getByLabelText(/domain b amino-acid sequence/i)).toHaveValue('HIKLMN')
+  })
+
+  it('edits a saved design in place and deletes it with confirmation', () => {
+    const confirm = vi.spyOn(window, 'confirm').mockReturnValue(true)
+    render(<App />)
+    submitTestDesign('Duplicate-prone design')
+
+    const sessions = screen.getByLabelText(/saved design sessions/i)
+    fireEvent.click(within(sessions).getByRole('button', { name: /edit duplicate-prone design/i }))
+    fireEvent.change(screen.getByLabelText(/design name/i), { target: { value: 'Edited design' } })
+    fireEvent.click(screen.getByRole('button', { name: /create prediction workspace/i }))
+
+    expect(within(sessions).queryByRole('button', { name: /open duplicate-prone design/i })).not.toBeInTheDocument()
+    expect(within(sessions).getByRole('button', { name: /open edited design/i })).toBeInTheDocument()
+    fireEvent.click(within(sessions).getByRole('button', { name: /delete edited design/i }))
+    expect(confirm).toHaveBeenCalledOnce()
+    expect(within(sessions).getByText(/no designs yet/i)).toBeInTheDocument()
+    confirm.mockRestore()
   })
 
   it('uses per-input domain models instead of hard-coded references', () => {
