@@ -1,42 +1,70 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
-  Activity,
   ArrowRight,
   CheckCircle2,
-  CircleDot,
-  Database,
   Download,
-  GitBranch,
+  ExternalLink,
   Play,
-  ShieldCheck,
   XCircle,
 } from 'lucide-react'
 import FusionStructureViewer from './FusionStructureViewer'
-import { buildTemplateCandidates, fusionFasta, parseProteinSequence, validateFusionPdb, type FusionCandidate } from './fusion'
-import { getComputeStatus, getFoldStatus, inDesktop, startLocalFold, type ComputeStatus, type FoldStatus } from './desktopFold'
+import {
+  buildTemplateCandidates,
+  fusionFasta,
+  parseProteinSequence,
+  summarizePdbConfidence,
+  validateFusionPdb,
+  type FusionCandidate,
+} from './fusion'
+import {
+  errorMessage,
+  foldStartTimeFromRunDir,
+  formatElapsedTime,
+  getComputeStatus,
+  getFoldStatus,
+  inDesktop,
+  openPdbInPymol,
+  startLocalFold,
+  type ComputeStatus,
+  type FoldStatus,
+} from './desktopFold'
+import {
+  auditFusionCoordinates,
+  assessProtectedSiteClearance,
+  calculateDomainPreservation,
+  parseColabFoldScoreJson,
+  parseProtectedSites,
+  validateDomainReferencePdb,
+  type ColabFoldMetrics,
+} from './structureEvidence'
+import {
+  appendHistoryEntry,
+  checksumManifest,
+  createStoredZip,
+  sha256Hex,
+  verifyHistory,
+  type HistoryEntry,
+  type ResearchBundleFile,
+} from './researchBundle'
 
-const stages = [
-  ['01', 'Check inputs', 'Confirm both protein files and protected sites are usable.'],
-  ['02', 'Measure joining points', 'Describe the shape and surroundings of each possible connection.'],
-  ['03', 'Recommend a linker', 'Rank connection direction, linker type, and length.'],
-  ['04', 'Predict and compare', 'Predict the combined shape and compare it with the originals.'],
+type RigidityMode = 'flexible' | 'rigid'
+type AppPage = 'design' | 'candidates' | 'structure' | 'results'
+
+const appPages: Array<{ id: AppPage; label: string; step: string }> = [
+  { id: 'design', label: 'Design input', step: '01' },
+  { id: 'candidates', label: 'Candidates', step: '02' },
+  { id: 'structure', label: 'Structure', step: '03' },
+  { id: 'results', label: 'Results', step: '04' },
 ]
 
-const referenceStructures = {
-  sfGFP: {
-    label: 'sfGFP',
-    pdbId: '2B3P',
-    description: 'Experimentally determined superfolder green fluorescent protein structure (238 aa beta-barrel; C-terminal port Lys238, rSASA = 0.62).',
-  },
-  mCherry: {
-    label: 'mCherry',
-    pdbId: '2H5Q',
-    description: 'Experimentally determined mCherry monomeric red fluorescent protein structure (236 aa beta-barrel; N-terminal port Met1, rSASA = 0.58).',
-  },
-} as const
-
-type ReferenceStructure = keyof typeof referenceStructures
-type RigidityMode = 'flexible' | 'rigid'
+function pageFromHash(hash: string): AppPage {
+  const route = hash.replace(/^#/, '')
+  if (route === 'studio' || route === 'design') return 'design'
+  if (route === 'runs' || route === 'candidates') return 'candidates'
+  if (route === 'viewer' || route === 'structure') return 'structure'
+  if (route === 'provenance' || route === 'results') return 'results'
+  return 'design'
+}
 
 interface RankedCandidateRow {
   rank: number
@@ -56,6 +84,41 @@ interface ApiCandidateRow extends Omit<RankedCandidateRow, 'rejection_reasons' |
     rejection_reasons?: string[]
     contour_length_A?: number
   }
+}
+
+interface ViewerResult {
+  fold: FoldStatus | null
+  pdb: string | null
+  source: 'colabfold' | 'uploaded' | null
+  metrics: ColabFoldMetrics | null
+}
+
+interface DomainReference {
+  sourceId: string
+  sourceKind: 'experimental' | 'predicted'
+  filename: string | null
+  pdb: string | null
+}
+
+interface DomainReferences {
+  A: DomainReference
+  B: DomainReference
+}
+
+interface SavedProjectV1 {
+  schema_version: 'linkerforge.project.v1'
+  project: {
+    name: string
+    biological_objective: string
+    expression_system: string
+    protected_sites: string
+  }
+  domains: {
+    A: { label: string; sequence: string; reference_source_id: string; reference_source_kind: DomainReference['sourceKind'] }
+    B: { label: string; sequence: string; reference_source_id: string; reference_source_kind: DomainReference['sourceKind'] }
+  }
+  design: { rigidity: RigidityMode; cleavable: boolean; target_length: number }
+  privacy: { public_msa_consent_saved: false }
 }
 
 const PRESET_CANDIDATES: Record<string, RankedCandidateRow[]> = {
@@ -334,29 +397,92 @@ function downloadText(filename: string, content: string) {
   URL.revokeObjectURL(url)
 }
 
+function downloadJson(filename: string, value: unknown) {
+  downloadText(filename, `${JSON.stringify(value, null, 2)}\n`)
+}
+
+function downloadBytes(filename: string, bytes: Uint8Array, type: string) {
+  const url = URL.createObjectURL(new Blob([bytes as BlobPart], { type }))
+  const anchor = document.createElement('a')
+  anchor.href = url
+  anchor.download = filename
+  anchor.click()
+  URL.revokeObjectURL(url)
+}
+
+function displayConfidence(value: number | null | undefined) {
+  return value == null ? 'Not available' : value.toFixed(1)
+}
+
 function ProteinViewer({
   candidate,
   domainALength,
+  domainALabel,
+  domainBLabel,
+  references,
+  onReferencesChange,
+  msaConsent,
+  onResultChange,
 }: {
   candidate: FusionCandidate | null
   domainALength: number
+  domainALabel: string
+  domainBLabel: string
+  references: DomainReferences
+  onReferencesChange: (references: DomainReferences) => void
+  msaConsent: boolean
+  onResultChange: (result: ViewerResult) => void
 }) {
-  const [selected, setSelected] = useState<ReferenceStructure>('sfGFP')
+  const [selected, setSelected] = useState<'A' | 'B'>('A')
   const [mode, setMode] = useState<'fusion' | 'reference'>('fusion')
   const [fullscreen, setFullscreen] = useState(false)
-  const [structures, setStructures] = useState<Record<string, string>>({})
+  const [structures, setStructures] = useState<Record<string, { pdb: string; source: 'colabfold' | 'uploaded' }>>({})
   const [uploadError, setUploadError] = useState<string | null>(null)
   const [compute, setCompute] = useState<ComputeStatus | null>(null)
   const [fold, setFold] = useState<FoldStatus | null>(null)
   const [foldSequence, setFoldSequence] = useState<string | null>(null)
+  const [foldStarting, setFoldStarting] = useState(false)
+  const [foldStartedAt, setFoldStartedAt] = useState<number | null>(null)
+  const [clock, setClock] = useState(0)
+  const foldLaunchInFlight = useRef(false)
+  const [pymolMessage, setPymolMessage] = useState<string | null>(null)
+  const [manualMetrics, setManualMetrics] = useState<ColabFoldMetrics | null>(null)
   const selectedSequence = candidate?.fullSequence ?? ''
-  const pdb = structures[selectedSequence] ?? null
-  const reference = referenceStructures[selected]
+  const structure = structures[selectedSequence] ?? null
+  const pdb = structure?.pdb ?? null
+  const linkerLength = candidate?.linker.length ?? 0
+  const domainASequence = selectedSequence.slice(0, domainALength)
+  const domainBSequence = selectedSequence.slice(domainALength + linkerLength)
+  const reference = references[selected]
+  const referenceSequence = selected === 'A' ? domainASequence : domainBSequence
+  const referenceLabel = selected === 'A' ? domainALabel : domainBLabel
 
   useEffect(() => {
     if (!inDesktop()) return
     void getComputeStatus().then(setCompute).catch(() => setCompute(null))
   }, [])
+
+  useEffect(() => {
+    if (!inDesktop() || !selectedSequence) return
+    let cancelled = false
+    void getFoldStatus().then(async (status) => {
+      const selectedDigest = await sha256Hex(selectedSequence)
+      if (cancelled || status.sequenceSha256 !== selectedDigest) return
+      setFold(status)
+      setFoldStartedAt(foldStartTimeFromRunDir(status.runDir))
+      if (status.phase === 'running') {
+        setFoldSequence(selectedSequence)
+      } else if (status.phase === 'complete' && status.pdb) {
+        validateFusionPdb(status.pdb, selectedSequence)
+        setStructures((previous) => ({ ...previous, [selectedSequence]: { pdb: status.pdb!, source: 'colabfold' } }))
+        setMode('fusion')
+        setUploadError(null)
+      }
+    }).catch((cause) => {
+      if (!cancelled) setUploadError(errorMessage(cause, 'Could not restore the local fold status.'))
+    })
+    return () => { cancelled = true }
+  }, [selectedSequence])
 
   useEffect(() => {
     if (!foldSequence) return
@@ -366,7 +492,7 @@ function ProteinViewer({
         if (status.phase === 'complete' && status.pdb) {
           try {
             validateFusionPdb(status.pdb, foldSequence)
-            setStructures((previous) => ({ ...previous, [foldSequence]: status.pdb! }))
+            setStructures((previous) => ({ ...previous, [foldSequence]: { pdb: status.pdb!, source: 'colabfold' } }))
             setMode('fusion')
             setUploadError(null)
           } catch (cause) {
@@ -384,17 +510,52 @@ function ProteinViewer({
     return () => window.clearInterval(timer)
   }, [foldSequence])
 
+  useEffect(() => {
+    onResultChange({ fold, pdb, source: structure?.source ?? null, metrics: fold?.metrics ?? manualMetrics })
+  }, [fold, manualMetrics, onResultChange, pdb, structure?.source])
+
+  useEffect(() => {
+    if (!foldStarting && fold?.phase !== 'running') return
+    const timer = window.setInterval(() => setClock(Date.now()), 1000)
+    return () => window.clearInterval(timer)
+  }, [foldStarting, fold?.phase])
+
   const handleLocalFold = async () => {
-    if (!candidate) return
+    if (!candidate || foldLaunchInFlight.current) return
+    foldLaunchInFlight.current = true
+    setFoldStarting(true)
+    setFoldStartedAt(Date.now())
+    setClock(Date.now())
+    setUploadError(null)
     try {
-      const status = await startLocalFold(candidate.fullSequence)
+      const status = await startLocalFold(candidate.fullSequence, domainALength, candidate.linker.length)
       setFold(status)
       setFoldSequence(candidate.fullSequence)
       setUploadError(null)
     } catch (cause) {
-      setUploadError(cause instanceof Error ? cause.message : 'Could not start ColabFold.')
+      // A rapid second IPC request can be rejected after the first one has
+      // already launched. Reconcile with the backend before reporting failure.
+      try {
+        const current = await getFoldStatus()
+        if (current.phase === 'running') {
+          setFold(current)
+          setFoldSequence(candidate.fullSequence)
+          setFoldStartedAt((previous) => previous ?? foldStartTimeFromRunDir(current.runDir))
+          setUploadError(null)
+          return
+        }
+      } catch {
+        // Preserve the original launch error below.
+      }
+      setUploadError(errorMessage(cause, 'Could not start ColabFold.'))
+    } finally {
+      foldLaunchInFlight.current = false
+      setFoldStarting(false)
     }
   }
+
+  const effectiveFoldStart = foldStartedAt ?? foldStartTimeFromRunDir(fold?.runDir ?? null)
+  const elapsed = effectiveFoldStart === null ? null : formatElapsedTime(clock - effectiveFoldStart)
 
   useEffect(() => {
     if (!fullscreen) return
@@ -411,11 +572,59 @@ function ProteinViewer({
       if (file.size > 15_000_000) throw new Error('The local PDB limit is 15 MB.')
       const content = await file.text()
       validateFusionPdb(content, candidate.fullSequence)
-      setStructures((previous) => ({ ...previous, [candidate.fullSequence]: content }))
+      setStructures((previous) => ({ ...previous, [candidate.fullSequence]: { pdb: content, source: 'uploaded' } }))
+      setManualMetrics(null)
       setUploadError(null)
+      setPymolMessage(null)
       setMode('fusion')
     } catch (cause) {
       setUploadError(cause instanceof Error ? cause.message : 'Could not read the PDB file.')
+    }
+  }
+
+  const handleScoreUpload = async (file: File | undefined) => {
+    if (!file || !candidate) return
+    try {
+      if (file.size > 20_000_000) throw new Error('The local score JSON limit is 20 MB.')
+      const metrics = parseColabFoldScoreJson(await file.text(), candidate.fullSequence.length, domainALength, candidate.linker.length)
+      setManualMetrics(metrics)
+      setUploadError(null)
+    } catch (cause) {
+      setManualMetrics(null)
+      setUploadError(cause instanceof Error ? cause.message : 'Could not read the ColabFold score JSON.')
+    }
+  }
+
+  const handleReferenceUpload = async (file: File | undefined) => {
+    if (!file || !candidate) return
+    try {
+      if (file.size > 15_000_000) throw new Error('The local PDB limit is 15 MB.')
+      const content = await file.text()
+      validateDomainReferencePdb(content, referenceSequence, referenceLabel || `Domain ${selected}`)
+      onReferencesChange({
+        ...references,
+        [selected]: { ...reference, filename: file.name, pdb: content },
+      })
+      setUploadError(null)
+    } catch (cause) {
+      setUploadError(cause instanceof Error ? cause.message : 'Could not read the reference PDB.')
+    }
+  }
+
+  const handleOpenInPymol = async () => {
+    if (!candidate || !pdb) return
+    try {
+      const message = await openPdbInPymol({
+        pdb,
+        sequence: candidate.fullSequence,
+        domainALength,
+        linkerLength: candidate.linker.length,
+      })
+      setPymolMessage(message)
+      setUploadError(null)
+    } catch (cause) {
+      setPymolMessage(null)
+      setUploadError(cause instanceof Error ? cause.message : 'Could not open the fusion in PyMOL.')
     }
   }
 
@@ -424,10 +633,10 @@ function ProteinViewer({
     'hide everything, all',
     'show cartoon, all',
     `select domain_a, resi 1-${domainALength}`,
-    `select linker, resi ${domainALength + 1}-${domainALength + candidate.linker.length}`,
+    ...(candidate.linker.length > 0 ? [`select linker, resi ${domainALength + 1}-${domainALength + candidate.linker.length}`] : []),
     `select domain_b, resi ${domainALength + candidate.linker.length + 1}-${candidate.fullSequence.length}`,
     'color green, domain_a',
-    'color magenta, linker',
+    ...(candidate.linker.length > 0 ? ['color magenta, linker'] : []),
     'color red, domain_b',
     'zoom all',
   ].join('\n') + '\n' : ''
@@ -436,7 +645,7 @@ function ProteinViewer({
     <section className={`section viewer-section ${fullscreen ? 'viewer-fullscreen' : ''}`} id="viewer" aria-label="Structure viewer">
       <div className="viewer-header">
         <div className="section-heading">
-          <span>02 / Full-fusion structure viewer</span>
+          <span>03 / Full-fusion structure viewer</span>
           <h2>{candidate ? 'Inspect both domains and the connecting linker' : 'Inspect reference structures'}</h2>
         </div>
         <button type="button" className="viewer-expand" onClick={() => setFullscreen((value) => !value)}>
@@ -448,8 +657,13 @@ function ProteinViewer({
           Full fusion {pdb ? '· PDB loaded' : '· awaits prediction'}
         </button>
         <button type="button" className={mode === 'reference' ? 'active' : ''} onClick={() => setMode('reference')}>
-          Individual experimental references
+          Individual domain references
         </button>
+        {inDesktop() && candidate && <button type="button" className="gpu-fold-button"
+          disabled={!compute?.predictorAvailable || !msaConsent || foldStarting || fold?.phase === 'running'}
+          onClick={() => { setMode('fusion'); void handleLocalFold() }}>
+          <Play size={14} /> {foldStarting ? 'Starting ColabFold…' : fold?.phase === 'running' ? 'Folding locally…' : 'Fold full fusion on this GPU'}
+        </button>}
       </div>
       {mode === 'fusion' ? (
         <>
@@ -476,12 +690,16 @@ function ProteinViewer({
                   Load predicted full-fusion PDB
                   <input type="file" accept=".pdb,.ent,text/plain" onChange={(event) => void handlePdbUpload(event.target.files?.[0])} />
                 </label>
-                {inDesktop() && <button type="button" disabled={!compute?.predictorAvailable || fold?.phase === 'running'}
-                  onClick={() => void handleLocalFold()}>
-                  <Play size={14} /> {fold?.phase === 'running' ? 'Folding locally…' : 'Fold full fusion on this GPU'}
-                </button>}
+                {pdb && <label className="upload-pdb">
+                  Load matching ColabFold score JSON
+                  <input type="file" accept=".json,application/json" onChange={(event) => void handleScoreUpload(event.target.files?.[0])} />
+                </label>}
                 {pdb && <button type="button" onClick={() => downloadText('linkerforge-fusion.pml', pml)}>
                   <Download size={14} /> PyMOL colouring script
+                </button>}
+                {inDesktop() && pdb && <button type="button" disabled={!compute?.pymolAvailable}
+                  onClick={() => void handleOpenInPymol()}>
+                  <ExternalLink size={14} /> Open coloured fusion in PyMOL
                 </button>}
               </>
             ) : (
@@ -489,34 +707,77 @@ function ProteinViewer({
             )}
           </div>
           {uploadError && <p className="structure-error" role="alert">{uploadError}</p>}
+          {pymolMessage && <p className="structure-success" role="status">{pymolMessage}</p>}
+          {inDesktop() && !msaConsent && <p className="structure-warning" role="status">
+            Local prediction is locked until the public-MSA data disclosure is acknowledged on the Design input page.
+          </p>}
           {inDesktop() && <div className="desktop-compute" aria-live="polite">
             <strong>Local compute:</strong> {compute?.gpu ?? 'Checking GPU…'} · ColabFold {compute?.predictorAvailable ? `available via ${compute.predictorBackend}` : 'not installed'}.
+            <p>PyMOL {compute?.pymolAvailable ? `available${compute.pymolPath ? ` at ${compute.pymolPath}` : ''}` : 'not installed or not detected'}.</p>
+            {(foldStarting || fold?.phase === 'running') && elapsed && <p className="fold-elapsed"><strong>Elapsed:</strong> {elapsed} · prediction process active</p>}
             {fold && <p>{fold.phase}: {fold.message}</p>}
             {fold?.runDir && <small>Run files: {fold.runDir}</small>}
           </div>}
-          <p className="viewer-disclaimer">The uploaded PDB is user-provided and sequence-checked, not independently verified as an AlphaFold result. Linker coordinates appear only when the full fusion has actually been predicted.</p>
+          <p className="viewer-disclaimer">A manually uploaded PDB is sequence-checked but is not assumed to be an AlphaFold result. Load its matching ColabFold rank-1 score JSON before interpreting PAE or pTM. Linker coordinates appear only when the full fusion has actually been predicted.</p>
         </>
       ) : (
         <>
-          <div className="structure-tabs" aria-label="Experimental reference structure">
-            {(Object.keys(referenceStructures) as ReferenceStructure[]).map((key) => (
+          <div className="structure-tabs" aria-label="Domain reference structure">
+            {(['A', 'B'] as const).map((key) => (
               <button key={key} type="button" className={selected === key ? 'active' : ''}
                 aria-pressed={selected === key} onClick={() => setSelected(key)}>
-                {referenceStructures[key].label} <small>PDB {referenceStructures[key].pdbId}</small>
+                {key === 'A' ? domainALabel : domainBLabel} <small>{references[key].pdb ? `${references[key].sourceKind} · ${references[key].sourceId || references[key].filename}` : 'reference not loaded'}</small>
               </button>
             ))}
           </div>
           <div className="viewer-stage">
-            <iframe key={reference.pdbId} src={`https://molstar.org/viewer/?pdb=${reference.pdbId}`}
-              title={`${reference.label} experimental structure in Mol*`} allowFullScreen />
+            <FusionStructureViewer
+              pdb={reference.pdb}
+              fullSequence={referenceSequence}
+              domainALength={referenceSequence.length}
+              linkerLength={0}
+              mode="reference"
+              referenceColor={selected === 'A' ? '#3acf78' : '#f66b62'}
+              ariaLabel={`${referenceLabel} individual reference structure`}
+            />
           </div>
-          <p className="viewer-disclaimer">{reference.description} This is an individual experimental reference, not a predicted fusion.</p>
+          <div className="reference-controls">
+            <label>Reference source identifier
+              <input value={reference.sourceId} placeholder="Example: PDB 1UBQ, chain A"
+                onChange={(event) => onReferencesChange({ ...references, [selected]: { ...reference, sourceId: event.target.value } })} />
+            </label>
+            <label>Evidence type
+              <select value={reference.sourceKind}
+                onChange={(event) => onReferencesChange({ ...references, [selected]: { ...reference, sourceKind: event.target.value as DomainReference['sourceKind'] } })}>
+                <option value="experimental">Experimental structure</option>
+                <option value="predicted">Predicted structure</option>
+              </select>
+            </label>
+            <label className="upload-pdb">Load {referenceLabel} reference PDB
+              <input type="file" accept=".pdb,.ent,text/plain" onChange={(event) => void handleReferenceUpload(event.target.files?.[0])} />
+            </label>
+          </div>
+          <p className="viewer-disclaimer">This reference belongs to the current entered domain only. Its single-chain C-alpha sequence must exactly match the domain sequence. The source identifier and experimental/predicted classification are researcher-supplied provenance; LinkerForge does not infer them.</p>
         </>
       )}
     </section>
   )
 }
 function App() {
+  const historyStorageKey = 'linkerforge.research-history.v1'
+  const [page, setPage] = useState<AppPage>(() => pageFromHash(window.location.hash))
+  const [projectName, setProjectName] = useState('Untitled linker design')
+  const [domainALabel, setDomainALabel] = useState('Domain A')
+  const [domainBLabel, setDomainBLabel] = useState('Domain B')
+  const [biologicalObjective, setBiologicalObjective] = useState('')
+  const [expressionSystem, setExpressionSystem] = useState('Not specified')
+  const [protectedSites, setProtectedSites] = useState('')
+  const [msaConsent, setMsaConsent] = useState(false)
+  const [viewerResult, setViewerResult] = useState<ViewerResult>({ fold: null, pdb: null, source: null, metrics: null })
+  const [domainReferences, setDomainReferences] = useState<DomainReferences>({
+    A: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null },
+    B: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null },
+  })
   const [domainAInput, setDomainAInput] = useState('')
   const [domainBInput, setDomainBInput] = useState('')
   const [domainALength, setDomainALength] = useState(0)
@@ -526,33 +787,70 @@ function App() {
   const [rigidity, setRigidity] = useState<RigidityMode>('flexible')
   const [cleavable, setCleavable] = useState<boolean>(false)
   const [targetLength, setTargetLength] = useState<number>(15)
-  const [candidates, setCandidates] = useState<RankedCandidateRow[]>(
-    PRESET_CANDIDATES.flexible_non_cleavable
-  )
-  const [selectedCandidateSeq, setSelectedCandidateSeq] = useState<string>('GGGGSGGGGSGGGGS')
+  const [candidates, setCandidates] = useState<RankedCandidateRow[]>([])
+  const [selectedCandidateSeq, setSelectedCandidateSeq] = useState<string>('')
   const [apiConnected, setApiConnected] = useState<boolean>(false)
+  const [researchHistory, setResearchHistory] = useState<HistoryEntry[]>(() => {
+    try {
+      const saved = localStorage.getItem(historyStorageKey)
+      return saved ? JSON.parse(saved) as HistoryEntry[] : []
+    } catch {
+      return []
+    }
+  })
+  const [historyVerified, setHistoryVerified] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+    const syncPage = () => {
+      setPage(pageFromHash(window.location.hash))
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
+    }
+    window.addEventListener('hashchange', syncPage)
+    return () => window.removeEventListener('hashchange', syncPage)
+  }, [])
+
+  useEffect(() => {
+    let cancelled = false
+    void verifyHistory(researchHistory).then((verified) => {
+      if (!cancelled) setHistoryVerified(verified)
+    })
+    return () => { cancelled = true }
+  }, [researchHistory])
+
+  const goToPage = (nextPage: AppPage) => {
+    if (window.location.hash !== `#${nextPage}`) window.location.hash = nextPage
+    setPage(nextPage)
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+  }
 
   const handleRunDesign = async (
     nextRigidity: RigidityMode = rigidity,
     nextCleavable: boolean = cleavable,
     nextLength: number = targetLength
   ) => {
-    if (domainAInput.trim() || domainBInput.trim()) {
-      try {
-        const domainA = parseProteinSequence(domainAInput, 'Domain A')
-        const domainB = parseProteinSequence(domainBInput, 'Domain B')
-        const generated = buildTemplateCandidates(domainA, domainB, nextLength, nextRigidity, nextCleavable)
-        setDomainALength(domainA.length)
-        setCustomCandidates(generated)
-        setSelectedCustomIndex(0)
-        setCustomError(null)
-        setApiConnected(false)
-      } catch (cause) {
-        setCustomCandidates([])
-        setCustomError(cause instanceof Error ? cause.message : 'Invalid sequence input.')
-      }
-      return
+    try {
+      const domainA = parseProteinSequence(domainAInput, 'Domain A')
+      const domainB = parseProteinSequence(domainBInput, 'Domain B')
+      const generated = buildTemplateCandidates(domainA, domainB, nextLength, nextRigidity, nextCleavable)
+      setDomainALength(domainA.length)
+      setCustomCandidates(generated)
+      setCandidates([])
+      setSelectedCustomIndex(0)
+      setSelectedCandidateSeq('')
+      setCustomError(null)
+      setApiConnected(false)
+      goToPage('candidates')
+    } catch (cause) {
+      setCustomCandidates([])
+      setCustomError(cause instanceof Error ? cause.message : 'Invalid sequence input.')
     }
+  }
+
+  const handleLoadPresetCandidates = async () => {
     setCustomCandidates([])
     setCustomError(null)
     try {
@@ -560,10 +858,10 @@ function App() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          rigidity: nextRigidity,
-          cleavable: nextCleavable,
+          rigidity,
+          cleavable,
           protease_family: 'TEV',
-          target_length: nextLength,
+          target_length: targetLength,
           required_path_length_A: 28.4,
         }),
       })
@@ -586,15 +884,16 @@ function App() {
         if (mapped.length > 0) {
           setSelectedCandidateSeq(mapped[0].sequence)
         }
+        goToPage('candidates')
         return
       }
     } catch {
       // The local scientific dataset/API is optional for the labelled UI demonstration.
     }
     setApiConnected(false)
-    const key = nextCleavable
+    const key = cleavable
       ? 'flexible_cleavable'
-      : nextRigidity === 'rigid'
+      : rigidity === 'rigid'
         ? 'rigid_non_cleavable'
         : 'flexible_non_cleavable'
     const rows = PRESET_CANDIDATES[key]
@@ -604,101 +903,300 @@ function App() {
     }
   }
 
+  const selectedCustomCandidate = customCandidates[selectedCustomIndex] ?? null
+  const selectedDomainBLength = selectedCustomCandidate
+    ? selectedCustomCandidate.fullSequence.length - domainALength - selectedCustomCandidate.linker.length
+    : 0
+  const localComputeRisk = !selectedCustomCandidate
+    ? null
+    : selectedCustomCandidate.fullSequence.length > 400
+      ? 'High risk on this 4 GB GPU; use the college cloud if local execution fails.'
+      : selectedCustomCandidate.fullSequence.length > 150
+        ? 'Moderate local GPU risk; retain a cloud fallback.'
+        : 'Short-sequence smoke-test range; successful execution is still not guaranteed.'
+  const confidence = viewerResult.pdb && selectedCustomCandidate
+    ? summarizePdbConfidence(viewerResult.pdb, domainALength, selectedCustomCandidate.linker.length)
+    : null
+  const predictionPhase = viewerResult.pdb ? 'complete' : viewerResult.fold?.phase ?? 'not started'
+  const coordinateAudit = viewerResult.pdb ? auditFusionCoordinates(viewerResult.pdb) : null
+  const domainPreservation = viewerResult.pdb && selectedCustomCandidate
+    ? calculateDomainPreservation(
+      viewerResult.pdb,
+      domainALength,
+      selectedCustomCandidate.linker.length,
+      domainReferences.A.pdb,
+      domainReferences.B.pdb
+    )
+    : null
+  const protectedSiteAudit = selectedCustomCandidate
+    ? parseProtectedSites(protectedSites, domainALength, selectedCustomCandidate.linker.length, selectedDomainBLength)
+    : { residueIndices: [], errors: [] }
+  const protectedSiteClearance = viewerResult.pdb && selectedCustomCandidate && protectedSiteAudit.errors.length === 0 && protectedSiteAudit.residueIndices.length > 0
+    ? assessProtectedSiteClearance(viewerResult.pdb, protectedSiteAudit.residueIndices, domainALength, selectedCustomCandidate.linker.length)
+    : null
+
+  const projectRecord = (): SavedProjectV1 => ({
+      schema_version: 'linkerforge.project.v1',
+      project: {
+        name: projectName,
+        biological_objective: biologicalObjective,
+        expression_system: expressionSystem,
+        protected_sites: protectedSites,
+      },
+      domains: {
+        A: { label: domainALabel, sequence: domainAInput, reference_source_id: domainReferences.A.sourceId, reference_source_kind: domainReferences.A.sourceKind },
+        B: { label: domainBLabel, sequence: domainBInput, reference_source_id: domainReferences.B.sourceId, reference_source_kind: domainReferences.B.sourceKind },
+      },
+      design: { rigidity, cleavable, target_length: targetLength },
+      privacy: { public_msa_consent_saved: false },
+  })
+
+  const exportProject = () => {
+    downloadJson('linkerforge-project.v1.json', projectRecord())
+  }
+
+  const importProject = async (file: File | undefined) => {
+    if (!file) return
+    try {
+      const saved = JSON.parse(await file.text()) as SavedProjectV1
+      if (saved.schema_version !== 'linkerforge.project.v1' || !saved.domains?.A || !saved.domains?.B) {
+        throw new Error('This is not a LinkerForge project.v1 file.')
+      }
+      if (saved.domains.A.sequence.trim() || saved.domains.B.sequence.trim()) {
+        parseProteinSequence(saved.domains.A.sequence, 'Domain A')
+        parseProteinSequence(saved.domains.B.sequence, 'Domain B')
+      }
+      if (!['flexible', 'rigid'].includes(saved.design.rigidity)) throw new Error('Saved rigidity setting is invalid.')
+      if (!['experimental', 'predicted'].includes(saved.domains.A.reference_source_kind)
+        || !['experimental', 'predicted'].includes(saved.domains.B.reference_source_kind)) {
+        throw new Error('Saved reference evidence type is invalid.')
+      }
+      if (!Number.isInteger(saved.design.target_length) || saved.design.target_length < 5 || saved.design.target_length > 30) {
+        throw new Error('Saved target linker length must be between 5 and 30 residues.')
+      }
+      setProjectName(saved.project.name)
+      setBiologicalObjective(saved.project.biological_objective)
+      setExpressionSystem(saved.project.expression_system)
+      setProtectedSites(saved.project.protected_sites)
+      setDomainALabel(saved.domains.A.label)
+      setDomainBLabel(saved.domains.B.label)
+      setDomainAInput(saved.domains.A.sequence)
+      setDomainBInput(saved.domains.B.sequence)
+      setRigidity(saved.design.rigidity)
+      setCleavable(saved.design.cleavable)
+      setTargetLength(saved.design.target_length)
+      setMsaConsent(false)
+      setCustomCandidates([])
+      setDomainReferences({
+        A: { sourceId: saved.domains.A.reference_source_id, sourceKind: saved.domains.A.reference_source_kind, filename: null, pdb: null },
+        B: { sourceId: saved.domains.B.reference_source_id, sourceKind: saved.domains.B.reference_source_kind, filename: null, pdb: null },
+      })
+      setCustomError(null)
+    } catch (cause) {
+      setCustomError(cause instanceof Error ? cause.message : 'Could not open the project file.')
+    }
+  }
+
+  const resultRecord = async () => {
+    if (!selectedCustomCandidate) throw new Error('Select a candidate before creating a result record.')
+    const configuration = JSON.stringify({ rigidity, cleavable, targetLength, protectedSites })
+    return {
+      schema_version: 'linkerforge.result.v1',
+      generated_at: new Date().toISOString(),
+      status: viewerResult.pdb ? 'unassessed' : viewerResult.fold?.phase === 'failed' ? 'failed' : 'unassessed',
+      project: { name: projectName, biological_objective: biologicalObjective, expression_system: expressionSystem },
+      candidate: {
+        method: selectedCustomCandidate.method,
+        evidence_quality: selectedCustomCandidate.evidenceQuality,
+        domain_a_label: domainALabel,
+        domain_a_length: domainALength,
+        linker_sequence: selectedCustomCandidate.linker,
+        linker_length: selectedCustomCandidate.linker.length,
+        domain_b_label: domainBLabel,
+        domain_b_length: selectedDomainBLength,
+        full_sequence_length: selectedCustomCandidate.fullSequence.length,
+        full_sequence_sha256: await sha256Hex(selectedCustomCandidate.fullSequence),
+      },
+      structure_prediction: {
+        source: viewerResult.source,
+        run_directory: viewerResult.fold?.runDir ?? null,
+        sequence_sha256: viewerResult.fold?.sequenceSha256 ?? null,
+        artifacts: viewerResult.fold?.artifacts ?? null,
+      },
+      structural_metrics: {
+        confidence_source: viewerResult.metrics?.predictor ?? (viewerResult.pdb ? 'PDB B-factor field; predictor unknown' : null),
+        plddt: confidence,
+        ptm: viewerResult.metrics?.ptm ?? null,
+        max_pae: viewerResult.metrics?.maxPae ?? null,
+        mean_cross_domain_pae_angstrom: viewerResult.metrics?.meanInterdomainPae ?? null,
+        coordinate_pre_screen: coordinateAudit,
+        domain_preservation_rmsd_angstrom: domainPreservation,
+        protected_site_mapping: { ...protectedSiteAudit, spatial_ca_pre_screen: protectedSiteClearance },
+      },
+      references: {
+        A: {
+          source_id: domainReferences.A.sourceId,
+          source_kind: domainReferences.A.sourceKind,
+          filename: domainReferences.A.filename,
+          pdb_sha256: domainReferences.A.pdb ? await sha256Hex(domainReferences.A.pdb) : null,
+        },
+        B: {
+          source_id: domainReferences.B.sourceId,
+          source_kind: domainReferences.B.sourceKind,
+          filename: domainReferences.B.filename,
+          pdb_sha256: domainReferences.B.pdb ? await sha256Hex(domainReferences.B.pdb) : null,
+        },
+      },
+      completed_comparators: [],
+      limitations: [
+        'No validated LinkerForge compatibility ranker was used.',
+        'No matched structural comparison of all required controls was completed.',
+        'No Rosetta closure/all-atom clash assessment was completed.',
+        'No OpenMM/GROMACS validation or experimental assay was completed.',
+      ],
+      provenance: {
+        application_version: '0.1.0',
+        pipeline_commit: import.meta.env.VITE_LINKERFORGE_COMMIT ?? 'not embedded',
+        working_tree_state: import.meta.env.VITE_LINKERFORGE_DIRTY === 'true' ? 'modified' : 'clean',
+        config_sha256: await sha256Hex(configuration),
+        evidence_quality: 'predicted_unvalidated',
+      },
+      claim_boundary: 'Computational candidate record; not evidence of expression, function, or linker optimality.',
+    }
+  }
+
+  const exportResultRecord = async () => {
+    downloadJson('linkerforge-result.v1.json', await resultRecord())
+  }
+
+  const recordResultInHistory = async () => {
+    const updated = await appendHistoryEntry(researchHistory, await resultRecord())
+    localStorage.setItem(historyStorageKey, JSON.stringify(updated))
+    setResearchHistory(updated)
+  }
+
+  const exportResearchBundle = async () => {
+    if (!selectedCustomCandidate) return
+    const files: Record<string, ResearchBundleFile> = {
+      'project.json': `${JSON.stringify(projectRecord(), null, 2)}\n`,
+      'result.json': `${JSON.stringify(await resultRecord(), null, 2)}\n`,
+      'fusion.fasta': fusionFasta(selectedCustomCandidate.fullSequence),
+      'history.json': `${JSON.stringify(researchHistory, null, 2)}\n`,
+      'README.txt': [
+        'LinkerForge computational research bundle',
+        '',
+        'Verify every file against checksums.sha256 before interpretation.',
+        'This bundle records an unvalidated computational candidate, not experimental evidence.',
+        'PyMOL is a visualization tool and no molecular simulation is implied.',
+        '',
+      ].join('\n'),
+    }
+    if (viewerResult.pdb) files['structures/fusion.pdb'] = viewerResult.pdb
+    if (domainReferences.A.pdb) files['references/domain-A.pdb'] = domainReferences.A.pdb
+    if (domainReferences.B.pdb) files['references/domain-B.pdb'] = domainReferences.B.pdb
+    files['checksums.sha256'] = await checksumManifest(files)
+    downloadBytes('linkerforge-research-bundle.zip', createStoredZip(files), 'application/zip')
+  }
+
+  const activePage = appPages.find((item) => item.id === page) ?? appPages[0]
+  const isDesktop = inDesktop()
+  const workspaceState = viewerResult.pdb
+    ? 'Structure loaded'
+    : customCandidates.length > 0
+      ? `${customCandidates.length} candidates ready`
+      : candidates.length > 0
+        ? 'Labelled example loaded'
+        : 'Awaiting input'
+
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${isDesktop ? 'native-shell' : 'web-shell'}`}>
       <header className="topbar">
-        <a className="brand" href="#top" aria-label="LinkerForge home">
+        <a className="brand" href="#design" aria-label="Open LinkerForge design workspace" onClick={() => goToPage('design')}>
           <span className="brand-mark">LF</span>
           <span>LinkerForge</span>
         </a>
-        <nav aria-label="Main navigation">
-          <a href="#workflow">Workflow</a>
-          <a href="#studio">Design studio</a>
-          <a href="#viewer">3D viewer</a>
-          <a href="#runs">Ranked candidates</a>
-          <a href="#provenance">Provenance</a>
-        </nav>
-        <span className="release">{inDesktop() ? 'Local desktop' : 'Computational prototype'} · {customCandidates.length ? 'template mode' : 'example mode'}</span>
+        <div className="workspace-identity">
+          <span>Current project</span>
+          <strong>{projectName || 'Untitled linker design'}</strong>
+        </div>
+        <span className="release">{isDesktop ? 'Local desktop' : 'Computational prototype'} · {workspaceState}</span>
       </header>
 
-      <main id="top">
-        <section className="hero">
-          <div className="eyebrow">
-            <CircleDot size={14} /> Computational research workspace · local demonstration
-          </div>
-          <h1>Design protein connections that can be inspected, repeated, and challenged.</h1>
-          <p className="hero-copy">
-            Enter two protein sequences to build complete fusion candidates, then inspect a
-            sequence-matched predicted structure. Sequence-only templates are available locally;
-            {inDesktop()
-              ? ' this desktop app can launch a full-fusion prediction when LocalColabFold is separately installed.'
-              : ' learned ranking and AlphaFold/ColabFold prediction require separate scientific compute.'}
-          </p>
-          <div className="hero-actions">
-            <a className="primary-btn" href="#studio">
-              Start a design <ArrowRight size={17} />
-            </a>
-            <a href="#viewer">Open full-fusion viewer</a>
-          </div>
-          <p className="notice">
-            <ShieldCheck size={17} /> Demonstration only. The current site uses labelled example
-            results and makes no claim of biological function.
-          </p>
-        </section>
-
-        <section className="metrics" aria-label="Project status">
-          <article>
-            <span>Reported candidate inventory</span>
-            <strong>27,766 records</strong>
-            <small>27,595 model-scored gaps; source data not bundled here</small>
-          </article>
-          <article>
-            <span>Attachment-site diagnostic</span>
-            <strong>Constructed task</strong>
-            <small>Terminal-vs-interior scores are not independent site validation</small>
-          </article>
-          <article>
-            <span>Ranking diagnostic</span>
-            <strong>Synthetic controls</strong>
-            <small>No matched published-method or experimental comparison yet</small>
-          </article>
-          <article>
-            <span>Traceability</span>
-            <strong>Deterministic</strong>
-            <small>Hard-rejection scorecard (no fake probabilities)</small>
-          </article>
-        </section>
-
-        <section className="section" id="workflow">
-          <div className="section-heading">
-            <span>01 / Workflow</span>
-            <h2>One traceable path from input to result</h2>
-          </div>
-          <div className="stage-grid">
-            {stages.map(([number, title, body]) => (
-              <article className="stage" key={number}>
-                <span>{number}</span>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </article>
+      <div className="app-workspace">
+        <aside className="app-sidebar">
+          <span className="sidebar-kicker">Design workflow</span>
+          <nav aria-label="Workflow navigation">
+            {appPages.map((item) => (
+              <a key={item.id} href={`#${item.id}`} className={page === item.id ? 'active' : ''}
+                onClick={() => goToPage(item.id)}
+                aria-current={page === item.id ? 'page' : undefined}>
+                <span className="nav-step">{item.step}</span>
+                <span><strong>{item.label}</strong><small>{item.id === 'design' ? 'Sequences and constraints' : item.id === 'candidates' ? 'Review exact constructs' : item.id === 'structure' ? 'Predict and inspect' : 'Evidence and exports'}</small></span>
+              </a>
             ))}
+          </nav>
+          <div className="sidebar-status">
+            <span>Workspace state</span>
+            <strong>{workspaceState}</strong>
+            <small>Computational evidence only</small>
           </div>
-        </section>
+        </aside>
 
-        <section className="section studio-section" id="studio">
+        <div className="workspace-main">
+          <div className="workspace-toolbar">
+            <div><span>Stage {activePage.step}</span><strong>{activePage.label}</strong></div>
+            <span>{isDesktop ? 'GPU workflow available' : 'Browser review mode'}</span>
+          </div>
+
+          <main id="app-page" className="page-shell">
+
+        {page === 'design' && <div className="app-page"><section className="section studio-section" id="design">
           <div className="section-heading">
             <span>01B / Interactive End-to-End Linker Design Studio</span>
             <h2>Enter Domain A and Domain B to construct a full fusion</h2>
           </div>
           <div className="studio-controls">
+            <div className="project-context" aria-label="Biological project context">
+              <label htmlFor="project-name">Project or construct name</label>
+              <input id="project-name" value={projectName} onChange={(event) => setProjectName(event.target.value)} />
+              <label htmlFor="biological-objective">Biological objective</label>
+              <textarea id="biological-objective" value={biologicalObjective}
+                onChange={(event) => setBiologicalObjective(event.target.value)} rows={3}
+                placeholder="What should the fusion preserve or enable? Include assay-relevant constraints." />
+              <label htmlFor="expression-system">Intended expression system</label>
+              <select id="expression-system" value={expressionSystem} onChange={(event) => setExpressionSystem(event.target.value)}>
+                <option>Not specified</option>
+                <option>E. coli</option>
+                <option>Yeast</option>
+                <option>Insect cells</option>
+                <option>Mammalian cells</option>
+                <option>Cell-free</option>
+                <option>Other</option>
+              </select>
+              <label htmlFor="protected-sites">Protected or functional residues</label>
+              <input id="protected-sites" value={protectedSites} onChange={(event) => setProtectedSites(event.target.value)}
+                placeholder="Example: A:45,A:48;B:12-18" />
+              <small>Use A:position or B:start-end with domain-relative numbering. The application maps valid entries onto the fusion, but atomistic obstruction still requires a reviewed structural protocol.</small>
+              <div className="project-file-actions">
+                <button type="button" onClick={exportProject}><Download size={14} /> Save project JSON</button>
+                <label className="upload-pdb">Open project JSON
+                  <input type="file" accept=".json,application/json" onChange={(event) => void importProject(event.target.files?.[0])} />
+                </label>
+              </div>
+              <small>Project files omit structure coordinates and never retain public-MSA consent. Reload reference PDBs and explicitly confirm data release for each prediction session.</small>
+            </div>
             <div className="sequence-inputs">
-              <label htmlFor="domain-a">Domain A amino-acid sequence (FASTA accepted)</label>
-              <textarea id="domain-a" value={domainAInput} onChange={(event) => { setDomainAInput(event.target.value); setCustomCandidates([]) }}
+              <label htmlFor="domain-a-label">First domain name</label>
+              <input id="domain-a-label" value={domainALabel} onChange={(event) => setDomainALabel(event.target.value)} />
+              <label htmlFor="domain-b-label">Second domain name</label>
+              <input id="domain-b-label" value={domainBLabel} onChange={(event) => setDomainBLabel(event.target.value)} />
+              <label htmlFor="domain-a">{domainALabel || 'Domain A'} amino-acid sequence (FASTA accepted)</label>
+              <textarea id="domain-a" value={domainAInput} onChange={(event) => { setDomainAInput(event.target.value); setCustomCandidates([]); setDomainReferences({ A: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null }, B: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null } }) }}
                 placeholder="Paste the first protein sequence" rows={5} />
-              <label htmlFor="domain-b">Domain B amino-acid sequence (FASTA accepted)</label>
-              <textarea id="domain-b" value={domainBInput} onChange={(event) => { setDomainBInput(event.target.value); setCustomCandidates([]) }}
+              <label htmlFor="domain-b">{domainBLabel || 'Domain B'} amino-acid sequence (FASTA accepted)</label>
+              <textarea id="domain-b" value={domainBInput} onChange={(event) => { setDomainBInput(event.target.value); setCustomCandidates([]); setDomainReferences({ A: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null }, B: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null } }) }}
                 placeholder="Paste the second protein sequence" rows={5} />
-              <small>Leave both blank to explore the labelled sfGFP–mCherry preset. Custom inputs use template enumeration only; no compatibility ranking or structural prediction is implied.</small>
+              <small>Both sequences are required for a new design. Inputs use deterministic candidate enumeration only; no compatibility ranking or structural prediction is implied.</small>
             </div>
             <div className="control-group">
               <label>Rigidity Axis (Component 3)</label>
@@ -708,7 +1206,7 @@ function App() {
                   className={rigidity === 'flexible' ? 'active' : ''}
                   onClick={() => {
                     setRigidity('flexible')
-                    handleRunDesign('flexible', cleavable, targetLength)
+                    setCustomCandidates([])
                   }}
                 >
                   Flexible Coil (GGGGS / Waldo / Mined DFL)
@@ -720,7 +1218,7 @@ function App() {
                     setRigidity('rigid')
                     setCleavable(false)
                     setTargetLength(18)
-                    handleRunDesign('rigid', false, 18)
+                    setCustomCandidates([])
                   }}
                 >
                   Rigid Spacer (EAAAK Helical / PAPAP Rod)
@@ -736,7 +1234,7 @@ function App() {
                   className={!cleavable ? 'active' : ''}
                   onClick={() => {
                     setCleavable(false)
-                    handleRunDesign(rigidity, false, targetLength)
+                    setCustomCandidates([])
                   }}
                 >
                   Intact (Non-cleavable)
@@ -748,7 +1246,7 @@ function App() {
                     setCleavable(true)
                     setRigidity('flexible')
                     setTargetLength(19)
-                    handleRunDesign('flexible', true, 19)
+                    setCustomCandidates([])
                   }}
                 >
                   TEV Cleavable (ENLYFQS with GS spacers)
@@ -757,57 +1255,113 @@ function App() {
             </div>
 
             <div className="control-group">
-              <label>Target Linker Length: {targetLength} aa (3D Path = 28.4 Å)</label>
+              <label>Target Linker Length: {targetLength} aa (maximum contour ≈ {(targetLength * 3.8).toFixed(1)} Å)</label>
               <input
                 type="range"
-                min={8}
+                min={5}
                 max={30}
                 value={targetLength}
-                onChange={(e) => setTargetLength(Number(e.target.value))}
+                onChange={(e) => { setTargetLength(Number(e.target.value)); setCustomCandidates([]) }}
               />
+              <small>Allowed design range: 5–30 aa. This target is a starting constraint, not an inferred optimum.</small>
             </div>
 
-            <button
+            <div className="candidate-plan">
+              <strong>Candidate set created from these inputs</strong>
+              <p>The next step shows one sequence at the requested target length, shorter and longer length-sensitivity variants within 5–30 aa, the fixed (GGGGS)3 control, and direct fusion. These are transparent starting sequences for comparison—not personalized biological recommendations.</p>
+            </div>
+
+            {domainAInput.trim() || domainBInput.trim() ? <button
               type="button"
               className="run-pipeline-btn"
               onClick={() => handleRunDesign(rigidity, cleavable, targetLength)}
             >
-              <Play size={15} /> {domainAInput.trim() || domainBInput.trim()
-                ? 'Generate full-fusion template candidates'
-                : apiConnected ? 'Re-Rank Candidates (Live Local API)' : 'Load Preset Example Candidates'}
-            </button>
+              <Play size={15} /> Generate candidate set and review
+            </button> : <div className="input-ready-state">
+              <strong>Ready for a new construct</strong>
+              <span>Enter both domain sequences to enable candidate generation.</span>
+            </div>}
+            <label className="msa-consent">
+              <input type="checkbox" checked={msaConsent} onChange={(event) => setMsaConsent(event.target.checked)} />
+              <span><strong>Public MSA service disclosure:</strong> this workstation has no local sequence database. Starting ColabFold submits the complete fusion sequence to the public ColabFold/MMseqs2 service. Confirm that this sequence is permitted to leave the workstation.</span>
+            </label>
+            <div className="input-preflight">
+              <strong>Biologist’s input preflight</strong>
+              <ul>
+                <li>Use the exact expressed construct sequence and intended domain order.</li>
+                <li>Confirm whether signal peptides, purification tags, transit peptides, and propeptides belong in the prediction.</li>
+                <li>Document domain-boundary sources and functional residues; this prototype does not infer either.</li>
+                <li>Only the 20 canonical amino acids are accepted. Post-translational modifications and cofactors are not represented.</li>
+              </ul>
+            </div>
             {customError && <p className="structure-error" role="alert">{customError}</p>}
-            {!apiConnected && customCandidates.length === 0 && !domainAInput.trim() && !domainBInput.trim() && (
-              <p className="notice">
-                Example mode: controls switch preset results; the length slider does not recalculate
-                scores until the dataset-backed local API is running.
-              </p>
-            )}
           </div>
-        </section>
+        </section></div>}
 
-        <ProteinViewer candidate={customCandidates[selectedCustomIndex] ?? null} domainALength={domainALength} />
+        <div className="app-page" hidden={page !== 'structure'}>
+          <ProteinViewer candidate={customCandidates[selectedCustomIndex] ?? null} domainALength={domainALength}
+            domainALabel={domainALabel || 'Domain A'} domainBLabel={domainBLabel || 'Domain B'}
+            references={domainReferences} onReferencesChange={setDomainReferences}
+            msaConsent={msaConsent} onResultChange={setViewerResult} />
+          <div className="page-actions section-page-actions">
+            <a href="#candidates" onClick={() => goToPage('candidates')}>Back to candidates</a>
+            <a className="primary-btn" href="#results" onClick={() => goToPage('results')}>Continue to results <ArrowRight size={16} /></a>
+          </div>
+        </div>
 
-        <section className="section split" id="runs">
-          <div>
+        {page === 'candidates' && <div className="app-page"><section className="section candidate-section" id="candidates">
+          <div className="candidate-intro-grid">
+            <div>
             <div className="section-heading">
-              <span>03 / Ranked Fusion Candidates &amp; Baselines</span>
-              <h2>Results visible to the whole team</h2>
+              <span>02 / Candidate decision gate</span>
+              <h2>Choose which complete fusion is worth predicting</h2>
             </div>
             <p>
               {customCandidates.length > 0
-                ? 'These are unranked sequence templates, not predicted successes. Choose one, export its full-fusion FASTA, and load a matching predicted PDB to inspect the linker.'
-                : 'These are labelled preset examples for the fixed sfGFP–mCherry pair. They are not predictions for user-entered proteins.'}
+                ? `Generated ${customCandidates.length} auditable design candidates and required controls. Select one exact sequence to send through the same structural-prediction settings.`
+                : candidates.length > 0
+                  ? apiConnected
+                    ? 'The local API returned these candidate rows. They still require the same provenance, validation, and structural evidence gates.'
+                    : 'These are labelled preset examples for the fixed sfGFP–mCherry pair. They are not predictions for user-entered proteins.'
+                  : 'No candidate set is loaded. Create one from your sequences or open the labelled example set here for interface training.'}
             </p>
+            {customCandidates.length === 0 && candidates.length === 0 && <div className="candidate-example-action">
+              <div>
+                <strong>Need a safe interface walkthrough?</strong>
+                <span>The sfGFP–mCherry example is visibly labelled and never treated as a result for your project.</span>
+              </div>
+              <button type="button" onClick={() => void handleLoadPresetCandidates()}>
+                <Play size={15} /> Load labelled preset example
+              </button>
+            </div>}
+            <div className="why-candidates">
+              <strong>Why this page comes before Structure</strong>
+              <p>ColabFold predicts one complete Domain A–linker–Domain B sequence and consumes GPU time. This gate records the exact sequence, design method, control role, and biological context before compute begins. A professional comparison should later fold the shortlisted design and required controls under identical settings.</p>
+            </div>
+            </div>
+            <aside className="candidate-context" aria-label="Selected construct context">
+            <span>Current construct</span>
+            <strong>{projectName || 'Untitled linker design'}</strong>
+            <dl>
+              <div><dt>Domains</dt><dd>{domainALabel || 'Domain A'} → {domainBLabel || 'Domain B'}</dd></div>
+              <div><dt>Expression</dt><dd>{expressionSystem}</dd></div>
+              <div><dt>Objective</dt><dd>{biologicalObjective || 'Not documented'}</dd></div>
+              <div><dt>Protected sites</dt><dd>{protectedSites || 'Not documented'}</dd></div>
+            </dl>
+            </aside>
           </div>
+          {customCandidates.length === 0 && candidates.length > 0 && <p className="notice"><strong>{apiConnected ? 'Unvalidated local API output:' : 'Labelled demonstration data:'}</strong> the ranks and compatibility scores below are not produced by the validated frozen fusion ranker, are not calibrated probabilities, and must not be used to choose a research construct.</p>}
           {customCandidates.length > 0 ? <div className="custom-candidate-list" aria-label="Custom fusion candidates">
             {customCandidates.map((candidate, index) => <button type="button" key={candidate.id}
-              className={selectedCustomIndex === index ? 'active' : ''} onClick={() => setSelectedCustomIndex(index)}>
+              className={selectedCustomIndex === index ? 'active' : ''} aria-pressed={selectedCustomIndex === index}
+              onClick={() => setSelectedCustomIndex(index)}>
+              <span className={`candidate-role ${candidate.role}`}>{candidate.role.replace('_', ' ')}</span>
               <strong>{candidate.method} · {candidate.linker.length} aa</strong>
-              <code>{candidate.linker}</code>
-              <small>Full fusion: {candidate.fullSequence.length} residues · unranked template</small>
+              <code>{candidate.linker || '(no linker)'}</code>
+              <small>Full fusion: {candidate.fullSequence.length} residues · {candidate.role === 'design_template' ? 'unranked design candidate' : 'comparison control'}</small>
+              <small>{candidate.rationale}</small>
             </button>)}
-          </div> : <div className="run-table" role="table" aria-label="Example runs">
+          </div> : candidates.length > 0 ? <div className="run-table" role="table" aria-label="Example runs">
             <div className="run-row header" role="row">
               <span>Rank / ID</span>
               <span>Sequence &amp; Provenance</span>
@@ -848,58 +1402,157 @@ function App() {
                 <span className="score">{row.compatibility_score.toFixed(2)}</span>
               </div>
             ))}
+          </div> : <div className="candidate-empty-state">
+            <strong>No candidates yet</strong>
+            <p>Use Design input for a new construct, or load the labelled preset above to inspect the candidate-review interface.</p>
           </div>}
-        </section>
+          {selectedCustomCandidate && <div className="selected-candidate-review" aria-label="Selected candidate review">
+            <div>
+              <span>Selected for the next prediction</span>
+              <h3>{selectedCustomCandidate.method}</h3>
+              <code>{selectedCustomCandidate.linker || '(direct fusion; no linker)'}</code>
+            </div>
+            <dl>
+              <div><dt>{domainALabel || 'Domain A'}</dt><dd>{domainALength} aa</dd></div>
+              <div><dt>Linker</dt><dd>{selectedCustomCandidate.linker.length} aa</dd></div>
+              <div><dt>{domainBLabel || 'Domain B'}</dt><dd>{selectedDomainBLength} aa</dd></div>
+              <div><dt>Total fusion</dt><dd>{selectedCustomCandidate.fullSequence.length} aa</dd></div>
+            </dl>
+            <p><strong>Compute preflight:</strong> {localComputeRisk}</p>
+            <p><strong>Evidence:</strong> {selectedCustomCandidate.evidenceQuality === 'control' ? 'Required computational control' : 'Deterministic candidate only; no learned compatibility rank'}</p>
+            <details>
+              <summary>Review complete fusion sequence</summary>
+              <code className="full-sequence">{selectedCustomCandidate.fullSequence}</code>
+            </details>
+          </div>}
+          {customCandidates.length > 0 && <div className="baseline-status">
+            <h3>Comparison coverage</h3>
+            <p><strong>Included now:</strong> direct fusion and fixed (GGGGS)3 controls.</p>
+            <p><strong>Still required for a professional recommendation:</strong> random length-matched GS, geometry-only, natural-linker retrieval, and feature-based ranker baselines evaluated under identical structural rules.</p>
+          </div>}
+          <div className="page-actions candidates-actions">
+            <a href="#design" onClick={() => goToPage('design')}>Back to design input</a>
+            <button type="button" className="primary-btn" onClick={() => goToPage('structure')}>
+              {selectedCustomCandidate ? 'Continue with selected candidate' : 'Open reference structure workspace'} <ArrowRight size={16} />
+            </button>
+          </div>
+        </section></div>}
 
-        <section className="section provenance" id="provenance">
+        {page === 'results' && <div className="app-page"><section className="section provenance" id="results">
           <div className="section-heading">
-            <span>04 / Provenance</span>
-            <h2>Every answer carries its history</h2>
+            <span>04 / Prediction results and evidence</span>
+            <h2>Interpret the selected fusion without overstating what was measured</h2>
           </div>
-          <div className="provenance-grid">
-            <article>
-              <GitBranch />
-              <div>
-                <strong>Code version</strong>
-                <p>Exact source-code revision and working configuration (`codex/classifier-foundation`).</p>
+          {!selectedCustomCandidate ? <div className="results-empty">
+            <h3>No user fusion has been selected</h3>
+            <p>Return to Design input, enter both domain sequences, generate candidates, and choose the exact linker sequence before opening a result record.</p>
+          </div> : <>
+            <div className={`result-status ${predictionPhase.replace(' ', '-')}`}>
+              <div><span>Prediction status</span><strong>{predictionPhase}</strong></div>
+              <p>{viewerResult.fold?.message ?? (viewerResult.pdb ? 'A sequence-matched full-fusion PDB is loaded.' : 'No structure prediction has been started for this candidate.')}</p>
+            </div>
+
+            <div className="result-overview">
+              <article>
+                <span>Construct</span>
+                <h3>{projectName || 'Untitled linker design'}</h3>
+                <dl>
+                  <div><dt>Domain order</dt><dd>{domainALabel || 'Domain A'} → linker → {domainBLabel || 'Domain B'}</dd></div>
+                  <div><dt>Candidate</dt><dd>{selectedCustomCandidate.method}</dd></div>
+                  <div><dt>Linker</dt><dd><code>{selectedCustomCandidate.linker || '(none)'}</code> ({selectedCustomCandidate.linker.length} aa)</dd></div>
+                  <div><dt>Complete fusion</dt><dd>{selectedCustomCandidate.fullSequence.length} aa</dd></div>
+                  <div><dt>Expression context</dt><dd>{expressionSystem}</dd></div>
+                </dl>
+              </article>
+              <article>
+                <span>Biological interpretation context</span>
+                <dl>
+                  <div><dt>Objective</dt><dd>{biologicalObjective || 'Not documented'}</dd></div>
+                  <div><dt>Protected sites</dt><dd>{protectedSites || 'Not documented'}</dd></div>
+                  <div><dt>Design evidence</dt><dd>{selectedCustomCandidate.evidenceQuality === 'control' ? 'Computational control' : 'Deterministic candidate; unranked'}</dd></div>
+                  <div><dt>Structure source</dt><dd>{viewerResult.source === 'colabfold' ? 'Local ColabFold prediction' : viewerResult.source === 'uploaded' ? 'User-provided, sequence-matched PDB' : 'Not available'}</dd></div>
+                </dl>
+              </article>
+            </div>
+
+            <div className="confidence-section">
+              <div className="section-heading compact-heading">
+                <span>Structure confidence · source identified</span>
+                <h3>{viewerResult.source === 'colabfold' || viewerResult.metrics
+                  ? 'AlphaFold2 confidence produced through ColabFold'
+                  : 'Values read from the uploaded PDB B-factor field'}</h3>
               </div>
-            </article>
-            <article>
-              <Database />
-              <div>
-                <strong>Reported input inventory</strong>
-                <p>
-                  The source report lists 27,595 model-scored candidate gaps and 171
-                  natural/template records. The dataset is not bundled with this web demo.
-                </p>
+              <div className="confidence-grid">
+                <article><span>Whole fusion</span><strong>{displayConfidence(confidence?.overall)}</strong><small>mean pLDDT</small></article>
+                <article><span>{domainALabel || 'Domain A'}</span><strong>{displayConfidence(confidence?.domainA)}</strong><small>mean pLDDT</small></article>
+                <article><span>Linker</span><strong>{displayConfidence(confidence?.linker)}</strong><small>mean pLDDT</small></article>
+                <article><span>{domainBLabel || 'Domain B'}</span><strong>{displayConfidence(confidence?.domainB)}</strong><small>mean pLDDT</small></article>
+                <article><span>Global fold confidence</span><strong>{viewerResult.metrics?.ptm == null ? 'Not available' : viewerResult.metrics.ptm.toFixed(3)}</strong><small>AlphaFold pTM</small></article>
+                <article><span>Relative domain uncertainty</span><strong>{displayConfidence(viewerResult.metrics?.meanInterdomainPae)}</strong><small>mean cross-domain PAE (Å)</small></article>
               </div>
-            </article>
-            <article>
-              <Activity />
-              <div>
-                <strong>Calculation record</strong>
-                <p>
-                  Preset example ranking unless the local API is connected. The earlier
-                  conformal precision claim is not certified for proteome-wide use.
-                </p>
+              <p className="result-caveat"><strong>What generated this confidence:</strong> {viewerResult.metrics?.predictor ?? (viewerResult.source === 'colabfold' ? 'AlphaFold2 model executed by ColabFold.' : 'Unknown predictor; only numeric B-factor values were read from the uploaded coordinates.')} ColabFold is the execution/MSA pipeline; AlphaFold2 is the structure model. LinkerForge did not generate or calibrate these confidence values, and its future compatibility ranker is a separate model.</p>
+              <p className="result-caveat">pLDDT estimates local-coordinate confidence. PAE estimates uncertainty in the position of one residue relative to another, and pTM summarizes predicted global topology. None proves expression, activity, linker flexibility, or a stable interdomain orientation. A flexible linker may appropriately have lower pLDDT.</p>
+            </div>
+
+            <div className="evidence-checks" aria-label="Structural evidence checklist">
+              <h3>Required evidence checklist</h3>
+              <div className="evidence-row"><span>Full-chain sequence match</span><strong className={viewerResult.pdb ? 'available' : 'missing'}>{viewerResult.pdb ? 'Passed' : 'Not available'}</strong><small>The loaded PDB must exactly match the selected fusion.</small></div>
+              <div className="evidence-row"><span>Per-region pLDDT</span><strong className={confidence ? 'available' : 'missing'}>{confidence ? 'Calculated' : 'Not available'}</strong><small>Calculated from C-alpha B-factors in the loaded prediction.</small></div>
+              <div className="evidence-row"><span>PAE / interdomain uncertainty</span><strong className={viewerResult.metrics?.meanInterdomainPae == null ? 'missing' : 'available'}>{viewerResult.metrics?.meanInterdomainPae == null ? 'Not available' : `${viewerResult.metrics.meanInterdomainPae.toFixed(2)} Å`}</strong><small>{viewerResult.metrics?.meanInterdomainPae == null ? 'Load the matching ColabFold score JSON or complete a desktop fold.' : 'Mean of both Domain A↔Domain B PAE blocks; lower is more certain. No acceptance threshold is frozen.'}</small></div>
+              <div className="evidence-row"><span>Chain continuity / severe Cα overlap pre-screen</span><strong className={coordinateAudit && coordinateAudit.chainBreakCount === 0 && coordinateAudit.severeCaOverlapCount === 0 ? 'available' : 'missing'}>{coordinateAudit ? `${coordinateAudit.chainBreakCount} breaks · ${coordinateAudit.severeCaOverlapCount} overlaps` : 'Not available'}</strong><small>{coordinateAudit ? `Maximum adjacent Cα distance ${coordinateAudit.maxAdjacentCaDistance?.toFixed(2)} Å. This deterministic coordinate check is not Rosetta all-atom closure or clash scoring.` : 'Load a fusion structure to run the coordinate pre-screen.'}</small></div>
+              <div className="evidence-row"><span>Reference-domain structural preservation</span><strong className={domainPreservation?.domainA != null && domainPreservation?.domainB != null ? 'available' : 'missing'}>{domainPreservation?.domainA != null && domainPreservation?.domainB != null ? `A ${domainPreservation.domainA.toFixed(2)} Å · B ${domainPreservation.domainB.toFixed(2)} Å` : 'References required'}</strong><small>Sequence-matched Cα RMSD after rigid-body superposition. Load each domain’s own trusted reference on the Structure page; source classification remains part of interpretation.</small></div>
+              <div className="evidence-row"><span>Protected-site mapping</span><strong className={protectedSiteClearance ? 'available' : 'missing'}>{protectedSiteAudit.errors.length ? `Invalid: ${protectedSiteAudit.errors.join(', ')}` : protectedSiteClearance ? `${protectedSiteClearance.sites.length} mapped · ${protectedSiteClearance.minimumDistanceAngstrom?.toFixed(2) ?? 'N/A'} Å minimum linker Cα distance` : protectedSiteAudit.residueIndices.length ? `${protectedSiteAudit.residueIndices.length} mapped · structure required` : 'No sites supplied'}</strong><small>{protectedSiteClearance ? `Coordinate pre-screen at a documented ${protectedSiteClearance.contactCutoffAngstrom.toFixed(1)} Å contact cutoff. This is not solvent accessibility, ligand/interface annotation, or an all-atom obstruction calculation.` : 'Enter domain-relative sites such as A:48 or B:12 and load a sequence-matched full-fusion structure.'}</small></div>
+              <div className="evidence-row"><span>Rosetta closure / all-atom clash assessment</span><strong className="missing">Not performed</strong><small>Rosetta is not installed or connected on this workstation; the Cα pre-screen above cannot replace it.</small></div>
+              <div className="evidence-row"><span>Matched control comparison</span><strong className="missing">Not performed</strong><small>The selected template, direct fusion, fixed (GGGGS)3, and remaining baselines have not all been folded and scored under identical settings.</small></div>
+              <div className="evidence-row"><span>Energy minimization / MD</span><strong className="missing">Not performed for this result</strong><small>No OpenMM record is linked to this candidate. The repository runner is an external reviewed-finalist workflow; PyMOL only visualizes and does not simulate.</small></div>
+            </div>
+
+            <div className="result-provenance">
+              <h3>Run record</h3>
+              <p><strong>Run directory:</strong> {viewerResult.fold?.runDir ?? 'No local ColabFold run directory for this result.'}</p>
+              <p><strong>Sequence hash:</strong> {viewerResult.fold?.sequenceSha256 ?? 'Not recorded for a manual upload.'}</p>
+              <p><strong>Privacy route:</strong> {viewerResult.source === 'colabfold' ? 'Public ColabFold/MMseqs2 MSA service acknowledged for this session.' : 'No local MSA submission recorded in this result view.'}</p>
+              <p><strong>Claim boundary:</strong> This is a predicted structure for an unranked candidate or control, not a validated linker recommendation.</p>
+            </div>
+
+            <div className="result-provenance" aria-label="Tamper-evident local history">
+              <h3>Checksummed run history</h3>
+              <p><strong>Local entries:</strong> {researchHistory.length} · <strong>hash-chain verification:</strong> {historyVerified == null ? 'checking' : historyVerified ? 'passed' : 'failed—do not trust this history'}</p>
+              <p>This browser history is append-only through the interface and detects later changes through a SHA-256 hash chain. It is not a digital signature and is not a substitute for institutional records.</p>
+              <div className="export-actions">
+                <button type="button" onClick={() => void recordResultInHistory()}>Append current result to history</button>
+                <button type="button" onClick={() => downloadJson('linkerforge-history.v1.json', researchHistory)}>Export history JSON</button>
               </div>
-            </article>
-            <article>
-              <CheckCircle2 />
-              <div>
-                <strong>Decision record</strong>
-                <p>Every passed rule, failed rule, score, and stated limitation (`SPEC.md` §5.8).</p>
-              </div>
-            </article>
+            </div>
+
+            <div className="evidence-checks" aria-label="Comparator audit coverage">
+              <h3>External-method comparison audit</h3>
+              <div className="evidence-row"><span>Published repository datasets</span><strong className="available">Byte-validated</strong><small>The historical DFL split contains 60 train, 28 development, and 9 auxiliary proteins. The separate 27,766-record mined/natural collection is a source inventory—not a validated fusion-compatibility training set; ranker training remains unauthorized.</small></div>
+              <div className="evidence-row"><span>Historical hand-feature ranker</span><strong className="missing">Exploratory only</strong><small>Reproduced against rule-generated synthetic corruptions. It is not the frozen ESM-2/geometric-GNN model, is not calibrated to biological success, and cannot supply a candidate score in this workflow.</small></div>
+              <div className="evidence-row"><span>DFLpred published detector</span><strong className="available">28 constructs run</strong><small>Four public domain contexts × seven inserted/direct linkers. It detects flexible-linker propensity, not fusion compatibility or function; results are application-level sensitivity evidence, not this candidate’s validation.</small></div>
+              <div className="evidence-row"><span>LINKER-Pred / LINKER-Pred Lite</span><strong className="missing">Inspected, not executed</strong><small>The public Lite workflow requires external 1024-dimensional ProtTrans embeddings and model assets. It has not been reproduced in this environment or evaluated on a sealed common-target set.</small></div>
+              <div className="evidence-row"><span>TransDFL / DisoFLAG-DFL</span><strong className="missing">Not reproduced</strong><small>These are detector comparators. The protected DFL benchmark firewall forbids using spent public CAID3 scores for model selection.</small></div>
+              <div className="evidence-row"><span>Alternative structure predictors</span><strong className="missing">Not run</strong><small>AlphaFold 3, Boltz, Chai-1, OpenFold and ESMFold do not validate linker compatibility and exceed this local 4 GB GPU/storage envelope or require a separate approved service.</small></div>
+            </div>
+          </>}
+          <div className="page-actions results-actions">
+            <a href="#structure" onClick={() => goToPage('structure')}>Back to structure</a>
+            {selectedCustomCandidate && <button type="button" onClick={() => downloadText('linkerforge-selected-fusion.fasta', fusionFasta(selectedCustomCandidate.fullSequence))}>Export selected FASTA</button>}
+            {selectedCustomCandidate && <button type="button" onClick={() => void exportResultRecord()}>Export versioned result JSON</button>}
+            {selectedCustomCandidate && <button type="button" onClick={() => void exportResearchBundle()}><Download size={14} /> Export checksummed research ZIP</button>}
+            {viewerResult.pdb && <button type="button" onClick={() => downloadText('linkerforge-selected-fusion.pdb', viewerResult.pdb!)}>Export structure PDB</button>}
+            <button type="button" onClick={() => goToPage('design')}>Start another design</button>
           </div>
-        </section>
+        </section></div>}
       </main>
 
       <footer>
         <strong>LinkerForge</strong>
         <span>Encoding-guided design of structurally plausible fusion proteins</span>
-        <span>Computational predictions require future experimental validation.</span>
+        <span>Computational predictions are not evidence of biological function.</span>
       </footer>
+        </div>
+      </div>
     </div>
   )
 }
