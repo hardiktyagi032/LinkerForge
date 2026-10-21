@@ -2,9 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRight,
   CheckCircle2,
+  Clock3,
   Download,
   ExternalLink,
+  MessageSquare,
   Play,
+  Plus,
   XCircle,
 } from 'lucide-react'
 import FusionStructureViewer from './FusionStructureViewer'
@@ -48,22 +51,20 @@ import {
 } from './researchBundle'
 
 type RigidityMode = 'flexible' | 'rigid'
-type AppPage = 'design' | 'candidates' | 'structure' | 'results'
+type AppPage = 'candidates' | 'structure' | 'results'
 
 const appPages: Array<{ id: AppPage; label: string; step: string }> = [
-  { id: 'design', label: 'Design input', step: '01' },
-  { id: 'candidates', label: 'Candidates', step: '02' },
-  { id: 'structure', label: 'Structure', step: '03' },
-  { id: 'results', label: 'Results', step: '04' },
+  { id: 'candidates', label: 'Candidates', step: '01' },
+  { id: 'structure', label: 'Prediction', step: '02' },
+  { id: 'results', label: 'Results', step: '03' },
 ]
 
 function pageFromHash(hash: string): AppPage {
   const route = hash.replace(/^#/, '')
-  if (route === 'studio' || route === 'design') return 'design'
   if (route === 'runs' || route === 'candidates') return 'candidates'
   if (route === 'viewer' || route === 'structure') return 'structure'
   if (route === 'provenance' || route === 'results') return 'results'
-  return 'design'
+  return 'structure'
 }
 
 interface RankedCandidateRow {
@@ -91,6 +92,24 @@ interface ViewerResult {
   pdb: string | null
   source: 'colabfold' | 'uploaded' | null
   metrics: ColabFoldMetrics | null
+  elapsed: string | null
+  running: boolean
+}
+
+interface DesignSession {
+  id: string
+  updatedAt: string
+  projectName: string
+  domainALabel: string
+  domainBLabel: string
+  domainAInput: string
+  domainBInput: string
+  biologicalObjective: string
+  expressionSystem: string
+  protectedSites: string
+  rigidity: RigidityMode
+  cleavable: boolean
+  targetLength: number
 }
 
 interface DomainReference {
@@ -433,8 +452,7 @@ function ProteinViewer({
   msaConsent: boolean
   onResultChange: (result: ViewerResult) => void
 }) {
-  const [selected, setSelected] = useState<'A' | 'B'>('A')
-  const [mode, setMode] = useState<'fusion' | 'reference'>('fusion')
+  const [mode, setMode] = useState<'fusion' | 'A' | 'B'>('fusion')
   const [fullscreen, setFullscreen] = useState(false)
   const [structures, setStructures] = useState<Record<string, { pdb: string; source: 'colabfold' | 'uploaded' }>>({})
   const [uploadError, setUploadError] = useState<string | null>(null)
@@ -453,9 +471,10 @@ function ProteinViewer({
   const linkerLength = candidate?.linker.length ?? 0
   const domainASequence = selectedSequence.slice(0, domainALength)
   const domainBSequence = selectedSequence.slice(domainALength + linkerLength)
-  const reference = references[selected]
-  const referenceSequence = selected === 'A' ? domainASequence : domainBSequence
-  const referenceLabel = selected === 'A' ? domainALabel : domainBLabel
+  const selectedReference = mode === 'B' ? 'B' : 'A'
+  const reference = references[selectedReference]
+  const referenceSequence = selectedReference === 'A' ? domainASequence : domainBSequence
+  const referenceLabel = selectedReference === 'A' ? domainALabel : domainBLabel
 
   useEffect(() => {
     if (!inDesktop()) return
@@ -511,14 +530,24 @@ function ProteinViewer({
   }, [foldSequence])
 
   useEffect(() => {
-    onResultChange({ fold, pdb, source: structure?.source ?? null, metrics: fold?.metrics ?? manualMetrics })
-  }, [fold, manualMetrics, onResultChange, pdb, structure?.source])
-
-  useEffect(() => {
     if (!foldStarting && fold?.phase !== 'running') return
     const timer = window.setInterval(() => setClock(Date.now()), 1000)
     return () => window.clearInterval(timer)
   }, [foldStarting, fold?.phase])
+
+  const effectiveFoldStart = foldStartedAt ?? foldStartTimeFromRunDir(fold?.runDir ?? null)
+  const elapsed = effectiveFoldStart === null ? null : formatElapsedTime(clock - effectiveFoldStart)
+
+  useEffect(() => {
+    onResultChange({
+      fold,
+      pdb,
+      source: structure?.source ?? null,
+      metrics: fold?.metrics ?? manualMetrics,
+      elapsed,
+      running: foldStarting || fold?.phase === 'running',
+    })
+  }, [elapsed, fold, foldStarting, manualMetrics, onResultChange, pdb, structure?.source])
 
   const handleLocalFold = async () => {
     if (!candidate || foldLaunchInFlight.current) return
@@ -553,9 +582,6 @@ function ProteinViewer({
       setFoldStarting(false)
     }
   }
-
-  const effectiveFoldStart = foldStartedAt ?? foldStartTimeFromRunDir(fold?.runDir ?? null)
-  const elapsed = effectiveFoldStart === null ? null : formatElapsedTime(clock - effectiveFoldStart)
 
   useEffect(() => {
     if (!fullscreen) return
@@ -600,10 +626,10 @@ function ProteinViewer({
     try {
       if (file.size > 15_000_000) throw new Error('The local PDB limit is 15 MB.')
       const content = await file.text()
-      validateDomainReferencePdb(content, referenceSequence, referenceLabel || `Domain ${selected}`)
+      validateDomainReferencePdb(content, referenceSequence, referenceLabel || `Domain ${selectedReference}`)
       onReferencesChange({
         ...references,
-        [selected]: { ...reference, filename: file.name, pdb: content },
+        [selectedReference]: { ...reference, filename: file.name, pdb: content },
       })
       setUploadError(null)
     } catch (cause) {
@@ -645,19 +671,22 @@ function ProteinViewer({
     <section className={`section viewer-section ${fullscreen ? 'viewer-fullscreen' : ''}`} id="viewer" aria-label="Structure viewer">
       <div className="viewer-header">
         <div className="section-heading">
-          <span>03 / Full-fusion structure viewer</span>
+          <span>Prediction workspace / full fusion</span>
           <h2>{candidate ? 'Inspect both domains and the connecting linker' : 'Inspect reference structures'}</h2>
         </div>
         <button type="button" className="viewer-expand" onClick={() => setFullscreen((value) => !value)}>
           {fullscreen ? 'Close full screen' : 'Open full screen'}
         </button>
       </div>
-      <div className="viewer-mode-row" role="group" aria-label="Structure source">
+      <div className="viewer-mode-row model-access-tabs" role="tablist" aria-label="Prediction models">
         <button type="button" className={mode === 'fusion' ? 'active' : ''} onClick={() => setMode('fusion')}>
-          Full fusion {pdb ? '· PDB loaded' : '· awaits prediction'}
+          Full fusion model <small>{pdb ? 'PDB loaded' : 'awaits prediction'}</small>
         </button>
-        <button type="button" className={mode === 'reference' ? 'active' : ''} onClick={() => setMode('reference')}>
-          Individual domain references
+        <button type="button" className={mode === 'A' ? 'active' : ''} onClick={() => setMode('A')}>
+          {domainALabel} <small>{references.A.pdb ? 'individual model loaded' : 'load individual model'}</small>
+        </button>
+        <button type="button" className={mode === 'B' ? 'active' : ''} onClick={() => setMode('B')}>
+          {domainBLabel} <small>{references.B.pdb ? 'individual model loaded' : 'load individual model'}</small>
         </button>
         {inDesktop() && candidate && <button type="button" className="gpu-fold-button"
           disabled={!compute?.predictorAvailable || !msaConsent || foldStarting || fold?.phase === 'running'}
@@ -714,7 +743,6 @@ function ProteinViewer({
           {inDesktop() && <div className="desktop-compute" aria-live="polite">
             <strong>Local compute:</strong> {compute?.gpu ?? 'Checking GPU…'} · ColabFold {compute?.predictorAvailable ? `available via ${compute.predictorBackend}` : 'not installed'}.
             <p>PyMOL {compute?.pymolAvailable ? `available${compute.pymolPath ? ` at ${compute.pymolPath}` : ''}` : 'not installed or not detected'}.</p>
-            {(foldStarting || fold?.phase === 'running') && elapsed && <p className="fold-elapsed"><strong>Elapsed:</strong> {elapsed} · prediction process active</p>}
             {fold && <p>{fold.phase}: {fold.message}</p>}
             {fold?.runDir && <small>Run files: {fold.runDir}</small>}
           </div>}
@@ -722,13 +750,9 @@ function ProteinViewer({
         </>
       ) : (
         <>
-          <div className="structure-tabs" aria-label="Domain reference structure">
-            {(['A', 'B'] as const).map((key) => (
-              <button key={key} type="button" className={selected === key ? 'active' : ''}
-                aria-pressed={selected === key} onClick={() => setSelected(key)}>
-                {key === 'A' ? domainALabel : domainBLabel} <small>{references[key].pdb ? `${references[key].sourceKind} · ${references[key].sourceId || references[key].filename}` : 'reference not loaded'}</small>
-              </button>
-            ))}
+          <div className="individual-model-heading">
+            <div><span>Individual domain model</span><strong>{referenceLabel}</strong></div>
+            <small>{reference.pdb ? `${reference.sourceKind} · ${reference.sourceId || reference.filename}` : 'No model loaded for this domain'}</small>
           </div>
           <div className="viewer-stage">
             <FusionStructureViewer
@@ -737,18 +761,18 @@ function ProteinViewer({
               domainALength={referenceSequence.length}
               linkerLength={0}
               mode="reference"
-              referenceColor={selected === 'A' ? '#3acf78' : '#f66b62'}
+              referenceColor={selectedReference === 'A' ? '#3acf78' : '#f66b62'}
               ariaLabel={`${referenceLabel} individual reference structure`}
             />
           </div>
           <div className="reference-controls">
             <label>Reference source identifier
               <input value={reference.sourceId} placeholder="Example: PDB 1UBQ, chain A"
-                onChange={(event) => onReferencesChange({ ...references, [selected]: { ...reference, sourceId: event.target.value } })} />
+                onChange={(event) => onReferencesChange({ ...references, [selectedReference]: { ...reference, sourceId: event.target.value } })} />
             </label>
             <label>Evidence type
               <select value={reference.sourceKind}
-                onChange={(event) => onReferencesChange({ ...references, [selected]: { ...reference, sourceKind: event.target.value as DomainReference['sourceKind'] } })}>
+                onChange={(event) => onReferencesChange({ ...references, [selectedReference]: { ...reference, sourceKind: event.target.value as DomainReference['sourceKind'] } })}>
                 <option value="experimental">Experimental structure</option>
                 <option value="predicted">Predicted structure</option>
               </select>
@@ -763,9 +787,24 @@ function ProteinViewer({
     </section>
   )
 }
+function newDesignSessionId() {
+  return `design-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`
+}
+
 function App() {
   const historyStorageKey = 'linkerforge.research-history.v1'
+  const sessionStorageKey = 'linkerforge.design-sessions.v1'
   const [page, setPage] = useState<AppPage>(() => pageFromHash(window.location.hash))
+  const [composerOpen, setComposerOpen] = useState(true)
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null)
+  const [designSessions, setDesignSessions] = useState<DesignSession[]>(() => {
+    try {
+      const saved = localStorage.getItem(sessionStorageKey)
+      return saved ? JSON.parse(saved) as DesignSession[] : []
+    } catch {
+      return []
+    }
+  })
   const [projectName, setProjectName] = useState('Untitled linker design')
   const [domainALabel, setDomainALabel] = useState('Domain A')
   const [domainBLabel, setDomainBLabel] = useState('Domain B')
@@ -773,7 +812,7 @@ function App() {
   const [expressionSystem, setExpressionSystem] = useState('Not specified')
   const [protectedSites, setProtectedSites] = useState('')
   const [msaConsent, setMsaConsent] = useState(false)
-  const [viewerResult, setViewerResult] = useState<ViewerResult>({ fold: null, pdb: null, source: null, metrics: null })
+  const [viewerResult, setViewerResult] = useState<ViewerResult>({ fold: null, pdb: null, source: null, metrics: null, elapsed: null, running: false })
   const [domainReferences, setDomainReferences] = useState<DomainReferences>({
     A: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null },
     B: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null },
@@ -801,16 +840,24 @@ function App() {
   const [historyVerified, setHistoryVerified] = useState<boolean | null>(null)
 
   useEffect(() => {
-    document.documentElement.scrollTop = 0
-    document.body.scrollTop = 0
     const syncPage = () => {
       setPage(pageFromHash(window.location.hash))
-      document.documentElement.scrollTop = 0
-      document.body.scrollTop = 0
     }
     window.addEventListener('hashchange', syncPage)
     return () => window.removeEventListener('hashchange', syncPage)
   }, [])
+
+  useEffect(() => {
+    if (window.location.hash !== `#${page}`) window.history.replaceState(null, '', `#${page}`)
+  }, [page])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(sessionStorageKey, JSON.stringify(designSessions))
+    } catch {
+      // Keep the current session usable when browser storage is unavailable.
+    }
+  }, [designSessions])
 
   useEffect(() => {
     let cancelled = false
@@ -821,10 +868,82 @@ function App() {
   }, [researchHistory])
 
   const goToPage = (nextPage: AppPage) => {
-    if (window.location.hash !== `#${nextPage}`) window.location.hash = nextPage
     setPage(nextPage)
-    document.documentElement.scrollTop = 0
-    document.body.scrollTop = 0
+  }
+
+  const currentSession = (id: string): DesignSession => ({
+    id,
+    updatedAt: new Date().toISOString(),
+    projectName: projectName.trim() || 'Untitled linker design',
+    domainALabel: domainALabel.trim() || 'Domain A',
+    domainBLabel: domainBLabel.trim() || 'Domain B',
+    domainAInput,
+    domainBInput,
+    biologicalObjective,
+    expressionSystem,
+    protectedSites,
+    rigidity,
+    cleavable,
+    targetLength,
+  })
+
+  const openSession = (session: DesignSession) => {
+    try {
+      const domainA = parseProteinSequence(session.domainAInput, 'Domain A')
+      const domainB = parseProteinSequence(session.domainBInput, 'Domain B')
+      setProjectName(session.projectName)
+      setDomainALabel(session.domainALabel)
+      setDomainBLabel(session.domainBLabel)
+      setDomainAInput(session.domainAInput)
+      setDomainBInput(session.domainBInput)
+      setBiologicalObjective(session.biologicalObjective)
+      setExpressionSystem(session.expressionSystem)
+      setProtectedSites(session.protectedSites)
+      setMsaConsent(false)
+      setRigidity(session.rigidity)
+      setCleavable(session.cleavable)
+      setTargetLength(session.targetLength)
+      setDomainALength(domainA.length)
+      setCustomCandidates(buildTemplateCandidates(domainA, domainB, session.targetLength, session.rigidity, session.cleavable))
+      setCandidates([])
+      setSelectedCustomIndex(0)
+      setSelectedCandidateSeq('')
+      setViewerResult({ fold: null, pdb: null, source: null, metrics: null, elapsed: null, running: false })
+      setDomainReferences({
+        A: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null },
+        B: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null },
+      })
+      setActiveSessionId(session.id)
+      setComposerOpen(false)
+      setCustomError(null)
+      goToPage('structure')
+    } catch (cause) {
+      setComposerOpen(true)
+      setCustomError(cause instanceof Error ? cause.message : 'Could not open this design session.')
+    }
+  }
+
+  const startNewDesign = () => {
+    setActiveSessionId(null)
+    setComposerOpen(true)
+    setProjectName('Untitled linker design')
+    setDomainALabel('Domain A')
+    setDomainBLabel('Domain B')
+    setDomainAInput('')
+    setDomainBInput('')
+    setBiologicalObjective('')
+    setExpressionSystem('Not specified')
+    setProtectedSites('')
+    setRigidity('flexible')
+    setCleavable(false)
+    setTargetLength(15)
+    setMsaConsent(false)
+    setCustomCandidates([])
+    setCandidates([])
+    setSelectedCustomIndex(0)
+    setViewerResult({ fold: null, pdb: null, source: null, metrics: null, elapsed: null, running: false })
+    setCustomError(null)
+    goToPage('structure')
   }
 
   const handleRunDesign = async (
@@ -843,7 +962,13 @@ function App() {
       setSelectedCandidateSeq('')
       setCustomError(null)
       setApiConnected(false)
-      goToPage('candidates')
+      const id = activeSessionId ?? newDesignSessionId()
+      const session = currentSession(id)
+      setDesignSessions((previous) => [session, ...previous.filter((item) => item.id !== id)])
+      setActiveSessionId(id)
+      setComposerOpen(false)
+      setViewerResult({ fold: null, pdb: null, source: null, metrics: null, elapsed: null, running: false })
+      goToPage('structure')
     } catch (cause) {
       setCustomCandidates([])
       setCustomError(cause instanceof Error ? cause.message : 'Invalid sequence input.')
@@ -991,6 +1116,8 @@ function App() {
         A: { sourceId: saved.domains.A.reference_source_id, sourceKind: saved.domains.A.reference_source_kind, filename: null, pdb: null },
         B: { sourceId: saved.domains.B.reference_source_id, sourceKind: saved.domains.B.reference_source_kind, filename: null, pdb: null },
       })
+      setActiveSessionId(null)
+      setComposerOpen(true)
       setCustomError(null)
     } catch (cause) {
       setCustomError(cause instanceof Error ? cause.message : 'Could not open the project file.')
@@ -1110,210 +1237,158 @@ function App() {
 
   return (
     <div className={`app-shell ${isDesktop ? 'native-shell' : 'web-shell'}`}>
-      <header className="topbar">
-        <a className="brand" href="#design" aria-label="Open LinkerForge design workspace" onClick={() => goToPage('design')}>
-          <span className="brand-mark">LF</span>
-          <span>LinkerForge</span>
-        </a>
-        <div className="workspace-identity">
-          <span>Current project</span>
-          <strong>{projectName || 'Untitled linker design'}</strong>
-        </div>
-        <span className="release">{isDesktop ? 'Local desktop' : 'Computational prototype'} · {workspaceState}</span>
-      </header>
-
       <div className="app-workspace">
         <aside className="app-sidebar">
-          <span className="sidebar-kicker">Design workflow</span>
-          <nav aria-label="Workflow navigation">
-            {appPages.map((item) => (
-              <a key={item.id} href={`#${item.id}`} className={page === item.id ? 'active' : ''}
-                onClick={() => goToPage(item.id)}
-                aria-current={page === item.id ? 'page' : undefined}>
-                <span className="nav-step">{item.step}</span>
-                <span><strong>{item.label}</strong><small>{item.id === 'design' ? 'Sequences and constraints' : item.id === 'candidates' ? 'Review exact constructs' : item.id === 'structure' ? 'Predict and inspect' : 'Evidence and exports'}</small></span>
-              </a>
-            ))}
-          </nav>
-          <div className="sidebar-status">
-            <span>Workspace state</span>
-            <strong>{workspaceState}</strong>
-            <small>Computational evidence only</small>
+          <div className="sidebar-brand">
+            <span className="brand-mark">LF</span>
+            <span><strong>LinkerForge</strong><small>Local research workspace</small></span>
           </div>
+          <button type="button" className="new-design-button" onClick={startNewDesign}>
+            <Plus size={16} /> New linker design
+          </button>
+
+          <section className={`sidebar-composer ${composerOpen ? 'open' : ''}`} aria-label="New linker design input">
+            <button type="button" className="composer-toggle" aria-expanded={composerOpen}
+              onClick={() => setComposerOpen((value) => !value)}>
+              <span><strong>{activeSessionId ? 'Edit design inputs' : 'Describe a new fusion'}</strong><small>Two sequences + design constraints</small></span>
+              <span>{composerOpen ? '−' : '+'}</span>
+            </button>
+            {composerOpen && <form className="sidebar-input-form" onSubmit={(event) => { event.preventDefault(); void handleRunDesign(rigidity, cleavable, targetLength) }}>
+              <label htmlFor="project-name">Design name
+                <input id="project-name" value={projectName} onChange={(event) => setProjectName(event.target.value)} />
+              </label>
+              <div className="sidebar-domain-grid">
+                <label htmlFor="domain-a-label">Domain A name
+                  <input id="domain-a-label" value={domainALabel} onChange={(event) => setDomainALabel(event.target.value)} />
+                </label>
+                <label htmlFor="domain-b-label">Domain B name
+                  <input id="domain-b-label" value={domainBLabel} onChange={(event) => setDomainBLabel(event.target.value)} />
+                </label>
+              </div>
+              <label htmlFor="domain-a">{domainALabel || 'Domain A'} amino-acid sequence
+                <textarea id="domain-a" value={domainAInput}
+                  onChange={(event) => { setDomainAInput(event.target.value); setCustomCandidates([]); setDomainReferences({ A: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null }, B: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null } }) }}
+                  placeholder="Paste sequence or FASTA" rows={4} />
+              </label>
+              <label htmlFor="domain-b">{domainBLabel || 'Domain B'} amino-acid sequence
+                <textarea id="domain-b" value={domainBInput}
+                  onChange={(event) => { setDomainBInput(event.target.value); setCustomCandidates([]); setDomainReferences({ A: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null }, B: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null } }) }}
+                  placeholder="Paste sequence or FASTA" rows={4} />
+              </label>
+
+              <div className="sidebar-constraint-row">
+                <label>Linker type
+                  <select value={rigidity} onChange={(event) => { const value = event.target.value as RigidityMode; setRigidity(value); if (value === 'rigid') setCleavable(false); setCustomCandidates([]) }}>
+                    <option value="flexible">Flexible</option>
+                    <option value="rigid">Rigid</option>
+                  </select>
+                </label>
+                <label>Cleavage
+                  <select value={cleavable ? 'tev' : 'intact'} onChange={(event) => { const value = event.target.value === 'tev'; setCleavable(value); if (value) setRigidity('flexible'); setCustomCandidates([]) }}>
+                    <option value="intact">Non-cleavable</option>
+                    <option value="tev">TEV-cleavable</option>
+                  </select>
+                </label>
+              </div>
+              <label>Target linker length <strong>{targetLength} aa</strong>
+                <input type="range" min={5} max={30} value={targetLength}
+                  onChange={(event) => { setTargetLength(Number(event.target.value)); setCustomCandidates([]) }} />
+              </label>
+
+              <details className="sidebar-advanced-inputs">
+                <summary>Biological context and safeguards</summary>
+                <label htmlFor="biological-objective">Biological objective
+                  <textarea id="biological-objective" value={biologicalObjective} rows={3}
+                    onChange={(event) => setBiologicalObjective(event.target.value)} placeholder="What must the fusion preserve or enable?" />
+                </label>
+                <label htmlFor="expression-system">Expression system
+                  <select id="expression-system" value={expressionSystem} onChange={(event) => setExpressionSystem(event.target.value)}>
+                    <option>Not specified</option><option>E. coli</option><option>Yeast</option><option>Insect cells</option><option>Mammalian cells</option><option>Cell-free</option><option>Other</option>
+                  </select>
+                </label>
+                <label htmlFor="protected-sites">Protected residues
+                  <input id="protected-sites" value={protectedSites} onChange={(event) => setProtectedSites(event.target.value)} placeholder="A:48;B:12-18" />
+                </label>
+                <label className="sidebar-msa-consent">
+                  <input type="checkbox" checked={msaConsent} onChange={(event) => setMsaConsent(event.target.checked)} />
+                  <span>Allow this complete sequence to use the public ColabFold/MMseqs2 MSA service.</span>
+                </label>
+                <p>Use exact expressed sequences. Signal peptides, tags and propeptides must be included or removed intentionally. Only canonical amino acids are accepted.</p>
+              </details>
+
+              <button type="submit" className="sidebar-submit" disabled={!domainAInput.trim() || !domainBInput.trim()}>
+                <Play size={15} /> Create prediction workspace
+              </button>
+              <div className="sidebar-project-files">
+                <button type="button" onClick={exportProject}><Download size={13} /> Save JSON</button>
+                <label>Open JSON<input type="file" accept=".json,application/json" onChange={(event) => void importProject(event.target.files?.[0])} /></label>
+              </div>
+              {customError && <p className="sidebar-error" role="alert">{customError}</p>}
+            </form>}
+          </section>
+
+          <div className="session-list" aria-label="Saved design sessions">
+            <div className="session-list-heading"><span>Designs</span><small>{designSessions.length}</small></div>
+            {designSessions.length === 0 ? <p>No designs yet. Your submitted inputs will appear here.</p> : designSessions.map((session) => (
+              <button type="button" key={session.id} className={activeSessionId === session.id ? 'active' : ''}
+                onClick={() => openSession(session)}>
+                <MessageSquare size={15} />
+                <span><strong>{session.projectName}</strong><small>{session.domainALabel} → {session.domainBLabel} · {session.targetLength} aa</small></span>
+              </button>
+            ))}
+          </div>
+          <div className="sidebar-status"><strong>{workspaceState}</strong><small>Saved locally on this device · computational evidence only</small></div>
         </aside>
 
         <div className="workspace-main">
-          <div className="workspace-toolbar">
-            <div><span>Stage {activePage.step}</span><strong>{activePage.label}</strong></div>
-            <span>{isDesktop ? 'GPU workflow available' : 'Browser review mode'}</span>
-          </div>
+          <header className="workspace-toolbar">
+            <div className="workspace-title"><span>Current design</span><strong>{activeSessionId ? projectName : 'New prediction workspace'}</strong></div>
+            <nav className="workspace-tabs" aria-label="Workspace views">
+              {appPages.map((item) => <button type="button" key={item.id} className={page === item.id ? 'active' : ''}
+                onClick={() => goToPage(item.id)} aria-current={page === item.id ? 'page' : undefined}>
+                {item.label}
+              </button>)}
+            </nav>
+            <div className={`prediction-clock ${viewerResult.running ? 'running' : viewerResult.fold?.phase ?? 'idle'}`} aria-live="polite">
+              <Clock3 size={15} />
+              <span><small>{viewerResult.running ? 'Prediction running' : viewerResult.pdb ? 'Prediction loaded' : isDesktop ? 'GPU ready' : 'Review mode'}</small>
+                <strong>{viewerResult.running ? viewerResult.elapsed ?? '00:00' : viewerResult.pdb ? 'Complete' : activePage.label}</strong></span>
+            </div>
+          </header>
+
+          {customCandidates.length > 0 && <div className="candidate-switcher" aria-label="Candidate models">
+            <span>Candidate</span>
+            {customCandidates.map((candidate, index) => <button type="button" key={candidate.id}
+              className={selectedCustomIndex === index ? 'active' : ''} onClick={() => setSelectedCustomIndex(index)}>
+              <strong>{candidate.method}</strong><small>{candidate.linker.length} aa · {candidate.linker || 'direct'}</small>
+            </button>)}
+          </div>}
 
           <main id="app-page" className="page-shell">
 
-        {page === 'design' && <div className="app-page"><section className="section studio-section" id="design">
-          <div className="section-heading">
-            <span>01B / Interactive End-to-End Linker Design Studio</span>
-            <h2>Enter Domain A and Domain B to construct a full fusion</h2>
-          </div>
-          <div className="studio-controls">
-            <div className="project-context" aria-label="Biological project context">
-              <label htmlFor="project-name">Project or construct name</label>
-              <input id="project-name" value={projectName} onChange={(event) => setProjectName(event.target.value)} />
-              <label htmlFor="biological-objective">Biological objective</label>
-              <textarea id="biological-objective" value={biologicalObjective}
-                onChange={(event) => setBiologicalObjective(event.target.value)} rows={3}
-                placeholder="What should the fusion preserve or enable? Include assay-relevant constraints." />
-              <label htmlFor="expression-system">Intended expression system</label>
-              <select id="expression-system" value={expressionSystem} onChange={(event) => setExpressionSystem(event.target.value)}>
-                <option>Not specified</option>
-                <option>E. coli</option>
-                <option>Yeast</option>
-                <option>Insect cells</option>
-                <option>Mammalian cells</option>
-                <option>Cell-free</option>
-                <option>Other</option>
-              </select>
-              <label htmlFor="protected-sites">Protected or functional residues</label>
-              <input id="protected-sites" value={protectedSites} onChange={(event) => setProtectedSites(event.target.value)}
-                placeholder="Example: A:45,A:48;B:12-18" />
-              <small>Use A:position or B:start-end with domain-relative numbering. The application maps valid entries onto the fusion, but atomistic obstruction still requires a reviewed structural protocol.</small>
-              <div className="project-file-actions">
-                <button type="button" onClick={exportProject}><Download size={14} /> Save project JSON</button>
-                <label className="upload-pdb">Open project JSON
-                  <input type="file" accept=".json,application/json" onChange={(event) => void importProject(event.target.files?.[0])} />
-                </label>
-              </div>
-              <small>Project files omit structure coordinates and never retain public-MSA consent. Reload reference PDBs and explicitly confirm data release for each prediction session.</small>
-            </div>
-            <div className="sequence-inputs">
-              <label htmlFor="domain-a-label">First domain name</label>
-              <input id="domain-a-label" value={domainALabel} onChange={(event) => setDomainALabel(event.target.value)} />
-              <label htmlFor="domain-b-label">Second domain name</label>
-              <input id="domain-b-label" value={domainBLabel} onChange={(event) => setDomainBLabel(event.target.value)} />
-              <label htmlFor="domain-a">{domainALabel || 'Domain A'} amino-acid sequence (FASTA accepted)</label>
-              <textarea id="domain-a" value={domainAInput} onChange={(event) => { setDomainAInput(event.target.value); setCustomCandidates([]); setDomainReferences({ A: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null }, B: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null } }) }}
-                placeholder="Paste the first protein sequence" rows={5} />
-              <label htmlFor="domain-b">{domainBLabel || 'Domain B'} amino-acid sequence (FASTA accepted)</label>
-              <textarea id="domain-b" value={domainBInput} onChange={(event) => { setDomainBInput(event.target.value); setCustomCandidates([]); setDomainReferences({ A: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null }, B: { sourceId: '', sourceKind: 'experimental', filename: null, pdb: null } }) }}
-                placeholder="Paste the second protein sequence" rows={5} />
-              <small>Both sequences are required for a new design. Inputs use deterministic candidate enumeration only; no compatibility ranking or structural prediction is implied.</small>
-            </div>
-            <div className="control-group">
-              <label>Rigidity Axis (Component 3)</label>
-              <div className="pill-row">
-                <button
-                  type="button"
-                  className={rigidity === 'flexible' ? 'active' : ''}
-                  onClick={() => {
-                    setRigidity('flexible')
-                    setCustomCandidates([])
-                  }}
-                >
-                  Flexible Coil (GGGGS / Waldo / Mined DFL)
-                </button>
-                <button
-                  type="button"
-                  className={rigidity === 'rigid' ? 'active' : ''}
-                  onClick={() => {
-                    setRigidity('rigid')
-                    setCleavable(false)
-                    setTargetLength(18)
-                    setCustomCandidates([])
-                  }}
-                >
-                  Rigid Spacer (EAAAK Helical / PAPAP Rod)
-                </button>
-              </div>
-            </div>
-
-            <div className="control-group">
-              <label>Protease Cleavability (Hubbard 1994 Spacer Rule)</label>
-              <div className="pill-row">
-                <button
-                  type="button"
-                  className={!cleavable ? 'active' : ''}
-                  onClick={() => {
-                    setCleavable(false)
-                    setCustomCandidates([])
-                  }}
-                >
-                  Intact (Non-cleavable)
-                </button>
-                <button
-                  type="button"
-                  className={cleavable ? 'active' : ''}
-                  onClick={() => {
-                    setCleavable(true)
-                    setRigidity('flexible')
-                    setTargetLength(19)
-                    setCustomCandidates([])
-                  }}
-                >
-                  TEV Cleavable (ENLYFQS with GS spacers)
-                </button>
-              </div>
-            </div>
-
-            <div className="control-group">
-              <label>Target Linker Length: {targetLength} aa (maximum contour ≈ {(targetLength * 3.8).toFixed(1)} Å)</label>
-              <input
-                type="range"
-                min={5}
-                max={30}
-                value={targetLength}
-                onChange={(e) => { setTargetLength(Number(e.target.value)); setCustomCandidates([]) }}
-              />
-              <small>Allowed design range: 5–30 aa. This target is a starting constraint, not an inferred optimum.</small>
-            </div>
-
-            <div className="candidate-plan">
-              <strong>Candidate set created from these inputs</strong>
-              <p>The next step shows one sequence at the requested target length, shorter and longer length-sensitivity variants within 5–30 aa, the fixed (GGGGS)3 control, and direct fusion. These are transparent starting sequences for comparison—not personalized biological recommendations.</p>
-            </div>
-
-            {domainAInput.trim() || domainBInput.trim() ? <button
-              type="button"
-              className="run-pipeline-btn"
-              onClick={() => handleRunDesign(rigidity, cleavable, targetLength)}
-            >
-              <Play size={15} /> Generate candidate set and review
-            </button> : <div className="input-ready-state">
-              <strong>Ready for a new construct</strong>
-              <span>Enter both domain sequences to enable candidate generation.</span>
-            </div>}
-            <label className="msa-consent">
-              <input type="checkbox" checked={msaConsent} onChange={(event) => setMsaConsent(event.target.checked)} />
-              <span><strong>Public MSA service disclosure:</strong> this workstation has no local sequence database. Starting ColabFold submits the complete fusion sequence to the public ColabFold/MMseqs2 service. Confirm that this sequence is permitted to leave the workstation.</span>
-            </label>
-            <div className="input-preflight">
-              <strong>Biologist’s input preflight</strong>
-              <ul>
-                <li>Use the exact expressed construct sequence and intended domain order.</li>
-                <li>Confirm whether signal peptides, purification tags, transit peptides, and propeptides belong in the prediction.</li>
-                <li>Document domain-boundary sources and functional residues; this prototype does not infer either.</li>
-                <li>Only the 20 canonical amino acids are accepted. Post-translational modifications and cofactors are not represented.</li>
-              </ul>
-            </div>
-            {customError && <p className="structure-error" role="alert">{customError}</p>}
-          </div>
-        </section></div>}
-
         <div className="app-page" hidden={page !== 'structure'}>
-          <ProteinViewer candidate={customCandidates[selectedCustomIndex] ?? null} domainALength={domainALength}
-            domainALabel={domainALabel || 'Domain A'} domainBLabel={domainBLabel || 'Domain B'}
-            references={domainReferences} onReferencesChange={setDomainReferences}
-            msaConsent={msaConsent} onResultChange={setViewerResult} />
-          <div className="page-actions section-page-actions">
-            <a href="#candidates" onClick={() => goToPage('candidates')}>Back to candidates</a>
-            <a className="primary-btn" href="#results" onClick={() => goToPage('results')}>Continue to results <ArrowRight size={16} /></a>
-          </div>
+          {selectedCustomCandidate ? <>
+            <ProteinViewer candidate={selectedCustomCandidate} domainALength={domainALength}
+              domainALabel={domainALabel || 'Domain A'} domainBLabel={domainBLabel || 'Domain B'}
+              references={domainReferences} onReferencesChange={setDomainReferences}
+              msaConsent={msaConsent} onResultChange={setViewerResult} />
+            <div className="page-actions section-page-actions">
+              <button type="button" onClick={() => goToPage('candidates')}>Review candidates</button>
+              <button type="button" className="primary-btn" onClick={() => goToPage('results')}>Open results <ArrowRight size={16} /></button>
+            </div>
+          </> : <section className="workspace-empty" aria-label="Empty prediction workspace">
+            <span className="brand-mark">LF</span>
+            <h2>Start a linker prediction</h2>
+            <p>Enter both protein-domain sequences and design constraints in the sidebar. LinkerForge will create an auditable candidate set and open the selected full-fusion workspace here.</p>
+            <button type="button" onClick={() => setComposerOpen(true)}>Open design inputs</button>
+          </section>}
         </div>
 
         {page === 'candidates' && <div className="app-page"><section className="section candidate-section" id="candidates">
           <div className="candidate-intro-grid">
             <div>
             <div className="section-heading">
-              <span>02 / Candidate decision gate</span>
+                <span>Candidate decision gate</span>
               <h2>Choose which complete fusion is worth predicting</h2>
             </div>
             <p>
@@ -1404,7 +1479,7 @@ function App() {
             ))}
           </div> : <div className="candidate-empty-state">
             <strong>No candidates yet</strong>
-            <p>Use Design input for a new construct, or load the labelled preset above to inspect the candidate-review interface.</p>
+            <p>Use the input composer in the sidebar for a new construct, or load the labelled preset above to inspect the candidate-review interface.</p>
           </div>}
           {selectedCustomCandidate && <div className="selected-candidate-review" aria-label="Selected candidate review">
             <div>
@@ -1431,7 +1506,7 @@ function App() {
             <p><strong>Still required for a professional recommendation:</strong> random length-matched GS, geometry-only, natural-linker retrieval, and feature-based ranker baselines evaluated under identical structural rules.</p>
           </div>}
           <div className="page-actions candidates-actions">
-            <a href="#design" onClick={() => goToPage('design')}>Back to design input</a>
+            <button type="button" onClick={() => setComposerOpen(true)}>Edit inputs in sidebar</button>
             <button type="button" className="primary-btn" onClick={() => goToPage('structure')}>
               {selectedCustomCandidate ? 'Continue with selected candidate' : 'Open reference structure workspace'} <ArrowRight size={16} />
             </button>
@@ -1440,12 +1515,12 @@ function App() {
 
         {page === 'results' && <div className="app-page"><section className="section provenance" id="results">
           <div className="section-heading">
-            <span>04 / Prediction results and evidence</span>
+            <span>Prediction results and evidence</span>
             <h2>Interpret the selected fusion without overstating what was measured</h2>
           </div>
           {!selectedCustomCandidate ? <div className="results-empty">
             <h3>No user fusion has been selected</h3>
-            <p>Return to Design input, enter both domain sequences, generate candidates, and choose the exact linker sequence before opening a result record.</p>
+            <p>Use the input composer in the sidebar, enter both domain sequences, and create a prediction workspace before opening a result record.</p>
           </div> : <>
             <div className={`result-status ${predictionPhase.replace(' ', '-')}`}>
               <div><span>Prediction status</span><strong>{predictionPhase}</strong></div>
@@ -1541,16 +1616,11 @@ function App() {
             {selectedCustomCandidate && <button type="button" onClick={() => void exportResultRecord()}>Export versioned result JSON</button>}
             {selectedCustomCandidate && <button type="button" onClick={() => void exportResearchBundle()}><Download size={14} /> Export checksummed research ZIP</button>}
             {viewerResult.pdb && <button type="button" onClick={() => downloadText('linkerforge-selected-fusion.pdb', viewerResult.pdb!)}>Export structure PDB</button>}
-            <button type="button" onClick={() => goToPage('design')}>Start another design</button>
+            <button type="button" onClick={startNewDesign}>Start another design</button>
           </div>
         </section></div>}
       </main>
 
-      <footer>
-        <strong>LinkerForge</strong>
-        <span>Encoding-guided design of structurally plausible fusion proteins</span>
-        <span>Computational predictions are not evidence of biological function.</span>
-      </footer>
         </div>
       </div>
     </div>

@@ -70,12 +70,6 @@ literature/PDB records require boundary reconstruction. See the
 
 The optional [Tauri desktop shell](./docs/DESKTOP_LOCAL_FOLDING.md) can launch a bounded local full-fusion ColabFold job, display a sequence-checked PDB, and open the same checked structure in PyMOL with the two domains and linker coloured separately. ColabFold itself is not included. A public 142-residue fusion completed on this workstation's approximately 4 GB GPU, but that does not establish that the roughly 500-residue demonstration or arbitrary user constructs will fit. PyMOL is only an inspection/figure tool, not the folding or simulation engine.
 
-An externally supplied P-Linker archive has also been audited without executing
-its bundled code. It is quarantined rather than merged: its 7,892 silver records
-are domain-gap mining candidates, not compatibility outcomes, and its ten
-literature/PDB records require boundary reconstruction. See the
-[external dataset audit](./docs/EXTERNAL_PLINKER_DATASET_AUDIT_2026-10-21.md).
-
 ## One-minute description
 
 LinkerForge learns from natural proteins of the form `Domain A — natural linker — Domain B`. It represents the domains, attachment-point geometry, and candidate linker sequence, then learns to rank the observed natural linker above corrupted or transplanted alternatives. A frozen model is tested by hiding linkers from completely unseen protein families. Finally, it recommends a flexible linker for an `sfGFP — linker — mCherry` demonstration, predicts complete fused structures with AlphaFold/ColabFold, visualises them in PyMOL, and rejects candidates with closure failures, clashes, domain deformation, protected-site obstruction, or unacceptable uncertainty.

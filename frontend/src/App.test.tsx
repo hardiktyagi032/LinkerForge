@@ -2,62 +2,81 @@ import { fireEvent, render, screen, within } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 import App from './App'
 
+function submitTestDesign(name = 'Public test fusion') {
+  fireEvent.change(screen.getByLabelText(/design name/i), { target: { value: name } })
+  fireEvent.change(screen.getByLabelText(/domain a amino-acid sequence/i), { target: { value: 'ACDEFG' } })
+  fireEvent.change(screen.getByLabelText(/domain b amino-acid sequence/i), { target: { value: 'HIKLMN' } })
+  fireEvent.click(screen.getByRole('button', { name: /create prediction workspace/i }))
+}
+
 describe('LinkerForge interface', () => {
   beforeEach(() => {
-    window.location.hash = '#design'
+    localStorage.clear()
+    window.location.hash = '#structure'
   })
 
-  it('opens as an application workspace and states the scientific limitation', () => {
+  it('opens as a single-window application with its input composer in the sidebar', () => {
     render(<App />)
-    expect(screen.getByRole('navigation', { name: /workflow navigation/i })).toBeInTheDocument()
-    expect(screen.getByText(/computational predictions are not evidence of biological function/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/new linker design input/i)).toBeInTheDocument()
+    expect(screen.getByRole('navigation', { name: /workspace views/i })).toBeInTheDocument()
+    expect(screen.getByLabelText(/saved design sessions/i)).toBeInTheDocument()
+    expect(screen.getByText(/computational evidence only/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/domain a amino-acid sequence/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /start a linker prediction/i })).toBeInTheDocument()
     expect(screen.queryByText(/^overview$/i)).not.toBeInTheDocument()
   })
 
-  it('shows the complete four-stage workflow', () => {
-    render(<App />)
-    const navigation = screen.getByRole('navigation', { name: /workflow navigation/i })
-    expect(within(navigation).getByRole('link', { name: /design input/i })).toBeInTheDocument()
-    expect(within(navigation).getByRole('link', { name: /candidates/i })).toBeInTheDocument()
-    expect(within(navigation).getByRole('link', { name: /structure/i })).toBeInTheDocument()
-    expect(within(navigation).getByRole('link', { name: /results/i })).toBeInTheDocument()
-  })
-
-  it('keeps the labelled preset action on Candidates rather than Design input', () => {
+  it('keeps the labelled preset action in the Candidates view', () => {
     render(<App />)
     expect(screen.queryByRole('button', { name: /load labelled preset example/i })).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('link', { name: /candidates/i }))
+    fireEvent.click(screen.getByRole('button', { name: /^candidates$/i }))
     expect(screen.getByRole('button', { name: /load labelled preset example/i })).toBeInTheDocument()
   })
 
-  it('does not hard-code unrelated individual references as a predicted fusion', () => {
+  it('turns a submitted input into a sidebar session and opens prediction models', () => {
     render(<App />)
-    fireEvent.click(screen.getByRole('link', { name: /structure/i }))
+    expect(screen.getByRole('slider')).toHaveAttribute('min', '5')
+    submitTestDesign()
+
+    const sessions = screen.getByLabelText(/saved design sessions/i)
+    expect(within(sessions).getByRole('button', { name: /public test fusion/i })).toBeInTheDocument()
+    expect(screen.getByRole('tablist', { name: /prediction models/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /full fusion model/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /domain a.*individual model/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /domain b.*individual model/i })).toBeInTheDocument()
+    expect(screen.getByLabelText(/candidate models/i)).toBeInTheDocument()
     expect(screen.getByText(/no full-fusion structure loaded/i)).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: /individual domain references/i }))
+  })
+
+  it('reopens a saved design from the chat-style session list', () => {
+    render(<App />)
+    submitTestDesign('Reusable fusion')
+    fireEvent.click(screen.getByRole('button', { name: /new linker design/i }))
+    expect(screen.getByRole('heading', { name: /start a linker prediction/i })).toBeInTheDocument()
+
+    fireEvent.click(within(screen.getByLabelText(/saved design sessions/i)).getByRole('button', { name: /reusable fusion/i }))
+    fireEvent.click(screen.getByRole('button', { name: /edit design inputs/i }))
+    expect(screen.getByLabelText(/domain a amino-acid sequence/i)).toHaveValue('ACDEFG')
+    expect(screen.getByLabelText(/domain b amino-acid sequence/i)).toHaveValue('HIKLMN')
+  })
+
+  it('uses per-input domain models instead of hard-coded references', () => {
+    render(<App />)
+    submitTestDesign()
+    fireEvent.click(screen.getByRole('button', { name: /domain a.*individual model/i }))
     expect(screen.getByText(/no reference structure loaded/i)).toBeInTheDocument()
     expect(screen.queryByTitle(/sfGFP experimental structure/i)).not.toBeInTheDocument()
     expect(screen.getByText(/does not guess a reference structure/i)).toBeInTheDocument()
   })
 
-  it('accepts two custom domains and offers full-fusion templates without invented coordinates', () => {
+  it('keeps candidate review and evidence results accessible in the same window', () => {
     render(<App />)
-    expect(screen.getByRole('slider')).toHaveAttribute('min', '5')
-    fireEvent.change(screen.getByLabelText(/domain a amino-acid sequence/i), { target: { value: 'ACDEFG' } })
-    fireEvent.change(screen.getByLabelText(/domain b amino-acid sequence/i), { target: { value: 'HIKLMN' } })
-    fireEvent.click(screen.getByRole('button', { name: /generate candidate set and review/i }))
+    submitTestDesign()
+    fireEvent.click(screen.getByRole('button', { name: /^candidates$/i }))
     expect(screen.getByText(/generated 4 auditable design candidates and required controls/i)).toBeInTheDocument()
-    const generated = screen.getByLabelText(/custom fusion candidates/i)
-    expect(within(generated).getByText(/full fusion: 27 residues/i)).toBeInTheDocument()
-    expect(within(generated).getAllByRole('button')).toHaveLength(4)
-    expect(screen.getByText(/why this page comes before structure/i)).toBeInTheDocument()
-    expect(screen.queryByLabelText(/domain a amino-acid sequence/i)).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: /continue with selected candidate/i }))
-    expect(screen.getByText(/no full-fusion structure loaded/i)).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: /open full screen/i }))
-    expect(screen.getByRole('button', { name: /close full screen/i })).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('link', { name: /continue to results/i }))
+    expect(within(screen.getByLabelText(/custom fusion candidates/i)).getAllByRole('button')).toHaveLength(4)
+
+    fireEvent.click(screen.getByRole('button', { name: /^results$/i }))
     expect(screen.getByText(/required evidence checklist/i)).toBeInTheDocument()
     expect(screen.getByText(/no structure prediction has been started/i)).toBeInTheDocument()
     expect(screen.queryByText(/^experimental validation$/i)).not.toBeInTheDocument()
