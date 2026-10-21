@@ -114,7 +114,9 @@ describe('LinkerForge interface', () => {
     expect(within(screen.getByLabelText(/custom fusion candidates/i)).getAllByRole('button')).toHaveLength(4)
 
     fireEvent.click(screen.getByRole('button', { name: /^results$/i }))
-    expect(screen.getByText(/required evidence checklist/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /structure prediction, confidence, and validation status/i })).toBeInTheDocument()
+    expect(screen.getByText(/evidence status and available alternatives/i)).toBeInTheDocument()
+    expect(screen.getByText(/openmm alternative available/i)).toBeInTheDocument()
     expect(screen.getByText(/no structure prediction has been started/i)).toBeInTheDocument()
     expect(screen.queryByText(/^experimental validation$/i)).not.toBeInTheDocument()
   })
