@@ -6,8 +6,10 @@ import {
   Download,
   ExternalLink,
   MessageSquare,
+  Moon,
   Play,
   Plus,
+  Sun,
   XCircle,
 } from 'lucide-react'
 import FusionStructureViewer from './FusionStructureViewer'
@@ -52,6 +54,7 @@ import {
 
 type RigidityMode = 'flexible' | 'rigid'
 type AppPage = 'candidates' | 'structure' | 'results'
+type ColorTheme = 'light' | 'dark'
 
 const appPages: Array<{ id: AppPage; label: string; step: string }> = [
   { id: 'candidates', label: 'Candidates', step: '01' },
@@ -794,6 +797,14 @@ function newDesignSessionId() {
 function App() {
   const historyStorageKey = 'linkerforge.research-history.v1'
   const sessionStorageKey = 'linkerforge.design-sessions.v1'
+  const themeStorageKey = 'linkerforge.color-theme.v1'
+  const [colorTheme, setColorTheme] = useState<ColorTheme>(() => {
+    const savedTheme = localStorage.getItem(themeStorageKey)
+    if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme
+    return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light'
+  })
   const [page, setPage] = useState<AppPage>(() => pageFromHash(window.location.hash))
   const [composerOpen, setComposerOpen] = useState(true)
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null)
@@ -850,6 +861,12 @@ function App() {
   useEffect(() => {
     if (window.location.hash !== `#${page}`) window.history.replaceState(null, '', `#${page}`)
   }, [page])
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = colorTheme
+    document.documentElement.style.colorScheme = colorTheme
+    localStorage.setItem(themeStorageKey, colorTheme)
+  }, [colorTheme])
 
   useEffect(() => {
     try {
@@ -1236,7 +1253,7 @@ function App() {
         : 'Awaiting input'
 
   return (
-    <div className={`app-shell ${isDesktop ? 'native-shell' : 'web-shell'}`}>
+    <div className={`app-shell theme-${colorTheme} ${isDesktop ? 'native-shell' : 'web-shell'}`}>
       <div className="app-workspace">
         <aside className="app-sidebar">
           <div className="sidebar-brand">
@@ -1349,6 +1366,13 @@ function App() {
                 {item.label}
               </button>)}
             </nav>
+            <button type="button" className="theme-toggle"
+              onClick={() => setColorTheme((theme) => theme === 'dark' ? 'light' : 'dark')}
+              aria-label={`Switch to ${colorTheme === 'dark' ? 'light' : 'dark'} mode`}
+              title={`Switch to ${colorTheme === 'dark' ? 'light' : 'dark'} mode`}>
+              {colorTheme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+              <span>{colorTheme === 'dark' ? 'Light' : 'Dark'}</span>
+            </button>
             <div className={`prediction-clock ${viewerResult.running ? 'running' : viewerResult.fold?.phase ?? 'idle'}`} aria-live="polite">
               <Clock3 size={15} />
               <span><small>{viewerResult.running ? 'Prediction running' : viewerResult.pdb ? 'Prediction loaded' : isDesktop ? 'GPU ready' : 'Review mode'}</small>

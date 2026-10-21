@@ -12,7 +12,22 @@ function submitTestDesign(name = 'Public test fusion') {
 describe('LinkerForge interface', () => {
   beforeEach(() => {
     localStorage.clear()
+    localStorage.setItem('linkerforge.color-theme.v1', 'light')
+    document.documentElement.removeAttribute('data-theme')
+    document.documentElement.style.colorScheme = ''
     window.location.hash = '#structure'
+  })
+
+  it('switches and persists the color theme shared by web and desktop', () => {
+    render(<App />)
+    expect(document.documentElement).toHaveAttribute('data-theme', 'light')
+
+    fireEvent.click(screen.getByRole('button', { name: /switch to dark mode/i }))
+
+    expect(document.documentElement).toHaveAttribute('data-theme', 'dark')
+    expect(document.documentElement.style.colorScheme).toBe('dark')
+    expect(localStorage.getItem('linkerforge.color-theme.v1')).toBe('dark')
+    expect(screen.getByRole('button', { name: /switch to light mode/i })).toBeInTheDocument()
   })
 
   it('opens as a single-window application with its input composer in the sidebar', () => {
