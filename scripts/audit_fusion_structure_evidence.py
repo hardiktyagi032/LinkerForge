@@ -132,6 +132,7 @@ def main() -> None:
     parser.add_argument("--matched-comparison", type=Path)
     parser.add_argument("--openmm-run", type=Path)
     parser.add_argument("--surface-burial", type=Path, help="Sequence/hash-verified CPU surface-burial panel JSON")
+    parser.add_argument("--reduce-probe", type=Path, help="Sequence/hash-verified Reduce/Probe overlap panel JSON")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
@@ -238,6 +239,32 @@ def main() -> None:
             "interpretation": "Fixed-coordinate surface burial; functional sites require explicit annotations.",
         }
         source_ids.append(f"surface-burial-sha256:{sha256(args.surface_burial)}")
+    if args.reduce_probe:
+        overlap_audit = json.loads(args.reduce_probe.read_text(encoding="utf-8"))
+        schema_path = Path(__file__).resolve().parents[1] / "schemas/reduce-probe-overlap-audit.v1.schema.json"
+        Draft202012Validator(json.loads(schema_path.read_text(encoding="utf-8"))).validate(overlap_audit)
+        overlap_rows = [row for row in overlap_audit["records"] if row["input_pdb_sha256"] == fusion_sha]
+        sequence_sha = hashlib.sha256("".join(row[0] for row in fusion).encode()).hexdigest()
+        if len(overlap_rows) != 1 or overlap_rows[0]["sequence_sha256"] != sequence_sha:
+            raise ValueError("Reduce/Probe report does not match exactly one fusion PDB and sequence")
+        selected_overlap = overlap_rows[0]
+        expected_boundaries = {
+            "domain_a_length": args.domain_a_length,
+            "linker_length": args.linker_length,
+            "domain_b_length": len(fusion) - b_start,
+        }
+        if selected_overlap["boundaries"] != expected_boundaries:
+            raise ValueError("Reduce/Probe report boundaries do not match the fusion audit")
+        linked_evidence["reduce_probe_overlap_screen"] = {
+            "path": str(args.reduce_probe),
+            "sha256": sha256(args.reduce_probe),
+            "unique_severe_overlap_pair_count": selected_overlap["unique_severe_overlap_pair_count"],
+            "unique_severe_overlap_pairs_per_1000_explicit_atoms": selected_overlap["unique_severe_overlap_pairs_per_1000_explicit_atoms"],
+            "worst_overlap_magnitude_angstrom": selected_overlap["worst_overlap_magnitude_angstrom"],
+            "threshold_status": overlap_audit["threshold_status"],
+            "interpretation": "Reduce/Probe component cross-check; this transparent pair rate is not canonical MolProbity clashscore.",
+        }
+        source_ids.append(f"reduce-probe-overlap-sha256:{sha256(args.reduce_probe)}")
     config_record = {
         "domain_a_length": args.domain_a_length,
         "linker_length": args.linker_length,
@@ -264,6 +291,8 @@ def main() -> None:
         not_performed.append("OpenMM or GROMACS minimization/dynamics")
     if "surface_burial" not in linked_evidence:
         not_performed.append("fixed-coordinate domain surface-burial analysis")
+    if "reduce_probe_overlap_screen" not in linked_evidence:
+        not_performed.append("Reduce/Probe hydrogen-aware severe-overlap screen")
     not_performed.append("experimental expression, stability, or activity testing")
     result = {
         "schema_version": "linkerforge.structure-evidence.v1",

@@ -11,6 +11,7 @@ from jsonschema import ValidationError
 from scripts.assess_fusion_surface_burial import main as surface_main
 from scripts.assess_fusion_surface_burial import measure, read_protein
 from scripts.audit_fusion_structure_evidence import main as evidence_main
+from scripts.assess_reduce_probe_overlaps import count_explicit_atoms, parse_probe_records
 
 
 def structure_at(points):
@@ -76,6 +77,29 @@ def test_near_linker_occludes_domain_and_mapping_is_correct():
 def test_invalid_boundary_rejected():
     with pytest.raises(ValueError, match="boundaries"):
         measure(structure_at([(0, 0, 0), (3, 0, 0)]), 2, 0, 100)
+
+
+def test_probe_records_deduplicate_reciprocal_pairs_and_map_regions():
+    text = "\n".join([
+        ":1->1:bo: A   2 ALA  CA  : A   4 GLY  HA2 :3:-0.450:-0.410:0:0:0:0:0:C:C:0:0:0:10:20",
+        ":1->1:bo: A   4 GLY  HA2 : A   2 ALA  CA  :4:-0.510:-0.430:0:0:0:0:0:C:C:0:0:0:20:10",
+        ":1->1:wo: A   4 GLY  HA3 : A   7 ALA  CB  :2:-0.620:-0.500:0:0:0:0:0:C:C:0:0:0:20:30",
+    ])
+    records = parse_probe_records(text, a_length=3, linker_length=2, total_length=8)
+    assert len(records) == 2
+    assert records[0]["minimum_surface_gap_angstrom"] == -0.62
+    assert records[0]["region_pair"] == "domain_b--linker"
+    assert records[1]["minimum_surface_gap_angstrom"] == -0.51
+    assert records[1]["region_pair"] == "domain_a--linker"
+
+
+def test_explicit_atom_count_ignores_duplicate_altloc_and_nonprotein():
+    text = "\n".join([
+        "ATOM      1  CA  ALA A   1       0.000   0.000   0.000  1.00 10.00           C",
+        "ATOM      2  CA AALA A   1       0.000   0.000   0.000  1.00 10.00           C",
+        "HETATM    3  O   HOH A   2       1.000   0.000   0.000  1.00 10.00           O",
+    ])
+    assert count_explicit_atoms(text) == 1
 
 
 def test_sequence_mismatch_and_missing_backbone_are_rejected(tmp_path):

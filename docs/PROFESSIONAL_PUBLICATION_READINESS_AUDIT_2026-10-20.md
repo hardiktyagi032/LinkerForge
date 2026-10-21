@@ -239,6 +239,7 @@ shortfall. This is an operational capacity decision, not scientific evidence.
 | Method | What it measures | Local status | What LinkerForge should use it for |
 | --- | --- | --- | --- |
 | DFLpred | Per-residue disordered flexible-linker propensity | Exact public implementation run on 28 constructs | Orthogonal sensitivity flag only |
+| CAID3 released submissions | Per-residue DFL detection on an identical 27-protein common set | One-time retrospective completed: best historical LinkerForge APS/Fmax 0.089/0.165, below IPA-AF2-Linker 0.482/0.491, LINKER-Pred-Lite 0.429/0.473 and DisoFLAG-DFL 0.409/0.464 | Negative historical evidence only. The public set is spent, has no no-linker proteins, cannot guide tuning/selection and does not measure fusion compatibility |
 | LINKER-Pred / Lite | Per-residue linker-region prediction using protein embeddings | Repository inspected; not reproduced because the Lite workflow requires external 1024-dimensional ProtTrans embeddings/model assets and a sealed common-target evaluation | Future detector comparator on a sealed evaluation set |
 | TransDFL, DisoFLAG-DFL | Modern DFL/linker detectors | Not reproduced locally | Future frozen comparator; never use spent CAID3 results for selection |
 | ColabFold / AlphaFold2 | Complete-sequence structure plus pLDDT, PAE and pTM | Operational; seven matched public constructs and 30 newly computed models plus the five-model existing run | Structural hypothesis and uncertainty, not linker success label |

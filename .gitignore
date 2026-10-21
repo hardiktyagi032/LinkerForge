@@ -16,6 +16,7 @@ __pycache__/
 .mypy_cache/
 .venv/
 .venv-gpu/
+requirements/molprobity-tools/.pixi/
 data/raw/
 data/processed/
 artifacts/
