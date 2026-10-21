@@ -231,7 +231,11 @@ def main() -> None:
         simulation.context.setVelocitiesToTemperature(float(config["temperature_kelvin"]) * unit.kelvin, seed)
         simulation.step(int(config["equilibration_steps"]))
         report_interval = int(config["report_interval_steps"])
-        simulation.reporters.append(DCDReporter(str(replicate_dir / "trajectory.dcd"), report_interval))
+        trajectory_report_interval = int(config.get("trajectory_report_interval_steps", report_interval))
+        production_steps = int(config["production_steps"])
+        if production_steps % report_interval or production_steps % trajectory_report_interval:
+            raise ValueError("Production steps must be divisible by metric and trajectory report intervals")
+        simulation.reporters.append(DCDReporter(str(replicate_dir / "trajectory.dcd"), trajectory_report_interval))
         simulation.reporters.append(StateDataReporter(
             str(replicate_dir / "state.csv"), report_interval,
             step=True, time=True, potentialEnergy=True, kineticEnergy=True,
@@ -240,7 +244,6 @@ def main() -> None:
         ))
         simulation.reporters.append(CheckpointReporter(str(replicate_dir / "checkpoint.chk"), report_interval))
         production_started = datetime.now(timezone.utc).isoformat()
-        production_steps = int(config["production_steps"])
         metric_rows: list[dict[str, float | int]] = []
         completed_steps = 0
         while completed_steps < production_steps:
@@ -276,6 +279,8 @@ def main() -> None:
             "completed_at": datetime.now(timezone.utc).isoformat(),
             "final_potential_energy_kj_mol": energy_kj(final),
             "trajectory_sha256": sha256(replicate_dir / "trajectory.dcd"),
+            "trajectory_frames": production_steps // trajectory_report_interval,
+            "trajectory_report_interval_steps": trajectory_report_interval,
             "state_csv_sha256": sha256(replicate_dir / "state.csv"),
             "structural_metrics_sha256": sha256(metrics_csv),
             "structural_metric_frames": len(metric_rows),

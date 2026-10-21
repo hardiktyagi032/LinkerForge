@@ -10,7 +10,7 @@ outside this project's requested scope.
 | --- | --- | --- |
 | Does a linker bury a domain residue in the predicted pose? | Differential solvent-accessible surface area (SASA) with Biopython Shrake–Rupley | Implemented CPU analysis, sequence and coordinate hash checks, per-residue outputs and evidence-record linking. Requires researcher-supplied functional annotations to interpret protected sites. |
 | Is an annotated residue near the linker? | Existing heavy-atom distance/SASA report plus the app's Cα screen | Implemented. Ligands, binding partners and conformational ensembles remain future context. |
-| Does the structure contain unrealistic atomic contacts? | Pinned Reduce 4.15 / Probe 2.18 hydrogen-aware severe-overlap screen | CPU adapter, versioned schema and locked Pixi environment are implemented. It reports transparent unique-pair counts and never calls them the canonical MolProbity clashscore. The durable seven-structure execution is a separate recorded run. |
+| Does the structure contain unrealistic atomic contacts? | Pinned Reduce 4.15 / Probe 2.18 hydrogen-aware severe-overlap screen | Implemented and completed on seven public predictions. It reports transparent unique-pair counts and never calls them the canonical MolProbity clashscore. No LinkerForge acceptance threshold is frozen. |
 | Can strained coordinates relax? | Existing OpenMM minimization | Available and executed as part of the prior smoke protocol. Energy decrease does not establish biological stability or replace Rosetta loop reconstruction. |
 | Can a missing linker conformation be reconstructed? | Rosetta KIC or another separately validated loop-sampling method | Future integration. Surface area, clash checks and minimization do not replace this test. |
 | Are results reproducible across public constructs? | Matched ColabFold controls across three public pairs | Existing single-pair panel complete; additional two-pair durable prediction job is separate and ongoing. This panel is descriptive, not a family-disjoint prospective evaluation. |
@@ -59,6 +59,35 @@ UI execution/import is future interface integration.
 Output directory: `runs/structure-audits/surface-burial-20261021/`.
 The durable job's `status.json` is authoritative for completion. Existing run
 directories and evidence records are never overwritten.
+
+## Reduce/Probe severe-overlap screen
+
+The locked CPU environment in `requirements/molprobity-tools/` contains Reduce
+4.15 and Probe 2.18. `scripts/assess_reduce_probe_overlaps.py` first verifies
+the complete sequence, PDB hash and domain/linker boundaries, uses Reduce to
+place and optimize hydrogens, then runs Probe with main-chain contacts and
+standard-bond topology exclusions. Reciprocal atom contacts are deduplicated.
+Raw contacts, hydrogenated structures, exact arguments, versions and hashes are
+retained under `runs/structure-audits/reduce-probe-20261021/`.
+
+The durable three-stage run completed successfully. Counts below describe the
+fixed unrelaxed predicted coordinates; there is no preregistered pass/fail
+threshold and lower values do not independently establish a better linker.
+
+| Construct | Unique severe pairs | Pairs / 1000 explicit atoms | Worst overlap (Å) |
+| --- | ---: | ---: | ---: |
+| bird18 | 35 | 14.89 | 1.285 |
+| direct0 | 19 | 9.13 | 1.117 |
+| EAAAK15 | 26 | 11.39 | 1.234 |
+| GGGGS10 acceptance | 48 | 22.22 | 1.473 |
+| GGGGS15 | 29 | 13.19 | 1.259 |
+| GGGGS5 | 29 | 13.67 | 1.179 |
+| WALDO12 | 60 | 27.17 | 1.424 |
+
+This rate is deliberately named `unique severe-overlap pairs per 1000 explicit
+atoms`; it is **not** the canonical MolProbity clashscore. The screen excludes
+ligands, partners and waters and cannot replace Rosetta linker reconstruction,
+conformational sampling, energetic ranking or experiment.
 
 ## Sources checked
 

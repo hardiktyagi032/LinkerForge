@@ -69,7 +69,7 @@ def build_preflight(
         if not trajectory.is_file():
             raise FileNotFoundError(f"Missing smoke trajectory: {trajectory}")
         observed_trajectory_bytes += trajectory.stat().st_size
-        observed_frames += int(replicate["structural_metric_frames"])
+        observed_frames += int(replicate.get("trajectory_frames", replicate["structural_metric_frames"]))
         observed_production_seconds += (
             _parse_time(replicate["completed_at"])
             - _parse_time(replicate["production_started_at"])
@@ -79,10 +79,12 @@ def build_preflight(
 
     production_steps = int(config["production_steps"])
     report_interval = int(config["report_interval_steps"])
+    trajectory_report_interval = int(config.get("trajectory_report_interval_steps", report_interval))
     replicates = int(config["replicates"])
-    if production_steps % report_interval:
-        raise ValueError("Production steps must be divisible by report interval for a stable estimate")
-    projected_frames = (production_steps // report_interval) * replicates
+    if production_steps % report_interval or production_steps % trajectory_report_interval:
+        raise ValueError("Production steps must be divisible by metric and trajectory report intervals")
+    projected_frames = (production_steps // trajectory_report_interval) * replicates
+    projected_metric_frames = (production_steps // report_interval) * replicates
     bytes_per_frame = observed_trajectory_bytes / observed_frames
     projected_trajectory_bytes = int(bytes_per_frame * projected_frames)
 
@@ -127,6 +129,9 @@ def build_preflight(
                 production_steps * float(config["timestep_fs"]) / 1_000_000
             ),
             "trajectory_frames_total": projected_frames,
+            "trajectory_report_interval_steps": trajectory_report_interval,
+            "structural_metric_frames_total": projected_metric_frames,
+            "structural_metric_report_interval_steps": report_interval,
             "trajectory_bytes": projected_trajectory_bytes,
             "trajectory_gib": round(projected_trajectory_bytes / GIB, 3),
             "runtime_seconds": round(projected_runtime_seconds, 3),
