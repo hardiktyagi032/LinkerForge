@@ -18,7 +18,7 @@ outside this project's requested scope.
 | How did historical LinkerForge detector heads compare on identical public targets? | Frozen-score retrospective on the 27-protein CAID3 common set | Completed negative result: best historical LinkerForge APS/Fmax was 0.089/0.165 versus 0.482/0.491 for IPA-AF2-Linker, 0.429/0.473 for LINKER-Pred-Lite and 0.409/0.464 for DisoFLAG-DFL. This spent public result cannot guide tuning or selection, contains only linker-positive proteins, and does not assess fusion compatibility. Fresh pinned inference remains future work. |
 | Are structural conclusions robust across architectures? | ESMFold; another validated independent model family; OpenFold for AlphaFold-family reproducibility | Future integration with the same sequences and analysis rules. Five AF2 parameter models are not five independent model families. |
 | Is the compatibility ranker scientifically calibrated? | Independently evidenced engineered-fusion outcomes and an untouched grouped evaluation | No computational substitution establishes this. Future scientific development. The mined corpus remains useful for discovery/retrieval and reviewed weak supervision. |
-| Are MD trajectories long enough to support stability claims? | Replicated production simulations with convergence checks | Future execution. The existing 3 × 50 ps run verifies software execution only. |
+| Are MD trajectories long enough to support stability claims? | Replicated production simulations with convergence checks | Storage-aware v2 protocol and launch preflight are implemented and pass: 10 ps metrics/checkpoints are retained while full-system DCD frames are stored every 50 ps. Execution remains future until the active ColabFold GPU panel finishes; the existing 3 × 50 ps run verifies software execution only. |
 | Can the app run without institutional cloud access? | Existing local Tauri/WSL execution and durable run manifests | Implemented for bounded public inputs. Approved institutional/cloud execution remains future deployment. |
 | Can research results be preserved without a signing service? | Existing checksummed research ZIP and SHA-256 history | Implemented integrity alternative. Publisher signing and institutional signatures remain future release/deployment work. |
 
@@ -88,6 +88,25 @@ This rate is deliberately named `unique severe-overlap pairs per 1000 explicit
 atoms`; it is **not** the canonical MolProbity clashscore. The screen excludes
 ligands, partners and waters and cannot replace Rosetta linker reconstruction,
 conformational sampling, energetic ranking or experiment.
+
+## Storage-aware production MD alternative
+
+The original full-system trajectory policy stored coordinates every 10 ps and
+failed its conservative storage gate. The new, separately versioned
+`configs/openmm-publication-protocol-v2-storage-aware.json` keeps structural
+metrics, state data and checkpoints at 10 ps but stores full-system DCD frames
+every 50 ps. It does not reduce the explicit-solvent atom count, simulation
+length, three independent replicas or force-field calculations.
+
+The same-construct measured preflight now projects 3,000 DCD frames, 1.232 GiB
+of trajectory data and 31.76 GPU hours. With the unchanged 1.5× allowance plus
+5 GiB recovery reserve, 6.849 GiB is required and the current 10.545 GiB free
+space passes. Artifact:
+`reports/openmm-production-preflight-storage-aware-2026-10-21.json`.
+
+This only removes the storage blocker. The run must wait for the active
+ColabFold job to release the GPU, and a completed production run would still
+require convergence analysis; it would not prove biological stability.
 
 ## Sources checked
 

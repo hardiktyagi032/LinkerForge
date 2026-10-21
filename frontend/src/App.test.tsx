@@ -121,6 +121,8 @@ describe('LinkerForge interface', () => {
     expect(screen.getByText(/has not run for this candidate/i)).toBeInTheDocument()
     expect(screen.getByText(/7 public structures screened/i)).toBeInTheDocument()
     expect(screen.getByText(/48 unique severe-overlap pairs/i)).toBeInTheDocument()
+    expect(screen.getByText(/smoke verified · storage gate passed/i)).toBeInTheDocument()
+    expect(screen.getByText(/31\.76 GPU hours/i)).toBeInTheDocument()
     expect(screen.getByText(/not the canonical MolProbity clashscore/i)).toBeInTheDocument()
     expect(screen.getByText(/spent result available/i)).toBeInTheDocument()
     expect(screen.getByText(/best historical LinkerForge head scored APS 0\.089 \/ Fmax 0\.165/i)).toBeInTheDocument()

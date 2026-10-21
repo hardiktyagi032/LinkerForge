@@ -234,6 +234,15 @@ a 5 GiB recovery reserve. M: currently has 11.887 GiB free versus 14.243 GiB
 required, so the detached production job is fail-closed with a 2.357 GiB
 shortfall. This is an operational capacity decision, not scientific evidence.
 
+A separate storage-aware v2 protocol has now passed a fresh preflight without
+altering the simulated system or duration. It preserves 10 ps structural
+metrics/state/checkpoints and stores full-system DCD coordinates every 50 ps.
+The projection is 3,000 DCD frames, 1.232 GiB of trajectory storage and 31.76
+GPU hours; its unchanged safety gate requires 6.849 GiB versus 10.545 GiB free.
+Artifact: `reports/openmm-production-preflight-storage-aware-2026-10-21.json`.
+This removes only the storage blocker. Production execution must wait for the
+active ColabFold job and remains uncompleted evidence.
+
 ## Method and product comparison
 
 | Method | What it measures | Local status | What LinkerForge should use it for |
@@ -249,7 +258,7 @@ shortfall. This is an operational capacity decision, not scientific evidence.
 | Boltz / Chai-1 | Open biomolecular structure models | Not installed; hardware envelope not established | Cloud/HPC comparator for selected finalists |
 | Rosetta KIC/loop modelling | Linker conformational sampling, closure and all-atom scoring | Not installed | Required structural-funnel stage, under a frozen protocol |
 | Reduce / Probe | Hydrogen-aware fixed-coordinate severe-overlap contacts | Pinned CPU environment and seven-prediction run completed; GGGGS10 has 48 unique severe pairs, 22.22 per 1000 explicit atoms, worst overlap 1.473 Å | Complementary geometry cross-check only; not canonical MolProbity clashscore, Rosetta sampling or a candidate acceptance test |
-| OpenMM / GROMACS | Energy minimization and molecular dynamics | Three-replica explicit-solvent OpenMM CUDA smoke run completed; production-length protocol is configured but its storage preflight is fail-closed | Optional reviewed-finalist validation, with force field, solvent, replicates and convergence records |
+| OpenMM / GROMACS | Energy minimization and molecular dynamics | Three-replica explicit-solvent OpenMM CUDA smoke run completed; storage-aware 3 × 50 ns v2 preflight passes but execution waits for the active ColabFold GPU panel | Optional reviewed-finalist validation, with force field, solvent, replicates and convergence records |
 | PyMOL | Inspection, measurement and figure generation | Open-source PyMOL 3.1 environment on M: rendered the public acceptance structure headlessly; LinkerForge's distribution policy does not bundle PyMOL | Visualization only; never call it simulation; any future bundling requires a fresh package-specific licence review |
 
 ## Professional evidence checklist
@@ -266,7 +275,7 @@ shortfall. This is an operational capacity decision, not scientific evidence.
 | Immutable run history | **Partial**: timestamp/hash desktop directories and an in-app SHA-256 hash chain are implemented; no digital signature or institutional append-only store | Preserve exported history and verify its chain; do not call it cryptographically signed |
 | Versioned schemas/result export | **Implemented**: v1 project/result/history/evidence schemas, deterministic checksummed research ZIP and schema meta-validation in CI | Retain schema versions and migrate explicitly |
 | Institutional/cloud handoff | **Not performed**: no credentials or approved endpoint supplied | Local 4 GB failures need manual handoff |
-| OpenMM/GROMACS workflow | **OpenMM execution smoke complete**: explicit solvent, AMBER14/TIP3P-FB, three 50 ps production replicas, independent seeds and per-frame metrics; 3 x 50 ns protocol is configured but unexecuted. A same-construct operational preflight projects about 6.16 GiB of trajectory output and 31 hours of GPU time, but blocks launch because M: lacks the frozen 1.5x output allowance plus 5 GiB recovery reserve | The smoke run proves execution only, never convergence or stability; free additional storage or adopt and preregister a protein-only trajectory protocol before launch |
+| OpenMM/GROMACS workflow | **Smoke complete; production v2 storage gate passes**: explicit solvent, AMBER14/TIP3P-FB, three 50 ps smoke replicas and independent seeds are verified. The 3 × 50 ns v2 protocol preserves 10 ps metrics while storing DCD every 50 ps; it projects 1.232 GiB, 31.76 GPU hours and passes the 6.849 GiB safety gate with 10.545 GiB free. It has not run and must wait for ColabFold | The smoke proves execution only. A future completed v2 run still requires preregistered convergence analysis and is not stability or functional evidence |
 | Experimental assays | **Outside this software audit by user direction** | Biological efficacy remains an external claim boundary |
 
 ### External P-Linker archive disposition
