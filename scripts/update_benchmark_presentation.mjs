@@ -248,6 +248,75 @@ async function replaceSpeakerSummaryWithLinkerDefinition(presentation, slide) {
   );
 }
 
+async function replacePublishedMethodsSlide(presentation, slide) {
+  const inspected = await presentation.inspect({
+    select: "$.slides[3]",
+    include: ["id", "index", "elements.id"],
+  });
+  const record = inspected.records[0];
+  if (!record || record.index !== 3) throw new Error("Could not locate source slide 4");
+  presentation.delete((record.elements ?? []).map((element) => element.id));
+
+  base(
+    slide,
+    4,
+    "Published method landscape",
+    "Presenter 1",
+    "Primary sources: LINKER (2000), SynLinker (2015), DFLpred (2016), TransDFL (2023), and Li et al. (2026)",
+  );
+  slide.background.fill = "000000";
+  title(
+    slide,
+    "Published methods solve different linker problems",
+    "Only DFLpred and TransDFL are general per-residue domain-linker classifiers",
+  );
+
+  const methodRows = [
+    ["Method", "Method type", "What it predicts or provides", "Scientific boundary"],
+    ["LINKER\n2000", "Library-based generator", "Retrieves PDB loop-derived sequences for a requested linker length", "Does not classify residues or score a specified domain pair"],
+    ["SynLinker\n2015", "Database + retrieval/design system", "Searches 2,260 linkers and supports fusion construction and modelling", "Does not learn a general DFL classifier"],
+    ["DFLpred\n2016", "Per-residue classifier", "DFL propensity and a DFL versus non-DFL label for each residue", "Detects linker residues; it does not generate or rank fusion linkers"],
+    ["TransDFL\n2023", "Transfer-learning per-residue classifier", "DFL versus non-DFL identification across a protein sequence", "Detects natural DFLs; it does not score candidate fusions"],
+    ["Li et al.\n2026", "Fusion-specific supervised predictor", "Quantitative activity and high/low activity for one sfGFP–nanobody system", "Not a general DFL detector or universal linker generator"],
+  ];
+  const methods = slide.tables.add({
+    rows: methodRows.length,
+    columns: 4,
+    left: 54,
+    top: 166,
+    width: 1172,
+    height: 388,
+    columnWidths: [150, 224, 380, 418],
+    values: methodRows,
+  });
+  styleTable(methods, methodRows.length, 4, 11.5);
+
+  shape(slide, "roundRect", 54, 574, 1172, 78, C.paperAlt, C.cyanDark, 1, "rounded-lg");
+  text(slide, "LINKERFORGE'S DISTINCT TASK", 78, 591, 255, 18, { fontSize: 12, bold: true, color: C.cyan, letterSpacing: 0.8 });
+  text(
+    slide,
+    "Rank candidate linker sequences for a specified pair of fusion partners, then attach matched structural evidence. This is not equivalent to detecting natural linker residues.",
+    335,
+    585,
+    860,
+    48,
+    { fontSize: 16, bold: true, color: C.ink, verticalAlignment: "middle" },
+  );
+
+  note(
+    slide,
+    "Presenter 1 (major)",
+    "Use 'classification' precisely. DFLpred and TransDFL classify each residue as domain-linker or non-linker and provide residue-level propensity. LINKER generates candidate sequences from a PDB-derived loop library. SynLinker is a curated database and retrieval/design resource. Li and colleagues trained a supervised quantitative model on 370 randomized 18-residue linkers in one sfGFP–nanobody fusion and also evaluated high-versus-low activity classification. LinkerForge addresses another task: pair-specific candidate ranking with structural evidence. These methods are therefore complementary rather than interchangeable competitors.",
+    [
+      "Crasto CJ, Feng JA. LINKER: a program to generate linker sequences for fusion proteins. Protein Eng. 2000;13(5):309–312. doi:10.1093/protein/13.5.309. https://academic.oup.com/peds/article/13/5/309/1564880",
+      "Liu C et al. SynLinker: an integrated system for designing linkers and synthetic fusion proteins. Bioinformatics. 2015;31(22):3700–3702. PMID:26227144. https://pubmed.ncbi.nlm.nih.gov/26227144/",
+      "Meng F, Kurgan L. DFLpred: High-throughput prediction of disordered flexible linker regions in protein sequences. Bioinformatics. 2016;32(12):i341–i350. https://academic.oup.com/bioinformatics/article/32/12/i341/2289031",
+      "Sharma R et al. TransDFL: Identification of disordered flexible linkers in intrinsically disordered proteins using transfer learning. Comput Struct Biotechnol J. 2023;21:496–505. PMID:36272675. https://pubmed.ncbi.nlm.nih.gov/36272675/",
+      "Li et al. Multimodal deep learning-assisted rapid linker engineering for synthetic multidomain protein. 2026. PMCID:PMC12995870. https://pmc.ncbi.nlm.nih.gov/articles/PMC12995870/",
+    ],
+  );
+}
+
 function metricCard(slide, x, y, w, label, valueText, explanation, color) {
   shape(slide, "roundRect", x, y, w, 154, C.paper, C.faint, 1, "rounded-lg");
   shape(slide, "rect", x, y, 6, 154, color, "none", 0);
@@ -438,6 +507,7 @@ async function main() {
     "Verified local runs establish execution, not biological success or optimality.": "The 18-construct linker panel verifies execution and traceability, not biological success or optimality.",
   });
   await replaceSpeakerSummaryWithLinkerDefinition(presentation, originalSlides[1]);
+  await replacePublishedMethodsSlide(presentation, originalSlides[3]);
   await rebuildSourceCharts(presentation, originalSlides);
   originalSlides[18].speakerNotes.text = originalSlides[18].speakerNotes.text.replace(
     "The direct fusion has no linker-region value and is plotted as zero only for chart alignment. Do not compare it as if zero were a measured linker pLDDT. The panel is matched for sequence context and prediction settings, but one domain pair cannot establish generalization or superiority.",
@@ -618,9 +688,9 @@ async function main() {
     layoutValidatorPath: path.join(SKILL, "container_tools", "inspect_presentation_layout_geometry.py"),
     layoutArgs: [
       "--expected-slide-size-emu", "12192000,6858000", "--validate-bullet-geometry", "--validate-heading-fit",
-      ...[6, 7, 13, 22, 23, 26, 27, 28, 31].flatMap((number) => ["--require-native-table-slide", String(number)]),
+      ...[4, 6, 7, 13, 22, 23, 26, 27, 28, 31].flatMap((number) => ["--require-native-table-slide", String(number)]),
     ],
-    requiredNativeTableOwnerSlides: [6, 7, 13, 22, 23, 26, 27, 28, 31],
+    requiredNativeTableOwnerSlides: [4, 6, 7, 13, 22, 23, 26, 27, 28, 31],
     requiredNativeChartOwnerSlides: [18, 19, 25],
     materializeLiteralChartWorkbooks: true,
     fontPolicy: { basis: "reference", families: [FONT, MONO], referencePath: input.base, referenceSha256: await sha256File(input.base) },
