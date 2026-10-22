@@ -4,7 +4,6 @@ import {
   CheckCircle2,
   Clock3,
   Download,
-  ExternalLink,
   MessageSquare,
   Moon,
   Pencil,
@@ -30,8 +29,6 @@ import {
   getComputeStatus,
   getFoldStatus,
   inDesktop,
-  openPdbInPymol,
-  openReferenceInPymol,
   startLocalFold,
   type ComputeStatus,
   type FoldStatus,
@@ -669,40 +666,6 @@ function ProteinViewer({
     }
   }
 
-  const handleOpenReferenceInPymol = async () => {
-    if (!reference.pdb) return
-    try {
-      const message = await openReferenceInPymol({
-        pdb: reference.pdb,
-        sequence: referenceSequence,
-        label: referenceLabel || `Domain ${selectedReference}`,
-        color: selectedReference === 'A' ? '#3acf78' : '#f66b62',
-      })
-      setPymolMessage(message)
-      setUploadError(null)
-    } catch (cause) {
-      setPymolMessage(null)
-      setUploadError(errorMessage(cause, 'Could not open the reference structure in PyMOL.'))
-    }
-  }
-
-  const handleOpenInPymol = async () => {
-    if (!candidate || !pdb) return
-    try {
-      const message = await openPdbInPymol({
-        pdb,
-        sequence: candidate.fullSequence,
-        domainALength,
-        linkerLength: candidate.linker.length,
-      })
-      setPymolMessage(message)
-      setUploadError(null)
-    } catch (cause) {
-      setPymolMessage(null)
-      setUploadError(cause instanceof Error ? cause.message : 'Could not open the fusion in PyMOL.')
-    }
-  }
-
   const pml = candidate ? [
     '# Run after loading the matching full-fusion PDB in PyMOL.',
     'hide everything, all',
@@ -773,11 +736,7 @@ function ProteinViewer({
                   <input type="file" accept=".json,application/json" onChange={(event) => void handleScoreUpload(event.target.files?.[0])} />
                 </label>}
                 {pdb && <button type="button" onClick={() => downloadText('linkerforge-fusion.pml', pml)}>
-                  <Download size={14} /> PyMOL colouring script
-                </button>}
-                {inDesktop() && pdb && <button type="button" disabled={!compute?.pymolAvailable}
-                  onClick={() => void handleOpenInPymol()}>
-                  <ExternalLink size={14} /> Open coloured fusion in PyMOL
+                  <Download size={14} /> Optional PyMOL script
                 </button>}
               </>
             ) : (
@@ -791,11 +750,10 @@ function ProteinViewer({
           </p>}
           {inDesktop() && <div className="desktop-compute" aria-live="polite">
             <strong>Local compute:</strong> {compute?.gpu ?? 'Checking GPU…'} · ColabFold {compute?.predictorAvailable ? `available via ${compute.predictorBackend}` : 'not installed'}.
-            <p>PyMOL {compute?.pymolAvailable ? `available${compute.pymolPath ? ` at ${compute.pymolPath}` : ''}` : 'not installed or not detected'}.</p>
             {fold && <p>{fold.phase}: {fold.message}</p>}
             {fold?.runDir && <small>Run files: {fold.runDir}</small>}
           </div>}
-          <p className="viewer-disclaimer">A manually uploaded PDB is sequence-checked but is not assumed to be an AlphaFold result. Load its matching ColabFold rank-1 score JSON before interpreting PAE or pTM. Linker coordinates appear only when the full fusion has actually been predicted.</p>
+          <p className="viewer-disclaimer">The interactive 3D view runs inside LinkerForge; PyMOL is not required. A manually uploaded PDB is sequence-checked but is not assumed to be an AlphaFold result. Load its matching ColabFold rank-1 score JSON before interpreting PAE or pTM. Linker coordinates appear only when the full fusion has actually been predicted.</p>
         </>
       ) : (
         <>
@@ -823,10 +781,6 @@ function ProteinViewer({
               onClick={() => void handleReferenceFetch()}>
               {referenceLoading === selectedReference ? 'Retrieving from RCSB…' : 'Fetch PDB and show structure'}
             </button>
-            {inDesktop() && reference.pdb && <button type="button" className="pdb-pymol-button" disabled={!compute?.pymolAvailable}
-              onClick={() => void handleOpenReferenceInPymol()}>
-              <ExternalLink size={14} /> Open this domain in PyMOL
-            </button>}
             <label>Evidence type
               <select value={reference.sourceKind}
                 onChange={(event) => onReferencesChange({ ...references, [selectedReference]: { ...reference, sourceKind: event.target.value as DomainReference['sourceKind'] } })}>
@@ -840,7 +794,7 @@ function ProteinViewer({
           </div>
           {uploadError && <p className="structure-error" role="alert">{uploadError}</p>}
           {pymolMessage && <p className="structure-success" role="status">{pymolMessage}</p>}
-          <p className="viewer-disclaimer">Enter the four-character RCSB PDB accession only. LinkerForge downloads the public coordinate file, finds an exact sequence-matched chain or chain segment, and displays only that checked domain. A local PDB remains available for private or predicted structures. PyMOL receives the same checked coordinates.</p>
+          <p className="viewer-disclaimer">Enter the four-character RCSB PDB accession only. LinkerForge downloads the public coordinate file, finds an exact sequence-matched chain or chain segment, and displays only that checked domain in the embedded interactive viewer. A local PDB remains available for private or predicted structures.</p>
         </>
       )}
     </section>

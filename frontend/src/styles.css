@@ -130,6 +130,14 @@ h1 { max-width: 980px; margin: 24px 0; font-size: clamp(44px, 7vw, 82px); line-h
 .viewer-mode-row .gpu-fold-button:disabled { opacity: .5; cursor: not-allowed; }
 .viewer-stage { width: 100%; height: min(72vh, 820px); min-height: 540px; background: #0b1712; border: 1px solid #526257; position: relative; }
 .viewer-stage iframe, .fusion-3d-canvas { width: 100%; height: 100%; display: block; border: 0; }
+.embedded-structure-viewer { width: 100%; height: 100%; min-height: 0; display: grid; grid-template-rows: auto auto minmax(0,1fr); background: #0b1712; }
+.embedded-structure-viewer .fusion-3d-canvas { height: auto; min-height: 0; }
+.structure-viewer-toolbar { z-index: 2; display: flex; align-items: end; gap: 8px; padding: 10px 12px; color: #eaf1ec; background: rgba(8,19,15,.96); border-bottom: 1px solid #3c4c42; flex-wrap: wrap; }
+.structure-viewer-toolbar label { display: grid; gap: 4px; color: #b9c7bd; font: 600 10px DM Mono, monospace; text-transform: uppercase; letter-spacing: .05em; }
+.structure-viewer-toolbar select, .structure-viewer-toolbar button { min-height: 34px; padding: 7px 10px; border: 1px solid #536359; border-radius: 6px; color: #edf5ef; background: #15251e; font: 600 12px DM Sans, sans-serif; }
+.structure-viewer-toolbar button { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.structure-viewer-toolbar button:hover, .structure-viewer-toolbar button[aria-pressed='true'] { border-color: #54c9d9; background: #214039; }
+.structure-viewer-hint { margin: 0; padding: 6px 12px; color: #aebdb3; background: #101f19; border-bottom: 1px solid #2d3e34; font-size: 11px; line-height: 1.35; }
 .fusion-legend { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 12px; font-size: 13px; }
 .fusion-legend span { display: inline-flex; align-items: center; gap: 8px; }
 .fusion-legend i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
