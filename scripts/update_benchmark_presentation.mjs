@@ -384,6 +384,74 @@ async function replaceLiteratureEvidenceSlide(presentation, slide) {
   );
 }
 
+async function replaceCASP16ContextSlide(presentation, slide) {
+  const inspected = await presentation.inspect({
+    select: "$.slides[5]",
+    include: ["id", "index", "elements.id"],
+  });
+  const record = inspected.records[0];
+  if (!record || record.index !== 5) throw new Error("Could not locate source slide 6");
+  presentation.delete((record.elements ?? []).map((element) => element.id));
+
+  base(
+    slide,
+    6,
+    "CASP16 evidence context",
+    "Presenter 1",
+    "McBride et al. · Proteins 94 (2026) 362–380 · doi:10.1002/prot.70062",
+  );
+  slide.background.fill = "000000";
+  title(
+    slide,
+    "How CASP16 tested flexible linker ensembles",
+    "A blind community assessment compared WT KADNKF and Gly6 pose distributions with solution measurements",
+  );
+
+  const contextRows = [
+    ["Assessment component", "What the investigators did", "Why it matters"],
+    ["Targets", "Two Staphylococcal protein A domain-linker-domain constructs used KADNKF or GGGGGG", "Changing only the six-residue linker tested whether predictors captured linker-dependent behaviour"],
+    ["Predictions", "Twenty-five groups submitted 35 population-weighted ensembles of discrete structures", "The target was a distribution of poses rather than one best PDB model"],
+    ["SAXS", "Solution scattering data were measured for both linker variants", "SAXS reports global shape and interdomain distance distributions"],
+    ["NMR RDC", "Residual dipolar couplings were measured for the WT KADNKF construct", "RDCs provide residue-specific information about relative domain orientation"],
+    ["Evaluation and result", "The team back-calculated SAXS and RDC observables from each ensemble. None fit both closely or reproduced the WT–Gly6 SAXS difference", "A plausible domain fold can still have an incorrect interdomain pose distribution"],
+  ];
+  const context = slide.tables.add({
+    rows: contextRows.length,
+    columns: 3,
+    left: 54,
+    top: 166,
+    width: 1172,
+    height: 402,
+    columnWidths: [220, 525, 427],
+    values: contextRows,
+  });
+  styleTable(context, contextRows.length, 3, 11.7);
+
+  shape(slide, "line", 66, 592, 1148, 0, "none", C.magenta, 2);
+  text(slide, "LINKERFORGE IMPLICATION", 77, 609, 205, 20, { fontSize: 12, bold: true, color: C.magenta });
+  text(
+    slide,
+    "Static structure confidence cannot validate flexible interdomain motion. A future dynamics claim requires ensemble sampling followed by experimental restraints such as SAXS, NMR RDC or FRET.",
+    285,
+    600,
+    916,
+    48,
+    { fontSize: 15, bold: true, color: C.ink },
+  );
+
+  note(
+    slide,
+    "Presenter 1 (major)",
+    "CASP16 introduced a blind challenge focused on continuous interdomain pose distributions. The assessors used two versions of a Staphylococcal protein A domain-linker-domain construct: the conserved KADNKF linker and Gly6. Twenty-five groups supplied 35 population-weighted ensembles. SAXS was available for both variants and reports overall shape and distance information. NMR residual dipolar couplings were available for the WT construct and report domain orientation through residue-specific measurements. The assessors back-calculated these observables from every submitted ensemble. No ensemble agreed closely with both evidence types, and no method reproduced the experimentally observed WT-versus-Gly6 SAXS difference. This separates local folding confidence from ensemble-level validation of linker-controlled motion.",
+    [
+      "McBride AC et al. Predicting Pose Distribution of Protein Domains Connected by Flexible Linkers Is an Unsolved Problem. Proteins. 2026;94(1):362–380. doi:10.1002/prot.70062.",
+      "https://onlinelibrary.wiley.com/doi/10.1002/prot.70062",
+      "CASP16 prediction and SAXS data: https://pinot3.genomecenter.ucdavis.edu/casp16/UPLOAD_fromPC/UPLOADS_ENSMBL/cleaned/",
+      "NMR RDC data: BMRB accession 53002.",
+    ],
+  );
+}
+
 async function replaceComparisonStatusTable(presentation, slide) {
   const inspected = await presentation.inspect({
     select: "$.slides[6]",
@@ -646,6 +714,7 @@ async function main() {
   await replaceSpeakerSummaryWithLinkerDefinition(presentation, originalSlides[1]);
   await replacePublishedMethodsSlide(presentation, originalSlides[3]);
   await replaceLiteratureEvidenceSlide(presentation, originalSlides[4]);
+  await replaceCASP16ContextSlide(presentation, originalSlides[5]);
   await replaceComparisonStatusTable(presentation, originalSlides[6]);
   await rebuildSourceCharts(presentation, originalSlides);
   originalSlides[18].speakerNotes.text = originalSlides[18].speakerNotes.text.replace(
