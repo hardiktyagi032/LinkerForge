@@ -486,6 +486,7 @@ async function main() {
 
   await fs.writeFile(CANDIDATE_REPORT, buildReport(summary, manifest, input.summary), "utf8");
   await (await PresentationFile.exportPptx(presentation)).save(CANDIDATE);
+  const outputStem = path.basename(input.output, path.extname(input.output)).replace(/[^A-Za-z0-9._-]+/g, "-");
   const result = await finalizePresentation({
     explicitTotalSlideCount: 34,
     workspaceDir: ROOT,
@@ -503,7 +504,7 @@ async function main() {
     materializeLiteralChartWorkbooks: true,
     fontPolicy: { basis: "reference", families: [FONT, MONO], referencePath: input.base, referenceSha256: await sha256File(input.base) },
     verifyArtifactToolImport: true,
-    receiptPath: path.join(BUILD, "multi-protein-benchmark.final.validation.json"),
+    receiptPath: path.join(BUILD, `${outputStem}.final.validation.json`),
   });
 
   await fs.copyFile(CANDIDATE_REPORT, input.report);
