@@ -200,9 +200,12 @@ h1 { max-width: 980px; margin: 24px 0; font-size: clamp(44px, 7vw, 82px); line-h
 .structure-tabs button { padding: 14px; border: 1px solid #bfc3bb; background: transparent; color: #252925; text-align: left; cursor: pointer; }
 .structure-tabs button.active { background: #22382b; border-color: #22382b; color: white; }
 .structure-tabs small { display: block; margin-top: 4px; font: 500 10px DM Mono, monospace; opacity: .72; }
-.reference-controls { display: grid; grid-template-columns: minmax(220px,1fr) minmax(180px,.6fr) auto; gap: 12px; align-items: end; margin-top: 14px; }
+.reference-controls { display: grid; grid-template-columns: minmax(150px,.65fr) auto auto minmax(170px,.7fr) auto; gap: 12px; align-items: end; margin-top: 14px; }
 .reference-controls label { display: grid; gap: 6px; font: 600 11px DM Mono, monospace; text-transform: uppercase; }
 .reference-controls input, .reference-controls select { width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid #aeb5ac; border-radius: 4px; background: #fff; }
+.reference-controls > button { min-height: 41px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 14px; border: 1px solid #aeb5ac; border-radius: 4px; background: #fff; cursor: pointer; font-weight: 700; }
+.reference-controls > button:disabled { cursor: not-allowed; opacity: .55; }
+.reference-controls .pdb-fetch-button { color: #fff; border-color: #1f4d33; background: #1f4d33; }
 .reference-controls .upload-pdb { min-height: 41px; display: inline-flex; align-items: center; justify-content: center; }
 .project-file-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .project-file-actions button, .project-file-actions .upload-pdb { padding: 9px 12px; border-radius: 4px; font: 600 12px DM Sans, sans-serif; }
@@ -993,6 +996,7 @@ html[data-theme='dark'] .project-file-actions .upload-pdb,
 html[data-theme='dark'] .viewer-expand,
 html[data-theme='dark'] .viewer-mode-row button,
 html[data-theme='dark'] .viewer-actions button,
+html[data-theme='dark'] .reference-controls > button,
 html[data-theme='dark'] .page-actions > button:not(.primary-btn),
 html[data-theme='dark'] .structure-tabs button {
   color: #dce5df;
@@ -1013,6 +1017,7 @@ html[data-theme='dark'] .run-pipeline-btn,
 html[data-theme='dark'] .primary-btn,
 html[data-theme='dark'] .viewer-mode-row .gpu-fold-button,
 html[data-theme='dark'] .upload-pdb,
+html[data-theme='dark'] .reference-controls .pdb-fetch-button,
 html[data-theme='dark'] .candidate-example-action button {
   color: #101713;
   border-color: #dce9e0;

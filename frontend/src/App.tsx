@@ -31,6 +31,7 @@ import {
   getFoldStatus,
   inDesktop,
   openPdbInPymol,
+  openReferenceInPymol,
   startLocalFold,
   type ComputeStatus,
   type FoldStatus,
@@ -39,6 +40,7 @@ import {
   auditFusionCoordinates,
   assessProtectedSiteClearance,
   calculateDomainPreservation,
+  fetchRcsbReferenceStructure,
   parseColabFoldScoreJson,
   parseProtectedSites,
   validateDomainReferencePdb,
@@ -469,6 +471,7 @@ function ProteinViewer({
   const [clock, setClock] = useState(0)
   const foldLaunchInFlight = useRef(false)
   const [pymolMessage, setPymolMessage] = useState<string | null>(null)
+  const [referenceLoading, setReferenceLoading] = useState<'A' | 'B' | null>(null)
   const [manualMetrics, setManualMetrics] = useState<ColabFoldMetrics | null>(null)
   const selectedSequence = candidate?.fullSequence ?? ''
   const structure = structures[selectedSequence] ?? null
@@ -642,6 +645,47 @@ function ProteinViewer({
     }
   }
 
+  const handleReferenceFetch = async () => {
+    if (!candidate) return
+    setReferenceLoading(selectedReference)
+    setUploadError(null)
+    setPymolMessage(null)
+    try {
+      const result = await fetchRcsbReferenceStructure(reference.sourceId, referenceSequence, referenceLabel || `Domain ${selectedReference}`)
+      onReferencesChange({
+        ...references,
+        [selectedReference]: {
+          sourceId: result.pdbId,
+          sourceKind: 'experimental',
+          filename: `${result.pdbId}-chain-${result.chainId}.pdb`,
+          pdb: result.pdb,
+        },
+      })
+      setPymolMessage(`Loaded PDB ${result.pdbId}, chain ${result.chainId}, after an exact sequence match.`)
+    } catch (cause) {
+      setUploadError(errorMessage(cause, 'Could not retrieve the PDB entry from RCSB.'))
+    } finally {
+      setReferenceLoading(null)
+    }
+  }
+
+  const handleOpenReferenceInPymol = async () => {
+    if (!reference.pdb) return
+    try {
+      const message = await openReferenceInPymol({
+        pdb: reference.pdb,
+        sequence: referenceSequence,
+        label: referenceLabel || `Domain ${selectedReference}`,
+        color: selectedReference === 'A' ? '#3acf78' : '#f66b62',
+      })
+      setPymolMessage(message)
+      setUploadError(null)
+    } catch (cause) {
+      setPymolMessage(null)
+      setUploadError(errorMessage(cause, 'Could not open the reference structure in PyMOL.'))
+    }
+  }
+
   const handleOpenInPymol = async () => {
     if (!candidate || !pdb) return
     try {
@@ -757,7 +801,7 @@ function ProteinViewer({
         <>
           <div className="individual-model-heading">
             <div><span>Individual domain model</span><strong>{referenceLabel}</strong></div>
-            <small>{reference.pdb ? `${reference.sourceKind} · ${reference.sourceId || reference.filename}` : 'No model loaded for this domain'}</small>
+            <small>{reference.pdb ? `${reference.sourceKind} · ${reference.sourceId}${reference.filename ? ` · ${reference.filename}` : ''}` : 'No model loaded for this domain'}</small>
           </div>
           <div className="viewer-stage">
             <FusionStructureViewer
@@ -771,10 +815,18 @@ function ProteinViewer({
             />
           </div>
           <div className="reference-controls">
-            <label>Reference source identifier
-              <input value={reference.sourceId} placeholder="Example: PDB 1UBQ, chain A"
-                onChange={(event) => onReferencesChange({ ...references, [selectedReference]: { ...reference, sourceId: event.target.value } })} />
+            <label>PDB accession
+              <input value={reference.sourceId} placeholder="Example: 1UBQ" maxLength={4} autoCapitalize="characters"
+                onChange={(event) => onReferencesChange({ ...references, [selectedReference]: { ...reference, sourceId: event.target.value.toUpperCase() } })} />
             </label>
+            <button type="button" className="pdb-fetch-button" disabled={referenceLoading === selectedReference}
+              onClick={() => void handleReferenceFetch()}>
+              {referenceLoading === selectedReference ? 'Retrieving from RCSB…' : 'Fetch PDB and show structure'}
+            </button>
+            {inDesktop() && reference.pdb && <button type="button" className="pdb-pymol-button" disabled={!compute?.pymolAvailable}
+              onClick={() => void handleOpenReferenceInPymol()}>
+              <ExternalLink size={14} /> Open this domain in PyMOL
+            </button>}
             <label>Evidence type
               <select value={reference.sourceKind}
                 onChange={(event) => onReferencesChange({ ...references, [selectedReference]: { ...reference, sourceKind: event.target.value as DomainReference['sourceKind'] } })}>
@@ -782,11 +834,13 @@ function ProteinViewer({
                 <option value="predicted">Predicted structure</option>
               </select>
             </label>
-            <label className="upload-pdb">Load {referenceLabel} reference PDB
+            <label className="upload-pdb">Local PDB fallback
               <input type="file" accept=".pdb,.ent,text/plain" onChange={(event) => void handleReferenceUpload(event.target.files?.[0])} />
             </label>
           </div>
-          <p className="viewer-disclaimer">This reference belongs to the current entered domain only. Its single-chain C-alpha sequence must exactly match the domain sequence. The source identifier and experimental/predicted classification are researcher-supplied provenance; LinkerForge does not infer them.</p>
+          {uploadError && <p className="structure-error" role="alert">{uploadError}</p>}
+          {pymolMessage && <p className="structure-success" role="status">{pymolMessage}</p>}
+          <p className="viewer-disclaimer">Enter the four-character RCSB PDB accession only. LinkerForge downloads the public coordinate file, finds an exact sequence-matched chain or chain segment, and displays only that checked domain. A local PDB remains available for private or predicted structures. PyMOL receives the same checked coordinates.</p>
         </>
       )}
     </section>

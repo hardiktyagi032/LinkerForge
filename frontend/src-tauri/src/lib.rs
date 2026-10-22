@@ -254,6 +254,15 @@ struct PymolLaunchRequest {
     linker_length: usize,
 }
 
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct ReferencePymolLaunchRequest {
+    pdb: String,
+    sequence: String,
+    label: String,
+    color: String,
+}
+
 #[derive(Clone)]
 enum PymolBackend {
     Native(PathBuf),
@@ -701,6 +710,82 @@ async fn open_pdb_in_pymol(
 }
 
 #[tauri::command]
+async fn open_reference_in_pymol(
+    app: tauri::AppHandle,
+    request: ReferencePymolLaunchRequest,
+) -> Result<String, String> {
+    validate_sequence(&request.sequence)?;
+    if request.pdb.len() as u64 > MAX_PDB_BYTES {
+        return Err("The local PDB limit is 15 MB.".into());
+    }
+    let observed = read_ca_sequence(&request.pdb)?;
+    if observed != request.sequence {
+        return Err(
+            "The reference PDB C-alpha sequence does not exactly match the selected domain.".into(),
+        );
+    }
+    let color = request.color.trim_start_matches('#');
+    if color.len() != 6 || !color.chars().all(|character| character.is_ascii_hexdigit()) {
+        return Err("The PyMOL reference colour must be a six-digit hexadecimal value.".into());
+    }
+    let pymol = find_pymol().ok_or(
+        "PyMOL was not found. Set LINKERFORGE_PYMOL to a licensed Windows executable or LINKERFORGE_PYMOL_WSL_PROJECT to an open-source pixi project.",
+    )?;
+    let base = app
+        .path()
+        .app_local_data_dir()
+        .map_err(|error| error.to_string())?;
+    let digest = sha256_bytes(request.pdb.as_bytes());
+    let timestamp = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_err(|error| error.to_string())?
+        .as_millis();
+    let view_dir = base
+        .join("pymol-references")
+        .join(format!("{timestamp}-{}", &digest[..12]));
+    let pdb_path = view_dir.join("reference.pdb");
+    let pml_path = view_dir.join("colour-reference.pml");
+    let script = format!(
+        "hide everything, all\nshow cartoon, all\ncolor 0x{color}, all\nbg_color white\nset cartoon_transparency, 0\nzoom all\n"
+    );
+    let label = request.label;
+    tauri::async_runtime::spawn_blocking(move || {
+        fs::create_dir_all(&view_dir).map_err(|error| error.to_string())?;
+        fs::write(&pdb_path, request.pdb).map_err(|error| error.to_string())?;
+        fs::write(&pml_path, script).map_err(|error| error.to_string())?;
+        match pymol {
+            PymolBackend::Native(executable) => {
+                hidden_command(executable)
+                    .arg(&pdb_path)
+                    .arg(&pml_path)
+                    .spawn()
+                    .map_err(|error| format!("Could not start PyMOL: {error}"))?;
+            }
+            PymolBackend::WslOpenSource { executable } => {
+                let executable = windows_path_to_wsl(&executable)?;
+                let pdb = windows_path_to_wsl(&pdb_path)?;
+                let script = windows_path_to_wsl(&pml_path)?;
+                hidden_command("wsl.exe")
+                    .arg("--exec")
+                    .arg(executable)
+                    .arg(pdb)
+                    .arg(script)
+                    .spawn()
+                    .map_err(|error| {
+                        format!("Could not start open-source PyMOL through WSL2: {error}")
+                    })?;
+            }
+        }
+        Ok(format!(
+            "Opened the sequence-matched {label} reference in PyMOL from {}",
+            pdb_path.display()
+        ))
+    })
+    .await
+    .map_err(|error| error.to_string())?
+}
+
+#[tauri::command]
 async fn start_fold(
     app: tauri::AppHandle,
     state: tauri::State<'_, FoldState>,
@@ -870,7 +955,8 @@ pub fn run() {
             compute_status,
             fold_status,
             start_fold,
-            open_pdb_in_pymol
+            open_pdb_in_pymol,
+            open_reference_in_pymol
         ])
         .run(tauri::generate_context!())
         .expect("failed to run LinkerForge desktop");

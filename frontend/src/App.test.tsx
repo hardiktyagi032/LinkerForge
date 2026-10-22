@@ -103,7 +103,9 @@ describe('LinkerForge interface', () => {
     fireEvent.click(screen.getByRole('button', { name: /domain a.*individual model/i }))
     expect(screen.getByText(/no reference structure loaded/i)).toBeInTheDocument()
     expect(screen.queryByTitle(/sfGFP experimental structure/i)).not.toBeInTheDocument()
-    expect(screen.getByText(/does not guess a reference structure/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/PDB accession/i)).toHaveAttribute('maxlength', '4')
+    expect(screen.getByRole('button', { name: /fetch PDB and show structure/i })).toBeInTheDocument()
+    expect(screen.getByText(/exact sequence-matched chain or chain segment/i)).toBeInTheDocument()
   })
 
   it('keeps candidate review and evidence results accessible in the same window', () => {
