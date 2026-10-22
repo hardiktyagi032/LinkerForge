@@ -317,6 +317,75 @@ async function replacePublishedMethodsSlide(presentation, slide) {
   );
 }
 
+async function replaceComparisonStatusTable(presentation, slide) {
+  const inspected = await presentation.inspect({
+    select: "$.slides[6]",
+    include: ["id", "index", "elements.id", "elements.text"],
+  });
+  const record = inspected.records[0];
+  if (!record || record.index !== 6) throw new Error("Could not locate source slide 7");
+  const sourceTable = (record.elements ?? []).find((element) => typeof element.text === "string" && element.text.startsWith("Method\tPrimary output"));
+  if (!sourceTable) throw new Error("Could not locate the comparison table on source slide 7");
+  presentation.delete((record.elements ?? []).map((element) => element.id));
+
+  base(
+    slide,
+    7,
+    "Model comparison",
+    "Presenter 1",
+    "Comparison by scientific task and evidence scope; no common superiority benchmark is available",
+  );
+  slide.background.fill = "000000";
+  title(
+    slide,
+    "Current models and the LinkerForge target",
+    "Comparison in progress. Preliminary observations guide hypotheses; external baseline results are not complete",
+  );
+
+  const comparisonRows = [
+    ["Method", "Primary output", "Context represented", "Current comparison position"],
+    ["LINKER / SynLinker\npriority baselines", "Generated or retrieved linker candidates", "Linker properties and curated templates", "Most plausible workflow advantage: pair context, matched structural checks, and provenance"],
+    ["DFLpred / APOD / TransDFL", "Per-residue DFL score", "One protein sequence", "Different task. No direct superiority claim"],
+    ["Li et al. (2026)", "Fluorescence prediction and linker customization", "370 linkers in one sfGFP–nanobody system plus AF2 features", "Stronger experimental evidence in one system. No current superiority claim"],
+    ["AlphaFold2 / ColabFold", "Structure model and confidence", "Complete supplied sequence", "Shared evidence engine rather than a competing linker generator"],
+    ["LinkerForge target", "Pair-conditioned ranking with a matched evidence bundle", "Both domains, attachment context, candidate, and full fusion", "External baseline comparison and family-disjoint validation remain incomplete"],
+  ];
+  const comparison = slide.tables.add({
+    rows: comparisonRows.length,
+    columns: 4,
+    left: 54,
+    top: 166,
+    width: 1172,
+    height: 414,
+    columnWidths: [220, 250, 320, 382],
+    values: comparisonRows,
+  });
+  styleTable(comparison, comparisonRows.length, 4, 11.5);
+
+  shape(slide, "line", 66, 610, 1148, 0, "none", C.magenta, 2);
+  text(slide, "WORKING HYPOTHESIS", 77, 626, 170, 20, { fontSize: 12, bold: true, color: C.magenta });
+  text(
+    slide,
+    "Current anecdotal evidence supports testing a workflow advantage over LINKER, SynLinker, and fixed one-size-fits-all controls. Candidate quality and biological outcome remain unproven.",
+    246,
+    619,
+    955,
+    43,
+    { fontSize: 15, bold: true, color: C.ink },
+  );
+
+  note(
+    slide,
+    "Presenter 1 (major)",
+    "State the status before describing expected advantages. The external comparison remains in progress. LINKER and SynLinker are the most plausible near-term targets for a workflow-level advantage because LinkerForge combines specified fusion partners, matched structural evaluation, and provenance in one contract. Fixed GS or EAAAK controls are also appropriate baselines for testing whether candidate selection adds value. The current three-pair acceptance panel does not establish consistent candidate-quality superiority. DFLpred and TransDFL solve residue-classification tasks, while Li et al. (2026) has experimental evidence in a specific fusion system. We make no superiority claim against those methods.",
+    [
+      "Crasto CJ, Feng JA. LINKER: a program to generate linker sequences for fusion proteins. Protein Eng. 2000;13(5):309–312. doi:10.1093/protein/13.5.309.",
+      "Liu C et al. SynLinker: an integrated system for designing linkers and synthetic fusion proteins. Bioinformatics. 2015;31(22):3700–3702.",
+      "LinkerForge three-pair public acceptance comparison: the current panel verifies execution and traceability, not superiority.",
+    ],
+  );
+}
+
 function metricCard(slide, x, y, w, label, valueText, explanation, color) {
   shape(slide, "roundRect", x, y, w, 154, C.paper, C.faint, 1, "rounded-lg");
   shape(slide, "rect", x, y, 6, 154, color, "none", 0);
@@ -508,6 +577,7 @@ async function main() {
   });
   await replaceSpeakerSummaryWithLinkerDefinition(presentation, originalSlides[1]);
   await replacePublishedMethodsSlide(presentation, originalSlides[3]);
+  await replaceComparisonStatusTable(presentation, originalSlides[6]);
   await rebuildSourceCharts(presentation, originalSlides);
   originalSlides[18].speakerNotes.text = originalSlides[18].speakerNotes.text.replace(
     "The direct fusion has no linker-region value and is plotted as zero only for chart alignment. Do not compare it as if zero were a measured linker pLDDT. The panel is matched for sequence context and prediction settings, but one domain pair cannot establish generalization or superiority.",
