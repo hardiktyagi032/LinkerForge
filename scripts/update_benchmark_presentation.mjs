@@ -199,48 +199,44 @@ async function replaceSpeakerSummaryWithLinkerDefinition(presentation, slide) {
   slide.background.fill = "000000";
   title(
     slide,
-    "Protein linkers in multidomain constructs",
-    "A short peptide segment can separate domains, permit motion, or constrain their relative arrangement",
+    "Protein linkers connect domains within one polypeptide",
+    "Length and amino-acid composition influence domain separation, relative motion, and unwanted interactions",
   );
 
-  shape(slide, "roundRect", 54, 174, 1172, 92, C.paper, C.faint, 1, "rounded-lg");
-  text(slide, "THE REVIEW'S DEFINITION", 78, 192, 225, 20, { fontSize: 12, bold: true, color: C.cyan, letterSpacing: 1.1 });
-  text(
-    slide,
-    "“Linkers or spacers are short amino acid sequences created in nature to separate multiple domains in a single protein.”",
-    305,
-    187,
-    888,
-    57,
-    { fontSize: 20, bold: true, color: C.ink, verticalAlignment: "middle" },
-  );
+  text(slide, "DOMAIN A", 86, 200, 230, 24, { fontSize: 13, bold: true, color: C.blue, alignment: "center", letterSpacing: 1.0 });
+  shape(slide, "roundRect", 86, 236, 250, 112, "173A4A", C.blue, 2, "rounded-lg");
+  text(slide, "Protein domain A", 86, 272, 250, 32, { fontSize: 23, bold: true, alignment: "center", verticalAlignment: "middle" });
 
-  shape(slide, "roundRect", 90, 302, 270, 76, "173A4A", C.blue, 1, "rounded-lg");
-  text(slide, "DOMAIN A", 90, 326, 270, 28, { fontSize: 20, bold: true, alignment: "center", verticalAlignment: "middle" });
-  shape(slide, "line", 360, 340, 110, 0, "none", C.muted, 3);
-  shape(slide, "roundRect", 470, 302, 340, 76, "4B173C", C.magenta, 1, "rounded-lg");
-  text(slide, "LINKER SEQUENCE", 470, 319, 340, 24, { fontSize: 18, bold: true, color: "FFFFFF", alignment: "center" });
-  text(slide, "length + composition shape its behavior", 470, 345, 340, 18, { fontSize: 12, color: "F5CBE8", alignment: "center" });
-  shape(slide, "line", 810, 340, 110, 0, "none", C.muted, 3);
-  shape(slide, "roundRect", 920, 302, 270, 76, "4A251E", C.red, 1, "rounded-lg");
-  text(slide, "DOMAIN B", 920, 326, 270, 28, { fontSize: 20, bold: true, alignment: "center", verticalAlignment: "middle" });
+  text(slide, "SHORT PEPTIDE SEQUENCE", 428, 200, 424, 24, { fontSize: 13, bold: true, color: C.magenta, alignment: "center", letterSpacing: 0.9 });
+  shape(slide, "line", 336, 292, 110, 0, "none", C.muted, 3);
+  for (let index = 0; index < 7; index += 1) {
+    shape(slide, "ellipse", 454 + index * 49, 266, 38, 38, index % 2 ? "7A245F" : C.magenta, "none", 0);
+  }
+  text(slide, "example: GGGGS", 430, 319, 420, 24, { fontSize: 15, color: C.muted, alignment: "center" });
+  shape(slide, "line", 834, 292, 110, 0, "none", C.muted, 3);
 
-  shape(slide, "roundRect", 54, 410, 560, 148, C.paper, C.cyanDark, 1, "rounded-lg");
-  text(slide, "FLEXIBLE LINKERS", 80, 430, 510, 22, { fontSize: 15, bold: true, color: C.cyan });
-  text(slide, "Often Gly-rich. They permit relative domain motion and can tether weak or transient partners while allowing each domain to retain its role.", 80, 466, 500, 70, { fontSize: 17, color: C.ink });
+  text(slide, "DOMAIN B", 944, 200, 250, 24, { fontSize: 13, bold: true, color: C.red, alignment: "center", letterSpacing: 1.0 });
+  shape(slide, "roundRect", 944, 236, 250, 112, "4A251E", C.red, 2, "rounded-lg");
+  text(slide, "Protein domain B", 944, 272, 250, 32, { fontSize: 23, bold: true, alignment: "center", verticalAlignment: "middle" });
 
-  shape(slide, "roundRect", 666, 410, 560, 148, C.paper, C.yellow, 1, "rounded-lg");
-  text(slide, "RIGID LINKERS", 692, 430, 510, 22, { fontSize: 15, bold: true, color: C.yellow });
-  text(slide, "They act as spacers that restrict unwanted domain contacts and can preserve a chosen separation or orientation.", 692, 466, 500, 70, { fontSize: 17, color: C.ink });
+  shape(slide, "line", 70, 394, 1140, 0, "none", C.faint, 2);
+  text(slide, "SEPARATION", 82, 430, 300, 23, { fontSize: 13, bold: true, color: C.blue, letterSpacing: 1.0 });
+  text(slide, "Controls the distance between the connected domains", 82, 466, 300, 64, { fontSize: 20, bold: true });
+  shape(slide, "line", 412, 425, 0, 120, "none", C.faint, 2);
+  text(slide, "MOBILITY", 458, 430, 300, 23, { fontSize: 13, bold: true, color: C.magenta, letterSpacing: 1.0 });
+  text(slide, "Permits or restricts changes in relative domain orientation", 458, 466, 300, 64, { fontSize: 20, bold: true });
+  shape(slide, "line", 790, 425, 0, 120, "none", C.faint, 2);
+  text(slide, "DOMAIN INTERFERENCE", 836, 430, 340, 23, { fontSize: 13, bold: true, color: C.cyan, letterSpacing: 0.8 });
+  text(slide, "Can reduce steric contact and help each domain retain its role", 836, 466, 340, 64, { fontSize: 20, bold: true });
 
-  shape(slide, "roundRect", 54, 585, 1172, 66, C.paperAlt, C.faint, 1, "rounded-lg");
-  text(slide, "DESIGN CONSENSUS", 78, 603, 190, 20, { fontSize: 13, bold: true, color: C.magenta });
-  text(slide, "No universal linker fits every fusion. The review reports 2–31 residues, with 5–11 common in structural studies, and calls for case-specific optimization of length and composition.", 270, 595, 930, 43, { fontSize: 15, bold: true, color: C.ink });
+  shape(slide, "line", 70, 570, 1140, 0, "none", C.cyan, 2);
+  text(slide, "KEY POINT", 82, 594, 150, 20, { fontSize: 12, bold: true, color: C.cyan, letterSpacing: 1.0 });
+  text(slide, "A linker is part of the complete fusion protein. Its useful length and composition therefore depend on the connected domains and the intended biological task.", 230, 585, 950, 54, { fontSize: 18, bold: true });
 
   note(
     slide,
     "Presenter 1 (major)",
-    "Define the linker before discussing LinkerForge. Natural linkers separate domains inside one polypeptide. Protein engineers reuse this idea to join domains or proteins in a fusion. The linker can behave as a flexible tether or a more rigid spacer, so its sequence and length can affect stability, solubility, folding, domain orientation, and interaction. The 2–31 residue range describes the studies reviewed in this paper rather than a universal biological rule.",
+    "Define the biological object before introducing the computational workflow. A protein linker is a peptide segment within one polypeptide chain that connects two domains. The diagram shows the linker as amino-acid residues between Domain A and Domain B. Linkers can change domain separation, relative mobility, and steric interference. The important conclusion is that a linker cannot be interpreted independently of the fusion partners and intended function.",
     [
       "Chichili VPR, Kumar V, Sivaraman J. Linkers in the structural biology of protein–protein interactions. Protein Sci. 2013;22(2):153–167. doi:10.1002/pro.2206.",
       "https://pmc.ncbi.nlm.nih.gov/articles/PMC3588912/",
@@ -267,58 +263,42 @@ async function replaceResearchProblemSlide(presentation, slide) {
   slide.background.fill = "000000";
   title(
     slide,
-    "Linker performance depends on the complete fusion context",
-    "The same sequence can produce different outcomes when the partner domains, attachment sites, or required geometry change",
+    "Why one linker does not fit every fusion",
+    "Performance emerges from the partner proteins, attachment sites, linker sequence, and intended function",
   );
 
-  text(slide, "KNOWN AT DESIGN TIME", 70, 184, 300, 24, { fontSize: 13, bold: true, color: C.blue, letterSpacing: 1.0 });
-  text(slide, "Domain sequences\nAttachment residues\nCandidate sequence and length\nProtected functional sites", 70, 226, 302, 177, {
-    fontSize: 19,
-    bold: true,
-    color: C.ink,
-  });
+  const inputs = [
+    ["01", "Partner proteins", "surface shape and terminal geometry", C.blue],
+    ["02", "Attachment sites", "junction location and protected residues", C.green],
+    ["03", "Linker design", "sequence, length, flexibility, and charge", C.magenta],
+    ["04", "Design objective", "separation, orientation, cleavage, or motion", C.yellow],
+  ];
+  for (const [index, [number, heading, detail, color]] of inputs.entries()) {
+    const x = 62 + index * 296;
+    text(slide, number, x, 186, 42, 22, { fontSize: 13, bold: true, color });
+    text(slide, heading, x + 44, 182, 225, 28, { fontSize: 18, bold: true });
+    text(slide, detail, x + 44, 218, 225, 45, { fontSize: 14, color: C.muted });
+    if (index < inputs.length - 1) shape(slide, "line", x + 280, 184, 0, 82, "none", C.faint, 1);
+  }
 
-  shape(slide, "line", 410, 188, 0, 245, "none", C.faint, 2);
-  text(slide, "UNOBSERVED STRUCTURAL STATE", 458, 184, 340, 24, { fontSize: 13, bold: true, color: C.magenta, letterSpacing: 0.9 });
-  text(slide, "Conformational ensemble\nSteric contacts at each junction\nRelative domain orientation\nSolvent exposure and accessibility", 458, 226, 335, 177, {
-    fontSize: 19,
-    bold: true,
-    color: C.ink,
-  });
+  shape(slide, "line", 82, 302, 1116, 0, "none", C.cyan, 2);
+  text(slide, "INTERDOMAIN CONFORMATIONAL ENSEMBLE", 82, 330, 1116, 26, { fontSize: 14, bold: true, color: C.cyan, alignment: "center", letterSpacing: 1.0 });
+  text(slide, "The complete fusion can sample multiple relative domain positions. A single confident structure may not represent that distribution in solution.", 170, 370, 940, 68, { fontSize: 23, bold: true, alignment: "center" });
 
-  shape(slide, "line", 840, 188, 0, 245, "none", C.faint, 2);
-  text(slide, "EVIDENCE THAT CAN BE MEASURED", 886, 184, 330, 24, { fontSize: 13, bold: true, color: C.cyan, letterSpacing: 0.8 });
-  text(slide, "Model confidence and PAE\nClosure and steric clashes\nDomain preservation\nExpression and activity outcomes", 886, 226, 330, 177, {
-    fontSize: 19,
-    bold: true,
-    color: C.ink,
-  });
+  shape(slide, "line", 640, 464, 0, 116, "none", C.faint, 2);
+  text(slide, "COMPUTATIONAL EVIDENCE", 82, 472, 500, 22, { fontSize: 13, bold: true, color: C.blue, letterSpacing: 0.9 });
+  text(slide, "Structure confidence, PAE, steric clashes, and preservation of each domain", 82, 510, 500, 62, { fontSize: 19, bold: true });
+  text(slide, "EXPERIMENTAL EVIDENCE", 698, 472, 500, 22, { fontSize: 13, bold: true, color: C.magenta, letterSpacing: 0.9 });
+  text(slide, "Expression, stability, activity, and solution-state measurements such as SAXS or NMR", 698, 510, 500, 62, { fontSize: 19, bold: true });
 
-  shape(slide, "line", 70, 452, 1140, 0, "none", C.cyan, 2);
-  text(slide, "CENTRAL INFERENCE PROBLEM", 70, 477, 270, 22, { fontSize: 13, bold: true, color: C.cyan, letterSpacing: 0.9 });
-  text(
-    slide,
-    "A linker class alone cannot establish compatibility. The design must be evaluated with both partner proteins and with evidence appropriate to the intended claim.",
-    70,
-    515,
-    1120,
-    69,
-    { fontSize: 25, bold: true, color: C.ink },
-  );
-  text(
-    slide,
-    "This distinction motivates LinkerForge: candidate ranking, matched structural prediction, and provenance are connected, while biological success remains an experimental question.",
-    70,
-    608,
-    1120,
-    38,
-    { fontSize: 16, color: C.muted },
-  );
+  shape(slide, "line", 82, 606, 1116, 0, "none", C.magenta, 2);
+  text(slide, "LINKERFORGE RESEARCH QUESTION", 82, 624, 270, 20, { fontSize: 12, bold: true, color: C.magenta, letterSpacing: 0.8 });
+  text(slide, "Can a pair-conditioned model rank candidates that retain structural plausibility on previously unseen protein families?", 365, 615, 830, 42, { fontSize: 18, bold: true });
 
   note(
     slide,
     "Presenter 1 (major)",
-    "This slide defines the scientific problem rather than repeating the linker anatomy from slide 2. At design time we know the partner sequences, intended attachment sites, candidate linker, and residues that should remain accessible. We do not directly know the full conformational ensemble, junction clashes, or relative domain orientation. Structure prediction supplies computational evidence, while expression and activity require experiments. The main research question is therefore conditional: which linker is most compatible with this specific pair and this intended use?",
+    "This slide moves from the biological definition to the research problem. Four inputs jointly determine linker behaviour: the two partner proteins, their attachment sites, the candidate linker, and the design objective. The complete fusion may sample many interdomain conformations. Structure prediction can test local plausibility and uncertainty, but experimental measurements remain necessary for expression, stability, activity, and solution ensembles. LinkerForge therefore asks a narrower computational question: can a model rank candidates for a specified pair and generalize to unseen protein families?",
     [
       "Chen X, Zaro JL, Shen WC. Fusion protein linkers: property, design and functionality. Adv Drug Deliv Rev. 2013;65(10):1357–1369. doi:10.1016/j.addr.2012.09.039.",
       "McBride AC et al. Predicting Pose Distribution of Protein Domains Connected by Flexible Linkers Is an Unsolved Problem. Proteins. 2026;94(1):362–380. doi:10.1002/prot.70062.",
@@ -345,8 +325,8 @@ async function replacePublishedMethodsSlide(presentation, slide) {
   slide.background.fill = "000000";
   title(
     slide,
-    "Published methods solve different linker problems",
-    "Only DFLpred and TransDFL are general per-residue domain-linker classifiers",
+    "Published methods address different linker tasks",
+    "Generators, residue classifiers, system-specific predictors, and structure models answer different scientific questions",
   );
 
   const methodRows = [
@@ -414,8 +394,8 @@ async function replaceLiteratureEvidenceSlide(presentation, slide) {
   slide.background.fill = "000000";
   title(
     slide,
-    "What the published evidence actually shows",
-    "The studies use different evidence. CASP16 tested flexible pose distributions in solution rather than one best structure",
+    "Evidence from published linker studies",
+    "The strength and meaning of each result depend on the task, dataset, and measurement used",
   );
 
   const evidenceRows = [
@@ -481,8 +461,8 @@ async function replaceCASP16ContextSlide(presentation, slide) {
   slide.background.fill = "000000";
   title(
     slide,
-    "How CASP16 tested flexible linker ensembles",
-    "A blind community assessment compared WT KADNKF and Gly6 pose distributions with solution measurements",
+    "CASP16 tested linker-controlled domain motion",
+    "A blind community assessment compared predicted pose ensembles with SAXS and NMR measurements",
   );
 
   const contextRows = [
@@ -551,8 +531,8 @@ async function replaceComparisonStatusTable(presentation, slide) {
   slide.background.fill = "000000";
   title(
     slide,
-    "Current models and the LinkerForge target",
-    "Comparison in progress. Current differences concern evidence scope rather than method superiority",
+    "Where LinkerForge fits among existing methods",
+    "The present distinction concerns workflow and evidence scope; predictive superiority has not been established",
   );
 
   const comparisonRows = [
@@ -779,10 +759,19 @@ async function main() {
     "4 min  ·  Slides 21–25": "6 min  ·  Slides 21–22, 31–34",
     "Verified public acceptance run": "Verified acceptance run: reference pair",
     "Matched structural sensitivity panel": "Reference-pair structural sensitivity panel",
-    "Research gap and present scope": "Research gap and current scope",
+    "Research gap and present scope": "Unresolved research gap",
     "Research question and evidence stages": "Research questions and evidence",
-    "How the ranker would learn and make a decision": "Compatibility ranking logic",
+    "LinkerForge workflow and provenance": "Traceable workflow from sequence design to evidence",
+    "Proposed multimodal compatibility ranker": "Proposed pair-conditioned compatibility model",
+    "How the ranker would learn and make a decision": "Proposed training and evaluation logic",
+    "Dataset acquisition and evidence tiers": "Dataset composition and permitted uses",
+    "Independent annotation and adjudication": "Annotation protocol and adjudication",
+    "Validation layers and the claim firewall": "Validation layers that protect the scientific claim",
+    "Candidate generation and ranking status": "Implemented candidate controls and future ranking",
+    "Execution evidence by tool": "Evidence contributed by each executed tool",
+    "Design and structure review in one workspace": "Research interface for design and structural review",
     "Publication readiness": "Publication readiness and unresolved evidence",
+    "Verified scope and next scientific milestone": "Current evidence and next scientific milestone",
     "Direct": "Short GS",
     "no linker": "GGGGS",
     "0 aa control": "5 aa sensitivity",
@@ -816,7 +805,7 @@ async function main() {
   const slide23 = presentation.slides.add();
   inserted.push(slide23);
   base(slide23, 23, "Verified public acceptance run", "Presenter 2", "Public-sequence panel manifest + versioned comparison schema; protected labels were not read");
-  title(slide23, "Acceptance run design and verification gates", "Matched settings across three short public domain pairs; every linker-containing condition is retained");
+  title(slide23, "Acceptance run design and verification", "Matched settings across three short public domain pairs; every linker-containing condition is retained");
   metricCard(slide23, 54, 186, 265, "Protein pairs", "3 public pairs", "Ubiquitin–GB1, crambin–BPTI, and protein G–repressor", C.blue);
   metricCard(slide23, 335, 186, 265, "Constructs", "18 linker fusions", "Six matched linker conditions per pair", C.cyan);
   metricCard(slide23, 616, 186, 265, "Structure models", "90 rankable models", "Five AlphaFold2-ptm models per construct; rank 1 summarized", C.magenta);
@@ -837,7 +826,7 @@ async function main() {
   inserted.push(slide24);
   const highestWithLinker = linkerRecords[0];
   base(slide24, 24, "Verified public acceptance run", "Presenter 2", "Rank-1 AlphaFold2-ptm model; highest whole-fusion mean pLDDT among the 18 linker-containing constructs");
-  title(slide24, "Highest-confidence linker-containing example", `${displayPair(highestWithLinker.domain_pair)} with ${highestWithLinker.linker_id}: ${highestWithLinker.linker_sequence}`);
+  title(slide24, "Highest-confidence linker-containing construct", `${displayPair(highestWithLinker.domain_pair)} with ${highestWithLinker.linker_id}: ${highestWithLinker.linker_sequence}`);
   slide24.images.add({
     blob: await imageBytes(HIGHEST_CONFIDENCE_IMAGE),
     contentType: "image/png",
@@ -868,7 +857,7 @@ async function main() {
   const slide25 = presentation.slides.add();
   inserted.push(slide25);
   base(slide25, 25, "Matched public panel", "Presenter 2", "Rank-1 AlphaFold2-ptm confidence; descriptive top linker-containing row per pair; all 18 linker constructs retained");
-  title(slide25, "Confidence comparison across three protein pairs", "The chart uses the highest linker-containing mean pLDDT observed for each pair");
+  title(slide25, "Structure-confidence comparison across three protein pairs", "The chart uses the highest linker-containing mean pLDDT observed for each pair");
   const perPair = ["1CRN_4PTI", "1PGA_1LMB", "1UBQ_2GB1"].map((pair) => linkerRecords.find((row) => row.domain_pair === pair));
   if (perPair.some((row) => !row)) throw new Error("Missing a linker-containing top row for one or more domain pairs");
   const chart = slide25.charts.add("bar", {
@@ -895,7 +884,7 @@ async function main() {
   const slide29 = presentation.slides.add();
   inserted.push(slide29);
   base(slide29, 29, "Interpretation", "Presenter 2", "Metric definitions are taken from the versioned comparison JSON and AlphaFold/ColabFold output semantics");
-  title(slide29, "Interpreting structure confidence", "All four values come from ColabFold/AlphaFold2-ptm outputs, not from the proposed LinkerForge ranker");
+  title(slide29, "Interpreting AlphaFold and ColabFold confidence", "All four values come from ColabFold/AlphaFold2-ptm outputs, not from the proposed LinkerForge ranker");
   metricCard(slide29, 54, 184, 560, "Fusion mean pLDDT", "Local-coordinate confidence", "Average over the complete fusion. High values do not establish function, expression, stability, or correct domain orientation.", C.cyan);
   metricCard(slide29, 666, 184, 560, "Linker mean pLDDT", "Inserted-residue confidence", "Low values may be consistent with flexibility, but they do not prove flexibility or incompatibility.", C.magenta);
   metricCard(slide29, 54, 366, 560, "pTM", "Global topology confidence", "A model-level AlphaFold estimate. It is not a linker-specific success probability.", C.blue);
@@ -908,7 +897,7 @@ async function main() {
   const slide30 = presentation.slides.add();
   inserted.push(slide30);
   base(slide30, 30, "Reproducibility", "Presenter 2", "Versioned JSON + CSV + exact PDB/score files + SHA-256 hashes; generated only after full-panel completion");
-  title(slide30, "Acceptance evidence can be traced to every file", "The run artifacts remain the scientific record; this deck presents a selected view");
+  title(slide30, "Traceability from input sequence to reported figure", "The run artifacts remain the scientific record; this deck presents a selected view");
   const trail = [
     ["01", "Immutable inputs", "panel.fasta + panel_manifest.json", "Sequence hashes, public sources, matched settings"],
     ["02", "Displayed predictions", "90 score JSON files + 90 PDB models", "Five models per linker construct; rank-1 path retained"],
