@@ -180,6 +180,73 @@ async function replaceExact(presentation, replacements) {
   if (missing.length) throw new Error(`Expected source-deck text was not found: ${missing.join(" | ")}`);
 }
 
+async function replaceSpeakerSummaryWithLinkerDefinition(presentation, slide) {
+  const inspected = await presentation.inspect({
+    select: "$.slides[1]",
+    include: ["id", "index", "elements.id"],
+  });
+  const record = inspected.records[0];
+  if (!record || record.index !== 1) throw new Error("Could not locate source slide 2");
+  presentation.delete((record.elements ?? []).map((element) => element.id));
+
+  base(
+    slide,
+    2,
+    "Biological definition",
+    "Presenter 1",
+    "Chichili, Kumar & Sivaraman · Protein Science 22 (2013) 153–167 · doi:10.1002/pro.2206",
+  );
+  title(
+    slide,
+    "What is a protein linker?",
+    "A short peptide segment between domains that influences their separation, relative motion, and opportunity to interact",
+  );
+
+  shape(slide, "roundRect", 54, 174, 1172, 92, C.paper, C.faint, 1, "rounded-lg");
+  text(slide, "THE REVIEW'S DEFINITION", 78, 192, 225, 20, { fontSize: 12, bold: true, color: C.cyan, letterSpacing: 1.1 });
+  text(
+    slide,
+    "“Linkers or spacers are short amino acid sequences created in nature to separate multiple domains in a single protein.”",
+    305,
+    187,
+    888,
+    57,
+    { fontSize: 20, bold: true, color: C.ink, verticalAlignment: "middle" },
+  );
+
+  shape(slide, "roundRect", 90, 302, 270, 76, "173A4A", C.blue, 1, "rounded-lg");
+  text(slide, "DOMAIN A", 90, 326, 270, 28, { fontSize: 20, bold: true, alignment: "center", verticalAlignment: "middle" });
+  shape(slide, "line", 360, 340, 110, 0, "none", C.muted, 3);
+  shape(slide, "roundRect", 470, 302, 340, 76, "4B173C", C.magenta, 1, "rounded-lg");
+  text(slide, "LINKER SEQUENCE", 470, 319, 340, 24, { fontSize: 18, bold: true, color: "FFFFFF", alignment: "center" });
+  text(slide, "length + composition shape its behavior", 470, 345, 340, 18, { fontSize: 12, color: "F5CBE8", alignment: "center" });
+  shape(slide, "line", 810, 340, 110, 0, "none", C.muted, 3);
+  shape(slide, "roundRect", 920, 302, 270, 76, "4A251E", C.red, 1, "rounded-lg");
+  text(slide, "DOMAIN B", 920, 326, 270, 28, { fontSize: 20, bold: true, alignment: "center", verticalAlignment: "middle" });
+
+  shape(slide, "roundRect", 54, 410, 560, 148, C.paper, C.cyanDark, 1, "rounded-lg");
+  text(slide, "FLEXIBLE LINKERS", 80, 430, 510, 22, { fontSize: 15, bold: true, color: C.cyan });
+  text(slide, "Often Gly-rich. They permit relative domain motion and can tether weak or transient partners while allowing each domain to retain its role.", 80, 466, 500, 70, { fontSize: 17, color: C.ink });
+
+  shape(slide, "roundRect", 666, 410, 560, 148, C.paper, C.yellow, 1, "rounded-lg");
+  text(slide, "RIGID LINKERS", 692, 430, 510, 22, { fontSize: 15, bold: true, color: C.yellow });
+  text(slide, "They act as spacers that restrict unwanted domain contacts and can preserve a chosen separation or orientation.", 692, 466, 500, 70, { fontSize: 17, color: C.ink });
+
+  shape(slide, "roundRect", 54, 585, 1172, 66, C.paperAlt, C.faint, 1, "rounded-lg");
+  text(slide, "DESIGN CONSENSUS", 78, 603, 190, 20, { fontSize: 13, bold: true, color: C.magenta });
+  text(slide, "No universal linker fits every fusion. The review reports 2–31 residues, with 5–11 common in structural studies, and calls for case-specific optimization of length and composition.", 270, 595, 930, 43, { fontSize: 15, bold: true, color: C.ink });
+
+  note(
+    slide,
+    "Presenter 1 (major)",
+    "Define the linker before discussing LinkerForge. Natural linkers separate domains inside one polypeptide. Protein engineers reuse this idea to join domains or proteins in a fusion. The linker can behave as a flexible tether or a more rigid spacer, so its sequence and length can affect stability, solubility, folding, domain orientation, and interaction. The 2–31 residue range describes the studies reviewed in this paper rather than a universal biological rule.",
+    [
+      "Chichili VPR, Kumar V, Sivaraman J. Linkers in the structural biology of protein–protein interactions. Protein Sci. 2013;22(2):153–167. doi:10.1002/pro.2206.",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3588912/",
+    ],
+  );
+}
+
 function metricCard(slide, x, y, w, label, valueText, explanation, color) {
   shape(slide, "roundRect", x, y, w, 154, C.paper, C.faint, 1, "rounded-lg");
   shape(slide, "rect", x, y, 6, 154, color, "none", 0);
@@ -369,6 +436,7 @@ async function main() {
     "LinkerForge links exact candidate sequences to matched structural evidence and provenance.": "LinkerForge links exact candidate sequences to matched structural evidence and provenance across three public pairs.",
     "Verified local runs establish execution, not biological success or optimality.": "The 18-construct linker panel verifies execution and traceability, not biological success or optimality.",
   });
+  await replaceSpeakerSummaryWithLinkerDefinition(presentation, originalSlides[1]);
   await rebuildSourceCharts(presentation, originalSlides);
   originalSlides[18].speakerNotes.text = originalSlides[18].speakerNotes.text.replace(
     "The direct fusion has no linker-region value and is plotted as zero only for chart alignment. Do not compare it as if zero were a measured linker pLDDT. The panel is matched for sequence context and prediction settings, but one domain pair cannot establish generalization or superiority.",
