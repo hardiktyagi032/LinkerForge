@@ -317,6 +317,73 @@ async function replacePublishedMethodsSlide(presentation, slide) {
   );
 }
 
+async function replaceLiteratureEvidenceSlide(presentation, slide) {
+  const inspected = await presentation.inspect({
+    select: "$.slides[4]",
+    include: ["id", "index", "elements.id"],
+  });
+  const record = inspected.records[0];
+  if (!record || record.index !== 4) throw new Error("Could not locate source slide 5");
+  presentation.delete((record.elements ?? []).map((element) => element.id));
+
+  base(
+    slide,
+    5,
+    "Published evidence",
+    "Presenter 1",
+    "Primary sources: LINKER (2000), SynLinker (2015), Li et al. (2026), and the CASP16 flexible-domain ensemble assessment",
+  );
+  slide.background.fill = "000000";
+  title(
+    slide,
+    "What the published evidence actually shows",
+    "The studies use different evidence. CASP16 tested flexible pose distributions in solution rather than one best structure",
+  );
+
+  const evidenceRows = [
+    ["Study", "Published finding", "What it establishes"],
+    ["2000 · LINKER", "“Linker sequences are generally selected based on intuition.”", "The generator addressed heuristic sequence selection"],
+    ["2015 · SynLinker", "“The linker selection is done mostly ad hoc and still based on random test in experiments.”", "The resource organized linker retrieval and fusion construction"],
+    ["2026 · Li et al.", "Linker performance was context dependent in one sfGFP–nanobody system", "Measured fluorescence provides strong system-specific experimental evidence"],
+    ["2026 · CASP16 ensemble assessment", "“None were close fits to the combined NMR and SAXS data.”", "No submitted ensemble reproduced both distance and orientation evidence. This does not imply that each domain misfolded"],
+  ];
+  const evidence = slide.tables.add({
+    rows: evidenceRows.length,
+    columns: 3,
+    left: 54,
+    top: 166,
+    width: 1172,
+    height: 400,
+    columnWidths: [250, 520, 402],
+    values: evidenceRows,
+  });
+  styleTable(evidence, evidenceRows.length, 3, 12.5);
+
+  shape(slide, "line", 66, 590, 1148, 0, "none", C.cyan, 2);
+  text(slide, "RESEARCH GAP", 77, 606, 150, 20, { fontSize: 12, bold: true, color: C.cyan });
+  text(
+    slide,
+    "Choosing a sequence and predicting one static structure cannot establish the solution ensemble or biological outcome. Pair-specific measurements and ensemble-sensitive validation remain necessary.",
+    229,
+    599,
+    972,
+    48,
+    { fontSize: 15, bold: true, color: C.ink },
+  );
+
+  note(
+    slide,
+    "Presenter 1 (major)",
+    "Explain the CASP16 quotation carefully. McBride and colleagues assessed 35 population-weighted conformational ensembles from 25 predictor groups for two Staphylococcal protein A domain-linker-domain constructs. One used the conserved six-residue linker KADNKF and the other used Gly6. The team back-calculated SAXS curves and NMR residual dipolar couplings from each submitted ensemble. SAXS reports global distance and shape information, while NMR RDCs provide residue-specific orientational information between domains. No ensemble matched both types of experimental evidence closely, and none reproduced the experimentally observed difference between the two linker sequences. The result concerns distributions of relative domain poses in solution. It does not show that every individual domain was incorrectly folded.",
+    [
+      "Crasto CJ, Feng JA. LINKER: a program to generate linker sequences for fusion proteins. Protein Eng. 2000;13(5):309–312. doi:10.1093/protein/13.5.309.",
+      "Liu C et al. SynLinker: an integrated system for designing linkers and synthetic fusion proteins. Bioinformatics. 2015;31(22):3700–3702. doi:10.1093/bioinformatics/btv447.",
+      "Li et al. Multimodal deep learning-assisted rapid linker engineering for synthetic multidomain protein. Synthetic Biology. 2026. doi:10.1016/j.synbio.2026.02.003.",
+      "McBride AC et al. Predicting Pose Distribution of Protein Domains Connected by Flexible Linkers Is an Unsolved Problem. Proteins. 2026;94(1):362–380. doi:10.1002/prot.70062. https://onlinelibrary.wiley.com/doi/10.1002/prot.70062",
+    ],
+  );
+}
+
 async function replaceComparisonStatusTable(presentation, slide) {
   const inspected = await presentation.inspect({
     select: "$.slides[6]",
@@ -339,16 +406,16 @@ async function replaceComparisonStatusTable(presentation, slide) {
   title(
     slide,
     "Current models and the LinkerForge target",
-    "Comparison in progress. Preliminary observations guide hypotheses; external baseline results are not complete",
+    "Comparison in progress. Current differences concern evidence scope rather than method superiority",
   );
 
   const comparisonRows = [
-    ["Method", "Primary output", "Context represented", "Current comparison position"],
-    ["LINKER / SynLinker\npriority baselines", "Generated or retrieved linker candidates", "Linker properties and curated templates", "Most plausible workflow advantage: pair context, matched structural checks, and provenance"],
-    ["DFLpred / APOD / TransDFL", "Per-residue DFL score", "One protein sequence", "Different task. No direct superiority claim"],
-    ["Li et al. (2026)", "Fluorescence prediction and linker customization", "370 linkers in one sfGFP–nanobody system plus AF2 features", "Stronger experimental evidence in one system. No current superiority claim"],
-    ["AlphaFold2 / ColabFold", "Structure model and confidence", "Complete supplied sequence", "Shared evidence engine rather than a competing linker generator"],
-    ["LinkerForge target", "Pair-conditioned ranking with a matched evidence bundle", "Both domains, attachment context, candidate, and full fusion", "External baseline comparison and family-disjoint validation remain incomplete"],
+    ["Method", "Primary output", "Context represented", "Evidence currently available"],
+    ["LINKER / SynLinker", "Generated or retrieved linker candidates", "Linker properties and curated templates", "Generation and retrieval evidence. No matched experimental outcome benchmark"],
+    ["DFLpred / APOD / TransDFL", "Per-residue DFL score", "One protein sequence", "Residue-level classification benchmarks for a different scientific task"],
+    ["Li et al. (2026)", "Fluorescence prediction and linker customization", "370 linkers in one sfGFP–nanobody system plus AF2 features", "Strong system-specific experimental evidence from measured fluorescence"],
+    ["AlphaFold2 / ColabFold", "Structure model and confidence", "Complete supplied sequence", "Computational confidence without functional or ensemble validation"],
+    ["LinkerForge target", "Pair-conditioned ranking with a matched evidence bundle", "Both domains, attachment context, candidate, and full fusion", "Three-pair computational acceptance panel. External and experimental evidence remain incomplete"],
   ];
   const comparison = slide.tables.add({
     rows: comparisonRows.length,
@@ -363,24 +430,25 @@ async function replaceComparisonStatusTable(presentation, slide) {
   styleTable(comparison, comparisonRows.length, 4, 11.5);
 
   shape(slide, "line", 66, 610, 1148, 0, "none", C.magenta, 2);
-  text(slide, "WORKING HYPOTHESIS", 77, 626, 170, 20, { fontSize: 12, bold: true, color: C.magenta });
+  text(slide, "EVIDENCE INTERPRETATION", 77, 626, 190, 20, { fontSize: 12, bold: true, color: C.magenta });
   text(
     slide,
-    "Current anecdotal evidence supports testing a workflow advantage over LINKER, SynLinker, and fixed one-size-fits-all controls. Candidate quality and biological outcome remain unproven.",
-    246,
+    "Li et al. provides stronger system-specific experimental evidence. CASP16 shows why a confident single structure cannot validate flexible interdomain pose distributions. LinkerForge currently supplies computational evidence only.",
+    276,
     619,
-    955,
+    925,
     43,
-    { fontSize: 15, bold: true, color: C.ink },
+    { fontSize: 14, bold: true, color: C.ink },
   );
 
   note(
     slide,
     "Presenter 1 (major)",
-    "State the status before describing expected advantages. The external comparison remains in progress. LINKER and SynLinker are the most plausible near-term targets for a workflow-level advantage because LinkerForge combines specified fusion partners, matched structural evaluation, and provenance in one contract. Fixed GS or EAAAK controls are also appropriate baselines for testing whether candidate selection adds value. The current three-pair acceptance panel does not establish consistent candidate-quality superiority. DFLpred and TransDFL solve residue-classification tasks, while Li et al. (2026) has experimental evidence in a specific fusion system. We make no superiority claim against those methods.",
+    "Frame the comparison around evidence rather than superiority. LINKER and SynLinker provide generation or retrieval evidence. DFLpred and TransDFL provide residue-classification benchmarks for another task. Li et al. reports measured fluorescence for 370 linker variants in one sfGFP–nanobody system, which gives strong system-specific experimental evidence. The CASP16 ensemble assessment shows that computational methods still struggle to reproduce flexible interdomain pose distributions measured jointly by NMR RDC and SAXS. LinkerForge currently provides a three-pair computational acceptance panel and provenance, without equivalent functional, NMR, or SAXS evidence.",
     [
       "Crasto CJ, Feng JA. LINKER: a program to generate linker sequences for fusion proteins. Protein Eng. 2000;13(5):309–312. doi:10.1093/protein/13.5.309.",
       "Liu C et al. SynLinker: an integrated system for designing linkers and synthetic fusion proteins. Bioinformatics. 2015;31(22):3700–3702.",
+      "McBride AC et al. Predicting Pose Distribution of Protein Domains Connected by Flexible Linkers Is an Unsolved Problem. Proteins. 2026;94(1):362–380. doi:10.1002/prot.70062.",
       "LinkerForge three-pair public acceptance comparison: the current panel verifies execution and traceability, not superiority.",
     ],
   );
@@ -577,6 +645,7 @@ async function main() {
   });
   await replaceSpeakerSummaryWithLinkerDefinition(presentation, originalSlides[1]);
   await replacePublishedMethodsSlide(presentation, originalSlides[3]);
+  await replaceLiteratureEvidenceSlide(presentation, originalSlides[4]);
   await replaceComparisonStatusTable(presentation, originalSlides[6]);
   await rebuildSourceCharts(presentation, originalSlides);
   originalSlides[18].speakerNotes.text = originalSlides[18].speakerNotes.text.replace(
@@ -758,9 +827,9 @@ async function main() {
     layoutValidatorPath: path.join(SKILL, "container_tools", "inspect_presentation_layout_geometry.py"),
     layoutArgs: [
       "--expected-slide-size-emu", "12192000,6858000", "--validate-bullet-geometry", "--validate-heading-fit",
-      ...[4, 6, 7, 13, 22, 23, 26, 27, 28, 31].flatMap((number) => ["--require-native-table-slide", String(number)]),
+      ...[4, 5, 6, 7, 13, 22, 23, 26, 27, 28, 31].flatMap((number) => ["--require-native-table-slide", String(number)]),
     ],
-    requiredNativeTableOwnerSlides: [4, 6, 7, 13, 22, 23, 26, 27, 28, 31],
+    requiredNativeTableOwnerSlides: [4, 5, 6, 7, 13, 22, 23, 26, 27, 28, 31],
     requiredNativeChartOwnerSlides: [18, 19, 25],
     materializeLiteralChartWorkbooks: true,
     fontPolicy: { basis: "reference", families: [FONT, MONO], referencePath: input.base, referenceSha256: await sha256File(input.base) },
