@@ -35,7 +35,7 @@ fn hidden_async_command<S: AsRef<OsStr>>(program: S) -> Command {
     command
 }
 
-#[derive(Clone, Serialize)]
+#[derive(Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct FoldStatus {
     phase: String,
@@ -47,7 +47,7 @@ struct FoldStatus {
     artifacts: Option<FoldArtifacts>,
 }
 
-#[derive(Clone, Serialize)]
+#[derive(Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct FoldMetrics {
     predictor: String,
@@ -58,7 +58,7 @@ struct FoldMetrics {
     mean_interdomain_pae: Option<f64>,
 }
 
-#[derive(Clone, Serialize)]
+#[derive(Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct FoldArtifacts {
     pdb_path: Option<String>,
@@ -300,6 +300,84 @@ fn fold_runs_root(app: &tauri::AppHandle) -> Result<PathBuf, String> {
         .app_local_data_dir()
         .map(|path| path.join("folds"))
         .map_err(|error| error.to_string())
+}
+
+#[derive(Deserialize)]
+struct StoredFoldManifest {
+    status: String,
+    message: String,
+    sequence_sha256: Option<String>,
+    selected_pdb_sha256: Option<String>,
+    metrics: Option<FoldMetrics>,
+    artifacts: Option<FoldArtifacts>,
+}
+
+fn restore_latest_completed_fold_from_root(root: &Path) -> Option<FoldStatus> {
+    let mut run_directories = fs::read_dir(root)
+        .ok()?
+        .filter_map(Result::ok)
+        .filter_map(|entry| {
+            entry
+                .file_type()
+                .ok()
+                .filter(|kind| kind.is_dir())
+                .map(|_| entry.path())
+        })
+        .collect::<Vec<_>>();
+    run_directories.sort_by(|left, right| right.file_name().cmp(&left.file_name()));
+
+    for run_dir in run_directories {
+        let manifest: StoredFoldManifest =
+            match fs::read_to_string(run_dir.join("run_manifest.json"))
+                .ok()
+                .and_then(|contents| serde_json::from_str(&contents).ok())
+            {
+                Some(manifest) => manifest,
+                None => continue,
+            };
+        if manifest.status != "complete" {
+            continue;
+        }
+        let artifacts = match manifest.artifacts {
+            Some(artifacts) => artifacts,
+            None => continue,
+        };
+        let pdb_path = match artifacts.pdb_path.as_deref() {
+            Some(path) => PathBuf::from(path),
+            None => continue,
+        };
+        match fs::metadata(&pdb_path) {
+            Ok(metadata) if metadata.is_file() && metadata.len() <= MAX_PDB_BYTES => {}
+            _ => continue,
+        }
+        let pdb = match fs::read_to_string(&pdb_path) {
+            Ok(pdb) => pdb,
+            Err(_) => continue,
+        };
+        if manifest
+            .selected_pdb_sha256
+            .as_deref()
+            .is_some_and(|expected| expected != sha256_bytes(pdb.as_bytes()))
+        {
+            continue;
+        }
+        return Some(FoldStatus {
+            phase: "complete".into(),
+            message: manifest.message,
+            run_dir: Some(run_dir.display().to_string()),
+            sequence_sha256: manifest.sequence_sha256,
+            pdb: Some(pdb),
+            metrics: manifest.metrics,
+            artifacts: Some(artifacts),
+        });
+    }
+    None
+}
+
+fn restore_latest_completed_fold(app: &tauri::AppHandle) -> Option<FoldStatus> {
+    fold_runs_root(app)
+        .ok()
+        .and_then(|root| restore_latest_completed_fold_from_root(&root))
 }
 
 fn validate_sequence(sequence: &str) -> Result<(), String> {
@@ -950,7 +1028,11 @@ async fn start_fold(
 
 pub fn run() {
     tauri::Builder::default()
-        .manage(FoldState::default())
+        .setup(|app| {
+            let restored = restore_latest_completed_fold(app.handle()).unwrap_or_default();
+            app.manage(FoldState(Mutex::new(restored)));
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
             compute_status,
             fold_status,
@@ -977,6 +1059,58 @@ mod tests {
     fn configured_runs_root_must_be_absolute() {
         assert!(Path::new(r"M:\LinkerForge\folds").is_absolute());
         assert!(!Path::new("relative/folds").is_absolute());
+    }
+
+    #[test]
+    fn restores_latest_valid_completed_fold() {
+        let directory = std::env::temp_dir().join(format!(
+            "linkerforge-restore-test-{}-{}",
+            std::process::id(),
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .expect("system clock")
+                .as_nanos()
+        ));
+        let run_directory = directory.join("1792648686-test");
+        fs::create_dir_all(&run_directory).expect("create restore test directory");
+        let pdb_path = run_directory.join("prediction.pdb");
+        let pdb =
+            "ATOM      1  CA  GLY A   1       0.000   0.000   0.000  1.00 90.00           C\n";
+        fs::write(&pdb_path, pdb).expect("write test PDB");
+        let manifest = serde_json::json!({
+            "status": "complete",
+            "message": "Prediction complete.",
+            "sequence_sha256": sha256_bytes(b"G"),
+            "selected_pdb_sha256": sha256_bytes(pdb.as_bytes()),
+            "metrics": {
+                "predictor": "ColabFold / AlphaFold2-ptm",
+                "modelName": "model_4",
+                "meanPlddt": 93.7,
+                "ptm": 0.69,
+                "maxPae": 26.25,
+                "meanInterdomainPae": 9.8
+            },
+            "artifacts": {
+                "pdbPath": pdb_path,
+                "scoreJsonPath": null,
+                "paePlotPath": null,
+                "plddtPlotPath": null,
+                "logPath": null
+            }
+        });
+        fs::write(
+            run_directory.join("run_manifest.json"),
+            format!("{manifest}\n"),
+        )
+        .expect("write test manifest");
+
+        let restored = restore_latest_completed_fold_from_root(&directory)
+            .expect("restore completed prediction");
+        assert_eq!(restored.phase, "complete");
+        assert_eq!(restored.pdb.as_deref(), Some(pdb));
+        assert_eq!(restored.metrics.expect("metrics").mean_plddt, Some(93.7));
+
+        fs::remove_dir_all(&directory).expect("remove restore test directory");
     }
 
     #[test]
