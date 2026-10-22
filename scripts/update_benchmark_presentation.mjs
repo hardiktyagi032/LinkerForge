@@ -196,6 +196,7 @@ async function replaceSpeakerSummaryWithLinkerDefinition(presentation, slide) {
     "Presenter 1",
     "Chichili, Kumar & Sivaraman · Protein Science 22 (2013) 153–167 · doi:10.1002/pro.2206",
   );
+  slide.background.fill = "000000";
   title(
     slide,
     "What is a protein linker?",
