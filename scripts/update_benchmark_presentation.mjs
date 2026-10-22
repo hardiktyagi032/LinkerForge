@@ -601,6 +601,10 @@ async function main() {
     ...slideIds.slice(22, 25),
   ]);
 
+  for (const slide of presentation.slides.items) {
+    slide.background.fill = "000000";
+  }
+
   await fs.writeFile(CANDIDATE_REPORT, buildReport(summary, manifest, input.summary), "utf8");
   await (await PresentationFile.exportPptx(presentation)).save(CANDIDATE);
   const outputStem = path.basename(input.output, path.extname(input.output)).replace(/[^A-Za-z0-9._-]+/g, "-");
