@@ -64,6 +64,9 @@ describe('LinkerForge interface', () => {
     expect(screen.getByRole('button', { name: /domain a.*individual model/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /domain b.*individual model/i })).toBeInTheDocument()
     expect(screen.getByLabelText(/candidate models/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/full-fusion prediction controls/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /export fasta for prediction/i })).toBeInTheDocument()
+    expect(screen.getByText(/browser mode cannot access the computer gpu/i)).toBeInTheDocument()
     expect(screen.getByText(/no full-fusion structure loaded/i)).toBeInTheDocument()
   })
 
