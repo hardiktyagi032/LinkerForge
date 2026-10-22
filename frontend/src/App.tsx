@@ -723,13 +723,14 @@ function ProteinViewer({
                 : 'Browser mode cannot access the computer GPU. Export the exact FASTA or open this design in the desktop app.'}</small>
             </div>
             <div className="prediction-launchpad-actions">
-              {desktopRuntime ? <button type="button" className="gpu-fold-button"
+              {desktopRuntime && <button type="button" className="gpu-fold-button"
                 disabled={!compute?.predictorAvailable || !msaConsent || predictionRunning}
                 onClick={() => { setMode('fusion'); void handleLocalFold() }}>
                 <Play size={15} /> {foldStarting ? 'Starting ColabFold…' : fold?.phase === 'running' ? 'Prediction running…' : pdb ? 'Run prediction again' : 'Predict full fusion on this GPU'}
-              </button> : <button type="button" className="gpu-fold-button" onClick={() => downloadText('linkerforge-fusion.fasta', fusionFasta(candidate.fullSequence))}>
-                <Download size={15} /> Export FASTA for prediction
               </button>}
+              <button type="button" className={desktopRuntime ? 'prediction-secondary-button' : 'gpu-fold-button'} onClick={() => downloadText('linkerforge-fusion.fasta', fusionFasta(candidate.fullSequence))}>
+                <Download size={15} /> Export FASTA for prediction
+              </button>
               <label className="upload-pdb compact-upload">
                 Load predicted PDB
                 <input type="file" accept=".pdb,.ent,text/plain" onChange={(event) => void handlePdbUpload(event.target.files?.[0])} />
@@ -753,28 +754,16 @@ function ProteinViewer({
               structureSource={structure?.source === 'colabfold' ? 'Local ColabFold prediction · sequence verified' : 'Loaded PDB · sequence verified'}
             />
           </div>
-          <div className="viewer-actions">
-            {candidate ? (
-              <>
-                <button type="button" onClick={() => downloadText('linkerforge-fusion.fasta', fusionFasta(candidate.fullSequence))}>
-                  <Download size={14} /> Export full-fusion FASTA
-                </button>
-                <label className="upload-pdb">
-                  Load predicted full-fusion PDB
-                  <input type="file" accept=".pdb,.ent,text/plain" onChange={(event) => void handlePdbUpload(event.target.files?.[0])} />
-                </label>
-                {pdb && <label className="upload-pdb">
-                  Load matching ColabFold score JSON
-                  <input type="file" accept=".json,application/json" onChange={(event) => void handleScoreUpload(event.target.files?.[0])} />
-                </label>}
-                {pdb && <button type="button" onClick={() => downloadText('linkerforge-fusion.pml', pml)}>
-                  <Download size={14} /> Optional PyMOL script
-                </button>}
-              </>
-            ) : (
-              <p>Enter both protein sequences in the design studio to construct a full fusion first.</p>
-            )}
-          </div>
+          {pdb && <div className="viewer-actions post-prediction-actions" aria-label="Loaded-structure files">
+            <span>Loaded-structure files</span>
+            <label className="upload-pdb">
+              Load matching ColabFold score JSON
+              <input type="file" accept=".json,application/json" onChange={(event) => void handleScoreUpload(event.target.files?.[0])} />
+            </label>
+            <button type="button" onClick={() => downloadText('linkerforge-fusion.pml', pml)}>
+              <Download size={14} /> Optional PyMOL script
+            </button>
+          </div>}
           {uploadError && <p className="structure-error" role="alert">{uploadError}</p>}
           {pymolMessage && <p className="structure-success" role="status">{pymolMessage}</p>}
           {inDesktop() && !msaConsent && <p className="structure-warning" role="status">

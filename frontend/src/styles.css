@@ -195,9 +195,9 @@ h1 { max-width: 980px; margin: 24px 0; font-size: clamp(44px, 7vw, 82px); line-h
 .prediction-launchpad-copy strong { font-size: 17px; }
 .prediction-launchpad-copy small { color: #5c6d64; font-size: 11px; line-height: 1.4; }
 .prediction-launchpad-actions { flex: none; display: flex; align-items: center; gap: 8px; }
-.prediction-launchpad-actions .gpu-fold-button, .prediction-launchpad-actions .compact-upload { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 12px; border: 1px solid #17251d; border-radius: 7px; color: #fff; background: #17251d; font-weight: 700; cursor: pointer; }
+.prediction-launchpad-actions .gpu-fold-button, .prediction-launchpad-actions .prediction-secondary-button, .prediction-launchpad-actions .compact-upload { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 12px; border: 1px solid #17251d; border-radius: 7px; color: #fff; background: #17251d; font-weight: 700; cursor: pointer; }
 .prediction-launchpad-actions .gpu-fold-button:disabled { opacity: .5; cursor: not-allowed; }
-.prediction-launchpad-actions .compact-upload { color: #1c3126; border-color: #99b4a6; background: #fff; }
+.prediction-launchpad-actions .prediction-secondary-button, .prediction-launchpad-actions .compact-upload { color: #1c3126; border-color: #99b4a6; background: #fff; }
 .prediction-launchpad-actions .compact-upload input { max-width: 180px; font-size: 9px; }
 .fusion-legend { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 12px; font-size: 13px; }
 .fusion-legend span { display: inline-flex; align-items: center; gap: 8px; }
@@ -213,6 +213,7 @@ h1 { max-width: 980px; margin: 24px 0; font-size: clamp(44px, 7vw, 82px); line-h
 .viewer-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
 .viewer-actions button { display: inline-flex; align-items: center; gap: 7px; }
 .viewer-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+.post-prediction-actions > span { color: #647169; font: 700 9px ui-monospace, "Cascadia Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
 .desktop-compute { margin-top: 12px; padding: 12px 14px; border: 1px solid #b5c9bc; border-radius: 6px; background: #f4faf5; line-height: 1.5; overflow-wrap: anywhere; }
 .desktop-compute p { margin: 6px 0; }
 .desktop-compute .fold-elapsed { color: #176637; font: 600 13px DM Mono, monospace; }
@@ -1009,6 +1010,7 @@ html[data-theme='dark'] .prediction-clock.running { color: #95e3bb; border-color
 html[data-theme='dark'] .prediction-launchpad { color: #eef5f0; border-color: #365749; background: linear-gradient(135deg,#172921,#16272a); }
 html[data-theme='dark'] .prediction-launchpad-copy span,
 html[data-theme='dark'] .prediction-launchpad-copy small { color: #9fb3a7; }
+html[data-theme='dark'] .prediction-launchpad-actions .prediction-secondary-button,
 html[data-theme='dark'] .prediction-launchpad-actions .compact-upload { color: #e4ede7; border-color: #516459; background: #202b24; }
 html[data-theme='dark'] .candidate-switcher { border-color: #2d3730; background: rgba(15,21,17,.96); }
 html[data-theme='dark'] .candidate-switcher > span { color: #96a199; }
