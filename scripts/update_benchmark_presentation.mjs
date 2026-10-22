@@ -11,11 +11,12 @@ const SKILL = "C:\\Users\\HARDIK\\.codex\\plugins\\cache\\openai-primary-runtime
 const PYTHON = "C:\\Users\\HARDIK\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe";
 const RUNTIME_NODE_MODULES = "C:\\Users\\HARDIK\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\node_modules";
 const DEFAULT_BASE = path.join(ROOT, "deliverables", "LinkerForge_Detailed_Architecture_Data_Provenance_4_Presenters_Final.pptx");
-const DEFAULT_FINAL = path.join(ROOT, "deliverables", "LinkerForge_Detailed_Architecture_Data_Provenance_4_Presenters_Multi_Protein_Benchmark.pptx");
-const BUILD = path.join(ROOT, ".codex", "presentation-build", "multi-protein-benchmark");
-const CANDIDATE = path.join(BUILD, "candidate-multi-protein-benchmark.pptx");
+const DEFAULT_FINAL = path.join(ROOT, "deliverables", "LinkerForge_Detailed_Architecture_Data_Provenance_4_Presenters_Highest_Confidence.pptx");
+const BUILD = path.join(ROOT, ".codex", "presentation-build", "multi-protein-benchmark-highest-confidence");
+const CANDIDATE = path.join(BUILD, "candidate-highest-confidence.pptx");
 const CANDIDATE_REPORT = path.join(BUILD, "verified-public-acceptance-run.md");
 const PREVIEW_DIR = path.join(BUILD, "previews");
+const HIGHEST_CONFIDENCE_IMAGE = path.join(ROOT, ".codex", "presentation-build", "high-confidence-revision", "highest_linker_confidence_3dmol.png");
 const ARTIFACT_TOOL = "C:\\Users\\HARDIK\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\node_modules\\@oai\\artifact-tool\\dist\\artifact_tool.mjs";
 
 process.env.RUNTIME_NODE_MODULES ??= RUNTIME_NODE_MODULES;
@@ -137,6 +138,11 @@ function markdownCell(input) {
 
 async function sha256File(file) {
   return crypto.createHash("sha256").update(await fs.readFile(file)).digest("hex");
+}
+
+async function imageBytes(file) {
+  const bytes = await fs.readFile(file);
+  return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
 }
 
 async function pathExists(file) {
@@ -261,6 +267,9 @@ function addPairSlide(presentation, number, pair, rows, summaryPath) {
 }
 
 function buildReport(summary, manifest, summaryPath) {
+  const sorted = [...summary.records].sort((a, b) => b.mean_plddt - a.mean_plddt);
+  const highestOverall = sorted[0];
+  const highestWithLinker = sorted.find((row) => row.linker_length > 0);
   const lines = [
     "# Verified public acceptance run",
     "",
@@ -273,6 +282,11 @@ function buildReport(summary, manifest, summaryPath) {
     "- Every construct is reported. Sorting by mean pLDDT was performed only after prediction and is descriptive.",
     `- Data firewall: public sequences only = ${manifest.data_firewall.public_sequences_only}; protected benchmark labels read = ${manifest.data_firewall.protected_benchmark_labels_read}; used for training = ${manifest.data_firewall.used_for_model_training}.`,
     "- OpenMM, Rosetta, ensemble agreement, reference-domain lDDT/TM-score, automatic site mapping, DSSP, and post-OpenMM change analysis were not run in this acceptance panel.",
+    "",
+    "## Highest observed confidence examples",
+    "",
+    `- Highest whole-fusion mean pLDDT: ${displayPair(highestOverall.domain_pair)} with the ${highestOverall.linker_id} control, mean pLDDT ${value(highestOverall.mean_plddt)}, pTM ${value(highestOverall.ptm, 2)}, cross-domain PAE ${value(highestOverall.mean_cross_domain_pae_angstrom)} Å. This direct-fusion control contains no linker and is not a linker recommendation.`,
+    `- Highest linker-containing mean pLDDT: ${displayPair(highestWithLinker.domain_pair)} with ${highestWithLinker.linker_id} (${highestWithLinker.linker_sequence}), mean pLDDT ${value(highestWithLinker.mean_plddt)}, linker pLDDT ${value(highestWithLinker.linker_mean_plddt)}, pTM ${value(highestWithLinker.ptm, 2)}, cross-domain PAE ${value(highestWithLinker.mean_cross_domain_pae_angstrom)} Å. The presentation uses this construct as a visible execution example, not as proof of biological superiority.`,
     "",
     "## Complete result matrix",
     "",
@@ -338,6 +352,7 @@ async function main() {
     "4 min  ·  Slides 21–25": "6 min  ·  Slides 21–22, 31–34",
     "Verified public acceptance run": "Verified acceptance run: reference pair",
     "Matched structural sensitivity panel": "Reference-pair structural sensitivity panel",
+    "The protected DFL benchmark remains fail-closed. Published or spent labels cannot guide new training, thresholds, filtering, or feature design.": "Training is blocked to prevent leakage. The DP94 screen links 88 of 98 proteins to existing data, and CAID3 results have already been viewed. A new sealed, family-independent test set is required.",
     "142-aa public acceptance + 7-construct panel": "3 public pairs · 21 constructs",
     "35 rankable models": "105 rankable models",
     "Presenter 4  ·  23": "Presenter 4  ·  32",
@@ -349,6 +364,7 @@ async function main() {
   await rebuildSourceCharts(presentation, originalSlides);
 
   originalSlides[17].speakerNotes.text += `\n\nUpdated acceptance context: this slide is the original Ubiquitin–GB1 reference-pair run. Slides 23–31 report the complete three-pair panel. Source: ${input.summary}`;
+  originalSlides[14].speakerNotes.text += "\n\nWhy the protected gate blocks training: this is a data-independence failure, not a software crash. The DP94 candidate screen connected 88 of 98 proteins to existing train, development, or auxiliary proteins. The public CAID3 common set was already viewed in a one-time comparison, so it cannot be reused to choose a new model. The self-contained B1 V2 split passes its internal checks, but it does not create a fresh, untouched external benchmark.";
   originalSlides[19].speakerNotes.text += `\n\nUpdated execution count: 21 constructs and 105 rankable AlphaFold2-ptm models after the complete matched public panel. Source: ${input.summary}`;
   originalSlides[24].speakerNotes.text += `\n\nUpdated conclusion evidence: ${input.summary}`;
 
@@ -375,12 +391,45 @@ async function main() {
 
   const slide24 = presentation.slides.add();
   inserted.push(slide24);
-  base(slide24, 24, "Matched public panel", "Presenter 2", "Rank-1 AlphaFold2-ptm confidence; descriptive top linker-containing row per pair; all 21 constructs retained");
-  title(slide24, "Three protein pairs, one matched evaluation design", "Highest observed confidence examples are presentation aids—not biological winners");
+  const highestOverall = [...summary.records].sort((a, b) => b.mean_plddt - a.mean_plddt)[0];
+  const highestWithLinker = [...summary.records].filter((row) => row.linker_length > 0).sort((a, b) => b.mean_plddt - a.mean_plddt)[0];
+  base(slide24, 24, "Verified public acceptance run", "Presenter 2", "Rank-1 AlphaFold2-ptm model; highest linker-containing whole-fusion mean pLDDT in the 21-construct panel");
+  title(slide24, "Highest-confidence linker-containing example", `${displayPair(highestWithLinker.domain_pair)} with ${highestWithLinker.linker_id}: ${highestWithLinker.linker_sequence}`);
+  slide24.images.add({
+    blob: await imageBytes(HIGHEST_CONFIDENCE_IMAGE),
+    contentType: "image/png",
+    alt: `3Dmol rendering of ${displayPair(highestWithLinker.domain_pair)} joined by ${highestWithLinker.linker_id}; Domain A blue, linker magenta, Domain B red`,
+    fit: "contain",
+    position: { left: 48, top: 162, width: 755, height: 432 },
+  });
+  text(slide24, "DOMAIN A", 104, 579, 110, 20, { fontSize: 12, bold: true, color: C.blue });
+  text(slide24, "LINKER", 310, 579, 100, 20, { fontSize: 12, bold: true, color: C.magenta });
+  text(slide24, "DOMAIN B", 520, 579, 110, 20, { fontSize: 12, bold: true, color: C.red });
+  text(slide24, value(highestWithLinker.mean_plddt), 850, 177, 300, 58, { fontSize: 46, bold: true, color: C.cyan });
+  text(slide24, "Fusion mean pLDDT", 850, 231, 310, 24, { fontSize: 16, bold: true, color: C.muted });
+  text(slide24, `Linker pLDDT  ${value(highestWithLinker.linker_mean_plddt)}`, 850, 286, 340, 30, { fontSize: 22, bold: true, color: C.magenta });
+  text(slide24, `pTM  ${value(highestWithLinker.ptm, 2)}`, 850, 334, 340, 30, { fontSize: 22, bold: true, color: C.blue });
+  text(slide24, `Cross-domain PAE  ${value(highestWithLinker.mean_cross_domain_pae_angstrom)} Å`, 850, 382, 360, 30, { fontSize: 22, bold: true, color: C.yellow });
+  text(slide24, "Observed rank 2 of 21 by whole-fusion mean pLDDT", 850, 442, 345, 45, { fontSize: 16, bold: true });
+  shape(slide24, "roundRect", 830, 506, 380, 105, C.paper, C.faint, 1, "rounded-lg");
+  text(slide24, `The highest overall value is ${value(highestOverall.mean_plddt)} for the ${displayPair(highestOverall.domain_pair)} direct-fusion control. It contains no linker, so this slide highlights the highest linker-containing construct.`, 850, 523, 340, 72, { fontSize: 14, color: C.muted, bold: true });
+  text(slide24, "Model confidence supports structural inspection. It does not prove expression, activity, stability, or linker superiority.", 58, 625, 1148, 34, { fontSize: 16, bold: true, color: C.yellow, alignment: "center" });
+  note(slide24, "Presenter 2 (major)", "Show this structure as the clearest linker-containing execution example. The direct-fusion control has a slightly higher whole-fusion mean pLDDT but contains no linker. Explain that this is a descriptive confidence result selected after prediction, not an independently validated winner.", [input.summary, highestWithLinker.pdb, highestWithLinker.score_json, "https://www.nature.com/articles/s41586-021-03819-2"]);
+
+  const grouped = Object.fromEntries([...new Set(summary.records.map((row) => row.domain_pair))].sort().map((pair) => [pair, summary.records.filter((row) => row.domain_pair === pair)]));
+  for (const [offset, pair] of ["1UBQ_2GB1", "1CRN_4PTI", "1PGA_1LMB"].entries()) {
+    if (!grouped[pair] || grouped[pair].length !== 7) throw new Error(`Expected seven records for ${pair}`);
+    inserted.push(addPairSlide(presentation, 26 + offset, pair, grouped[pair], input.summary));
+  }
+
+  const slide25 = presentation.slides.add();
+  inserted.push(slide25);
+  base(slide25, 25, "Matched public panel", "Presenter 2", "Rank-1 AlphaFold2-ptm confidence; descriptive top linker-containing row per pair; all 21 constructs retained");
+  title(slide25, "Confidence comparison across three protein pairs", "The chart uses the highest linker-containing mean pLDDT observed for each pair");
   const perPair = summary.descriptive_top_per_domain_pair;
-  const chart = slide24.charts.add("bar", {
+  const chart = slide25.charts.add("bar", {
     position: { left: 56, top: 172, width: 1168, height: 365 },
-    title: "Descriptive top linker-containing construct per pair",
+    title: "Top observed linker-containing construct per pair",
     categories: perPair.map((row) => displayPair(row.domain_pair)),
     series: [
       { name: "Whole fusion pLDDT", values: perPair.map((row) => chartValue(row.mean_plddt)), fill: C.cyanDark },
@@ -394,32 +443,10 @@ async function main() {
     titleTextStyle: { fontSize: 16, bold: true, fill: C.ink },
   });
   applyPresentationChartFont(chart, { fontFamily: FONT });
-  shape(slide24, "roundRect", 56, 564, 1168, 82, C.paper, C.faint, 1, "rounded-lg");
-  text(slide24, "Interpretation boundary", 80, 579, 212, 24, { fontSize: 15, bold: true, color: C.yellow });
-  text(slide24, "pLDDT is model confidence in local coordinates. It is not a compatibility probability, a stability measurement, or evidence that a linker will express or function.", 289, 578, 910, 49, { fontSize: 17, bold: true });
-  note(slide24, "Presenter 2 (major)", "Use the chart to show that the same pipeline ran on three distinct public pairs. State that each bar is the top linker-containing row observed after prediction, while the next three slides preserve every condition.", [input.summary, "https://www.nature.com/articles/s41586-021-03819-2", "https://www.nature.com/articles/s41592-022-01488-1"]);
-
-  const grouped = Object.fromEntries([...new Set(summary.records.map((row) => row.domain_pair))].sort().map((pair) => [pair, summary.records.filter((row) => row.domain_pair === pair)]));
-  for (const [offset, pair] of ["1UBQ_2GB1", "1CRN_4PTI", "1PGA_1LMB"].entries()) {
-    if (!grouped[pair] || grouped[pair].length !== 7) throw new Error(`Expected seven records for ${pair}`);
-    inserted.push(addPairSlide(presentation, 25 + offset, pair, grouped[pair], input.summary));
-  }
-
-  const slide28 = presentation.slides.add();
-  inserted.push(slide28);
-  base(slide28, 28, "Descriptive examples", "Presenter 2", "Sorted after prediction by rank-1 whole-fusion pLDDT; not an independent test or biological selection rule");
-  title(slide28, "Highest observed structure-confidence examples", "Complete JSON, CSV, and slides 25–27 retain every construct, metric, file hash, and limitation");
-  const top = summary.descriptive_top_by_mean_plddt;
-  const topRows = [["Rank", "Protein pair", "Linker", "Fusion\npLDDT", "Linker\npLDDT", "pTM", "Cross-domain\nPAE (Å)"], ...top.map((row) => [
-    String(row.descriptive_mean_plddt_rank), displayPair(row.domain_pair), row.linker_id,
-    value(row.mean_plddt), value(row.linker_mean_plddt), value(row.ptm, 2), value(row.mean_cross_domain_pae_angstrom),
-  ])];
-  const topTable = slide28.tables.add({ rows: topRows.length, columns: 7, left: 54, top: 169, width: 1172, height: 395, columnWidths: [70, 226, 190, 132, 132, 104, 198], values: topRows });
-  styleTable(topTable, topRows.length, 7, 10.5);
-  shape(slide28, "roundRect", 54, 588, 1172, 66, C.paper, C.faint, 1, "rounded-lg");
-  text(slide28, "Demo use", 78, 604, 115, 22, { fontSize: 14, bold: true, color: C.cyan });
-  text(slide28, "Show rank 1 as the cleanest public execution example, then immediately display linker pLDDT, pTM, and cross-domain PAE so uncertainty remains visible.", 192, 599, 1005, 43, { fontSize: 16, bold: true });
-  note(slide28, "Presenter 2 (major)", "Read the first row as the highest mean pLDDT observed in this small panel, not as the best linker. The ranking was not preregistered and cannot support an optimality claim.", [input.summary]);
+  shape(slide25, "roundRect", 56, 564, 1168, 82, C.paper, C.faint, 1, "rounded-lg");
+  text(slide25, "Interpretation", 80, 579, 150, 24, { fontSize: 15, bold: true, color: C.yellow });
+  text(slide25, "These values compare model confidence under matched settings. They do not measure compatibility, stability, expression, or activity.", 230, 578, 960, 49, { fontSize: 17, bold: true });
+  note(slide25, "Presenter 2 (major)", "Compare the same two confidence summaries across the three public pairs. Each bar is the top linker-containing row observed after prediction. Slides 26 to 28 retain every tested condition.", [input.summary, "https://www.nature.com/articles/s41586-021-03819-2", "https://www.nature.com/articles/s41592-022-01488-1"]);
 
   const slide29 = presentation.slides.add();
   inserted.push(slide29);
@@ -478,9 +505,18 @@ async function main() {
   const slideInventory = await presentation.inspect({ select: "$.slides[*]", include: ["id", "index"] });
   const slideIds = slideInventory.records.map((record) => record.id);
   if (slideIds.length !== 34) throw new Error(`Expected 34 slides before reorder; found ${slideIds.length}`);
+  const acceptance = slideIds.slice(25);
   presentation.slides.reorder([
     ...slideIds.slice(0, 22),
-    ...slideIds.slice(25),
+    acceptance[0],
+    acceptance[1],
+    acceptance[5],
+    acceptance[2],
+    acceptance[3],
+    acceptance[4],
+    acceptance[6],
+    acceptance[7],
+    acceptance[8],
     ...slideIds.slice(22, 25),
   ]);
 
@@ -497,10 +533,10 @@ async function main() {
     layoutValidatorPath: path.join(SKILL, "container_tools", "inspect_presentation_layout_geometry.py"),
     layoutArgs: [
       "--expected-slide-size-emu", "12192000,6858000", "--validate-bullet-geometry", "--validate-heading-fit",
-      ...[6, 7, 13, 22, 23, 25, 26, 27, 28, 31].flatMap((number) => ["--require-native-table-slide", String(number)]),
+      ...[6, 7, 13, 22, 23, 26, 27, 28, 31].flatMap((number) => ["--require-native-table-slide", String(number)]),
     ],
-    requiredNativeTableOwnerSlides: [6, 7, 13, 22, 23, 25, 26, 27, 28, 31],
-    requiredNativeChartOwnerSlides: [18, 19, 24],
+    requiredNativeTableOwnerSlides: [6, 7, 13, 22, 23, 26, 27, 28, 31],
+    requiredNativeChartOwnerSlides: [18, 19, 25],
     materializeLiteralChartWorkbooks: true,
     fontPolicy: { basis: "reference", families: [FONT, MONO], referencePath: input.base, referenceSha256: await sha256File(input.base) },
     verifyArtifactToolImport: true,
@@ -513,7 +549,7 @@ async function main() {
     await fs.writeFile(path.join(PREVIEW_DIR, `slide-${String(index + 1).padStart(2, "0")}.png`), new Uint8Array(await png.arrayBuffer()));
   }
   const montage = await presentation.export({ format: "webp", montage: true });
-  const montagePath = path.join(BUILD, "multi-protein-benchmark-montage.webp");
+  const montagePath = path.join(BUILD, "highest-confidence-montage.webp");
   await fs.writeFile(montagePath, new Uint8Array(await montage.arrayBuffer()));
 
   const progress = JSON.parse(await fs.readFile(input.progress, "utf8"));
